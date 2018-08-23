@@ -97,7 +97,12 @@ function genSidebarConfig (title) {
             children: [
                 '',
                 'clients',
-                'apis'
+                'apis',
+                'contract',
+                'testnet',
+                'private_chain',
+                'asset'
+
             ]
         }
     ];
