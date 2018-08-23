@@ -2,19 +2,17 @@
 
 ---
 
-## 1、环境安装
+## 1. 环境安装
 
 请安装[见证人节点](https://github.com/gxchain/gxb-core/releases)和[完整客户端](/introduction.md)。
 
-## 2、创建一个存储私链文件的文件夹
+## 2. 建一个存储私链文件的文件夹
 
 创建一个新文件夹作为私链的根目录，并复制见证人节点文件和完整客户端复制到此目录下。
 
-## 3、初始文件
+## 3. 初始文件
 
-通过初始文件初始化私链。
-
-基于石墨烯技术的区块链网络创世区块整合了所有见证人、理事会成员和基金会。单个称为`nathan`的账户可以通过以下私钥获得：
+通过初始文件初始化私链网络创世区块整合了所有见证人、理事会成员和基金会。单个称为`nathan`的账户可以通过以下私钥获得：
 
 > 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 
@@ -35,7 +33,7 @@ $ witness_node --create-genesis-json my-genesis.json
 * 私链参数的最初基准（包括费用）
 * 初始见证人的账户签名秘钥
 
-## 4、获得区块链ID
+## 4. 获得区块链ID
 
 区块链ID是初始状态的哈希值。任何一笔交易都对应一个独有的有效区块链ID。因此如您编辑了您的初始文件，您的区块链ID将会变化，而且你将不能和现存的主链同步（除非现存的主链和你的初始文件正好相同）。
 
@@ -64,7 +62,7 @@ witness_node --data-dir data --genesis-json my-genesis.json   # your own genesis
 
 **请注意你的区块链ID会和上述例子中的ID不同。请记录下你的ID，在之后你将会用到它。**
 
-## 5、配置见证人
+## 5. 配置见证人
 
 用文本编辑器打开刚生成的`data/config.ini`, 做如下设置, 必要时请不要注释这些代码:
 
@@ -103,7 +101,7 @@ witness-id = "1.6.11"
 private-key = ["GXC6MRyA...T5GDW5CV","5KQwrPb...tP79zkvFD3"]
 ```
 
-## 6、开始生产区块
+## 6. 开始生产区块
 
 通过以下步骤，你可以生产基于你私链的第一个区块了，在见证人节点中运行以下命令:
 
@@ -150,7 +148,7 @@ level=debug
 appenders=stderr
 ```
 
-## 7、客户端（Cli）用法
+## 7. 客户端（Cli）用法
 
 现在可以将客户端和你的私链的见证人节点相关联。先确保你的见证人节点在运行状态，在另外一个CMD中运行以下命令：
 
@@ -164,7 +162,7 @@ cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e2860
 
 如果你收到`set_password`提示，意味着你的客户端已经成功匹配见证人节点。
 
-### 创建一个新钱包
+### (1) 创建一个新钱包
 
 首先你需要为你的钱包创建一个新的密码。这个密码被用于加密所有钱包的私钥。在教程中我们使用如下密码：`supersecret`
 
@@ -180,9 +178,9 @@ cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e2860
 unlock supersecret
 ```
 
-### 获得初始份额
+### (2) 申领初始余额
 
-在石墨烯中，资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。 在例子中，我们将通过`import_key`命令向现有钱包中添加一个名叫`nathan`的账户：
+资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。 在例子中，我们将通过`import_key`命令向现有钱包中添加一个名叫`nathan`的账户：
 
 ```
 import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
@@ -210,7 +208,7 @@ get_account nathan
 list_account_balances nathan
 ```
 
-### 创建其他账户
+### (3) 创建账户
 
 现在我们讲创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
 
