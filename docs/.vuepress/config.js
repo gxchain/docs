@@ -101,7 +101,8 @@ function genSidebarConfig (title) {
                 'contract',
                 'testnet',
                 'private_chain',
-                'asset'
+                'asset',
+                'baas_api'
 
             ]
         }
