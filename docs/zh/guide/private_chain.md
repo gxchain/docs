@@ -162,7 +162,7 @@ cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e2860
 
 如果你收到`set_password`提示，意味着你的客户端已经成功匹配见证人节点。
 
-### (1) 创建一个新钱包
+### 1) 创建一个新钱包
 
 首先你需要为你的钱包创建一个新的密码。这个密码被用于加密所有钱包的私钥。在教程中我们使用如下密码：`supersecret`
 
@@ -178,7 +178,7 @@ cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e2860
 unlock supersecret
 ```
 
-### (2) 申领初始余额
+### 2) 申领初始余额
 
 资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。 在例子中，我们将通过`import_key`命令向现有钱包中添加一个名叫`nathan`的账户：
 
@@ -208,7 +208,7 @@ get_account nathan
 list_account_balances nathan
 ```
 
-### (3) 创建账户
+### 3) 创建账户
 
 现在我们讲创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
 
