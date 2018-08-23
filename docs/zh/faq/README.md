@@ -28,7 +28,7 @@
    witness_node将所有数据以对象的形式保存在内存，程序正常退出时，会将内存中的数据写入到磁盘，所以不能强行kill掉进程，否则内存数据库会坏掉。
    * 如果witness\_node没有后台运行，则执行一次Ctrl + C,  然后等待程序保存内存数据后自动退出。
    * 如果witness\_node运行在后台， 执行`kill -s SIGINT $(pgrep witness_node)`，等待程序保存内存数据后自动退出。不能使用kill -9， 否则下次启动会重建索引，启动比较慢。
-### 3. witness_node进程正常，但不从网络接收区块
+### 4. witness_node进程正常，但不从网络接收区块
    * 检查后台日志文件, 发现无报错信息, 并且节点没有从网络中接收新区块。此时可能是你的witness_node版本比较低，请及时访问[github release 页面](https://github.com/gxchain/gxb-core/releases/latest) 下载最新的程序包。
    * 可以通过-v参数，查看witness_node版本号 :
    ```
