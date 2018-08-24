@@ -6,9 +6,29 @@ GXChain的节点提供WebSocket和JSONRPC两种接口形式
 
 ### `get_block`
 
+通过区块号获取区块信息
+
+``` bash
+curl POST --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_block", [1]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
 根据区块号获取区块信息
 
 ### `get_block_header`
+
+``` bash
+curl POST --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_block_header", [1]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 根据区块号获取区块头信息
 
@@ -52,6 +72,15 @@ curl --data '{
 ## 账户相关
 
 ### `get_account_by_name`
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_account_by_name", ["nathan"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额，冻结余额等
 
