@@ -16,6 +16,11 @@ sudo apt-get install ntp
 
 ## 节点安装
 
+以下的步骤演示的是**主网节点**的启动
+
+- 如果你是开发者，希望快速体验，可前往[测试网络](testnet.html)
+- 如果你想基于GXChain搭建私有链，可前往[私有链搭建](private_chain.html)
+
 ### 1. 下载Release包
 
 ``` bash
@@ -29,11 +34,16 @@ cd gxb
 ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
 ```
 
-就是这样了, 根据上面的步骤，我们启动了一个节点，并且监听在 `127.0.0.1:28090`, 并且指定了区块信息保存在 `<path>/<to>/<your>/<application>/trusted_node` 目录下
+就是这样了, 根据上面的步骤:
+- 启动了一个节点监听在 `127.0.0.1:28090`
+- 指定了区块信息保存在 `./trusted_node` 目录下
 
-同步区块大约需要 **6个小时**, 当然这和你的网络情况有一定关系.
+::: tip 友情提示
+- 同步区块大约需要 **6个小时**, 当然这和你的网络情况有一定关系
+- 在区块同步完成之前，你只需耐心等待，在此期间可以阅读一下文档
+:::
 
-查看日志:
+### 3. 查看日志
 
 ``` bash
 tail -f trusted_node/logs/witness.log
@@ -42,7 +52,6 @@ tail -f trusted_node/logs/witness.log
 节点同步完成后，日志看起来是这样的:
 
 ``` bash
-root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log
 2018-06-28T03:43:03 th_a:invoke handle_block         handle_block ] Got block: #10731531 time: 2018-06-28T03:43:03 latency: 60 ms from: miner11  irreversible: 10731513 (-18)			application.cpp:489
 2018-06-28T03:43:06 th_a:invoke handle_block         handle_block ] Got block: #10731532 time: 2018-06-28T03:43:06 latency: 16 ms from: taffy  irreversible: 10731515 (-17)			application.cpp:489
 2018-06-28T03:43:09 th_a:invoke handle_block         handle_block ] Got block: #10731533 time: 2018-06-28T03:43:09 latency: 49 ms from: david12  irreversible: 10731515 (-18)			application.cpp:489
@@ -56,8 +65,6 @@ root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log
 2018-06-28T03:43:33 th_a:invoke handle_block         handle_block ] Got block: #10731541 time: 2018-06-28T03:43:33 latency: 23 ms from: caitlin  irreversible: 10731526 (-15)			application.cpp:489
 ```
 
-> 在区块同步完成之前，你只需耐心等待，在此期间可以阅读一下文档
-
 ## 账户注册
 
 GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXChain上注册一个账号，需要以下三个要素:
@@ -68,10 +75,13 @@ GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXC
 
 有两种方式可以完成账户的注册:
 
-- 第一种： 使用在线钱包[https://wallet.gxb.io](https://wallet.gxb.io)在界面上完成上述步骤
-- 第二种： 手动注册（推荐对私钥安全要求较高的开发者使用这种方式完成注册，保证私钥是离线的）
+### 1. 在线钱包
 
-### 手动注册
+使用在线钱包[https://wallet.gxb.io](https://wallet.gxb.io)在界面上完成上述步骤
+
+### 2. 手动注册
+
+推荐对私钥安全要求较高的开发者使用这种方式完成注册，保证私钥是离线的
 
 #### 步骤1: 通过cli_wallet来生成一对公私钥
 
@@ -84,7 +94,7 @@ GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXC
 }
 ```
 
-::: warning 字段解释
+::: tip 字段解释
 - brain_priv_key: 助记词，是私钥的原始文本，通过助记词可以还原出私钥
 - wif_priv_key: 私钥，在程序中使用
 - pub_key: 公钥，用于链上账户注册

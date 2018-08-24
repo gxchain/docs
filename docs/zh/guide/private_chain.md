@@ -1,27 +1,51 @@
 # 私有链搭建
 
----
+## 1. 下载最新节点程序
 
-## 1. 环境安装
+[**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
-请安装[见证人节点](https://github.com/gxchain/gxb-core/releases)和[完整客户端](/introduction.md)。
+```bash
+wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_ubuntu_1.0.180809.beta.tar.gz -O gxb_ubuntu_1.0.180809.beta.tar.gz
+tar zxvf gxb_ubuntu_1.0.180809.beta.tar.gz
+cd gxb
+```
 
-## 2. 建一个存储私链文件的文件夹
+## 2. 生成ECC密钥对
 
-创建一个新文件夹作为私链的根目录，并复制见证人节点文件和完整客户端复制到此目录下。
+#### 通过cli_wallet来生成一对公私钥
 
-## 3. 初始文件
+``` bash
+./programs/cli_wallet/cli_wallet --suggest-brain-key
+{
+  "brain_priv_key": "SHAP CASCADE AIRLIKE WRINKLE CUNETTE FROWNY MISREAD MOIST HANDSET COLOVE EMOTION UNSPAN SEAWARD HAGGIS TEENTY NARRAS",
+  "wif_priv_key": "5J2FpCq3UmvcodkCCofXSNvHYTodufbPajwpoEFAh2TJf27EuL3",
+  "pub_key": "GXC75UwALPEFECfHLjHyNSxCk1j7XzSvApQiXKEbanWgr7yvXXbdG"
+}
+```
 
-通过初始文件初始化私链网络创世区块整合了所有见证人、理事会成员和基金会。单个称为`nathan`的账户可以通过以下私钥获得：
-
-> 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+::: tip 字段解释
+- brain_priv_key: 助记词，是私钥的原始文本，通过助记词可以还原出私钥
+- wif_priv_key: 私钥，在程序中使用
+- pub_key: 公钥，用于链上账户注册
+:::
 
 接下来将讲解如何使用以上私钥，并会说明如何定义你自己的创世文件。
 
+## 3. 生成创世文件genesis.json
+
+::: tip 关于genisis.json
+- genisis.json即创世文件
+- 每一条链都有唯一的genesis.json
+- genesis.json中指定了创世区块所必须的配置信息和节点启动的初始化参数
+- 任意一个字符的改变，都会得到一个不同的chain_id
+- 不同的chain_id将导致无法和seed_node之间相互通讯
+- 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/zh/guide/private_chain)
+:::
+
 运行这条命令来创建一个名为`my-genesis.json`的初始文件：
 
-```
-$ witness_node --create-genesis-json my-genesis.json
+```bash
+./programs/witness_node/witness_node --create-genesis-json my-genesis.json
 ```
 
 `my-genesis.json`这个文件将会存储在你私钥文件夹的根目录下，运行此命令后，所有见证人节点都会自行完成命令。
@@ -33,54 +57,63 @@ $ witness_node --create-genesis-json my-genesis.json
 * 私链参数的最初基准（包括费用）
 * 初始见证人的账户签名秘钥
 
-## 4. 获得区块链ID
-
-区块链ID是初始状态的哈希值。任何一笔交易都对应一个独有的有效区块链ID。因此如您编辑了您的初始文件，您的区块链ID将会变化，而且你将不能和现存的主链同步（除非现存的主链和你的初始文件正好相同）。
+## 4. 启动私链
 
 运行以下命令:
 
+```bash
+./programs/witness_node/witness_node --data-dir data --genesis-json my-genesis.json
 ```
-witness_node --data-dir data   # to use the default genesis, or
-witness_node --data-dir data --genesis-json my-genesis.json   # your own genesis block
+
+> --data-dir 指定了区块输出目录为`./data`文件夹
+> --genesis-json 指定了启动节点的初始参数来自`my-genesis.json`
+
+查看日志:
+
+```bash
+tail -f data/logs/witness.log
 ```
 
 当这条信息出现时:
 
-```
+```log
 3501235ms th_a main.cpp:165 main] Started witness node on a chain with 0 blocks.
 3501235ms th_a main.cpp:166 main] Chain ID is 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824
 ```
 
-此时你的初始化已经完成，按`ctrl-c` 关闭见证人节点。
+::: warning 注意
+请注意你的Chain ID会和上述例子中的ID不同。请记录下你的Chain ID，在之后你将会用到它
+:::
 
-因此, 你应该生成了两个文件:
+初始化已经完成，按`ctrl-c` 关闭见证人节点
 
-* 在词典库`data`中创建了一个新文件`config.ini`
-* Your blockchain id is now known - it’s displayed in the message above.
+至此，你完成了:
 
-**注意**
+- 创建了一条属于你自己的链，并启动了第一个节点
+- 这个节点的初始化数据来自于`my-genisis.json`
+- 只要其他的节点使用`my-genisis.json`, 并在启动参数中指定你的Chain ID, 即可加入你的私有区块链网络
 
-**请注意你的区块链ID会和上述例子中的ID不同。请记录下你的ID，在之后你将会用到它。**
+关闭节点后，我们观察到，在`data`目录下生成了一个新文件`config.ini`，所有的*启动参数*，都可以在`data/config.ini`中进行配置
 
 ## 5. 配置见证人
 
 用文本编辑器打开刚生成的`data/config.ini`, 做如下设置, 必要时请不要注释这些代码:
 
-```
+```ini
 rpc-endpoint = 127.0.0.1:11011
 genesis-json = my-genesis.json
 enable-stale-production = true
 ```
 
-在`config.ini`中定位以下语句:
+在`data/config.ini`中定位以下语句:
 
-```
+```bash
 # ID of witness controlled by this node (e.g. "1.6.5", quotes are required, may specify multiple times)
 ```
 
 并添加如下词条:
 
-```
+```ini
 witness-id = "1.6.1"
 witness-id = "1.6.2"
 witness-id = "1.6.3"
@@ -94,12 +127,20 @@ witness-id = "1.6.10"
 witness-id = "1.6.11"
 ```
 
-上述列表授权了见证人节点用见证人ID来生成区块. 正常情况下，每个见证人的节点不同，但在私有链中，我们会先设定成全体见证人在同一个节点生产区块。这些见证人ID的私钥（用来签署区块）已经在`config.ini`中提供：
+上述列表授权了见证人节点用见证人ID来生成区块
+
+在来定位下一行配置
 
 ```
 # Tuple of [PublicKey, WIF private key] (may specify multiple times)
 private-key = ["GXC6MRyA...T5GDW5CV","5KQwrPb...tP79zkvFD3"]
 ```
+
+::: tip 提示
+- 正常情况下，每个见证人的节点不同
+- 但在私有链中，我们会先设定成全体见证人在同一个节点生产区块
+- 这些见证人ID的私钥（用来签署区块）已经在`data/config.ini`中提供：
+:::
 
 ## 6. 开始生产区块
 
