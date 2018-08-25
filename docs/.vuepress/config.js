@@ -103,7 +103,6 @@ function genSidebarConfig (title) {
                 'private_chain',
                 'asset',
                 'baas_api'
-
             ]
         }
     ];

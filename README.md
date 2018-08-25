@@ -1,9 +1,33 @@
 # GXChain
-下一代大数据公链
 
-项目文档 [Getting Started](docs)
+本工程为GXChain最新的技术文档，基于VuePress构建，使用Markdown编辑
 
-## 介绍
+在线文档 [Getting Started](https://docs.gxchain.org)
+
+## 如何编辑
+
+依赖: node8+
+
+```
+# 安装vuepress
+npm install vuepress -g
+# Clone项目
+git clone git@github.com:gxchain/docs.git
+cd docs
+# dev模式启动
+npm start
+```
+
+## 参与翻译
+
+欢迎提交Pull Request, 翻译过程中，你可能需要关注的是
+
+1. 配置文件：`docs/.vuepress/config.js`
+2. 文档内容：`docs/zh`
+
+> `dcos/zh`目录下始终是最新的内容，en语言默认在`docs`根目录下
+
+## GXChain介绍
 公信链（GXChain）是一条主要面向海量数据交换和应用开发的公有链，用于建立基于区块链的可信任的全领域数据交换价值网络。公信链具有基于DPoS共识机制的石墨烯底层架构的性能优势，同时具备G-ID、GVM、BaaS、Blockcity pay等链上配套功能，方便各类应用开发。基于公信链的Dapp布洛克城已经拥有百万级实名用户，为链上应用和合伙伙伴提供丰富的数据资源；面向企业服务的公信宝数据交易所也已上线，服务企业数量超过百家。公信链通过区块链技术实现了数据的安全、可信、自由、高效交易交换，为更大化发挥数据应用价值提供支撑。GXChain主网已于2017年6月上线。
 
 ![](docs/.vuepress/public/images/zh/gxchain-family.jpg)
