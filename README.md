@@ -8,7 +8,7 @@
 
 依赖: node8+
 
-```js
+```bash
 # 安装vuepress
 npm install vuepress -g
 # Clone项目
