@@ -129,11 +129,11 @@ witness-id = "1.6.11"
 
 上述列表授权了见证人节点用见证人ID来生成区块
 
-在来定位下一行配置
+再来定位下一行配置
 
 ```
 # Tuple of [PublicKey, WIF private key] (may specify multiple times)
-private-key = ["GXC6MRyA...T5GDW5CV","5KQwrPb...tP79zkvFD3"]
+private-key = ["GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"]
 ```
 
 ::: tip 提示
@@ -147,7 +147,7 @@ private-key = ["GXC6MRyA...T5GDW5CV","5KQwrPb...tP79zkvFD3"]
 通过以下步骤，你可以生产基于你私链的第一个区块了，在见证人节点中运行以下命令:
 
 ```
-witness_node --data-dir data
+./programs/witness_node/witness_node --data-dir data
 ```
 
 之后私链的区块将开始生成，你会看到如下指示:
@@ -167,21 +167,13 @@ witness_node --data-dir data
 ```
 2322793ms th_a  main.cpp:176     main    ] Started witness node on a chain with 0 blocks.
 2322794ms th_a  main.cpp:177     main    ] Chain ID is 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824
-2324613ms th_a  witness.cpp:185  block_production_loo ] Generated block #1 with timestamp 2016-01-21T22:38:40 at time 2016-01-21T22:38:40
-2325604ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2342604ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2343609ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2344604ms th_a  witness.cpp:185  block_production_loo ] Generated block #2 with timestamp 2016-01-21T22:39:00 at time 2016-01-21T22:39:00
-2345605ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2349616ms th_a  witness.cpp:185  block_production_loo ] Generated block #3 with timestamp 2016-01-21T22:39:05 at time 2016-01-21T22:39:05
-2350602ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2353612ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2354605ms th_a  witness.cpp:185  block_production_loo ] Generated block #4 with timestamp 2016-01-21T22:39:10 at time 2016-01-21T22:39:10
-2355609ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
-2356609ms th_a  witness.cpp:194  block_production_loo ] Not producing block because slot has not yet arrived
+2324613ms th_a  witness.cpp:185  block_production_loo ] Generated block #1 with timestamp 2016-01-21T22:38:40 at time 2016-01-21T22:39:40
+2344604ms th_a  witness.cpp:185  block_production_loo ] Generated block #2 with timestamp 2016-01-21T22:39:00 at time 2016-01-21T22:39:45
+2349616ms th_a  witness.cpp:185  block_production_loo ] Generated block #3 with timestamp 2016-01-21T22:39:05 at time 2016-01-21T22:39:50
+2354605ms th_a  witness.cpp:185  block_production_loo ] Generated block #4 with timestamp 2016-01-21T22:39:10 at time 2016-01-21T22:39:55
 ```
 
-如果witness.log无日志生成，可以将日志打印打控制台，可以修改data/config.ini文件如下，然后重新启动witness
+如果witness.log无日志生成，可以将日志打印打控制台，可以修改data/config.ini文件如下，然后重新启动witness_node
 
 ```
 [logger.default]
@@ -189,19 +181,19 @@ level=debug
 appenders=stderr
 ```
 
-## 7. 客户端（Cli）用法
+## 7. 客户端（cli_wallet）用法
 
 现在可以将客户端和你的私链的见证人节点相关联。先确保你的见证人节点在运行状态，在另外一个CMD中运行以下命令：
 
 ```
-cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824 --server-rpc-endpoint=ws://127.0.0.1:11011
+./programs/cli_wallet/cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824 -sws://127.0.0.1:11011
 ```
 
-**注意**
+**注意:**
 
-请确保用**你自己私链的区块链ID**替代上述ID`8b7bd36a...4294824`区块链ID传递给客户端时需要匹配生成的ID，且给见证人节点需要使用此区块链ID。
+* 请确保用**你自己私链的区块链ID**替代上述ID`8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824`。
 
-如果你收到`set_password`提示，意味着你的客户端已经成功匹配见证人节点。
+* 如果看到`set_password`提示，意味着你的客户端(cli_wallet)已经成功连接到见证人节点(witness_node)。
 
 ### 1) 创建一个新钱包
 
@@ -221,23 +213,24 @@ unlock supersecret
 
 ### 2) 申领初始余额
 
-资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。 在例子中，我们将通过`import_key`命令向现有钱包中添加一个名叫`nathan`的账户：
+资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。
+在例子中，我们将通过`import_key`命令向现有钱包中导入my-genesis.json中初始化的`nathan`帐户：
 
 ```
 import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
 
-**注意**
+**注意:**
 
-注意`nathan`在初始文件中会被用于定义账户名. 如果你修改过`my-genesies.json` 文件，你可以填入一个不同的名字。并且，请注意`5KQwrPbwdL...P79zkvFD3`是定义在`config.ini`内的私钥
+* `nathan`在初始文件中会被用于定义账户名,  如果你修改过`my-genesies.json` 文件，你可以填入一个不同的名字。并且，请注意`5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3`是定义在`config.ini`内的私钥
 
-现在我们已经将私钥导入进钱包，但没有和储蓄相关联。储蓄被保存在初始账户内。这些储蓄可以通过`import_balance`命令来申明，无需申明费用：
+现在我们已经将私钥导入进钱包, my-genesis.json中初始化的余额，需要通过`import_balance`命令来申领，无需申明费用：
 
 ```
 import_balance nathan ["5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"] true
 ```
 
-因此，我们导入了一个名为`nathan`的账户，且账户储蓄已经完全与GXB相关联，因为我们已经声称这些储蓄被保存在了初始文件内。你可以通过以下命令来检视你的账户：
+你可以通过以下命令来检视你的账户：
 
 ```
 get_account nathan
@@ -258,22 +251,7 @@ list_account_balances nathan
 ```
 upgrade_account nathan GXC true
 ```
-
-**注意**
-
-你需要重启客户端，否则将无法识别`nathan`已经成功升级。通过`ctrl-c`停止客户端，然后通过如下指令重启客户端：
-
-```
-cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824 --server-rpc-endpoint=ws://127.0.0.1:11011
-```
-
-确认`nathan`已经拥有LTM权限：
-
-```
-get_account nathan
-```
-
-返回的信息中，在`membership_expiration_date`边上你会发现`1969-12-31T23:59:59`。 如果你看到`1970-01-01T00:00:00`，说明之前的操作出现了错误，`nathan`没能成功升级。
+返回的信息中，在`membership_expiration_date`边上你会发现`2106-02-07T06:28:15`。 如果你看到`1970-01-01T00:00:00`，说明之前的操作出现了错误，`nathan`没能成功升级。
 
 成功升级后，我们可以通过`nathan`来注册新账户，但首先我们需要拥有新账户的公钥。通过使用`suggest_brain_key`命令来完成：
 
@@ -292,4 +270,3 @@ register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC
 ```
 list_account_balances alpha
 ```
-
