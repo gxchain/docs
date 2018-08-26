@@ -141,15 +141,15 @@ unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" 
 ```
 
 ## 其它
-### 部署测试网络节点
+### 1. 部署测试网络节点
 
 参考[测试网络](testnet.html)
 
-### 部署合约编译服务GXX-Server
+### 2. 部署合约编译服务GXX-Server
 
 参考[gxchain/gxx-server](https://github.com/gxchain/gxx-server)
 
-### 合约数据类型
+### 3. 合约数据类型
 
 ::: warning 测试智能合约时需要注意
 目前的存储表(Multi-Index table)不支持的类型：int128, int256, float, double
