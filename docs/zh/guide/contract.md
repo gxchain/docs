@@ -134,7 +134,7 @@ unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXS t
 ```
 
 ### 5. 调用合约
-部署合约成功后，可以使用get_account接口查询合约
+部署合约成功后，可以使用call_contract接口调用合约
 
 ``` bash
 unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXS true
