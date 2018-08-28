@@ -22,6 +22,8 @@ GXChain智能合约2.0，底层使用WebAssembly虚拟机，目前支持C++语�
 | 线性释放资产合约 | [/contracts/examples/linear_vesting_asset](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/linear_vesting_asset) |
 | 基于hash验证的猜谜合约 | [/contracts/examples/riddle](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/riddle) |
 
+::: tip 友情提示
+合约函数名，只能使用26个小写字母和数字0 - 5， 合约帐户名同GXChain帐户名规则。
 
 体验智能合约有两种方式： 使用智能合约IDE工具 和 使用cli_wallet
 ## 快速开始(通过智能合约IDE)
