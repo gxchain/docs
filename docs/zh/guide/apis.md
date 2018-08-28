@@ -73,6 +73,8 @@ curl --data '{
 
 ### `get_account_by_name`
 
+根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额，冻结余额等
+
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -82,11 +84,18 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额，冻结余额等
+### `get_full_accounts`
 
-### `get_full_account`
+根据`account_ids`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等
 
-根据`account_id`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_full_accounts", [["1.2.1"],false]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 ## 资产相关
 

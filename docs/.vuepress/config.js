@@ -17,8 +17,7 @@ module.exports = {
         ['meta', {name: 'theme-color', content: '#21a4e7'}],
         ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
         ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}],
-        ['link', {rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png`}],
-        ['link', {rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#21a4e7'}]
+        ['link', {rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png`}]
     ],
     serviceWorker: true,
     themeConfig: {
@@ -46,11 +45,11 @@ module.exports = {
                     {
                         text: 'FAQs',
                         link: '/faq/',
-                    },
-                    {
-                        text: 'Changelog',
-                        link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
                     }
+                    // {
+                    //     text: 'Changelog',
+                    //     link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
+                    // }
                 ],
                 sidebar: {
                     '/guide/': genSidebarConfig ('Guide')
@@ -75,11 +74,11 @@ module.exports = {
                     {
                         text: '常见问题',
                         link: '/zh/faq/',
-                    },
-                    {
-                        text: '更新日志',
-                        link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
                     }
+                    // {
+                    //     text: '更新日志',
+                    //     link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
+                    // }
                 ],
                 sidebar: {
                     '/zh/guide/': genSidebarConfig ('指南')
