@@ -25,6 +25,5 @@ archive.on('error', function (err) {
 });
 
 archive.pipe(output);
-
-archive.directory('../docs/vuepress/dist', true, {date: new Date()});
+archive.directory('../docs/.vuepress/dist', './dist', {date: new Date()});
 archive.finalize();
