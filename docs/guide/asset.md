@@ -1,7 +1,9 @@
 # Asset
 
 ## 1. Create an asset
-访问[公信宝网页钱包](https://wallet.gxb.io)，导入私钥, 按下图创建资产
+
+- Open [Online Wallet](https://wallet.gxb.io)
+- Import your account
 
 ![](./assets/asset/create_asset1.png)
 
