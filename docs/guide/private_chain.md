@@ -1,6 +1,6 @@
-# 私有链搭建
+# Private Chain
 
-## 1. 下载最新节点程序
+## 1. Download
 
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
@@ -10,9 +10,9 @@ tar zxvf gxb_ubuntu_1.0.180809.beta.tar.gz
 cd gxb
 ```
 
-## 2. 生成ECC密钥对
+## 2. Generate Key Pairs
 
-#### 通过cli_wallet来生成一对公私钥
+#### generate via cli wallet
 
 ``` bash
 ./programs/cli_wallet/cli_wallet --suggest-brain-key
@@ -31,7 +31,7 @@ cd gxb
 
 接下来将讲解如何使用以上私钥，并会说明如何定义你自己的创世文件。
 
-## 3. 生成创世文件genesis.json
+## 3. create genesis.json
 
 ::: tip 关于genisis.json
 - genisis.json即创世文件
@@ -57,7 +57,7 @@ cd gxb
 * 私链参数的最初基准（包括费用）
 * 初始见证人的账户签名秘钥
 
-## 4. 启动私链
+## 4. Start private node
 
 运行以下命令:
 
@@ -95,7 +95,7 @@ tail -f data/logs/witness.log
 
 关闭节点后，我们观察到，在`data`目录下生成了一个新文件`config.ini`，所有的*启动参数*，都可以在`data/config.ini`中进行配置
 
-## 5. 配置见证人
+## 5. Witness configurations
 
 用文本编辑器打开刚生成的`data/config.ini`, 做如下设置, 必要时请不要注释这些代码:
 
@@ -142,7 +142,7 @@ private-key = ["GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","5KQwrPbw
 - 这些见证人ID的私钥（用来签署区块）已经在`data/config.ini`中提供：
 :::
 
-## 6. 开始生产区块
+## 6. Generate blocks with witness account
 
 通过以下步骤，你可以生产基于你私链的第一个区块了，在见证人节点中运行以下命令:
 
@@ -181,7 +181,7 @@ level=debug
 appenders=stderr
 ```
 
-## 7. 客户端（cli_wallet）用法
+## 7. Usage（cli_wallet
 
 现在可以将客户端和你的私链的见证人节点相关联。先确保你的见证人节点在运行状态，在另外一个CMD中运行以下命令：
 
