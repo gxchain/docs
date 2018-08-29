@@ -1,6 +1,6 @@
-# 客户端
+# Clients
 
-## 命令行钱包
+## Cli
 
 在[快速开始](/zh/guide/#节点安装)中，我们介绍了如何下载节点安装程序。
 
@@ -12,11 +12,11 @@
 
 在cli_wallet进程中，通过`help`和`get_help`两个命令可以帮助你快速学习命令行钱包API使用
 
-## 轻钱包
-| 客户端 | 链接 | 开源地址 |
+## Light Wallet
+| Client | Link | Github |
 | :-- | :-- | :-- |
-| 网页钱包 | [在线访问](https://wallet.gxb.io) | [gxchain/gxb-light](https://github.com/gxchain/gxb-light) |
-| 手机钱包(推荐使用布洛克城) | [点击下载](https://blockcity.gxb.io/download) | [gxchain/gxs-wallet](https://github.com/gxchain/gxs-wallet) |
+| PC | [Open](https://wallet.gxb.io) | [gxchain/gxb-light](https://github.com/gxchain/gxb-light) |
+| Mobile | [Download](https://blockcity.gxb.io/download) | [gxchain/gxs-wallet](https://github.com/gxchain/gxs-wallet) |
 
 
 ## GXClient
@@ -29,7 +29,7 @@
 - [x] [区块遍历，交易监测](https://github.com/gxchain/gxclient-node#1-transaction-detect)
 - [x] [备注解密](https://github.com/gxchain/gxclient-node#1-transaction-detect)
 
-| 客户端 | 链接 |
+| Client | Link |
 | :-- | :-- |
 | gxclient-java | [gxchain/gxclient-java](https://github.com/gxchain/gxclient-java) |
 | gxclient-node | [gxchain/gxclient-node](https://github.com/gxchain/gxclient-node) |
