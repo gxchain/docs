@@ -39,6 +39,8 @@ check the log:
 tail -f trusted_node/logs/witness.log
 ```
 
+### 3. Check the log
+
 When the node is ready, the log should looks like this:
 
 ``` bash
@@ -58,32 +60,52 @@ root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log
 
 > You can do nothing but wait before the node is ready
 
-## Interact with GXChain
+## Register an account
 
-Let's start with 2 steps
+GXChain is **Account Model** based(which is diffrent from UTXO)
 
-### Step1. Register an account
-
-To register a account, you need prepare 2 things:
+To create an account on GXChain,  there 3 requirements:
+- **Referrer**, an existing account on gxchain, referrer account needs to pay the fee for broadcasting `account_create` transaction
 - **account name** (eg. gxchain-genius)
 - **public key** (Base64 encoded ECC Public key, start with GXC...)
 
-Then you can replace the placeholder `<account_name>` and `<public_key>` and try the curl command below:
+There are 2 options to register an account on GXChain.
+
+### 1. Online wallet
+
+Follow the steps on [https://wallet.gxb.io](https://wallet.gxb.io)
+
+### 2. Manual register
+
+This methods is recommended if you want to keep the private key offline.
+
+#### step1: Generate key pairs
 
 ``` bash
-curl ‘https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
+./programs/cli_wallet/cli_wallet --suggest-brain-key
+{
+  "brain_priv_key": "SHAP CASCADE AIRLIKE WRINKLE CUNETTE FROWNY MISREAD MOIST HANDSET COLOVE EMOTION UNSPAN SEAWARD HAGGIS TEENTY NARRAS",
+  "wif_priv_key": "5J2FpCq3UmvcodkCCofXSNvHYTodufbPajwpoEFAh2TJf27EuL3",
+  "pub_key": "GXC75UwALPEFECfHLjHyNSxCk1j7XzSvApQiXKEbanWgr7yvXXbdG"
+}
 ```
 
-### Step2. Send a transaction
+::: tip Tips
+- brain_priv_key: Brain key, original text format of private key, keep it secret.
+- wif_priv_key: Private key, always keep it secret
+- pub_key: your public key on gxchain, this is public
+:::
 
-See Clients in the next part
+####  step2: Register via Faucet
 
-## Clients
+1. Think about a uniq account_name, eg.`gxchain-genius`
+2. Replace the placeholder `<account_name>` and `<public_key>` and try the curl command below:
 
-| client | link |
-| :-- | :-- |
-| gxclient-java | [https://github.com/gxchain/gxclient-java](https://github.com/gxchain/gxclient-java) |
-| gxclient-node | [https://github.com/gxchain/gxclient-node](https://github.com/gxchain/gxclient-node) |
+``` bash
+curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
+```
+
+
 
 
 
