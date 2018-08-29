@@ -1,6 +1,6 @@
-# 创建和发行资产
+# Asset
 
-## 1. 创建资产
+## 1. Create an asset
 访问[公信宝网页钱包](https://wallet.gxb.io)，导入私钥, 按下图创建资产
 
 ![](./assets/asset/create_asset1.png)
@@ -16,7 +16,7 @@
 5字符资产 500 GXS
 ```
 
-## 2. 发行资产
+## 2. Issue asset
 
 资产创建完成后，需要发行资产
 ![](./assets/asset/issue_asset1.png)
