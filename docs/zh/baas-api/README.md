@@ -2,7 +2,7 @@
 
 本文档介绍了如何快速调用公信宝BaaS 存储API，适用于API开发者，需要一定的编程基础。因主链存在存储空间大小的限制，我们的解决方法是将文件本体存储在侧链（IPFS）上，将侧链产生的文件C-ID返还至主链进行存证。在主链上保存的C-ID和时间戳可以保证上链数据不可篡改的基本原则。
 
-![](./assets/baas/baas.png)
+![](./assets/baas.png)
 
 ## 1. 创建帐户
 
@@ -32,12 +32,14 @@ PC端钱包/网页钱包使用教程:
 
 SDK提供了和BaaS存储服务交互的方法封装。目前暂时提供Java版本的SDK，后续会支持多种语言。
 
-#### Java - maven
+### Java - maven
 
 * maven仓库地址\(HTML View\): `https://repo.gxchain.cn/service/rest/repository/browse/maven-public/`
 * maven仓库引入地址: `https://repo.gxchain.cn/repository/maven-public/`
 
-**\(ps: 如果无法引入包，请将https更换成http尝试一下\)**
+::: warning 提示
+如果无法引入包，请将https更换成http尝试一下
+:::
 
 #### maven setting.xml
 
@@ -59,10 +61,14 @@ SDK提供了和BaaS存储服务交互的方法封装。目前暂时提供Java版
 </dependency>
 ```
 
+### Node - npm
+
+`npm install baas-sdk-node`
+
 ## 5. BaaS存储服务API接口
 
 | 接口 | 描述 |
 | :--- | :--- |
-| [provider](./baas-api/huo-qu-fu-wu-ti-gong-fang-xin-xi.md) | 获取服务提供方信息 |
-| [store](./baas-api/shu-ju-cun-chu-jie-kou.md) | 数据存储接口 |
-| [data](./baas-api/huo-qu-yi-cun-shu-ju-jie-kou.md) | 获取数据接口，根据cid获取数据 |
+| [provider](./provider.md) | 获取服务提供方信息 |
+| [store](./store.md) | 数据存储接口 |
+| [data](./data.md) | 获取数据接口，根据cid获取数据 |

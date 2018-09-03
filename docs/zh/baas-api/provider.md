@@ -1,4 +1,4 @@
-## 介绍
+# Provider接口
 
 通过指定路径获取服务方提供的信息
 
@@ -25,7 +25,7 @@ curl https://baas.gxchain.cn/api/storage/provider
         "name":"GXChain Official BaaS Storage",
         "description":"公信宝BaaS存储+存证服务",
         "fees":[ // 支持的支付资产类型以及费率
-            {"fee_per_kbytes": 20, "asset_id":"1.3.1"} 
+            {"fee_per_kbytes": 20, "asset_id":"1.3.1"}
         ]
     }
 }

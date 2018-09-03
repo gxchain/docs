@@ -22,7 +22,7 @@ module.exports = {
     serviceWorker: true,
     themeConfig: {
         repo: 'gxchain/docs',
-        sidebarDepth:5,
+        sidebarDepth: 5,
         editLinks: true,
         docsDir: 'docs',
         locales: {
@@ -45,14 +45,35 @@ module.exports = {
                     {
                         text: 'FAQs',
                         link: '/faq/',
+                    },
+                    {
+                        text: 'Eco System',
+                        items: [
+                            {
+                                text: 'DApps', items: [
+                                    {text: 'Blockcity', link: 'https://blockcity.gxb.io/download'},
+                                    {text: 'DES', link: '/zh/des/'},
+                                    {text: 'BaaS Storage', link: '/zh/baas-api/'}
+                                ]
+                            },
+                            {
+                                text: 'Open Source',
+                                items: [
+                                    {text: 'Github', link: 'https://github.com/gxchain'},
+                                    {text: 'Core(gxb-core)', link: 'https://github.com/gxchain/gxb-core'},
+                                    {text: 'Smart Contract IDE(gxchain-alpha)', link: 'https://github.com/gxchain/gxchain-alpha'},
+                                    {text: 'Light Wallet(gxchain-light)', link: 'https://github.com/gxchain/gxchain-light'},
+                                    {text: 'Mobile Wallet(gxchain-wallet)', link: 'https://github.com/gxchain/gxchain-wallet'},
+                                    {text: 'Explorer(gxchain-explorer)', link: 'https://github.com/gxchain/gxchain-explorer'},
+                                ]
+                            }
+                        ]
                     }
-                    // {
-                    //     text: 'Changelog',
-                    //     link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
-                    // }
                 ],
                 sidebar: {
-                    '/guide/': genSidebarConfig ('Guide')
+                    '/guide/': genSidebarConfig ('guide', 'Guide'),
+                    '/faq': genSidebarConfig ('faq', 'FAQ'),
+                    '/baas-api': genSidebarConfig ('baas', 'BaaS Storage')
                 }
             },
             '/zh/': {
@@ -74,34 +95,96 @@ module.exports = {
                     {
                         text: '常见问题',
                         link: '/zh/faq/',
+                    },
+                    {
+                        text: '生态系统',
+                        items: [
+                            {
+                                text: 'DApps', items: [
+                                    {text: '布洛克城(Blockcity)', link: 'https://blockcity.gxb.io/download'},
+                                    {text: '数据交换服务(DES)', link: '/zh/des/'},
+                                    {text: '区块链存储(BaaS Storage)', link: '/zh/baas-api/'}
+                                ]
+                            },
+                            {
+                                text: '开源项目',
+                                items: [
+                                    {text: 'Github首页', link: 'https://github.com/gxchain'},
+                                    {text: '主链核心(gxb-core)', link: 'https://github.com/gxchain/gxb-core'},
+                                    {text: '智能合约IDE(gxchain-alpha)', link: 'https://github.com/gxchain/gxchain-alpha'},
+                                    {text: '轻钱包(gxchain-light)', link: 'https://github.com/gxchain/gxchain-light'},
+                                    {text: '手机钱包(gxchain-wallet)', link: 'https://github.com/gxchain/gxchain-wallet'},
+                                    {text: '区块浏览器(gxchain-explorer)', link: 'https://github.com/gxchain/gxchain-explorer'},
+                                ]
+                            }
+                        ]
                     }
-                    // {
-                    //     text: '更新日志',
-                    //     link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
-                    // }
                 ],
                 sidebar: {
-                    '/zh/guide/': genSidebarConfig ('指南')
+                    '/zh/guide/': genSidebarConfig ('guide', '指南'),
+                    '/zh/faq/': genSidebarConfig ('faq', '常见问题'),
+                    '/zh/baas-api/': genSidebarConfig ('baas', 'BaaS存储'),
+                    '/zh/des/': genSidebarConfig ('des', 'DES')
                 }
             }
         }
     }
 };
 
-function genSidebarConfig (title) {
-    return [
-        {
-            title,
-            collapsable: false,
-            children: [
-                '',
-                'clients',
-                'apis',
-                'contract',
-                'testnet',
-                'private_chain',
-                'asset'
-            ]
-        }
-    ];
+function genSidebarConfig (module, title) {
+    if (module === 'guide') {
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    '',
+                    'clients',
+                    'apis',
+                    'contract',
+                    'testnet',
+                    'private_chain',
+                    'asset'
+                ]
+            }
+        ];
+    }
+    if (module === 'faq') {
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    ''
+                ]
+            }
+        ];
+    }
+    if(module === 'des'){
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    '',
+                    'architecture',
+                    'interface'
+                ]
+            }
+        ];
+    }
+    if (module === 'baas') {
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    '',
+                    'provider',
+                    'store',
+                    'data'
+                ]
+            }
+        ];
+    }
 }

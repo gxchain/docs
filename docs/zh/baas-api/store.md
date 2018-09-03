@@ -1,4 +1,4 @@
-## 介绍
+# Store接口
 
 调用方通过该接口可把自己的数据通过baas平台服务有偿上链。
 
@@ -97,8 +97,6 @@ curl --data '{"jsonrpc": "2.0", "method": "get_account_by_name", "params": ["gxs
     }
 }
 ```
-
-## 
 
 ## 错误情况
 
