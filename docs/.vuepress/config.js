@@ -47,7 +47,7 @@ module.exports = {
                         link: '/faq/',
                     },
                     {
-                        text: 'Eco System',
+                        text: 'Ecosystem',
                         items: [
                             {
                                 text: 'DApps', items: [
