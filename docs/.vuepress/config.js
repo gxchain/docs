@@ -72,8 +72,9 @@ module.exports = {
                 ],
                 sidebar: {
                     '/guide/': genSidebarConfig ('guide', 'Guide'),
-                    '/faq': genSidebarConfig ('faq', 'FAQ'),
-                    '/baas-api': genSidebarConfig ('baas', 'BaaS Storage')
+                    '/faq/': genSidebarConfig ('faq', 'FAQ'),
+                    '/baas-api/': genSidebarConfig ('baas', 'BaaS Storage'),
+                    '/des/': genSidebarConfig ('des', 'DES')
                 }
             },
             '/zh/': {
