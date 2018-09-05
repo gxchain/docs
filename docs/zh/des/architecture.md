@@ -2,9 +2,9 @@
 
 ## 2.1 架构图2-1
 
-![](./assets/import3.png)
+![](./assets/architecture.jpg)
 
-## 2.2 参与者说明
+## 2.3 参与者说明
 
 * Merchant: 商户，即数据买方;
 
@@ -12,7 +12,9 @@
 
 * Datasource: 数据源，即数据卖方;
 
-## 2.3 过程描述
+## 2.4 过程描述
+
+![](./assets/flow.png)
 
 下面描述一个数据交易的完整流程:
 
