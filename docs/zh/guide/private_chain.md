@@ -5,8 +5,8 @@
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_ubuntu_1.0.180809.beta.tar.gz -O gxb_ubuntu_1.0.180809.beta.tar.gz
-tar zxvf gxb_ubuntu_1.0.180809.beta.tar.gz
+wget https://github.com/gxchain/gxb-core/releases/download/testnet-1.0.180926/gxb_ubuntu_1.0.180926.testnet.tar.gz -O gxb_ubuntu_1.0.180926.testnet.tar.gz
+tar zxvf gxb_ubuntu_1.0.180926.testnet.tar.gz
 cd gxb
 ```
 
@@ -189,11 +189,10 @@ appenders=stderr
 ./programs/cli_wallet/cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824 -sws://127.0.0.1:11011
 ```
 
-**注意:**
-
+::: tip 提示
 * 请确保用**你自己私链的区块链ID**替代上述ID`8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824`。
-
 * 如果看到`set_password`提示，意味着你的客户端(cli_wallet)已经成功连接到见证人节点(witness_node)。
+:::
 
 ### 1) 创建一个新钱包
 
@@ -220,9 +219,9 @@ unlock supersecret
 import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
 
-**注意:**
-
+::: warning 提示
 * `nathan`在初始文件中会被用于定义账户名,  如果你修改过`my-genesies.json` 文件，你可以填入一个不同的名字。并且，请注意`5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3`是定义在`config.ini`内的私钥
+:::
 
 现在我们已经将私钥导入进钱包, my-genesis.json中初始化的余额，需要通过`import_balance`命令来申领，无需申明费用：
 
