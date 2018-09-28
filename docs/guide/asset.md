@@ -9,25 +9,27 @@
 
 ![](./assets/asset/create_asset2.png)
 
-填写完成后，点击“创建资产”, 弹出确认页面，点击"确认发送"，完成资产创建。
+After completing the form, click "create assets", the confirmation page will pop up, and click "send confirmation" to complete the creation of assets.
 
-创建不同长度的资产，需要燃烧的手续费不同(创建资产前，需要向往帐户里发送足够数量的GXS)：
+Different lengths of assets require different burning fees (before creating an asset, you want to send enough GXS to the account):
+
 ```
-3字符资产 1000 GXS
-4字符资产 800 GXS
-5字符资产 500 GXS
+3 charactors 1000 GXS
+4 charactors 800 GXS
+5 charactors 500 GXS
 ```
 
 ## 2. Issue asset
 
-资产创建完成后，需要发行资产
+After the creation of the asset, you need to issue the asset
+
 ![](./assets/asset/issue_asset1.png)
 ![](./assets/asset/issue_asset2.png)
 
-## 3. 发行要点和最佳实践
+## 3. Considerations and best practices
 
-**1) 按照当前市场流通份额，发送特定数额到基金会账号**
+**1) Send a specific amount to the foundation account under the current market share**
 
-**2) 统一由基金会账号对资产进行分发和使用**
+**2) The assets are distributed and used uniformly by the foundation account**
 
-**3) 避免直接发行到非基金会账号下**
+**3) 避Avoid direct issuance to non-foundation accounts**
