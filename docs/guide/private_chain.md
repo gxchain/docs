@@ -2,11 +2,11 @@
 
 ## 1. Download
 
-[**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
+[**The latest program**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_ubuntu_1.0.180809.beta.tar.gz -O gxb_ubuntu_1.0.180809.beta.tar.gz
-tar zxvf gxb_ubuntu_1.0.180809.beta.tar.gz
+wget https://github.com/gxchain/gxb-core/releases/download/testnet-1.0.180926/gxb_ubuntu_1.0.180926.testnet.tar.gz -O gxb_ubuntu_1.0.180926.testnet.tar.gz
+tar zxvf gxb_ubuntu_1.0.180926.testnet.tar.gz
 cd gxb
 ```
 
@@ -23,81 +23,81 @@ cd gxb
 }
 ```
 
-::: tip 字段解释
-- brain_priv_key: 助记词，是私钥的原始文本，通过助记词可以还原出私钥
-- wif_priv_key: 私钥，在程序中使用
-- pub_key: 公钥，用于链上账户注册
+::: tip Fields explanation
+- brain_priv_key: Mnemonic words are the original text of the private key, which can be restored by mnemonic words
+- wif_priv_key: Private key, using it to encrypt and sign a blockchain transaction in your program
+- pub_key: Public key for account registration on the chain
 :::
 
-接下来将讲解如何使用以上私钥，并会说明如何定义你自己的创世文件。
+The following sections explain how to use the above private key and how to define your genisis.json.
 
 ## 3. create genesis.json
 
-::: tip 关于genisis.json
-- genisis.json即创世文件
-- 每一条链都有唯一的genesis.json
-- genesis.json中指定了创世区块所必须的配置信息和节点启动的初始化参数
-- 任意一个字符的改变，都会得到一个不同的chain_id
-- 不同的chain_id将导致无法和seed_node之间相互通讯
-- 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/zh/guide/private_chain)
+::: tip About genisis.json
+- `genisis.json` is the genesis file
+- Each chain has a unique genesis.json
+- `genesis.json` specifies the configuration information necessary for the genesis block and initialization parameters for node startup
+- Any change in a character will result in a different chain_id
+- A different chain_id will result in an inability to communicate with seed_node
+- Therefore: **do not change genisis.json, unless you want to run a** [Private-hain](/zh/guide/private_chain)
 :::
 
-运行这条命令来创建一个名为`my-genesis.json`的初始文件：
+Run this command to create an initial file called `my-genesis.json`:
 
 ```bash
 ./programs/witness_node/witness_node --create-genesis-json my-genesis.json
 ```
 
-`my-genesis.json`这个文件将会存储在你私钥文件夹的根目录下，运行此命令后，所有见证人节点都会自行完成命令。
+The file 1my-genesis.json` will be stored in the root directory of your private key folder. After running this command, all the witness nodes will complete the command themselves.
 
-如果你想要自定义初始设定，打开`my-genesis.json`，你可以做以下的修改：
+If you want to customize the initialization, open `my-genesis.json` and you can make the following changes:
 
-* 修改初始文件中账户， 以及账户名和公钥
-* 区块链资产和初次分发（包含核心资产）
-* 私链参数的最初基准（包括费用）
-* 初始见证人的账户签名秘钥
+* modify the account in the original file, as well as the account name and public key
+* blockchain assets and initial distribution (including core assets)
+* the initial baseline of private chain parameters (including fees)
+* the initial witness's account signature secret key4 start private node
 
 ## 4. Start private node
 
-运行以下命令:
+Run the command:
 
 ```bash
 ./programs/witness_node/witness_node --data-dir data --genesis-json my-genesis.json
 ```
 
-> --data-dir 指定了区块输出目录为`./data`文件夹
-> --genesis-json 指定了启动节点的初始参数来自`my-genesis.json`
+> --data-dir specifies that the block output directory is `./data` folder
+> --genesis-json specifies that the initial parameter of the startup node is from `my-genesis.json`
 
-查看日志:
+View logs:
 
 ```bash
 tail -f data/logs/witness.log
 ```
 
-当这条信息出现时:
+When this message appears:
 
 ```log
 3501235ms th_a main.cpp:165 main] Started witness node on a chain with 0 blocks.
 3501235ms th_a main.cpp:166 main] Chain ID is 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824
 ```
 
-::: warning 注意
-请注意你的Chain ID会和上述例子中的ID不同。请记录下你的Chain ID，在之后你将会用到它
+::: warning WARNING
+Note that your Chain ID will be different from the one in the example above. Please note your Chain ID, which you will use later
 :::
 
-初始化已经完成，按`ctrl-c` 关闭见证人节点
+Initialization is complete, press ctrl-c to close the witness node
 
-至此，你完成了:
+Here you have:
 
-- 创建了一条属于你自己的链，并启动了第一个节点
-- 这个节点的初始化数据来自于`my-genisis.json`
-- 只要其他的节点使用`my-genisis.json`, 并在启动参数中指定你的Chain ID, 即可加入你的私有区块链网络
+- Created a chain of your own and start the first node
+- The initialization data of this node is from `my-genisis.json`
+- As long as other nodes use `my-genisis.json` and specify your Chain ID in the startup parameter, you can join your private blockchain network
 
-关闭节点后，我们观察到，在`data`目录下生成了一个新文件`config.ini`，所有的*启动参数*，都可以在`data/config.ini`中进行配置
+After closing the node, we observed that a new file `config.ini` was generated under the data directory, and all *startup parameters* can be configured in `data/config.ini`
 
 ## 5. Witness configurations
 
-用文本编辑器打开刚生成的`data/config.ini`, 做如下设置, 必要时请不要注释这些代码:
+Open the `data/config.ini` just generated with the text editor, and make the following Settings. Don't comment the code if necessary:
 
 ```ini
 rpc-endpoint = 127.0.0.1:11011
@@ -105,13 +105,13 @@ genesis-json = my-genesis.json
 enable-stale-production = true
 ```
 
-在`data/config.ini`中定位以下语句:
+Locate the following statement in `data/config.ini`:
 
 ```bash
 # ID of witness controlled by this node (e.g. "1.6.5", quotes are required, may specify multiple times)
 ```
 
-并添加如下词条:
+And add the following entry:
 
 ```ini
 witness-id = "1.6.1"
@@ -127,30 +127,30 @@ witness-id = "1.6.10"
 witness-id = "1.6.11"
 ```
 
-上述列表授权了见证人节点用见证人ID来生成区块
+The above list authorizes the witness node to generate blocks with the witness ID
 
-再来定位下一行配置
+Let's navigate to the next line of configuration
 
 ```
 # Tuple of [PublicKey, WIF private key] (may specify multiple times)
 private-key = ["GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"]
 ```
 
-::: tip 提示
-- 正常情况下，每个见证人的节点不同
-- 但在私有链中，我们会先设定成全体见证人在同一个节点生产区块
-- 这些见证人ID的私钥（用来签署区块）已经在`data/config.ini`中提供：
+::: tip TIPS
+- Under normal circumstances, the node of each witness is different
+- However, in the private chain, we will first set all witnesses to produce the block at the same node
+- The private keys of the witness ids (used to sign blocks) have been provided in `data/config.ini`:
 :::
 
 ## 6. Generate blocks with witness account
 
-通过以下步骤，你可以生产基于你私链的第一个区块了，在见证人节点中运行以下命令:
+By following these steps, you can produce the first block based on your private chain, running the following commands in witness node:
 
 ```
 ./programs/witness_node/witness_node --data-dir data
 ```
 
-之后私链的区块将开始生成，你会看到如下指示:
+After that, the blocks of the private chain will begin to be generated, and you will see the following instructions:
 
 ```
 ********************************
@@ -162,7 +162,7 @@ private-key = ["GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","5KQwrPbw
 ********************************
 ```
 
-之后data/log/witness.log文件会有更多成功生成区块的日志生成:
+The data/log/witness.log file will have more log generation of successfully generated blocks:
 
 ```
 2322793ms th_a  main.cpp:176     main    ] Started witness node on a chain with 0 blocks.
@@ -173,7 +173,7 @@ private-key = ["GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV","5KQwrPbw
 2354605ms th_a  witness.cpp:185  block_production_loo ] Generated block #4 with timestamp 2016-01-21T22:39:10 at time 2016-01-21T22:39:55
 ```
 
-如果witness.log无日志生成，可以将日志打印打控制台，可以修改data/config.ini文件如下，然后重新启动witness_node
+If the witness.log is generated without a log, the log can be printed to the console, and the data/config.ini file can be modified as follows, and then we can restart the elaborate _node
 
 ```
 [logger.default]
@@ -181,91 +181,88 @@ level=debug
 appenders=stderr
 ```
 
-## 7. Usage（cli_wallet
+## 7. Usage(cli_wallet)
 
-现在可以将客户端和你的私链的见证人节点相关联。先确保你的见证人节点在运行状态，在另外一个CMD中运行以下命令：
+You can now associate the client with your private chain's witness node. First, make sure your witness node is running and run the following command in another CMD:
 
 ```
 ./programs/cli_wallet/cli_wallet --wallet-file=my-wallet.json --chain-id 8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824 -sws://127.0.0.1:11011
 ```
 
-**注意:**
+::: tip TIPS
+* Please make sure that in **your own private chain blockchain ID** instead of the above `ID8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824`.
+* If you see the `set_password` prompt, it means your client (cli_wallet) has successfully connected to the witness node.
+:::
 
-* 请确保用**你自己私链的区块链ID**替代上述ID`8b7bd36a146a03d0e5d0a971e286098f41230b209d96f92465cd62bd64294824`。
+### 1) Create a new wallet
 
-* 如果看到`set_password`提示，意味着你的客户端(cli_wallet)已经成功连接到见证人节点(witness_node)。
+First you need to create a new password for your wallet. This password is used to encrypt the private key of all wallets. In this tutorial, we use the following password: `supersecret`
 
-### 1) 创建一个新钱包
-
-首先你需要为你的钱包创建一个新的密码。这个密码被用于加密所有钱包的私钥。在教程中我们使用如下密码：`supersecret`
-
-但你可以使用字母和数字的组合来创建属于你的密码。通过以下命令来创建你的密码：:
+But you can use a combination of letters and numbers to create a password that belongs to you. Create your password with the following commands:
 
 ```
 >>> set_password supersecret
 ```
 
-现在你可以解锁你新建的钱包了：
+Now you can unlock your new wallet:
 
 ```
 unlock supersecret
 ```
 
-### 2) 申领初始余额
+### 2) Claim initial balance
 
-资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。
-在例子中，我们将通过`import_key`命令向现有钱包中导入my-genesis.json中初始化的`nathan`帐户：
+The asset account is included in the wallet account. To add the wallet account to your wallet, you need to know the account name and the private key of the account. In the example, we will import the nathan account initialized in `my-genesis.json` into the existing wallet with the `import_key` command：
 
 ```
 import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
 
-**注意:**
+::: warning
+* `nathan` will be used in the initial file to define the account name, and if you have modified the `my-genesies.json` file, you can fill in a different name. Also, please note `5kqwrpbwdl6phxujxw37fssqz1jiwsst4cqqzdeyxtp79zkvfd3` is private key defined in the `config.ini`
+:::
 
-* `nathan`在初始文件中会被用于定义账户名,  如果你修改过`my-genesies.json` 文件，你可以填入一个不同的名字。并且，请注意`5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3`是定义在`config.ini`内的私钥
-
-现在我们已经将私钥导入进钱包, my-genesis.json中初始化的余额，需要通过`import_balance`命令来申领，无需申明费用：
+Now that we have imported the private key into the wallet, the balance initialized in `my-genesis.json`, is claimed through the `import_balance` command without declaring the fee:
 
 ```
 import_balance nathan ["5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"] true
 ```
 
-你可以通过以下命令来检视你的账户：
+You can view your account through the following command:
 
 ```
 get_account nathan
 ```
 
-用以下命令获取账户余额：
+Obtain the account balance with the following command:
 
 ```
 list_account_balances nathan
 ```
 
-### 3) 创建账户
+### 3) Create an account
 
-现在我们讲创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
+Now let's create a new account `alpha` so we can transfer money back and forth between `nathan` and `alpha`.
 
-通常我们用一个已有账户来创建新账户，因为登记员需要缴纳注册费用。 并且，登记员的账户需要进入Also, there is the requirement  lifetime member \(LTM\)状态。因此我们必须在创建新账户前，先将账户`nathan`升级到LTM状态， 使用`upgrade_account`命令来升级账户：
+Usually, we use an existing account to create a new account because the registrar has to pay the registration fee. Also, the registry's account needs to go into. Also, there is the requirement lifetime member \(LTM\) state. Therefore, we must first upgrade the account nathan to LTM state before creating a new account, and use the `upgrade_account` command to upgrade the account:
 
 ```
 upgrade_account nathan GXC true
 ```
-返回的信息中，在`membership_expiration_date`边上你会发现`2106-02-07T06:28:15`。 如果你看到`1970-01-01T00:00:00`，说明之前的操作出现了错误，`nathan`没能成功升级。
+In the information returned, next to `membership_expiration_date` you will find `2106-02-07T06:28:15`. If you see `1970-01-01T00:00:00`, that indicates that the previous operation was wrong and `nathan` failed to upgrade successfully.
 
-成功升级后，我们可以通过`nathan`来注册新账户，但首先我们需要拥有新账户的公钥。通过使用`suggest_brain_key`命令来完成：
+After the successful upgrade, we can register the new account through `nathan`, but first, we need to have the public key of the new account. This is done by using the `suggest_brain_key` command:
 
 ```
 suggest_brain_key
 ```
-
-然后调用register\_account / register\_account2接口创建新帐户
+Then the `register\_account` / `register\_account2` interface is called to create a new account
 
 ```
 register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ nathan nathan 10
 ```
 
-最终将有类似如下的回复：
+Finally, there is the following reply:
 
 ```
 list_account_balances alpha
