@@ -17,9 +17,9 @@ curl POST --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-根据区块号获取区块信息
-
 ### `get_block_header`
+
+根据区块号获取区块头信息
 
 ``` bash
 curl POST --data '{
@@ -29,8 +29,6 @@ curl POST --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
-
-根据区块号获取区块头信息
 
 ## 对象相关
 
@@ -103,12 +101,27 @@ curl --data '{
 
 根据首字母查询资产
 
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "list_assets", ["A", 100]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
 ### `lookup_asset_symbols`
 
 根据资产名称获取资产详情
 
-
-
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "lookup_asset_symbols", [["GXS"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 
 
