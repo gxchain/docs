@@ -32,4 +32,4 @@ After the creation of the asset, you need to issue the asset
 
 **2) The assets are distributed and used uniformly by the foundation account**
 
-**3) 避Avoid direct issuance to non-foundation accounts**
+**3) Avoid direct issuance to non-foundation accounts**
