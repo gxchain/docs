@@ -32,12 +32,12 @@
 
 注册完成后, 点击[申领测试代币](http://blockcity.mikecrm.com/2SVDb67)
 
-## 3. 下载最新节点程序
+## 3. 下载最新testnet节点程序
 
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-wget https://github.com/gxchain/gxb-core/releases/download/testnet-1.0.180926/gxb_ubuntu_1.0.180926.testnet.tar.gz -O gxb_ubuntu_1.0.180926.testnet.tar.gz
+wget 'http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/testnet/gxb_ubuntu_1.0.180926.testnet.tar.gz' -O gxb_ubuntu_1.0.180926.testnet.tar.gz
 tar zxvf gxb_ubuntu_1.0.180926.testnet.tar.gz
 ```
 
