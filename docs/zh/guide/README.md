@@ -34,8 +34,7 @@ apt-get install libstdc++-7-dev
 ### 1. 下载Release包
 
 ``` bash
-wget 'https://github.com/gxchain/gxb-core/releases/download/v1.0.180929/gxb_ubuntu_1.0.180929.tar.gz' -O gxb_ubuntu_1.0.180929.tar.gz
-tar zxvf gxb_ubuntu_1.0.180929.tar.gz
+curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
 ### 2. 启动节点
