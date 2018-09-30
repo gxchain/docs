@@ -7,10 +7,19 @@
 - Disk: 100GB+
 
 ::: warning DEPENDENCY NOTE
-GXChain requires NTP service installed
 
+* install ntp
 ``` bash
 sudo apt-get install ntp
+```
+
+* install libstdc++-7-dev
+```bash
+apt-get update
+apt-get install software-properties-common
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt-get update
+apt-get install libstdc++-7-dev
 ```
 :::
 
@@ -19,8 +28,8 @@ sudo apt-get install ntp
 ### 1. Download
 
 ``` bash
-wget https://github.com/gxchain/gxb-core/releases/download/1.0.180713/gxb_ubuntu_1.0.180713.tar.gz
-tar zxvf gxb_1.0.180713.tar.gz
+wget 'https://github.com/gxchain/gxb-core/releases/download/v1.0.180929/gxb_ubuntu_1.0.180929.tar.gz' -O gxb_ubuntu_1.0.180929.tar.gz
+tar zxvf gxb_ubuntu_1.0.180929.tar.gz
 ```
 ### 2. Start
 
@@ -104,16 +113,3 @@ This methods is recommended if you want to keep the private key offline.
 ``` bash
 curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
