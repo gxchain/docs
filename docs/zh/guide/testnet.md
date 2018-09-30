@@ -61,8 +61,7 @@ apt-get install libstdc++-7-dev
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-wget 'http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/testnet/gxb_ubuntu_1.0.180926.testnet.tar.gz' -O gxb_ubuntu_1.0.180926.testnet.tar.gz
-tar zxvf gxb_ubuntu_1.0.180926.testnet.tar.gz
+curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_testnet_install.sh' | bash
 ```
 
 ## 4. 下载测试网络genesis.json
