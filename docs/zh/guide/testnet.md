@@ -24,6 +24,30 @@
 目前只有一个节点，社区开发者贡献节点可以加入测试网络，申请见证人。
 :::
 
+## 环境要求
+
+- 系统: **Ubuntu 14.04 LTS 64-bit**, **4.4.0-63-generic** 内核或更高
+- 内存: 2GB+
+- 硬盘: 40GB+
+
+::: warning 依赖安装
+
+* 安装ntp
+``` bash
+sudo apt-get install ntp
+```
+
+* 安装libstdc++-7-dev
+```bash
+apt-get update
+apt-get install software-properties-common
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt-get update
+apt-get install libstdc++-7-dev
+```
+:::
+
+
 ## 1. 注册账户
 
 访问测试网络[在线钱包](https://testnet.wallet.gxchain.org/#/) 注册钱包帐户
