@@ -37,8 +37,7 @@ After registration, click to [apply token on testnet](http://blockcity.mikecrm.c
 [**The latest program**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-wget 'https://github.com/gxchain/gxb-core/releases/download/testnet-1.0.180926/gxb_ubuntu_1.0.180926.testnet.tar.gz' -O gxb_ubuntu_1.0.180926.testnet.tar.gz
-tar zxvf gxb_ubuntu_1.0.180926.testnet.tar.gz
+curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_testnet_install.sh' | bash
 ```
 
 ## 4. Download testnet-genesis.json
