@@ -6,12 +6,22 @@
 - 内存: 8GB+
 - 硬盘: 100GB+
 
-::: warning 依赖提示
-GXChain 依赖于NTP服务
+::: warning 依赖安装
 
+* 安装ntp
 ``` bash
 sudo apt-get install ntp
 ```
+
+* 安装libstdc++-7-dev
+```bash
+apt-get update
+apt-get install software-properties-common
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt-get update
+apt-get install libstdc++-7-dev
+```
+
 :::
 
 ## 节点安装
@@ -24,9 +34,10 @@ sudo apt-get install ntp
 ### 1. 下载Release包
 
 ``` bash
-wget https://github.com/gxchain/gxb-core/releases/download/1.0.180713/gxb_ubuntu_1.0.180713.tar.gz
-tar zxvf gxb_1.0.180713.tar.gz
+wget 'https://github.com/gxchain/gxb-core/releases/download/v1.0.180929/gxb_ubuntu_1.0.180929.tar.gz' -O gxb_ubuntu_1.0.180929.tar.gz
+tar zxvf gxb_ubuntu_1.0.180929.tar.gz
 ```
+
 ### 2. 启动节点
 
 ``` bash
@@ -108,14 +119,3 @@ GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXC
 ``` bash
 curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
 ```
-
-
-
-
-
-
-
-
-
-
-
