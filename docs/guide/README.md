@@ -2,7 +2,7 @@
 
 ## Requirement
 
-- **Ubuntu 14.04 LTS 64-bit**, with **4.4.0-63-generic** kernel or higher
+- **macOS / Ubuntu 14.04 LTS 64-bit**, with **4.4.0-63-generic** kernel or higher
 - RAM: 8GB+
 - Disk: 100GB+
 
@@ -11,10 +11,12 @@
 * install ntp
 ``` bash
 sudo apt-get install ntp
+# for macOS : brew install ntp
 ```
 
-* install libstdc++-7-dev
+* install libstdc++-7-dev (Ubuntu only)
 ```bash
+# for Ubuntu
 apt-get update
 apt-get install software-properties-common
 add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -33,7 +35,6 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ### 2. Start
 
 ``` bash
-cd gxb
 ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
 ```
 
