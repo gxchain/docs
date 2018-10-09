@@ -2,7 +2,7 @@
 
 ## 环境要求
 
-- 系统: **Ubuntu 14.04 LTS 64-bit**, **4.4.0-63-generic** 内核或更高
+- 系统: **macOS / Ubuntu 14.04 64-bit**, **4.4.0-63-generic** 以上内核
 - 内存: 8GB+
 - 硬盘: 100GB+
 
@@ -11,10 +11,12 @@
 * 安装ntp
 ``` bash
 sudo apt-get install ntp
+# macOS安装ntp:  brew install ntp
 ```
 
 * 安装libstdc++-7-dev
 ```bash
+# Ubuntu系统需要安装, macOS不需要
 apt-get update
 apt-get install software-properties-common
 add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -40,7 +42,6 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ### 2. 启动节点
 
 ``` bash
-cd gxb
 ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
 ```
 
@@ -49,7 +50,7 @@ cd gxb
 - 指定了区块信息保存在 `./trusted_node` 目录下
 
 ::: tip 友情提示
-- 同步区块大约需要 **6个小时**, 当然这和你的网络情况有一定关系
+- 同步区块大约需要 **20+小时**, 当然这和你的网络情况有一定关系
 - 在区块同步完成之前，你只需耐心等待，在此期间可以阅读一下文档
 :::
 
