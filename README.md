@@ -54,7 +54,7 @@ npm start
 - BaaS SDK
     - 基于GXChain的数据存储+存证SDK
     - Java: [github.com/gxchain/baas-sdk-java](https://github.com/gxchain/baas-sdk-java)
-    - Node: [github.com/gxchain/baas-sdk-node](https://https://github.com/gxchain/baas-sdk-node)
+    - Node: [github.com/gxchain/baas-sdk-node](https:///github.com/gxchain/baas-sdk-node)
 - DES SDK
     - 基于GXChain的数据交换SDK
     - Java: [github.com/gxchain/des-sdk-java](https://github.com/gxchain/des-sdk-java)
