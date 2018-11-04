@@ -48,6 +48,7 @@ apt-get install libstdc++-7-dev
 
 下载节点程序
 ```
+# 执行如下命令行，将下载最新的公信节点程序，到当前目录下
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
