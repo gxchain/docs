@@ -54,6 +54,8 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 启动公信节点程序
 
 ```
+# 通过PC钱包或者网页钱包，查看自己的公信节点id
+# 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点公私钥, 用于签署区块
 ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"' \
 --private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
 ```
@@ -71,7 +73,7 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 
 完全同步区块需要约24小时。可以通过后台日志文件witness\_node\_data\_dir/logs/witness.log可查看区块同步进度，访问[公信宝区块浏览器](https://block.gxb.io/)查看最新区块。
 
-通过tail -f trusted_node/log/witness.log查看日志。如果当选为活跃公信节点，可以看到如下生成区块的日志：
+通过tail -f trusted_node/log/witness.log查看日志。如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
 
 ```
 Generated block #367 with timestamp 2017-08-05T20:46:30 at time 2017-08-05T20:46:30
