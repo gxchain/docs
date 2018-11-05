@@ -82,7 +82,7 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 &表示程序后台运行
 ```
 
-完全同步区块需要约24小时。可以通过后台日志文件witness\_node\_data\_dir/logs/witness.log可查看区块同步进度，访问[公信宝区块浏览器](https://block.gxb.io/)查看最新区块。
+完全同步区块需要约24小时。可以通过后台日志文件witness\_node\_data\_dir/logs/witness.log可查看区块同步进度，访问[GXChain区块浏览器](https://block.gxb.io/)查看最新区块。
 
 通过tail -f trusted_node/log/witness.log查看日志。如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
 
