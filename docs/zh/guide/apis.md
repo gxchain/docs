@@ -2,6 +2,34 @@
 
 GXChain的节点提供WebSocket和JSONRPC两种接口形式
 
+## 链相关
+
+### `get_chain_id`
+获取链id
+
+``` bash
+curl POST --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_chain_id", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_dynamic_global_properties`
+获取动态全局对象
+
+
+``` bash
+curl POST --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_dynamic_global_properties", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+
 ## 区块相关
 
 ### `get_block`
@@ -95,6 +123,18 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `is_account_registered`
+查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "is_account_registered", ["nathan"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
 ## 资产相关
 
 ### `list_assets`
@@ -123,8 +163,34 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `get_account_balances`
+根据帐户id和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_account_balances", ["1.2.42", ["1.3.0", "1.3.1"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
 
+```
+
+### `get_named_account_balances`
+
+根据帐户名和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_named_account_balances", ["gxbfoundation", ["1.3.0", "1.3.1"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+
+```
+
+### `get_table_objects`
 
 
 
