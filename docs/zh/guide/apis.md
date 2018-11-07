@@ -99,7 +99,7 @@ curl --data '{
 
 ### `get_account_by_name`
 
-根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额，冻结余额等
+根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
 
 ``` bash
 curl --data '{
