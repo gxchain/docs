@@ -84,9 +84,14 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 
 完全同步区块需要约24小时。可以通过后台日志文件witness\_node\_data\_dir/logs/witness.log可查看区块同步进度，访问[GXChain区块浏览器](https://block.gxb.io/)查看最新区块。
 
-通过tail -f trusted_node/log/witness.log查看日志。如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
+通过tail -f trusted_node/log/witness.log查看日志。
+如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
 
 ```
 Generated block #367 with timestamp 2017-08-05T20:46:30 at time 2017-08-05T20:46:30
 ```
+
+### 3.查看公信节点出块奖励
+如果当选为活跃公信节点，每打包一个区块，都会有对应的GXC奖励。 区块奖励会存入帐户的待解冻余额，需要主动申领，可以通过PC钱包或网页钱包查看并申领奖励。
+![](./assets/witness/witness_bonus.jpg)
 
