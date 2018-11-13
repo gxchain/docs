@@ -114,10 +114,37 @@ module.exports = {
                     {
                         text: '智能合约',
                         items: [
-                            {text: '快速开始', link: '/zh/contract/quick_start'},
-                            {text: '基本类型', link: '/zh/contract/basic_types'},
-                            {text: 'API介绍', link: '/zh/contract/apis'},
-                            {text: '合约示例', link: '/zh/contract/examples'},
+                            {   
+                                text: '快速开始', items:[
+                                    {text: '智能合约入门',link: '/zh/contract/tutorial'},  
+                                    {text: 'Hello World合约简介',link: '/zh/contract/tutorial_hello'},  
+                                    {text: '红包合约简介',link: '/zh/contract/tutorial_redpack'}
+                                ]
+                            },
+                            {   text: '合约开发', items:[
+                                    {text:'内置类型',link: '/zh/contract/basic_types'},
+                                    {text:'内置API介绍',link: '/zh/contract/apis'},
+                                    {text: '合约示例', link: '/zh/contract/examples'}
+                                ]
+                            },
+                            {   
+                                text: '合约部署', items:[
+                                    {text:'智能合约IDE方式',link: '/zh/contract/contract_ide'},  
+                                    {text:'本地命令行方式',link: '/zh/contract/command_line'}
+                                ]
+                            },
+                            {   
+                                text: '合约调试', items:[
+                                    {text:'print调试',link: '/zh/contract/debug'}
+                                ]
+                            },
+                            {   text: '附加选项', items:[
+                                    {text:'开发常见错误',link: '/zh/contract/question'},
+                                    {text:'部署测试网节点',link: '/zh/contract/test_net'},
+                                    {text:'合约中的随机数',link: '/zh/contract/random'},
+                                    {text:'合约与分布式存储的结合',link: '/zh/contract/baas_ipfs'}
+                                ]
+                            }
                         ]
                     },
                     {
