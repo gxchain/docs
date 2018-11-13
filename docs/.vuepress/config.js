@@ -47,6 +47,15 @@ module.exports = {
                         link: '/faq/',
                     },
                     {
+                        text: 'Smart Contract',
+                        items: [
+                            {text: 'Quick Start', link: '/contract/quick_start'},
+                            {text: 'Basic Types', link: '/contract/basic_types'},
+                            {text: 'API References', link: '/contract/apis'},
+                            {text: 'Examples', link: '/contract/examples'},
+                        ]
+                    },
+                    {
                         text: 'Ecosystem',
                         items: [
                             {
@@ -96,6 +105,20 @@ module.exports = {
                     {
                         text: '常见问题',
                         link: '/zh/faq/',
+                    },
+
+                    {
+                        text: '常见问题',
+                        link: '/zh/faq/',
+                    },
+                    {
+                        text: '智能合约',
+                        items: [
+                            {text: '快速开始', link: '/zh/contract/quick_start'},
+                            {text: '基本类型', link: '/zh/contract/basic_types'},
+                            {text: 'API介绍', link: '/zh/contract/apis'},
+                            {text: '合约示例', link: '/zh/contract/examples'},
+                        ]
                     },
                     {
                         text: '生态系统',
