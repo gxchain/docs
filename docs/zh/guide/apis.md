@@ -97,6 +97,21 @@ curl --data '{
 
 ## 账户相关
 
+
+### `get_account_count`
+
+获取链上帐户总数量
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_account_count", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+
 ### `get_account_by_name`
 
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
@@ -134,6 +149,7 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+
 
 ## 资产相关
 
@@ -188,6 +204,33 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 
+```
+## 公信节点相关
+
+### `get_trust_nodes`
+
+获取所有的公信节点所属帐户id
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_trust_nodes", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_witness_by_account`
+
+根据`account_id`获取`公信节点`信息，包括节点公钥、总票数、缺块数等
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_witness_by_account", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
 ```
 
 ### `get_table_objects`
