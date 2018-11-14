@@ -96,6 +96,7 @@ upgrade_account nathan GXC true
 成功升级后，我们可以通过`nathan`来注册新账户，但首先我们需要拥有新账户的公钥。通过使用`suggest_brain_key`命令来生成公私钥对：
 
 ```
+// 生成秘钥对
 suggest_brain_key
 ```
 
@@ -103,6 +104,12 @@ suggest_brain_key
 
 ```
 register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ nathan nathan 10 true
+```
+
+使用transfer3命令转移部分资产到账户
+
+```
+transfer3 nathan alpha 1000 GXC test GXS true
 ```
 
 使用如下命令查看资产余额：

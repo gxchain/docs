@@ -140,6 +140,7 @@ module.exports = {
                             },
                             {   text: '附加选项', items:[
                                     {text:'开发常见错误',link: '/zh/contract/question'},
+                                    {text:'ABI文件解析',link: '/zh/contract/abi_explan'},
                                     {text:'部署测试网节点',link: '/zh/contract/test_net'},
                                     {text:'合约中的随机数',link: '/zh/contract/random'},
                                     {text:'合约与分布式存储的结合',link: '/zh/contract/baas_ipfs'}
