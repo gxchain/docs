@@ -106,11 +106,6 @@ module.exports = {
                         text: '常见问题',
                         link: '/zh/faq/',
                     },
-
-                    {
-                        text: '常见问题',
-                        link: '/zh/faq/',
-                    },
                     {
                         text: '智能合约',
                         items: [
