@@ -108,40 +108,7 @@ module.exports = {
                     },
                     {
                         text: '智能合约',
-                        items: [
-                            {   
-                                text: '快速开始', items:[
-                                    {text: '智能合约入门',link: '/zh/contract/tutorial'},  
-                                    {text: 'Hello World合约简介',link: '/zh/contract/tutorial_hello'},  
-                                    {text: '红包合约简介',link: '/zh/contract/tutorial_redpack'}
-                                ]
-                            },
-                            {   text: '合约开发', items:[
-                                    {text:'内置类型',link: '/zh/contract/basic_types'},
-                                    {text:'内置API',link: '/zh/contract/apis'},
-                                    {text: '多索引表', link: '/zh/contract/multi_index'}
-                                ]
-                            },
-                            {   
-                                text: '合约部署', items:[
-                                    {text:'智能合约IDE方式',link: '/zh/contract/contract_ide'},  
-                                    {text:'本地命令行方式',link: '/zh/contract/command_line'}
-                                ]
-                            },
-                            {   
-                                text: '合约调试', items:[
-                                    {text:'print调试',link: '/zh/contract/debug'}
-                                ]
-                            },
-                            {   text: '附加选项', items:[
-                                    {text:'开发常见错误',link: '/zh/contract/question'},
-                                    {text:'ABI文件解析',link: '/zh/contract/abi_explan'},
-                                    {text:'部署测试网节点',link: '/zh/contract/test_net'},
-                                    {text:'合约中的随机数',link: '/zh/contract/random'},
-                                    {text:'合约与分布式存储的结合',link: '/zh/contract/baas_ipfs'}
-                                ]
-                            }
-                        ]
+                        link: '/zh/contract/'
                     },
                     {
                         text: '生态系统',
@@ -170,6 +137,7 @@ module.exports = {
                 sidebar: {
                     '/zh/guide/': genSidebarConfig ('guide', '指南'),
                     '/zh/faq/': genSidebarConfig ('faq', '常见问题'),
+                    '/zh/contract/': genSidebarConfig ('contract', '智能合约'),
                     '/zh/baas-api/': genSidebarConfig ('baas', 'BaaS存储'),
                     '/zh/des/': genSidebarConfig ('des', 'DES')
                 }
@@ -188,7 +156,7 @@ function genSidebarConfig (module, title) {
                     '',
                     'clients',
                     'apis',
-                    'contract',
+                    //'contract',
                     'testnet',
                     'private_chain',
                     'witness',
@@ -208,6 +176,22 @@ function genSidebarConfig (module, title) {
             }
         ];
     }
+    if (module === 'contract') {
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    '',
+                    'develop',
+                    'deploy',
+                    'debug',
+                    'question'
+                ]
+            }
+        ];
+    }
+
     if(module === 'des'){
         return [
             {
