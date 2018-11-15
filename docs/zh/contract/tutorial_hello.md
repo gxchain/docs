@@ -6,12 +6,12 @@
 
 ####  1.0 合约功能
 
-[Hello World合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/helloworld)是一个最精简的公信宝合约，通过分析该合约，我们可以掌握智能合约开发的基本框架。该合约实现了一个`hi action`，action是合约给外部调用提供的接口，功能为打印两次`hi user(user为调用action的参数)`字符串到控制台，输出结果如下
+[Hello World合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/helloworld)是一个最精简的GXChain合约，通过分析该合约，我们可以掌握智能合约开发的基本框架。该合约实现了一个`hi action`，action是合约给外部调用提供的接口，功能为打印两次`hi user(user为调用action的参数)`字符串到控制台，输出结果如下
 
 ![](./png/console_print.jpg)
 
 ####  1.1 编译合约
-智能合约编写完成后包括xxx.hpp文件和xxx.cpp文件，需要编译为xxx.wast文件和xxx.abi文件，才能部署到区块链上。您可以使用公信宝提供的gxx工具，编译wast和abi文件，该工具可以在目录`~/gxb-core/build/tools/gxx`找到。您可以切换到gxx所在目录，然后使用如下命令进行编译：
+智能合约编写完成后包括xxx.hpp文件和xxx.cpp文件，需要编译为xxx.wast文件和xxx.abi文件，才能部署到区块链上。您可以使用GXChain提供的gxx工具，编译wast和abi文件，该工具可以在目录`~/gxb-core/build/tools/gxx`找到。您可以切换到gxx所在目录，然后使用如下命令进行编译：
 
 ```
 //编译wast文件，路径需要替换成你自己的
@@ -35,7 +35,7 @@ deploy_contract hello nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/exa
 
 ####  1.3 调用合约
 
-您可以使用如下命令调用合约接口，公信宝的调用合约接口可以附加资产发送选项。附加资产的调用方式，会将资产发送到合约账户。合约账户的资产，只能通过合约自身代码使用提现API`withdraw_asset`来控制。
+您可以使用如下命令调用合约接口，GXChain的调用合约接口可以附加资产发送选项。附加资产的调用方式，会将资产发送到合约账户。合约账户的资产，只能通过合约自身代码使用提现API`withdraw_asset`来控制。
 ```
 // 不附带资产
 call_contract nathan hello null hi "{\"user\":\"gxchain!!!\"}" GXS true
