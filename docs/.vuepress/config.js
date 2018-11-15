@@ -118,8 +118,8 @@ module.exports = {
                             },
                             {   text: '合约开发', items:[
                                     {text:'内置类型',link: '/zh/contract/basic_types'},
-                                    {text:'内置API介绍',link: '/zh/contract/apis'},
-                                    {text: '合约示例', link: '/zh/contract/examples'}
+                                    {text:'内置API',link: '/zh/contract/apis'},
+                                    {text: '多索引表', link: '/zh/contract/multi_index'}
                                 ]
                             },
                             {   
