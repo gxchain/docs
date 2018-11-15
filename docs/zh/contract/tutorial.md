@@ -1,19 +1,19 @@
 ## 智能合约入门
 
-本教程的目的是为公信宝智能合约开发提供指导，包括合约开发、部署、调试以及常见错误归类等相关内容。
+本教程的目的是为GXChain智能合约开发提供指导，包括合约开发、部署、调试以及常见错误归类等相关内容。
 
-公信宝智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在公信宝主链上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为合约逻辑文件。  
+GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为中间代码文件。  
 
 **开发智能合约之前，你需要做如下准备:**
 
 - 对C++语言开发有一定程度的了解
 - 对Linux、Mac系统命令有一定程度的了解
-- 在本地启动Gxb-Core节点(witness_node和cli_wallet程序)（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
+- 在本地启动gxb-core节点(witness_node和cli_wallet程序)（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
 
 
-### 1. 启动本地节点
+### 1. 启动本地私链
 
-编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。
+编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../guide/private_chain.md )
 
 ```
 ./witness_node -d data
