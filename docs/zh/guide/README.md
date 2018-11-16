@@ -5,6 +5,7 @@
 - 系统: **macOS / Ubuntu 14.04 64-bit**, **4.4.0-63-generic** 以上内核
 - 内存: 8GB+
 - 硬盘: 100GB+
+- 网络： 20MB+带宽
 
 ::: warning 依赖安装
 
