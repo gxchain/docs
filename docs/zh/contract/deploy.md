@@ -63,7 +63,7 @@
 - [Build on Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
 - [Build on OS X](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
 
-### 2. 编译合约
+### 2. 使用模板创建合约
 
 使用gxx的模板创建一个helloworld合约
 
