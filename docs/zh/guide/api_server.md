@@ -1,11 +1,13 @@
-# 快速开始
+# API服务器部署
 
-## 环境要求
+本文档介绍如何部署一个GXChain的API服务器。
+
+## 1. 环境要求
 
 - 系统: **macOS / Ubuntu 14.04 64-bit**, **4.4.0-63-generic** 以上内核
 - 内存: 16GB+
 - 硬盘: 100GB+
-- 网络： 20MB+带宽
+- 网络：10MB+带宽, 有公网独立IP
 
 ::: warning 依赖安装
 
@@ -27,41 +29,35 @@ apt-get install libstdc++-7-dev
 
 :::
 
-## 节点安装
 
-以下的步骤演示的是**主网节点**的启动
-
-- 如果你是开发者，希望快速体验，可前往[测试网络](testnet.html)
-- 如果你想基于GXChain搭建私有链，可前往[私有链搭建](private_chain.html)
-
-### 1. 下载Release包
+## 2. 下载Release包
 
 ``` bash
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
-### 2. 启动节点
+## 3. 启动节点
 
 ``` bash
-./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
+./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" &
 ```
 
-就是这样了, 根据上面的步骤:
-- 启动了一个节点监听在 `127.0.0.1:28090`
-- 指定了区块信息保存在 `./trusted_node` 目录下
+根据上面的步骤:
+- 指定区块信息保存在 `./trusted_node` 目录下
+- 启动一个监听端口为28090的RPC服务，开启了API服务, 可以给钱包客户端提供RPC调用
+- 启动一个监听端口为6789的P2P服务，可以作为seed node为网络中的其它节点提供连接和区块同步服务
 
 ::: tip 友情提示
-- 同步区块大约需要 **20+小时**, 当然这和你的网络情况有一定关系
-- 在区块同步完成之前，你只需耐心等待，在此期间可以阅读一下文档
+- 同步区块大约需要 **30+小时**, 当然这和你的网络情况有一定关系
 :::
 
-### 3. 查看日志
+## 4. 查看日志
 
 ``` bash
 tail -f trusted_node/logs/witness.log
 ```
 
-节点同步完成后，日志看起来是这样的:
+区块同步过程中，每隔1000个区块会打印一行日志； 同步到最新区块时，每3秒打印一行日志，区块号连续，日志看起来是这样的:
 
 ``` bash
 2018-06-28T03:43:03 th_a:invoke handle_block         handle_block ] Got block: #10731531 time: 2018-06-28T03:43:03 latency: 60 ms from: miner11  irreversible: 10731513 (-18)			application.cpp:489
@@ -77,46 +73,10 @@ tail -f trusted_node/logs/witness.log
 2018-06-28T03:43:33 th_a:invoke handle_block         handle_block ] Got block: #10731541 time: 2018-06-28T03:43:33 latency: 23 ms from: caitlin  irreversible: 10731526 (-15)			application.cpp:489
 ```
 
-## 账户注册
+## 5. 测试API服务是否可用
 
-GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXChain上注册一个账号，需要以下三个要素:
+假设你的公网IP地址为```x.x.x.x```， 调用节点的get_dynamic_global_properties API查看最新区块号：
 
-- **推荐人**，推荐人是链上已存在的账户，会使用你的账户名和公钥帮你注册一个账号
-- **账户名**，账户名在链上是唯一的，所以请记住在GXChain上，**账户名即地址** (如gxchain-genius)
-- **ECC公钥**，以GXC开头，Base64 编码的ECC公钥 ***(如何生成公钥？别担心，请往后看)***
-
-有两种方式可以完成账户的注册:
-
-### 1. 在线钱包
-
-使用在线钱包[https://wallet.gxb.io](https://wallet.gxb.io)在界面上完成上述步骤
-
-### 2. 手动注册
-
-推荐对私钥安全要求较高的开发者使用这种方式完成注册，保证私钥是离线的
-
-#### 步骤1: 通过cli_wallet来生成一对公私钥
-
-``` bash
-./programs/cli_wallet/cli_wallet --suggest-brain-key
-{
-  "brain_priv_key": "SHAP CASCADE AIRLIKE WRINKLE CUNETTE FROWNY MISREAD MOIST HANDSET COLOVE EMOTION UNSPAN SEAWARD HAGGIS TEENTY NARRAS",
-  "wif_priv_key": "5J2FpCq3UmvcodkCCofXSNvHYTodufbPajwpoEFAh2TJf27EuL3",
-  "pub_key": "GXC75UwALPEFECfHLjHyNSxCk1j7XzSvApQiXKEbanWgr7yvXXbdG"
-}
-```
-
-::: tip 字段解释
-- brain_priv_key: 助记词，是私钥的原始文本，通过助记词可以还原出私钥
-- wif_priv_key: 私钥，在程序中使用
-- pub_key: 公钥，用于链上账户注册
-:::
-
-####  步骤2: 通过水龙头来完成账户注册
-
-1. 想一个专属的账户名(account_name),如`gxchain-genius`
-2. 替换下面curl命令中的 `<account_name>` and `<public_key>` 并在终端执行:
-
-``` bash
-curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
+```bash
+curl POST --data '{ "jsonrpc": "2.0", "method": "call", "params": [0, "get_dynamic_global_properties", []], "id": 1 }' http://x.x.x.x:28090
 ```

@@ -159,6 +159,7 @@ function genSidebarConfig (module, title) {
                     //'contract',
                     'testnet',
                     'private_chain',
+                    'api_server',
                     'witness',
                     'asset'
                 ]
