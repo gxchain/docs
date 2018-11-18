@@ -205,6 +205,20 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 
 ```
+
+### `get_vesting_balances`
+
+根据帐户id获取帐户所有的待解冻余额
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_vesting_balances", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+
+```
 ## 公信节点相关
 
 ### `get_trust_nodes`
