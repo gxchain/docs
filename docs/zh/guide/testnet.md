@@ -57,9 +57,11 @@ apt-get install libstdc++-7-dev
 
 注册完成后, 点击[申领测试代币](http://blockcity.mikecrm.com/2SVDb67)
 
-## 3. 下载最新testnet节点程序
+## 3. 下载最新testnet专用的节点程序
 
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
+
+测试网络的程序，跟主网不同，需要单独下载，执行如下命令：
 
 ```bash
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_testnet_install.sh' | bash

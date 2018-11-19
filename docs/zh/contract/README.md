@@ -3,13 +3,13 @@
 
 本教程的目的是为GXChain智能合约开发提供指导，包括合约开发、部署、调试以及常见错误归类等相关内容。
 
-GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为中间代码文件。  
+GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为Webassembly虚拟机执行的字节码文件。  
 
 **开发智能合约之前，你需要做如下准备:**
 
 - 对C++语言开发有一定程度的了解
 - 对Linux、Mac系统命令有一定程度的了解
-- 在本地启动gxb-core节点(witness_node和cli_wallet程序)（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
+- 在本地编译源码，启动本地私链或连接到测试网络（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
 
 
 ### 1. 启动本地私链
@@ -24,7 +24,7 @@ GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassemb
 
 ![](./png/chain_id.jpg)
 
-出块节点运行之后，切换到cli_wallet目录，运行如下命令，启动cli_wallet客户端与出块节点交互，包括创建账号、部署合约、合约调用等功能，均可通过cli_wallet客户端进行测试。(chain-id 切换为自己的id)
+出块节点运行之后，切换到cli_wallet目录，运行如下命令，启动cli_wallet客户端与出块节点交互，包括创建账号、部署合约、调用合约等功能，均可通过cli_wallet客户端进行测试。(chain-id 切换为自己的id)
 
 ```
 ./cli_wallet -sws://localhost:11011 --chain-id=679beed54a9081edfd3ede349a0aa1962ea2dc9d379808fecce56226cb199c84
@@ -38,9 +38,8 @@ GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassemb
 ### 2. 创建一个新钱包
 
 
-首先你需要为你的钱包创建一个新的密码。这个密码被用于加密所有钱包的私钥。在教程中我们使用如下密码：`supersecret`
-
-但你可以使用字母和数字的组合来创建属于你的密码。通过以下命令来创建你的密码：:
+首先你需要为你的钱包创建一个新的密码，钱包密码用来解锁你的钱包。在教程中我们使用如下密码：`supersecret`
+你也可以使用字母和数字的组合来创建属于你的密码。请输入如下命令创建：
 
 ```
 >>> set_password supersecret
@@ -85,7 +84,7 @@ list_account_balances nathan
 
 ### 4. 创建账户
 
-现在我们讲创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
+现在我们将创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
 
 通常我们用一个已有账户来创建新账户，因为登记员需要缴纳注册费用。 并且，登记员的账户需要进入Also, there is the requirement  lifetime member \(LTM\)状态。因此我们必须在创建新账户前，先将账户`nathan`升级到LTM状态， 使用`upgrade_account`命令来升级账户：
 
