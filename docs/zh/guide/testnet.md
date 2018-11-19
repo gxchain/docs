@@ -128,7 +128,8 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 #### (4) 重新启动公信节点程序
 
 重新启动公信节点程序，需要先关闭原来的witness_node
-关闭方式
+
+执行如下命令，关闭witness_node程序：
 ```
 kill -s SIGTERM $(pgrep witness_node)
 ```
