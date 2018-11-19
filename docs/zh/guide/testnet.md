@@ -155,3 +155,33 @@ kill -s SIGTERM $(pgrep witness_node)
 &表示程序后台运行
 ```
 
+
+::: tip 建议
+将程序启动命令行，放入shell脚本，方便启动和停止。 脚本可参考[这里](https://github.com/gxcdac/gxchain-script/tree/master/gxchain-test-script)
+
+```
+#!/bin/bash
+set -x
+
+kill -s SIGINT $(pgrep witness_node)
+echo $?
+
+while true
+do
+	pid=$(pgrep witness_node)
+	if [ $pid ] ; then
+		echo "stop witness_node ..."
+		sleep 1
+	else
+		break
+	fi
+done
+echo "start witness_node ..."
+
+./programs/witness_node/witness_node --data-dir=testnet_node \
+--rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" \
+--seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json  -w '"1.6.10"' \
+--private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' \
+--fast-replay  &
+```
+:::
