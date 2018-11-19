@@ -86,11 +86,71 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 ./programs/witness_node/witness_node --data-dir=testnet_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json &
 ```
 
+::: tip 参数介绍
+- --data-dir指定区块数据存储路径
+- --rpc-endpoin 开启rpc服务
+- --p2p-endpoint 开启p2p监听服务
+- --seed-nodes 指定节点启动时连接的种子节点
+:::
+
 目前测试网络数据量不大，可以跑全节点。通过后台日志文件testnet\_node/logs/witness.log可查看区块同步进度。
 区块同步完成后，可以运行命令行钱包cli\_wallet。
 
-## 6. 使用命令行钱包
+## 6. 如何成为测试网的公信节点
 
-```bash
-./programs/cli_wallet/cli_wallet -sws://127.0.0.1:28090  -r 127.0.0.1:8091 --data-dir=testnet_node --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4
+#### (1) 升级为终身会员
+创建公信节点，首先需要升级为终身会员。
+
+下载最新版本的PC钱包，或者访问[网页钱包](https://wallet.gxb.io), 按下图操作，升级为终身会员。
+
+![](./assets/witness/lifetime.jpeg)
+
+::: warning 提示
+只有终身会员才可以创建公信节点候选人，升级终身会员需要燃烧 50GXC 矿工费，请确保帐户余额充足。
+
+:::
+
+#### (2) 创建公信节点
+按下图操作，创建公信节点。
+
+![](./assets/witness/trustnode.jpg)
+
+#### (3) 查看公信节点id
+按下图操作，查看公信节点id。
+
+![](./assets/witness/witnessid.jpeg)
+
+::: warning 提示
+创建公信节点完成后，查看自己的节点id, 在启动公信节点程序时，需要带上此参数
+
+:::
+
+#### (4) 重新启动公信节点程序
+
+重新启动公信节点程序，需要先关闭原来的witness_node
+关闭方式
 ```
+kill -s SIGTERM $(pgrep witness_node)
+```
+
+重新启动命令：
+```
+# 通过PC钱包或者网页钱包，查看自己的公信节点id
+# 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点帐户的公私钥, 用于签署区块
+./programs/witness_node/witness_node --data-dir=testnet_node \
+--rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" \
+--seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json  -w '"1.6.10"' \
+--private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
+```
+
+其中
+```
+--data-dir指定区块数据存储路径
+
+-w 指定的是自己的公信节点id
+--private-key指定的是自己帐户的公钥和私钥
+以上2个参数必须正确，否则将影响区块生产
+
+&表示程序后台运行
+```
+
