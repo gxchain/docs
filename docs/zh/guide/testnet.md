@@ -27,7 +27,7 @@
 ## 环境要求
 
 - 系统: **Ubuntu 14.04 LTS 64-bit**, **4.4.0-63-generic** 内核或更高
-- 内存: 2GB+
+- 内存: 2GB+ (越多越好)
 - 硬盘: 40GB+
 - 网络： 10MB+带宽
 
@@ -82,7 +82,7 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 - 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/zh/guide/private_chain)
 :::
 
-## 5. 启动测试网络节点
+## 5. 启动测试网络节点， 同步数据
 
 ```bash
 ./programs/witness_node/witness_node --data-dir=testnet_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json &
