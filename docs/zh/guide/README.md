@@ -40,7 +40,7 @@ apt-get install libstdc++-7-dev
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
-### 2. 启动节点
+### 2. 启动节点， 同步数据
 
 ``` bash
 ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
