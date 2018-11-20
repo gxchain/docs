@@ -6,7 +6,7 @@
 
 1. 通过公信宝钱包，创建公信节点
 2. 部署并运行公信节点程序
-3.查看公信节点出块奖励
+3. 查看公信节点出块奖励
 
 ### 1.创建公信节点
 
@@ -66,13 +66,13 @@ apt-get install libstdc++-7-dev
 :::
 
 
-下载节点程序
+#### 下载节点程序
 ```
 # 执行如下命令行，将下载最新的公信节点程序，到当前目录下
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
-启动公信节点程序
+#### 启动公信节点程序, 同步数据
 
 ```
 # 通过PC钱包或者网页钱包，查看自己的公信节点id
@@ -92,9 +92,30 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 &表示程序后台运行
 ```
 
-完全同步区块需要约24小时。可以通过后台日志文件witness\_node\_data\_dir/logs/witness.log可查看区块同步进度，访问[GXChain区块浏览器](https://block.gxb.io/)查看最新区块。
+完全同步区块需要约30+小时。可以通过后台日志文件trusted_node/logs/witness.log可查看区块同步进度，访问[GXChain区块浏览器](https://block.gxb.io/)查看最新区块。
+
+#### 查看日志
 
 通过tail -f trusted_node/log/witness.log查看日志。
+```
+tail -f trusted_node/logs/witness.log
+
+```
+区块同步过程中，每隔1000个区块会打印一行日志； 同步到最新区块时，每3秒打印一行日志，区块号连续，日志看起来是这样的:
+```
+2018-06-28T03:43:03 th_a:invoke handle_block         handle_block ] Got block: #10731531 time: 2018-06-28T03:43:03 latency: 60 ms from: miner11  irreversible: 10731513 (-18)			application.cpp:489
+2018-06-28T03:43:06 th_a:invoke handle_block         handle_block ] Got block: #10731532 time: 2018-06-28T03:43:06 latency: 16 ms from: taffy  irreversible: 10731515 (-17)			application.cpp:489
+2018-06-28T03:43:09 th_a:invoke handle_block         handle_block ] Got block: #10731533 time: 2018-06-28T03:43:09 latency: 49 ms from: david12  irreversible: 10731515 (-18)			application.cpp:489
+2018-06-28T03:43:12 th_a:invoke handle_block         handle_block ] Got block: #10731534 time: 2018-06-28T03:43:12 latency: 42 ms from: miner6  irreversible: 10731516 (-18)			application.cpp:489
+2018-06-28T03:43:15 th_a:invoke handle_block         handle_block ] Got block: #10731535 time: 2018-06-28T03:43:15 latency: 10 ms from: sakura  irreversible: 10731516 (-19)			application.cpp:489
+2018-06-28T03:43:18 th_a:invoke handle_block         handle_block ] Got block: #10731536 time: 2018-06-28T03:43:18 latency: 57 ms from: miner9  irreversible: 10731517 (-19)			application.cpp:489
+2018-06-28T03:43:21 th_a:invoke handle_block         handle_block ] Got block: #10731537 time: 2018-06-28T03:43:21 latency: 56 ms from: robin-green  irreversible: 10731517 (-20)			application.cpp:489
+2018-06-28T03:43:24 th_a:invoke handle_block         handle_block ] Got block: #10731538 time: 2018-06-28T03:43:24 latency: 17 ms from: kairos  irreversible: 10731522 (-16)			application.cpp:489
+2018-06-28T03:43:27 th_a:invoke handle_block         handle_block ] Got block: #10731539 time: 2018-06-28T03:43:27 latency: 21 ms from: dennis1  irreversible: 10731524 (-15)			application.cpp:489
+2018-06-28T03:43:30 th_a:invoke handle_block         handle_block ] Got block: #10731540 time: 2018-06-28T03:43:30 latency: 17 ms from: aaron  irreversible: 10731524 (-16)			application.cpp:489
+2018-06-28T03:43:33 th_a:invoke handle_block         handle_block ] Got block: #10731541 time: 2018-06-28T03:43:33 latency: 23 ms from: caitlin  irreversible: 10731526 (-15)			application.cpp:489
+```
+
 如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
 
 ```
