@@ -205,7 +205,7 @@ appenders=stderr
 现在你可以解锁你新建的钱包了：
 
 ```
-unlock supersecret
+locked >>> unlock supersecret
 ```
 
 ### 2) 申领初始余额
@@ -214,7 +214,7 @@ unlock supersecret
 在例子中，我们将通过`import_key`命令向现有钱包中导入my-genesis.json中初始化的`nathan`帐户：
 
 ```
-import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+unlocked >>> import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
 
 ::: warning 提示
@@ -224,19 +224,19 @@ import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 现在我们已经将私钥导入进钱包, my-genesis.json中初始化的余额，需要通过`import_balance`命令来申领，无需申明费用：
 
 ```
-import_balance nathan ["5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"] true
+unlocked >>> import_balance nathan ["5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"] true
 ```
 
 你可以通过以下命令来检视你的账户：
 
 ```
-get_account nathan
+unlocked >>> get_account nathan
 ```
 
 用以下命令获取账户余额：
 
 ```
-list_account_balances nathan
+unlocked >>> list_account_balances nathan
 ```
 
 ### 3) 创建账户
@@ -246,24 +246,28 @@ list_account_balances nathan
 通常我们用一个已有账户来创建新账户，因为登记员需要缴纳注册费用。 并且，登记员的账户需要进入Also, there is the requirement  lifetime member \(LTM\)状态。因此我们必须在创建新账户前，先将账户`nathan`升级到LTM状态， 使用`upgrade_account`命令来升级账户：
 
 ```
-upgrade_account nathan GXC true
+unlocked >>> upgrade_account nathan GXC true
 ```
 返回的信息中，在`membership_expiration_date`边上你会发现`2106-02-07T06:28:15`。 如果你看到`1970-01-01T00:00:00`，说明之前的操作出现了错误，`nathan`没能成功升级。
 
 成功升级后，我们可以通过`nathan`来注册新账户，但首先我们需要拥有新账户的公钥。通过使用`suggest_brain_key`命令来完成：
 
 ```
-suggest_brain_key
+unlocked >>> suggest_brain_key
 ```
 
 然后调用register\_account / register\_account2接口创建新帐户
 
 ```
-register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ nathan nathan 10
+unlocked >>> register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ nathan nathan 10
+```
+至此，帐户alpha创建成功。你可以调用transfer3接口向alpha转帐
+```
+unlocked >>>  transfer3 nathan alpha 100 GXC "" GXC true
 ```
 
-最终将有类似如下的回复：
+查看帐户alpha的余额
 
 ```
-list_account_balances alpha
+unlocked >>> list_account_balances alpha
 ```
