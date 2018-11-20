@@ -5,7 +5,7 @@
 [**最新程序**](https://github.com/gxchain/gxb-core/releases/latest)
 
 ```bash
-curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
+curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_private_net_install.sh' | bash
 ```
 
 ## 2. 生成ECC密钥对
