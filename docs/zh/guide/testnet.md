@@ -64,6 +64,7 @@ apt-get install libstdc++-7-dev
 测试网络的程序，跟主网不同，需要单独下载，执行如下命令：
 
 ```bash
+# 执行这个shell脚本，会自动从github下载最新的测试网程序，并解压至当前目录下
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_testnet_install.sh' | bash
 ```
 
