@@ -464,7 +464,7 @@ unlocked >>> list_account_balances hello
 
 #### 1.2  部署合约
 
-您可以使用如下命令部署Redpacket红包合约
+您可以使用如下命令部署bank银行存取合约
 
 ```
 # 需要将智能合约所在路径替换为你自己的路径
@@ -517,7 +517,7 @@ void deposit()
     // 获取调用者id
     uint64_t owner = get_trx_sender();
     auto it = accounts.find(owner);
-    //如果调用者尚未存储过资产，则为其创建table，主键为用户instance_id
+    //如果调用者尚未存储过资产，则为其创建table项，主键为用户instance_id
     if (it == accounts.end()) {
         accounts.emplace(owner, [&](auto &o) {
             o.owner = owner;
@@ -576,6 +576,146 @@ void withdraw(std::string to_account, contract_asset amount)
     }
     //内置api，提现资产到指定账户
     withdraw_asset(_self, account_id, amount.asset_id, amount.amount);
+}
+```
+## riddle合约简介
+
+在阅读本篇教程之前，假定您已经阅读完了[入门指导](#入门指导)
+
+### 1. 功能简介与部署调用
+
+####  1.0 合约功能
+
+[riddle合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/riddle)是一个谜题合约，包括两个action接口，一个table。用户可以通过issue接口，创建一个谜题以及答案的哈希值保存到区块链上。reveal接口则用来验证谜题的回答是否正确，即验证回答的哈希值是否与谜题答案对应的哈希值一致。
+
+- **创建谜题以及哈希答案**
+
+```
+//生成答案对应的sha256哈希值，答案明文为4
+zhaoxiangfei@zhaoxiangfeideMacBook-Pro:~$ echo -n "4" | shasum -a 256
+4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a
+
+//创建一个内容为`2+2=？`的谜题，答案为4。
+unlocked >>> call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXS true
+{
+  "ref_block_num": 39138,
+  "ref_block_prefix": 3499868408,
+  "expiration": "2018-11-20T13:37:00",
+  "operations": [[
+      75,{
+        "fee": {
+          "amount": 100,
+          "asset_id": "1.3.1"
+        },
+        "account": "1.2.17",
+        "contract_id": "1.2.29",
+        "method_name": "issue",
+        "data": "0932202b2032203d203f4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "1f0982608581765be0119c2af2261dd161b60e9ff5f02d07ff69c486e0ef2e52ef3187544f035d169de640386c87e24f2c61194693ac82d708f6177745d6dfb5a5"
+  ]
+}
+```
+- **验证提交的回答是否正确,输出成功或失败**
+
+验证提交的答案，错误提交，控制台显示如下：
+![](./png/wrong_answer.jpg)
+验证提交的答案，正确提交，控制台显示如下：
+![](./png/right_answer.jpg)
+
+####  1.1 编译合约
+
+您可以使用如下命令编译智能合约的abi文件和wast文件
+
+```
+# 其中的riddle.cpp所在路径需要替换为你自己的路径
+./gxx -g /Users/zhaoxiangfei/code/contracts_work/riddle/riddle.abi /Users/zhaoxiangfei/code/contracts_work/riddle/riddle.cpp
+
+# 其中的riddle.cpp所在路径需要替换为你自己的路径
+./gxx -o /Users/zhaoxiangfei/code/contracts_work/riddle/riddle.wast /Users/zhaoxiangfei/code/contracts_work/riddle/riddle.cpp
+```
+
+#### 1.2  部署合约
+
+您可以使用如下命令部署riddle谜题合约
+
+```
+# 需要将智能合约所在路径替换为你自己的路径
+deploy_contract riddle nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/riddle GXS true
+```
+
+#### 1.3 调用合约
+
+```
+生成答案的sha256哈希值
+echo -n "4" | shasum -a 256
+# 创建谜题和答案的哈希值
+call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXS true
+
+# 提交谜题回答的调用方式
+# 错误答案
+call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"3\"}" GXS true
+# 正确答案
+call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"4\"}" GXS true
+```
+
+### 2.代码解析
+
+该合约包括一个table，用来存储谜题以及答案的哈希值，当谜题被解开后，清除table中的破解的谜题项。table主键为issuer（instance_id），由于主键是唯一的，所以每个用户只能同时在链上创建一个谜题。包括两个action，功能为创建谜题和提交回答。谜题答案以哈希值的方式保存在table中。
+
+```
+// @abi table record i64
+struct record {
+    uint64_t            issuer;             //主键是唯一的，如果一个用户创建多个谜题，不能使用用户id为主键
+    std::string         question;
+    checksum256         hashed_answer;      //checksum256 内置哈希值类型
+
+    uint64_t primary_key() const { return issuer; }
+
+    GRAPHENE_SERIALIZE(record, (issuer)(question)(hashed_answer))
+};
+```
+
+- 创建谜题，提交谜题明文内容以及答案的哈希值，哈希值需要在链下运算生成，采用sha256算法生成哈希
+```
+/// @abi action
+void issue(const std::string& question, const checksum256& hashed_answer)
+{
+    // 获取调用者的instance_id，作为record table的主键
+    uint64_t owner = get_trx_sender();
+    records.emplace(owner, [&](auto &p) {
+            p.issuer = owner;
+            p.question = question;
+            p.hashed_answer = hashed_answer;
+    });
+}
+```
+- 提交答案，由合约进行验证，合约内置了sha256方法，可以在链上校验提交的回答是否满足条件
+```
+/// @abi actio
+void reveal(const std::string& issuer, const std::string& answer)
+{
+    int64_t issuer_id = get_account_id(issuer.c_str(), issuer.size());
+    graphene_assert(issuer_id >= 0, "issuer not exist");
+    auto iter = records.find(issuer_id);
+    graphene_assert(iter != records.end(), "no record");
+
+    // sha256验证提交的回答是否为答案
+    checksum256 hashed_answer;
+    sha256(const_cast<char *>(answer.c_str()), answer.length(), &hashed_answer);
+
+    // 谜题被破解后则从table中删除，回收内存
+    if (iter->hashed_answer == hashed_answer) {
+        print("reveal success! \n");
+        records.erase(iter);
+    } else {
+        print("answer is wrong! \n");
+    }
 }
 ```
 
