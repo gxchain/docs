@@ -33,6 +33,7 @@ apt-get install libstdc++-7-dev
 ## 2. 下载Release包
 
 ``` bash
+# 执行这个shell脚本，会自动从github下载最新的主网程序，并解压至当前目录下
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
