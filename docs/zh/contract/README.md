@@ -697,7 +697,7 @@ void issue(const std::string& question, const checksum256& hashed_answer)
 ```
 - 提交答案，由合约进行验证，合约内置了sha256方法，可以在链上校验提交的回答是否满足条件
 ```cpp
-/// @abi actio
+/// @abi action
 void reveal(const std::string& issuer, const std::string& answer)
 {
     int64_t issuer_id = get_account_id(issuer.c_str(), issuer.size());
@@ -718,5 +718,157 @@ void reveal(const std::string& issuer, const std::string& answer)
     }
 }
 ```
+
+## linear\_vesting\_asset合约简介
+
+在阅读本篇教程之前，假定您已经阅读完了[入门指导](#入门指导)
+
+### 1. 功能简介与部署调用
+
+####  1.0 合约功能
+
+[linear_vesting_asset合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/linear_vesting_asset)的功能是向某一个账户按时间线性释放资产。用户可以创建一个资产释放项，包含接收释放资产的账户，冻结时间，释放时间。描述为：账户A通过合约向账户B线性释放一笔资产。可以指定冻结xx时间（xx表示冻结时间）后，开始释放，总共xx时间（xx表示释放时间）释放完，资产释放是线性的。
+
+- **创建线性释放资产项**
+```bash
+// 创建一个到hello账户的线性资产释放项，冻结时间为30s，释放时间为120s
+call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXS true
+unlocked >>> get_table_objects vesting vestingrule 0 -1 10
+[{
+    "account_id": 22,
+    "vesting_amount": 1000000,
+    "vested_amount": 0,
+    "lock_time_point": 1542785150,
+    "lock_duration": 30,
+    "release_time_point": 1542785180,
+    "release_duration": 120
+  }
+]
+```
+- **线性解冻合约**
+
+```bash
+// 解冻资产到hello账户
+unlocked >>> call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXS true
+unlocked >>> list_account_balances hello
+11 GXS
+```
+####  1.1 编译合约
+
+您可以使用如下命令编译智能合约的abi文件和wast文件
+
+```bash
+# 其中的linear_vesting_asset.cpp所在路径需要替换为你自己的路径
+./gxx -g /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.abi /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.cpp
+
+# 其中的linear_vesting_asset.cpp所在路径需要替换为你自己的路径
+./gxx -o /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.wast /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.cpp
+```
+
+#### 1.2  部署合约
+
+您可以使用如下命令部署vesting线性释放资产合约
+
+```bash
+# 需要将智能合约所在路径替换为你自己的路径
+deploy_contract vesting nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset GXS true
+```
+
+#### 1.3 调用合约
+```bash
+// 合约名 vesting，附加的资产为10 GXS（资产id为1.3.1），释放的账户为hello账户，冻结30s之后开始释放，经过120s的时间之后，完全完所有的资产。
+call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXS true
+
+// 认领释放的资产到hello账户（必须30s之后才可以认领，30s为冻结时间）
+call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXS true
+```
+
+### 2.代码解析
+- 该合约包含一个table（vestingrule，持久化存储保存了锁定资产数量、锁定时间、释放时间等字段）
+```cpp
+//@abi table vestingrule i64
+struct vestingrule {
+    uint64_t account_id;        //认领账户的id 主键，不能同时有两项向同一账户释放资产
+
+    int64_t vesting_amount;     //初始锁定资产
+    int64_t vested_amount;      //已释放资产
+
+    int64_t lock_time_point;    //锁定开始时间
+    int64_t lock_duration;      //锁定多久开始释放
+    int64_t release_time_point; //释放开始时间
+    int64_t release_duration;   //释放多久全部释放完毕
+
+    uint64_t primary_key() const { return account_id; }
+
+    GRAPHENE_SERIALIZE(vestingrule,
+       (account_id)(vesting_amount)(vested_amount)(lock_time_point)(lock_duration)(release_time_point)(release_duration))
+};
+```
+
+- 包含两个action（vestingcreate action用来创建一个线性释放资产项；vestingclaim action用来认领线性释放的资产）
+
+```cpp
+/// @abi action
+/// @abi payable
+void vestingcreate(std::string to, int64_t lock_duration, int64_t release_duration)
+{
+    // contract_asset_id是一个自定义变量，表示GXS资产，线性释放资产只支持GXS
+    graphene_assert(contract_asset_id == get_action_asset_id(), "not supported asset");
+    contract_asset ast{get_action_asset_amount(), contract_asset_id};
+    int64_t to_account_id = get_account_id(to.c_str(), to.size());
+    // 验证认领账户是否有效 以及该认领账户是否有已经锁定的资产
+    graphene_assert(to_account_id >= 0, "invalid account_name to");
+    auto lr = vestingrules.find(to_account_id);
+    graphene_assert(lr == vestingrules.end(), "have been locked, can only lock one time");
+
+    //创建资产释放项，在vestingrule table中添加一项，使用emplace接口
+    vestingrules.emplace(0, [&](auto &o) {
+        o.account_id = to_account_id;
+        o.vesting_amount = ast.amount;
+        o.vested_amount = 0;
+        o.lock_time_point = get_head_block_time();
+        o.lock_duration = lock_duration;
+        o.release_time_point = o.lock_time_point + o.lock_duration;
+        o.release_duration = release_duration;
+    });
+}
+
+/// @abi action
+void vestingclaim(std::string who)
+{   
+    // 验证认领账户id是否有效
+    int64_t who_account_id = get_account_id(who.c_str(), who.size());
+    graphene_assert(who_account_id >= 0, "invalid account_name to");
+
+    // 验证该账户是否存在锁定待释放的资产
+    auto lr = vestingrules.find(who_account_id);
+    graphene_assert(lr != vestingrules.end(), "current account have no locked asset");
+
+    // 验证资产是否经过了冻结时间，并计算可以认领的资产数量
+    uint64_t now = get_head_block_time();
+    graphene_assert(now > lr->release_time_point, "within lock duration, can not release");
+    int percentage = (now - lr->release_time_point) * 100 / lr->release_duration;
+    if (percentage > 100)
+        percentage = 100;
+    int64_t vested_amount = (int64_t)(1.0f * lr->vesting_amount * percentage / 100);
+    vested_amount = vested_amount - lr->vested_amount;
+    graphene_assert(vested_amount > 0, "vested amount must > 0");
+
+    // 提现资产到认领账户
+    withdraw_asset(_self, who_account_id, contract_asset_id, vested_amount);
+
+    // 提现之后，修改资产认领项的vesting_amount、vested_amount字段
+    vestingrules.modify(lr, 0, [&](auto &o) {
+        o.vested_amount += vested_amount;
+    });
+    if (lr->vesting_amount == lr->vested_amount) {
+        vestingrules.erase(lr);
+    }
+}
+```
+
+
+
+
 
 
