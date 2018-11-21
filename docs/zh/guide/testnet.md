@@ -6,6 +6,7 @@
 在测试网络上，开发者可以:
 
 - 申请[免费的Token](http://blockcity.mikecrm.com/2SVDb67)
+- 测试网络Token自动申领 (http://testnet.gxchain.org:8088/get_token?your_account_name), 每次200个，每天1000个
 - 测试[客户端](clients.html)
 - 体验最新功能
 - 参与GXChain开发
