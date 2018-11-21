@@ -8,7 +8,7 @@
 
 解决办法：可以在vscode软件中手动设置，.vscode目录 --> c_cpp_properties.json文件编辑
 
-```
+```json
 "includePath": [
     "${workspaceFolder}/**",
     "/Users/zhaoxiangfei/code/gxb-core/contracts",  //替换为自己的合约头文件路径
@@ -20,7 +20,7 @@
 错误原因：可能是由于没有在给外部调用的action或者table上，没有添加注释，导致gxx工具扫描生成abi文件缺失。（abi文件解析点击[这里](#abi文件解析)）
 
 解决办法：在action和table上添加注释，示例如下：
-```
+```cpp
 // 调用不带附加资产的action
 // @abi action
 void hi(std::string user){
@@ -47,7 +47,7 @@ struct packet {
 
 解决办法：将lambda表达式的参数修改为对象的引用。
 
-```
+```cpp
 offers.emplace(0, [&](auto &o) {
     o.id = offers.available_primary_key();;
     ...
@@ -58,7 +58,7 @@ offers.emplace(0, [&](auto &o) {
 
 解决办法：查看abi中是否存在该action和GRAPHENE_ABI宏是否包含该action
 
-```
+```cpp
 // 如果不包含某个action，合约依然可以部署成功，只是在调用时，合约会无法处理调用的action
 GRAPHENE_ABI(hello,(hi))
 ```
@@ -79,7 +79,7 @@ abi文件主要包含四个重要字段：types、structs、actions、tables。
 ### types
 
 types字段定义了合约开发过程中，类型的自定义别名，示例：
-```c++
+```cpp
 // 合约中有如下定义
 typedef std::string mystring;
 // @abi action
@@ -98,7 +98,7 @@ void appyourcom(mystring comname,std::string compub);
 
 structs字段定义了table名称、包含的字段类型以及action名称、包含的参数类型
 
-```
+```json
 // 以红包合约abi文件为例，structs包含了table的定义和字段、action的定义和字段等详细定义
 "structs": [{
 	.......
@@ -133,7 +133,7 @@ structs字段定义了table名称、包含的字段类型以及action名称、�
 
 actions字段包括定义的对外接口的name、type（同name）、payable（bool类型，调用action是否附加资产）
 
-```
+```json
 "actions": [{
 	"name": "issue",
 	"type": "issue",
@@ -152,7 +152,7 @@ actions字段包括定义的对外接口的name、type（同name）、payable（
 
 table字段包括定义的多索引表，name（表名，与合约中定义的table名称一致）、index_type（主键索引类型，为i64）、key_names（主键成员名称）、key_types（主键成员类型）、type（同表名）
 
-```
+```json
 "tables": [{
 	"name": "packet",
 	"index_type": "i64",

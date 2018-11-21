@@ -67,7 +67,7 @@
 
 使用gxx的模板创建一个helloworld合约
 
-```
+```bash
 gxx -n helloworld
 ```
 
@@ -75,12 +75,12 @@ gxx -n helloworld
 
 编译合约，生成wast和wasm文件
 
-``` bash
+```bash
 gxx -o helloworld/helloworld.wast helloworld/helloworld.cpp
 ```
 生成abi文件
 
-``` bash
+```bash
 gxx -g helloworld/helloworld.abi helloworld/helloworld.cpp
 ```
 
@@ -88,13 +88,13 @@ gxx -g helloworld/helloworld.abi helloworld/helloworld.cpp
 
 需要开启cli_wallet，连接本地节点或者远程testnet节点
 
-``` bash
+```bash
 ./programs/cli_wallet/cli_wallet -swss://testnet.gxchain.org --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4
 ```
 
 导入钱包私钥
 
-``` bash
+```bash
 # 如果是新钱包，需要设置一个解锁密码，此处为mylocalpassword
 
 new >>> set_password mylocalpassword
@@ -112,6 +112,6 @@ unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXS t
 ### 5. 调用合约
 部署合约成功后，可以使用call_contract接口调用合约
 
-``` bash
+```bash
 unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXS true
 ```

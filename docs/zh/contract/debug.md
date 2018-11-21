@@ -10,47 +10,47 @@ print调试方式，实现了多种参数类型的重载实现。支持字符串
 ![](./png/print.jpg)
 
 ## prints
-```
+```cpp
 //打印字符串 const char*
 prints("hello");
 输出: hello
 ```
 
 ## prints_l
-```
+```cpp
 //打印字符串的前几个字符
 prints_l("hello",3);
 输出：hel
 ```
 ## printi
-```
+```cpp
 //打印有符号数，参数为int64_t类型
 printi(-1);
 输出：-1
 ```
 ## printui
-```
+```cpp
 //打印无符号数，参数为uint64_t类型
 printui(-1);
 输出：18446744073709551615
 ```
 
 ## printdf
-```
+```cpp
 //打印浮点数，参数为double类型
 printdf(3.14159);
 输出：3.141590000000000e+00
 ```
 
 ## printn
-```
+```cpp
 //打印uint64类型base32加密后的结果
 printn(N(hello));
 输出：hello
 ```
 
 ## printhex
-```
+```cpp
 //打印16进制
 const char* str="hello";
 printhex(str,5);
