@@ -10,7 +10,7 @@ int64_t     amount;
 uint64_t    asset_id;
 ```
 ::: warning 提示
-contract_asset类型中，其中amount表示资产数量，在链上使用大数存储，举例来说，GXC资产精度为5，1 GXC实际需要表示为1 * 100000 = 1000000， 即amount为100000
+contract_asset类型中，其中amount表示资产数量，在链上使用大数存储，举例来说，GXC资产精度为5，1 GXC实际需要表示为1 * 100000 = 100000， 即amount为100000
 
 asset_id表示资产的instance id(比如资产id为1.3.1， 则其instance id最后的1)。
 :::
