@@ -6,7 +6,7 @@
 在测试网络上，开发者可以:
 
 - 申请[免费的Token](http://blockcity.mikecrm.com/2SVDb67)
-- 测试网络Token自动申领, 每次200个，每天1000个, 浏览器访问  https://testnet.gxchain.org/gxc/get_token?your_account_name 
+- 测试网络Token自动申领, 每次200个，每天1000个, 浏览器访问  ```https://testnet.gxchain.org/gxc/get_token?your_account_name```
 - 测试[客户端](clients.html)
 - 体验最新功能
 - 参与GXChain开发
@@ -58,7 +58,7 @@ apt-get install libstdc++-7-dev
 
 - 注册完成后, 点击[申领测试代币](http://blockcity.mikecrm.com/2SVDb67)
 
-- 测试网络Token自动申领, 每次200个，每天1000个, 浏览器访问 https://testnet.gxchain.org/gxc/get_token?your_account_name   请将your_account_name 替换为你的测试网络钱包帐户名
+- 测试网络Token自动申领, 每次200个，每天1000个, 浏览器访问 ```https://testnet.gxchain.org/gxc/get_token?your_account_name```   请将your_account_name 替换为你的测试网络钱包帐户名
 
 
 ## 3. 下载最新testnet专用的节点程序
