@@ -191,7 +191,7 @@ kill -s SIGTERM $(pgrep witness_node)
 
 
 ::: tip 建议
-将程序启动命令行，放入shell脚本，方便启动和停止。 脚本可参考[这里](https://github.com/gxcdac/gxchain-script/tree/master/gxchain-test-script)
+程序启动命令行确定后，建议放入shell脚本，方便以后启动和停止。 脚本可参考[这里](https://github.com/gxcdac/gxchain-script/tree/master/gxchain-test-script)
 
 ```
 #!/bin/bash
