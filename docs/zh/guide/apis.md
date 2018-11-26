@@ -151,6 +151,18 @@ curl --data '{
 ```
 
 
+### `get_key_references`
+根据公钥，查询关联的帐户，返回关联的帐户id
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_key_references", [["GXC7mmfnZWUYtz2tjNGqduZRe2w5x79GCjuoMiVkmEGRE94Vq7gAo"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
 ## 资产相关
 
 ### `list_assets`
