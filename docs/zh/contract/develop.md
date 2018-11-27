@@ -113,6 +113,9 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_asset_id | 根据资产名获取资产的instance_id |
 | <graphenelib/global.h> | read_transaction | 读取当前transaction序列化后的数据 |
 | <graphenelib/global.h> | transaction_size | 当前transaction序列化后的数据的长度 |
+| <graphenelib/global.h> | expiration | 获取交易到期时间 |
+| <graphenelib/global.h> | tapos_block_num | 返回交易引用的区块号 |
+| <graphenelib/global.h> | tapos_block_prefix | 返回交易引用的区块ID（第二个32位数） |
 | <graphenelib/system.h> | graphene_assert | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
 | <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，输出必要的信息，但是本次合约的执行会继续 |
 | <graphenelib/system.h> | print | 用于调试时日志的打印 |
@@ -420,6 +423,41 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回序列化后的数据的长度
 
+
+
+### expiration
+
+**函数类型:** `uint64_t expiration()`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取交易到期时间
+
+**返回值:** 返回交易到期时间
+
+
+
+### tapos\_block\_num
+
+**函数类型:** `int tapos_block_num()`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取交易引用的区块号
+
+**返回值:** 返回交易引用的区块号
+
+
+
+### tapos\_block\_prefix
+
+**函数类型:** `uint64_t tapos_block_prefix()`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取交易引用的区块ID（第二个32位数）
+
+**返回值:** 返回交易引用的区块ID（第二个32位数）
 
 
 ### graphene\_assert
