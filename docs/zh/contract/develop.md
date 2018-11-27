@@ -111,6 +111,8 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_trx_sender | 获取调用合约的账号的instance_id |
 | <graphenelib/global.h> | get_account_id | 根据账号名获取账号的instance_id |
 | <graphenelib/global.h> | get_asset_id | 根据资产名获取资产的instance_id |
+| <graphenelib/global.h> | read_transaction | 读取当前transaction序列化后的数据 |
+| <graphenelib/global.h> | transaction_size | 当前transaction序列化后的数据的长度 |
 | <graphenelib/system.h> | graphene_assert | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
 | <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，输出必要的信息，但是本次合约的执行会继续 |
 | <graphenelib/system.h> | print | 用于调试时日志的打印 |
@@ -390,6 +392,33 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<uint32_t> length` 账号名的长度，例如nathan的长度是6
 
+
+### read\_transaction
+
+**函数类型:** `int read_transaction(char* dst, uint32_t dst_size)`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 读取当前transaction序列化后的数据到dst中
+
+**返回值:** 当dst_size为0时，返回读取所需的字节数；当dst_size不为0时，返回实际读取的字节数（dst_size与transaction size的最小值）
+
+**params:**
+
+`<char*> dst` 接收读取到的数据buffer的指针
+
+`<uint32_t> dst_size` 要读取的长度
+
+
+### transaction\_size
+
+**函数类型:** `int transaction_size()`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取当前transaction序列化后的数据的长度
+
+**返回值:** 返回序列化后的数据的长度
 
 
 
