@@ -50,5 +50,10 @@ Websocket++: 0.7.0
 ```
 ps xf | grep witness_node
 ```
-
-
+### 7. witness_node启动失败，无日志，进程不存在
+修改本地的config.ini文件，如下：
+```[logger.default]
+level=debug
+appenders=stderr,FILE
+```
+然后重新启动，错误信息会打印到控制台
