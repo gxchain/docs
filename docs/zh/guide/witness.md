@@ -85,8 +85,8 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ```
 --data-dir指定区块数据存储路径
 
--w 指定的是自己的公信节点id
---private-key指定的是自己帐户的公钥和私钥
+-w 指定的是自己的公信节点id, 注意是'"1.6.x"'，双引号外面带单引号
+--private-key指定的是自己帐户的公钥和私钥，注意最外面带单引号
 以上2个参数必须正确，否则将影响区块生产
 
 &表示程序后台运行
