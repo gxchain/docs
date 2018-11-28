@@ -2,7 +2,19 @@
 
 在开发智能合约过程中，调试也是非常重要的，目前，调试智能合约的方式，主要是使用GXChain区块链提供的接口print打印相关日志到witness控制台，所以本地搭建一个私链或者本地启动一个同步测试网的节点，对于智能合约的调试是非常必要的。
 
-print调试方式，实现了多种参数类型的重载实现。支持字符串、int型、浮点数、十六进制等
+开启调试，需要2个操作：
+#### 1. 修改本地的config.ini文件，如下：
+```
+[logger.default]
+level=debug
+appenders=stderr,FILE
+```
+
+#### 2. 在witness_node启动时，带上参数 ``` --contracts-console ```
+
+print调试方式，实现了多种参数类型的重载实现。支持字符串、int型、浮点数、十六进制等。
+
+
 
 ## print
 
