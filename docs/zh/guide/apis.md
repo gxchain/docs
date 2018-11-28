@@ -278,13 +278,14 @@ curl --data '{
 ### `get_table_rows`
 根据contract和table，查询合约的表内容
 
+```
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_table_rows", ["contract_name", "contract_table", 1, 10]],
     "id": 1
 }' https://node1.gxb.io/rpc
-
+```
 
 
 
