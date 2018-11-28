@@ -259,8 +259,31 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-### `get_table_objects`
+### `lookup_vote_ids`
 
+根据vote_id返回所属公信节点的信息
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "lookup_vote_ids", [["1:22", "0:72"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+
+## 智能合约存储表相关
+
+### `get_table_rows`
+根据contract和table，查询合约的表内容
+
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows", ["contract_name", "contract_table", 1, 10]],
+    "id": 1
+}' https://node1.gxb.io/rpc
 
 
 
