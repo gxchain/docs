@@ -276,7 +276,7 @@ curl --data '{
 ## 智能合约存储表相关
 
 ### `get_table_rows`
-根据contract和table，查询合约的表内容
+根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit
 
 ```
 curl --data '{
