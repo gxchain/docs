@@ -107,6 +107,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/crypto.h> | verify_signature | 验证签名 |
 | <graphenelib/global.h> | get_head_block_num | 获取最新区块号 |
 | <graphenelib/global.h> | get_head_block_id | 获取最新区块hash |
+| <graphenelib/global.h> | get_block_id_for_num | 获取指定区块hash |
 | <graphenelib/global.h> | get_head_block_time | 获取最新区块的时间，返回值单位秒 |
 | <graphenelib/global.h> | get_trx_sender | 获取调用合约的账号的instance_id |
 | <graphenelib/global.h> | get_account_id | 根据账号名获取账号的instance_id |
@@ -133,6 +134,13 @@ typedef struct checksum160      block_id_type;
 
 **返回值:** 返回当前合约账号的instance id
 
+```cpp
+// @abi action
+void examcurr(){
+    uint64_t ins_id = current_receiver();
+    print("current contract account id: ", ins_id);
+}
+```
 
 
 
@@ -144,41 +152,15 @@ typedef struct checksum160      block_id_type;
 
 **功能说明:** 返回本次调用向合约发送的资产instance id (即资产id的最后一位)
 
-**返回值:** 返回0表示action无附带资产，返回非0表示资产的instance id 
+**返回值:** 返回0表示action无附带资产，返回非0表示资产的instance id       
 
-
-#### example1
 ```cpp
-#include <graphenelib/action.h>
-#include <graphenelib/contract.hpp>
-#include <graphenelib/dispatcher.hpp>
-#include <graphenelib/types.h>
-
-using namespace graphene;
-
-class helloworld : public contract
-{
-public:
-    helloworld(uint64_t id) 
-        : contract(id)
-    {}   
-    //@abi action
-    //@abi payable
-    void deposit()
-    {   
-        uint64_t asset_id = get_action_asset_id();
-    }   
-};
-
-GRAPHENE_ABI(helloworld, (deposit))
+// @abi action
+void examgetast(){
+    uint64_t ast_id = get_action_asset_id();
+    print("call action asset id: ",ast_id);
+}
 ```
-
-在钱包客户端输入命令
-`call_contract nathan helloworld {"amount":10000000,"asset_id":1.3.1} deposit "{}" GXC true`
-调用helloworld的deposit方法，内部调用`get_action_asset_id()`将返回1
-            
-
-
 
 ### get\_action\_asset\_amount
 
@@ -190,7 +172,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回0表示合约无附带资产，返回非0表示附带资产数量，数量需要除以10万
 
-
+```cpp
+//get_action_asset_amount 
+// @abi action
+void examgetamo(){
+    uint64_t amount = get_action_asset_amount();
+    print("call action asset amount: ",amount);      
+}
+```
 
 
 ### withdraw\_asset
@@ -200,7 +189,6 @@ GRAPHENE_ABI(helloworld, (deposit))
 **头文件:** `<graphenelib/asset.h>`
 
 **功能说明:** 将当前合约的资产转移到外部账户
-
 
 **params:**
 
@@ -212,7 +200,13 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<int64_t> amount` 转账金额，这个数字包含了资产的精度，比如想转1个GXC，那么应该写100000
 
-
+```cpp
+// @abi action
+void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
+    withdraw_asset(from,to,asset_id,amount);
+    print("withdraw_asset example");
+}
+```
 
 
 ### get\_balance
@@ -233,7 +227,13 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<int64_t> asset_id` 指定资产的instance_id
 
-
+```cpp
+// @abi action
+void examgetbl(int64_t account, int64_t asset_id){
+    int64_t balance = get_balance(account, asset_id);
+    print("account balance: ",balance);
+}
+```
 
 
 ### sha256
@@ -253,7 +253,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<checksum256 *> hash` 出参 用于存储计算的sha256
 
-
+```cpp
+// @abi action
+void examsha256(std::string data){
+    checksum256 hash;
+    sha256(data.c_str(),data.length(),&hash);
+    printhex(hash.hash,32);
+}
+```
 
 
 ### sha512
@@ -273,7 +280,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<checksum512 *> hash` 出参 用于存储计算的sha512
 
-
+```cpp
+// @abi action
+void examsha512(std::string data){
+    checksum512 hash;
+    sha512(data.c_str(),data.length(),&hash);
+    printhex(hash.hash,64);
+}
+```
 
 
 ### ripemd160
@@ -293,7 +307,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<checksum160 *> hash` 出参 用于存储计算的ripemd160
 
-
+```cpp
+// @abi action
+void examripemd(std::string data){
+    checksum160 hash;
+    ripemd160(data.c_str(),data.length(),&hash);
+    printhex(hash.hash,20);
+}
+```
 
 
 ### verify\_signature
@@ -319,6 +340,15 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<uint32_t> pub_keylen` 公钥的长度
 
+```cpp
+//verify_signature (other example: redpacket)
+// @abi action
+void examverify(std::string data,signature sig,std::string pk){
+    bool result;
+    result = verify_signature(data.c_str(), data.length(), &sig, pk.c_str(), pk.length());
+    print("verify result: ",result);
+}
+```
 
 
 
@@ -332,6 +362,13 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回最新区块数
 
+```cpp
+// @abi action
+void examgetnum(){
+    int64_t head_num = get_head_block_num();
+    print("head block num: ",head_num);
+}
+```
 
 ### get\_head\_block\_id
 
@@ -345,6 +382,38 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<checksum160 *> hash` 获取最新区块的hash值
 
+```cpp
+// @abi action
+void examgetid(){
+    checksum160 block_hash;
+    get_head_block_id(&block_hash);
+    printhex(block_hash.hash,20);
+}
+```
+
+
+### get\_block\_id\_for\_num
+
+**函数类型:** `void get_block_id_for_num(checksum160* hash, uint32_t block_num)`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取指定区块hash
+
+**params:**
+
+`<checksum160 *> hash` 获取指定区块的hash值
+
+`<uint32_t> blcok_num` 指定的区块号
+
+```cpp
+// @abi action
+void examgetidnum(){
+    checksum160 block_hash;
+    get_block_id_for_num(&block_hash,1);             //get the hash of first block 
+    printhex(block_hash.hash,20);
+}
+```
 
 
 ### get\_head\_block\_time
@@ -355,7 +424,16 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **功能说明:** 获取最新区块的时间，返回值单位秒
 
+**返回值:** 返回最新区块时间
 
+```cpp
+// @abi action
+void examgettime(){
+    int64_t head_time;
+    head_time = get_head_block_time();
+    print("head block time: ",head_time);
+}
+```
 
 
 ### get\_trx\_sender
@@ -364,9 +442,18 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **头文件:** `<graphenelib/global.h>`
 
-**功能说明:** 获取调用合约的账号的instance_id
+**功能说明:** 获取调用合约的账号的instance id
 
+**返回值:** 返回调用账户的instance id
 
+```cpp
+// @abi action
+void examgettrx(){
+    int64_t sender_id;
+    sender_id = get_trx_sender();
+    print("call action instance id: ",sender_id);
+}
+```
 
 
 ### get\_account\_id
@@ -387,8 +474,17 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 如果帐户存在，返回帐户的instance_id，如果帐户不存在，则返回-1
 
+```cpp
+// @abi action
+void examgetacid(std::string data){
+    int64_t acc_id;
+    acc_id = get_account_id(data.c_str(), data.length());
+    print("account id: ",acc_id);
+}
+```
 
 ### get\_account\_name\_by\_id
+
 **函数类型:** `int64_t get_account_name_by_id(array_ptr<char> data, size_t buffer_size, int64_t account_id)`
 
 **头文件:** `<graphenelib/global.h>`
@@ -407,6 +503,15 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 如果帐户存在，返回值为0，如果帐户不存在，则返回-1
 
+```cpp
+// @abi action
+void examgetname(int64_t accid){
+    char data[13]={0};
+    int64_t result;
+    result = get_account_name_by_id(data,13,accid);
+    print("account name: ",data);
+}
+```
 
 ### get\_asset\_id
 
@@ -422,8 +527,16 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<const char *> data` 资产名
 
-`<uint32_t> length` 账号名的长度，例如nathan的长度是6
+`<uint32_t> length` 资产名的长度，例如GXC的长度是3
 
+```cpp
+// @abi action
+void examassid(std::string data){
+    int64_t assid;
+    assid = get_asset_id(data.c_str(),data.length());
+    print("asset id: ",assid);
+}
+```
 
 ### read\_transaction
 
@@ -441,6 +554,16 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<uint32_t> dst_size` 要读取的长度
 
+```cpp
+// @abi action
+void examreadtrx(){
+    int dwsize;
+    dwsize =transaction_size();
+    char* pBuffer = new char[dwsize];
+    uint32_t size = read_transaction(pBuffer,dwsize);
+    delete[] pBuffer;
+}
+```
 
 ### transaction\_size
 
@@ -452,7 +575,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回序列化后的数据的长度
 
-
+```cpp
+// @abi action
+void examtrxsize(){
+    int dwsize;
+    dwsize =transaction_size();
+    print("the size of the serialize trx: ",dwsize);
+}
+```
 
 ### expiration
 
@@ -464,6 +594,13 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回交易到期时间
 
+```cpp
+// @abi action
+void exampira(){
+    uint64_t timenum = expiration();
+    print("the expiration time: ", timenum);
+}
+```
 
 
 ### tapos\_block\_num
@@ -476,6 +613,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回交易引用的区块号
 
+```cpp
+// @abi action
+void examtapnum(){
+    uint64_t tapos_num;
+    tapos_num = tapos_block_num();
+    print("ref block num: ",tapos_num);
+}
+```
 
 
 ### tapos\_block\_prefix
@@ -488,6 +633,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **返回值:** 返回交易引用的区块ID（第二个32位数）
 
+```cpp
+// @abi action
+void examtappre(){
+    uint64_t tapos_prefix;
+    tapos_prefix = tapos_block_prefix();
+    print("ref block id: ",tapos_prefix);
+}
+```
 
 ### graphene\_assert
 
@@ -504,7 +657,13 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<const char*> msg` 条件不满足时，回滚输出的消息
 
-
+```cpp
+// @abi action
+void examassert(){
+    uint64_t number=1;
+    graphene_assert(number == 1, "wrong!");
+}
+```
 
 
 ### graphene\_assert\_message
@@ -524,7 +683,14 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 `<uint32_t> msg_len` 消息内容的长度
 
-
+```cpp
+// @abi action
+void examassmsg(){
+    uint64_t number=1;
+    std::string msg = "wrong!!!";
+    graphene_assert_message(number == 1, msg.c_str(),msg.length()); 
+}
+```
 
 
 ### print
@@ -533,12 +699,19 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **头文件:** `<graphenelib/system.h>`
 
-**功能说明:** 用于调试时日志的打印
+**功能说明:** 用于调试时日志的打印（详细用法，请查看[合约调试](debug.html#print)）
 
 
 **params:**
 
 `<const char*> ptr`  调试的消息体内容
+
+```cpp
+// @abi action
+void examprint(){
+    print("example example example!!!");
+}
+```
 
 ## 多索引表
 
