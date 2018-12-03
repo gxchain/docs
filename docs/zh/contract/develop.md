@@ -110,6 +110,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_head_block_time | 获取最新区块的时间，返回值单位秒 |
 | <graphenelib/global.h> | get_trx_sender | 获取调用合约的账号的instance_id |
 | <graphenelib/global.h> | get_account_id | 根据账号名获取账号的instance_id |
+| <graphenelib/global.h> | get_account_name_by_id | 根据账号instance id获取账号名 |
 | <graphenelib/global.h> | get_asset_id | 根据资产名获取资产的instance_id |
 | <graphenelib/global.h> | read_transaction | 读取当前transaction序列化后的数据 |
 | <graphenelib/global.h> | transaction_size | 当前transaction序列化后的数据的长度 |
@@ -377,6 +378,25 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 如果帐户存在，返回帐户的instance_id，如果帐户不存在，则返回-1
 
+
+### get\_account\_name\_by\_id
+**函数类型:** `int64_t get_account_name_by_id(array_ptr<char> data, size_t buffer_size, int64_t account_id)`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 根据账号instance id获取账号名
+
+**返回值:** 返回-1表示无此帐户，返回值0 表示获取帐户名成功
+
+**params:**
+
+`<const char *> data` 账号名，例如nathan
+
+`<uint32_t> length` 账号名的长度，例如nathan的长度是6
+
+`account_id` account的instance id或者id
+
+如果帐户存在，返回值为0，如果帐户不存在，则返回-1
 
 
 ### get\_asset\_id
