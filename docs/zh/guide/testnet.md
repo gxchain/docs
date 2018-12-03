@@ -135,7 +135,7 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 #### (1) 升级为终身会员
 创建公信节点，首先需要升级为终身会员。
 
-下载最新版本的PC钱包，或者访问[网页钱包](https://wallet.gxb.io), 按下图操作，升级为终身会员。
+下载最新版本的PC钱包连接测试网接入点，或者访问测试网络[网页钱包](https://testnet.wallet.gxchain.org/#/), 按下图操作，升级为终身会员。
 
 ![](./assets/witness/lifetime.jpeg)
 
