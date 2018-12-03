@@ -115,3 +115,18 @@ unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXS t
 ```bash
 unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXS true
 ```
+
+### 6. 更新合约
+
+测试网络支持更新合约
+
+```bash
+// hello120301为合约名  测试网
+unlocked >>> update_contract hello120301 zhao-123 /Users/zhaoxiangfei/code/contracts_work/example_contract_02/helloworld GXC true
+```
+
+
+
+
+
+
