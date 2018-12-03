@@ -131,6 +131,8 @@ typedef struct checksum160      block_id_type;
 
 **功能说明:** 返回当前合约账号的instance id (即帐户id的最后一位)
 
+**返回值:** 返回当前合约账号的instance id
+
 
 
 
@@ -221,6 +223,8 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **功能说明:** 获取外部账户的某资产余额
 
+**返回值:** 返回外部账户的某资产余额
+
 
 
 **params:**
@@ -234,7 +238,7 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 ### sha256
 
-**函数类型:** `void sha256(char data, uint32_t length, const checksum256 * hash)`
+**函数类型:** `void sha256(const char *data, uint32_t length, checksum256 * hash)`
 
 **头文件:** `<graphenelib/crypto.h>`
 
@@ -243,18 +247,18 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **params:**
 
-`<char> data` 用于计算sha256的字符串首地址
+`<const char *> data` 用于计算sha256的字符串首地址
 
 `<uint32_t> length` data字符串的长度
 
-`<const checksum256 *> hash` 出参 用于存储计算的sha256
+`<checksum256 *> hash` 出参 用于存储计算的sha256
 
 
 
 
 ### sha512
 
-**函数类型:** `void sha512(char data, uint32_t length, const checksum512 * hash)`
+**函数类型:** `void sha512(const char *data, uint32_t length, checksum512 * hash)`
 
 **头文件:** `<graphenelib/crypto.h>`
 
@@ -263,18 +267,18 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **params:**
 
-`<char> data` 用于计算sha512的字符串首地址
+`<const char *> data` 用于计算sha512的字符串首地址
 
 `<uint32_t> length` data字符串的长度
 
-`<const checksum512 *> hash` 出参 用于存储计算的sha512
+`<checksum512 *> hash` 出参 用于存储计算的sha512
 
 
 
 
 ### ripemd160
 
-****函数类型:**** `void ripemd160(char data, uint32_t length, const checksum160 * hash)`
+****函数类型:**** `void ripemd160(const char *data, uint32_t length, checksum160 * hash)`
 
 **头文件:** `<graphenelib/crypto.h>`
 
@@ -283,31 +287,33 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **params:**
 
-`<char> data` 用于计算ripemd160的字符串首地址
+`<const char *> data` 用于计算ripemd160的字符串首地址
 
 `<uint32_t> length` data字符串的长度
 
-`<const checksum160 *> hash` 出参 用于存储计算的ripemd160
+`<checksum160 *> hash` 出参 用于存储计算的ripemd160
 
 
 
 
 ### verify\_signature
 
-**函数类型:** `bool verify_signature(const char data, uint32_t datalen, signature sig, const char * pub_key, uint32_t pub_keylen)`
+**函数类型:** `bool verify_signature(const char *data, uint32_t datalen, const signature *sig, const char * pub_key, uint32_t pub_keylen)`
 
 **头文件:** `<graphenelib/crypto.h>`
 
 **功能说明:** 验证签名
 
+**返回值:** 返回验证结果（bool值）
+
 
 **params:**
 
-`<const char> data` 签名的原始字符串
+`<const char *> data` 签名的原始字符串
 
 `<uint32_t> datalen` data字符串的长度
 
-`<signature> sig` 签名数据
+`<const signature *> sig` 签名数据
 
 `<const char *> pub_key` 签名私钥对应的公钥
 
@@ -324,17 +330,20 @@ GRAPHENE_ABI(helloworld, (deposit))
 
 **功能说明:** 返回最新区块号
 
-
+**返回值:** 返回最新区块数
 
 
 ### get\_head\_block\_id
 
-**函数类型:** `int64_t get_head_block_id()`
+**函数类型:** `void get_head_block_id(checksum160* hash)`
 
 **头文件:** `<graphenelib/global.h>`
 
-**功能说明:** 返回最新区块hash
+**功能说明:** 获取最新区块hash
 
+**params:**
+
+`<checksum160 *> hash` 获取最新区块的hash值
 
 
 
