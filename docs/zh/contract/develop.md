@@ -255,7 +255,7 @@ void examgetbl(int64_t account, int64_t asset_id){
 
 ```cpp
 // @abi action
-void examsha256(std::string data){
+void examsha25(std::string data){
     checksum256 hash;
     sha256(data.c_str(),data.length(),&hash);
     printhex(hash.hash,32);
@@ -408,7 +408,7 @@ void examgetid(){
 
 ```cpp
 // @abi action
-void examgetidnum(){
+void examidnum(){
     checksum160 block_hash;
     get_block_id_for_num(&block_hash,1);             //get the hash of first block 
     printhex(block_hash.hash,20);
@@ -509,7 +509,7 @@ void examgetname(int64_t accid){
     char data[13]={0};
     int64_t result;
     result = get_account_name_by_id(data,13,accid);
-    print("account name: ",data);
+    prints(data);
 }
 ```
 
