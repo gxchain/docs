@@ -215,9 +215,9 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 
 **头文件:** `<graphenelib/asset.h>`
 
-**功能说明:** 获取外部账户的某资产余额
+**功能说明:** 获取链上帐户的某资产余额
 
-**返回值:** 返回外部账户的某资产余额
+**返回值:** 返回链上帐户的某资产余额
 
 
 
