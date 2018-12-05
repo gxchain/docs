@@ -40,6 +40,8 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ## 3. 启动节点程序，同步数据
 
 ``` bash
+export LC_ALL=C
+
 ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" &
 ```
 
