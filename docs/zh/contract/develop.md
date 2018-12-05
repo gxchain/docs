@@ -164,7 +164,7 @@ void examgetast(){
 
 ### get\_action\_asset\_amount
 
-**函数类型:** `uint64_t get_action_asset_amount()`
+**函数类型:** `int64_t get_action_asset_amount()`
 
 **头文件:** `<graphenelib/action.h>`
 
@@ -176,7 +176,7 @@ void examgetast(){
 //get_action_asset_amount 
 // @abi action
 void examgetamo(){
-    uint64_t amount = get_action_asset_amount();
+    int64_t amount = get_action_asset_amount();
     print("call action asset amount: ",amount);      
 }
 ```
