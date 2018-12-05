@@ -713,6 +713,13 @@ void examprint(){
 }
 ```
 
+### 示例
+
+关于api使用的示例合约已经部署到了测试网络，可以通过IDE客户端引入合约进行测试，点击查看[合约源码](./question.html#内置api调用示例合约)，合约账户`apitest`
+
+![](./png/apitest.jpg)
+
+
 ## 多索引表
 
 #### <a name="index"></a>index
