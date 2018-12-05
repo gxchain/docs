@@ -64,7 +64,9 @@ printn(N(hello));
 ## printhex
 ```cpp
 //打印16进制
-const char* str="hello";
-printhex(str,5);
-输出：68656c6c6f
+std::string str="hello";
+checksum256 sum;
+sha256(str.c_str(),str.length(),&sum);
+printhex(sum.hash,32);
+输出：2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
