@@ -90,6 +90,9 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 ## 5. 启动测试网络节点， 同步数据
 
 ```bash
+
+export LC_ALL=C
+
 ./programs/witness_node/witness_node --data-dir=testnet_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json &
 ```
 
@@ -172,6 +175,9 @@ kill -s SIGTERM $(pgrep witness_node)
 ```
 # 通过PC钱包或者网页钱包，查看自己的公信节点id
 # 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点帐户的公私钥, 用于签署区块
+
+export LC_ALL=C
+
 ./programs/witness_node/witness_node --data-dir=testnet_node \
 --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" \
 --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json  -w '"1.6.10"' \
