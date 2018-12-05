@@ -276,15 +276,15 @@ curl --data '{
 ## 智能合约存储表相关
 
 ### `get_table_rows`
-根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit
+根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit （修改合约名、表名为你自己的）
 
 ```
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [0, "get_table_rows", ["contract_name", "contract_table", 1, 10]],
+    "params": [0, "get_table_rows", ["hello1214", "mytable", 0, 10]],
     "id": 1
-}' https://node1.gxb.io/rpc
+}' testnet.gxchain.org:28090
 ```
 
 
