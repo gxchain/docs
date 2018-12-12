@@ -105,15 +105,15 @@ locked >>> unlock mylocalpassword
 # 导入钱包私钥
 unlocked >>> import_key your_account_name your_private_key
 
-# 部署合约, 指定合约名为helloworld，发起的钱包帐户为your_accoutn_name， 0和0分别为vm type和vm version，./helloworld为wast/abi文件所在路径， GXS表示手续费资产类型，true表示发起广播
-unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXS true
+# 部署合约, 指定合约名为helloworld，发起的钱包帐户为your_accoutn_name， 0和0分别为vm type和vm version，./helloworld为wast/abi文件所在路径， GXC表示手续费资产类型，true表示发起广播
+unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXC true
 ```
 
 ### 5. 调用合约
 部署合约成功后，可以使用call_contract接口调用合约
 
 ```bash
-unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXS true
+unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXC true
 ```
 
 ### 6. 更新合约

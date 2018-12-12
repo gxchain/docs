@@ -109,7 +109,7 @@ register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC
 使用transfer3命令转移部分资产到账户
 
 ```bash
-transfer3 nathan alpha 1000 GXC test GXS true
+transfer3 nathan alpha 1000 GXC test GXC true
 ```
 
 使用如下命令查看资产余额：
@@ -141,11 +141,11 @@ list_account_balances alpha
 ```
 ####  1.2 部署合约
 
-您可以使用如下命令部署Hello World合约，hello为合约用户名（执行部署合约命令则会创建一个合约账户，合约账户的资产只能通过合约来控制），nathan为支付手续费的账户，0 0 表示虚拟机类型和版本，/Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld 为合约路径（**包括wast文件和abi文件**），GXS表示手续费类型，true表示是否广播。
+您可以使用如下命令部署Hello World合约，hello为合约用户名（执行部署合约命令则会创建一个合约账户，合约账户的资产只能通过合约来控制），nathan为支付手续费的账户，0 0 表示虚拟机类型和版本，/Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld 为合约路径（**包括wast文件和abi文件**），GXC表示手续费类型，true表示是否广播。
 
 ```bash
 // 部署合约
-deploy_contract hello nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld GXS true
+deploy_contract hello nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld GXC true
 ```
 
 ::: warning 注意
@@ -157,10 +157,10 @@ deploy_contract hello nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/exa
 您可以使用如下命令调用合约接口，GXChain的调用合约接口可以附加资产发送选项。附加资产的调用方式，会将资产发送到合约账户。合约账户的资产，只能通过合约自身代码使用提现API`withdraw_asset`来控制。
 ```bash
 // 不附带资产
-call_contract nathan hello null hi "{\"user\":\"gxchain!!!\"}" GXS true
+call_contract nathan hello null hi "{\"user\":\"gxchain!!!\"}" GXC true
 
 // 附带资产(附带资产的action，需要在合约中添加 // @abi payable )
-call_contract nathan hello {"amount":10000000,"asset_id":1.3.1} hi "{\"user\":\"gxchain!!!\"}" GXS true
+call_contract nathan hello {"amount":10000000,"asset_id":1.3.1} hi "{\"user\":\"gxchain!!!\"}" GXC true
 
 ```
 
@@ -205,8 +205,8 @@ Hello World智能合约只包含一个action，是一个最简单的智能合约
 
 - **调用发红包接口，调用过程与结果反馈如下**
 ```bash
-# 发红包 pubkey为随机生成的口令 ：下面调用表示发5个红包，总金额为11 GXS（1.3.1表示GXS资产）
-unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} issue "{\"pubkey\":\"GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b\",\"number\":5}" GXS true
+# 发红包 pubkey为随机生成的口令 ：下面调用表示发5个红包，总金额为11 GXC（1.3.1表示GXC资产）
+unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} issue "{\"pubkey\":\"GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b\",\"number\":5}" GXC true
 {
   "ref_block_num": 15124,
   ...
@@ -216,9 +216,9 @@ unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} 
     "1f7fade01ef08d986282164c1428fee37ecc5817c4e6bdc7c160220cf965b881d7417874ab22be48047becf62936e6a060a3e06c65e3548e90a72ddc1720794db3"
   ]
 }
-# 查看合约账户资产，当前合约只有一个用户发红包，所以金额为一个用户发送的资产11 GXS
+# 查看合约账户资产，当前合约只有一个用户发红包，所以金额为一个用户发送的资产11 GXC
 unlocked >>> list_account_balances redpacket
-11 GXS
+11 GXC
 
 # 查看红包table信息，subpackets是随机分成的5个子红包序列，pub_key用来验证签名
 unlocked >>> get_table_objects redpacket packet 0 -1 10
@@ -253,12 +253,12 @@ unlocked >>> sign_string 5J9vj4XiwVQ2HNr22uFrxgaaerqrPN7xZQER9z2hwSPeWdbMKBM 17
 "1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2"
 
 #调用接口 抢红包
-call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXS true
+call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXC true
 #合约账户所剩余额
 list_account_balances redpacket
 unlocked >>> list_account_balances redpacket
-7.09409 GXS
-#合约账户剩余红包分配序列，由5个减少为4个，减少的项为390591，代表3.90591个GXS 被抢走
+7.09409 GXC
+#合约账户剩余红包分配序列，由5个减少为4个，减少的项为390591，代表3.90591个GXC 被抢走
 unlocked >>> get_table_objects redpacket packet 0 -1 10
 [{
     "issuer": 17,
@@ -299,11 +299,11 @@ redpacket（合约名）、record（表名）、0（lower）、-1（upper）、1
 
 ```bash
 # 您可以使用如下命令关闭红包
-unlocked >>> call_contract nathan redpacket null close "{}" GXS true
+unlocked >>> call_contract nathan redpacket null close "{}" GXC true
 
 # 获取合约账户资产余额
 unlocked >>> list_account_balances redpacket
-0 GXS
+0 GXC
 ```
 
 ####  1.1 编译合约
@@ -324,20 +324,20 @@ unlocked >>> list_account_balances redpacket
 
 ```bash
 # 需要将智能合约所在路径替换为你自己的路径
-deploy_contract redpacket nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/examples/redpacket GXS true
+deploy_contract redpacket nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/examples/redpacket GXC true
 ```
 
 #### 1.3 调用合约
 
 ```bash
 # 发红包 
-unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} issue "{\"pubkey\":\"GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b\",\"number\":5}" GXS true
+unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} issue "{\"pubkey\":\"GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b\",\"number\":5}" GXC true
 
 # 抢红包
-call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXS true
+call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXC true
 
 # 您可以使用如下命令关闭红包
-unlocked >>> call_contract nathan redpacket null close "{}" GXS true
+unlocked >>> call_contract nathan redpacket null close "{}" GXC true
 ```
 
 ### 2. 代码解析
@@ -411,8 +411,8 @@ packets.erase(packet_iter);
 
 - **调用储存资产接口，调用过程与结果反馈如下**
 ```bash
-//nathan调用deposit接口储存10GXS到bank合约
-unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXS true
+//nathan调用deposit接口储存10GXC到bank合约
+unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXC true
 {
   {
   "ref_block_num": 36472,
@@ -422,7 +422,7 @@ unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} depos
   ...
   ...
 }
-//查看合约内account table，获取账户储存的资产,asset_id表示GXS，owner为instance id，17表示nathan账户
+//查看合约内account table，获取账户储存的资产,asset_id表示GXC，owner为instance id，17表示nathan账户
 unlocked >>> get_table_objects bank account 0 -1 10
 [{
     "owner": 17,
@@ -437,8 +437,8 @@ unlocked >>> get_table_objects bank account 0 -1 10
 - **调用提现资产接口，调用过程与结果反馈如下**
 
 ```bash
-//nathan调用提现资产接口，提取1GXS到hello账户
-unlocked >>> call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXS true
+//nathan调用提现资产接口，提取1GXC到hello账户
+unlocked >>> call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXC true
 {
   "ref_block_num": 36733,
   "ref_block_prefix": 1321509121,
@@ -448,7 +448,7 @@ unlocked >>> call_contract nathan bank null withdraw "{\"to_account\":\"hello\",
 }
 //提现之后，查看hello账户余额
 unlocked >>> list_account_balances hello
-1 GXS
+1 GXC
 ```
 ####  1.1 编译合约
 
@@ -468,17 +468,17 @@ unlocked >>> list_account_balances hello
 
 ```bash
 # 需要将智能合约所在路径替换为你自己的路径
-deploy_contract bank nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/bank GXS true
+deploy_contract bank nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/bank GXC true
 ```
 
 #### 1.3 调用合约
 
 ```bash
 # 储存资产接口调用方式
-call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXS true
+call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXC true
 
 # 提现资产接口调用方式
-call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXS true
+call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXC true
 ```
 
 ### 2.代码解析
@@ -596,7 +596,7 @@ zhaoxiangfei@zhaoxiangfeideMacBook-Pro:~$ echo -n "4" | shasum -a 256
 4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a
 
 //创建一个内容为`2+2=？`的谜题，答案为4。
-unlocked >>> call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXS true
+unlocked >>> call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXC true
 {
   "ref_block_num": 39138,
   "ref_block_prefix": 3499868408,
@@ -646,7 +646,7 @@ unlocked >>> call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\"
 
 ```bash
 # 需要将智能合约所在路径替换为你自己的路径
-deploy_contract riddle nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/riddle GXS true
+deploy_contract riddle nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/riddle GXC true
 ```
 
 #### 1.3 调用合约
@@ -655,13 +655,13 @@ deploy_contract riddle nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/riddle
 生成答案的sha256哈希值
 echo -n "4" | shasum -a 256
 # 创建谜题和答案的哈希值
-call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXS true
+call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXC true
 
 # 提交谜题回答的调用方式
 # 错误答案
-call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"3\"}" GXS true
+call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"3\"}" GXC true
 # 正确答案
-call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"4\"}" GXS true
+call_contract nathan riddle null reveal "{\"issuer\":\"nathan\", \"answer\":\"4\"}" GXC true
 ```
 
 ### 2.代码解析
@@ -732,7 +732,7 @@ void reveal(const std::string& issuer, const std::string& answer)
 - **创建线性释放资产项**
 ```bash
 // 创建一个到hello账户的线性资产释放项，冻结时间为30s，释放时间为120s
-call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXS true
+call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXC true
 unlocked >>> get_table_objects vesting vestingrule 0 -1 10
 [{
     "account_id": 22,
@@ -749,9 +749,9 @@ unlocked >>> get_table_objects vesting vestingrule 0 -1 10
 
 ```bash
 // 解冻资产到hello账户
-unlocked >>> call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXS true
+unlocked >>> call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXC true
 unlocked >>> list_account_balances hello
-11 GXS
+11 GXC
 ```
 ####  1.1 编译合约
 
@@ -771,16 +771,16 @@ unlocked >>> list_account_balances hello
 
 ```bash
 # 需要将智能合约所在路径替换为你自己的路径
-deploy_contract vesting nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset GXS true
+deploy_contract vesting nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset GXC true
 ```
 
 #### 1.3 调用合约
 ```bash
-// 合约名 vesting，附加的资产为10 GXS（资产id为1.3.1），释放的账户为hello账户，冻结30s之后开始释放，经过120s的时间之后，完全完所有的资产。
-call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXS true
+// 合约名 vesting，附加的资产为10 GXC（资产id为1.3.1），释放的账户为hello账户，冻结30s之后开始释放，经过120s的时间之后，完全完所有的资产。
+call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXC true
 
 // 认领释放的资产到hello账户（必须30s之后才可以认领，30s为冻结时间）
-call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXS true
+call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXC true
 ```
 
 ### 2.代码解析
@@ -812,7 +812,7 @@ struct vestingrule {
 /// @abi payable
 void vestingcreate(std::string to, int64_t lock_duration, int64_t release_duration)
 {
-    // contract_asset_id是一个自定义变量，表示GXS资产，线性释放资产只支持GXS
+    // contract_asset_id是一个自定义变量，表示GXC资产，线性释放资产只支持GXC
     graphene_assert(contract_asset_id == get_action_asset_id(), "not supported asset");
     contract_asset ast{get_action_asset_amount(), contract_asset_id};
     int64_t to_account_id = get_account_id(to.c_str(), to.size());
