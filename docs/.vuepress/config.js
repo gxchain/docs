@@ -48,12 +48,7 @@ module.exports = {
                     },
                     {
                         text: 'Smart Contract',
-                        items: [
-                            {text: 'Quick Start', link: '/contract/quick_start'},
-                            {text: 'Basic Types', link: '/contract/basic_types'},
-                            {text: 'API References', link: '/contract/apis'},
-                            {text: 'Examples', link: '/contract/examples'},
-                        ]
+                        link: '/zh/contract/',
                     },
                     {
                         text: 'Ecosystem',
