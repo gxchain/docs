@@ -60,28 +60,7 @@ curl POST --data '{
 
 ## 对象相关
 
-在GXChain里面，通过不同的对象来存储不同类型的数据，常见的有以下几种类型
-
-| ID | Object Type |
-| :--- | :--- |
-| 1.2.x | 帐户对象 |
-| 1.3.x | 资产对象 |
-| 1.5.x | 理事会成员对象 |
-| 1.6.x | 见证人对象 |
-| 1.10.x | 提案对象 |
-| 1.11.x | 操作历史对象 |
-| 1.13.x | 待解冻余额对象 |
-| 1.14.x | 预算项目对象 |
-| 1.25.x | 忠诚计划冻结余额对象 |
-| 2.0.0 | 系统全局参数对象 |
-| 2.1.x | 动态参数对象 |
-| 2.3.x | 资产动态参数对象 |
-| 2.5.x | 帐户余额对象 |
-| 2.6.x | 帐户统计对象 |
-| 2.7.x | 交易对象 |
-| 2.8.x | 区块摘要对象 |
-| 2.9.x | 帐户交易历史对象 |
-| 2.12.x | 见证人调度表对象 |
+在GXChain里面，通过不同的对象来存储不同类型的数据，点此查看[Gxchain上的对象类型](./#_2-gxchain上的对象)
 
 ### `get_objects`
 
@@ -278,13 +257,13 @@ curl --data '{
 ### `get_table_rows`
 根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit （修改合约名、表名为你自己的）
 
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [0, "get_table_rows", ["hello1214", "mytable", 0, 10]],
+    "params": [0, "get_table_rows", ["contract_name", "table_name", 0, 10]],
     "id": 1
-}' testnet.gxchain.org:28090
+}' https://node1.gxb.io/rpc
 ```
 
 
