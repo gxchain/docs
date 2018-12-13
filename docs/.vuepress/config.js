@@ -48,7 +48,7 @@ module.exports = {
                     },
                     {
                         text: 'Smart Contract',
-                        link: '/zh/contract/',
+                        link: '/contract/',
                     },
                     {
                         text: 'Ecosystem',
@@ -77,6 +77,7 @@ module.exports = {
                 sidebar: {
                     '/guide/': genSidebarConfig ('guide', 'Guide'),
                     '/faq/': genSidebarConfig ('faq', 'FAQ'),
+                    '/contract/': genSidebarConfig ('contract', 'Smart Contract'),
                     '/baas-api/': genSidebarConfig ('baas', 'BaaS Storage'),
                     '/des/': genSidebarConfig ('des', 'DES')
                 }
