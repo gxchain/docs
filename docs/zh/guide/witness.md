@@ -80,8 +80,8 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 
 export LC_ALL=C
 
-./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"' \
---private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
+nohup ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"' \
+--private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' 1>nohup.out 2>&1 &
 ```
 
 其中
