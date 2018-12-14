@@ -10,6 +10,7 @@ export LC_ALL=C
 
 nohup ./programs/witness_node/witness_node --data-dir=trusted_node  --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" --track-account "\"1.2.241993\"" --max-ops-per-account=-1  --fast-replay 1>nohup.out 2>&1 &
  ```
+ 按上面方式启动，控制台输出会重定向到nohup.out，如果启动有异常，可能查看nohup.out定位问题。
  
 ### 2. 如何判断witness_node在正常运行
    观察后台日志文件`trusted_node/logs/witness.log`,  如果日志持续在网络上接收区块，表示节点在正常运行, 如下
