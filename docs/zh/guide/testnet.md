@@ -181,7 +181,7 @@ export LC_ALL=C
 ./programs/witness_node/witness_node --data-dir=testnet_node \
 --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" \
 --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json  -w '"1.6.10"' \
---private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
+--private-key '["GXC73xxxxxxv9mhMU", "5Jainouxxxxxg8yaZh9Ks"]' &
 ```
 
 其中
@@ -221,7 +221,7 @@ echo "start witness_node ..."
 ./programs/witness_node/witness_node --data-dir=testnet_node \
 --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:9999" \
 --seed-nodes='["testnet.gxchain.org:6789"]' --genesis-json genesis.json  -w '"1.6.10"' \
---private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' \
+--private-key '["GXC73Zyj56MHxxxxxxxU5QEv9mhMU", "5Jainounrsxxxxxxh9Ks"]' \
 --fast-replay  &
 ```
 :::
