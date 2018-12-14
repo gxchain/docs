@@ -262,7 +262,7 @@ void examgetbl(int64_t account, int64_t asset_id){
 
 `<uint32_t> length` data字符串的长度
 
-`<checksum256 *> hash` 出参 用于存储计算的sha1
+`<checksum160 *> hash` 出参 用于存储计算的sha1
 
 ```cpp
 // @abi action
