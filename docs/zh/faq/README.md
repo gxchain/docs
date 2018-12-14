@@ -32,7 +32,8 @@ nohup ./programs/witness_node/witness_node --data-dir=trusted_node  --rpc-endpoi
    观察后台日志文件`trusted_node/logs/witness.log`,  如果日志持续报错，如`"unlinkable block", "block does not link to known chain"`，这是区块同步出错了。
 
    解决方法：
-   * 区块同步异常，有可能本地的区块链文件坏掉了。需要停止witness\_node程序，然后删除trusted\_node， 重新启动witness\_node。
+   * 先关闭程序，带上```--replay-blockchain``` 重新启动，等待启动完成后，观察witness.log日志是否正常。
+   * 如果仍然失败，可能是区块同步异常，有可能本地的区块链文件坏掉了。需要停止witness\_node程序，然后删除trusted\_node， 重新启动witness\_node。
    * 或者不需要删除trusted\_node目录，启动命令加上参数`--resync-blockchain`， 会重新同步区块。
 ### 4. 如何正常关闭witness\_node
    witness_node将所有数据以对象的形式保存在内存，程序正常退出时，会将内存中的数据写入到磁盘，所以不能强行kill掉进程，否则内存数据库会坏掉。
