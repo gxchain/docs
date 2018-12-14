@@ -9,6 +9,14 @@ GXChain智能合约，除了C++语法支持的所有类型外，还提供了合�
 int64_t     amount;
 uint64_t    asset_id;
 ```
+验证contract_asset数额是否有效,使用`is_amount_within_range`成员方法
+```cpp
+bool is_amount_within_range() const { 
+    return -max_amount <= amount && amount <= max_amount; 
+}
+```
+
+
 ::: warning 提示
 contract_asset类型中，其中amount表示资产数量，在链上使用大数存储，举例来说，GXC资产精度为5，1 GXC实际需要表示为1 * 100000 = 100000， 即amount为100000
 
@@ -101,6 +109,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | 返回本次调用向合约发送的资产数量 |
 | <graphenelib/asset.h> | withdraw_asset | 将当前合约帐户的资产转移到链上账户 |
 | <graphenelib/asset.h> | get_balance | 获取链上账户的某资产余额 |
+| <graphenelib/crypto.h> | sha1 | 计算数据的sha1 |
 | <graphenelib/crypto.h> | sha256 | 计算数据的sha256 |
 | <graphenelib/crypto.h> | sha512 | 计算数据的sha512 |
 | <graphenelib/crypto.h> | ripemd160 | 计算数据的ripemd160 |
@@ -118,6 +127,9 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | expiration | 获取交易到期时间 |
 | <graphenelib/global.h> | tapos_block_num | 返回交易引用的区块号 |
 | <graphenelib/global.h> | tapos_block_prefix | 返回交易引用的区块ID（第二个32位数） |
+| <graphenelib/action.h> | read_action_data | 读取当前action数据
+| <graphenelib/action.h> | action_data_size | 返回当前action数据读取所需字节数
+| <graphenelib/action.hpp> | unpack_action_data | 将当前action数据反序列化为定义的action对象
 | <graphenelib/system.h> | graphene_assert | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
 | <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，输出必要的信息，但是本次合约的执行会继续 |
 | <graphenelib/system.h> | print | 用于调试时日志的打印 |
@@ -235,6 +247,31 @@ void examgetbl(int64_t account, int64_t asset_id){
 }
 ```
 
+### sha1
+
+**函数类型:** `void sha1(const char *data, uint32_t length, checksum160 *hash)`
+
+**头文件:** `<graphenelib/crypto.h>`
+
+**功能说明:** 计算数据的sha1
+
+
+**params:**
+
+`<const char *> data` 用于计算sha1的字符串首地址
+
+`<uint32_t> length` data字符串的长度
+
+`<checksum256 *> hash` 出参 用于存储计算的sha1
+
+```cpp
+// @abi action
+void examsha1(std::string data){
+    checksum160 hash;
+    sha1(data.c_str(),data.length(),&hash);
+    printhex(hash.hash,20);
+}
+```
 
 ### sha256
 
@@ -639,6 +676,75 @@ void examtappre(){
     uint64_t tapos_prefix;
     tapos_prefix = tapos_block_prefix();
     print("ref block id: ",tapos_prefix);
+}
+```
+
+
+### read\_action\_data
+
+**函数类型:** `uint32_t read_action_data( void* msg, uint32_t len )`
+
+**头文件:** `<graphenelib/action.h>`
+
+**功能说明:** 读取当前action数据
+
+**返回值:** 返回实际读取的字节数，如果len为0返回读取所需要的字节数
+
+**params:**
+
+`<void* > msg` 接收buffer指针
+
+`<uint32_t> len` 读取的长度
+
+```cpp
+// @abi action
+void examract(uint64_t num,std::string number){
+    auto size = action_data_size();
+    char *buffer = static_cast<char*>(malloc(size));
+    read_action_data((void*)buffer,size);
+    printhex(buffer,size);
+}
+```
+
+### action\_data\_size
+
+**函数类型:** `uint32_t action_data_size()`
+
+**头文件:** `<graphenelib/action.h>`
+
+**功能说明:** 读取当前action数据所需的字节数
+
+**返回值:** 返回读取所需要的字节数
+
+```cpp
+// @abi action
+void examrasize(uint64_t num,std::string number){
+    auto size = action_data_size();
+    print("size: ", size);
+}
+```
+
+### unpack\_action\_data
+
+**函数类型:** `T unpack_action_data()`
+
+**头文件:** `<graphenelib/action.hpp>`
+
+**功能说明:** unpack当前action data
+
+**返回值:** 返回unpack后的action结构
+
+```cpp
+struct myaction {
+    uint64_t num;
+    std::string name;
+  
+    GRAPHENE_SERIALIZE(myaction,(num)(name))
+};
+// @abi action
+void examupact(uint64_t num,std::string name){
+    auto my = unpack_action_data<myaction>();
+    print(my.name);
 }
 ```
 
