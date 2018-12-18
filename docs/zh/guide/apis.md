@@ -8,7 +8,7 @@ GXChain的节点提供WebSocket和JSONRPC两种接口形式
 获取链id
 
 ``` bash
-curl POST --data '{
+curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_chain_id", []],
@@ -37,7 +37,7 @@ curl POST --data '{
 通过区块号获取区块信息
 
 ``` bash
-curl POST --data '{
+curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_block", [1]],
@@ -50,7 +50,7 @@ curl POST --data '{
 根据区块号获取区块头信息
 
 ``` bash
-curl POST --data '{
+curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_block_header", [1]],
