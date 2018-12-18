@@ -60,7 +60,7 @@ curl --data '{
 
 ## 对象相关
 
-在GXChain里面，通过不同的对象来存储不同类型的数据，点此查看[Gxchain上的对象类型](./#_2-gxchain上的对象)
+在GXChain里面，通过不同的对象来存储不同类型的数据，点此查看[GXChain上的对象类型](./#_2-gxchain上的对象)
 
 ### `get_objects`
 
