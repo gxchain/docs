@@ -271,7 +271,7 @@ curl --data '{
 
 ### `broadcast_transaction`
 
-通过broadcast_transaction来广播一笔转账交易: 1.2.17 --> 1.2.6 10GXC
+向网络广播一笔带签名的交易
 
 ``` bash
 curl --data '{
@@ -281,4 +281,6 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+#### 参数说明：
+params包含3个参数，分别为api id、方法名和参数，其中api id固定为2， 方法名固定为broadcast_transaction， []中的参数为带签名的交易消息体。
 
