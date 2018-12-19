@@ -274,6 +274,7 @@ curl --data '{
 向网络广播一笔带签名的交易
 
 ``` bash
+# 该接口尚未升级到主网的API服务器，如果要使用，需要源码编译程序
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
