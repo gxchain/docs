@@ -267,5 +267,18 @@ curl --data '{
 ```
 
 
+## 广播接口
 
+### `broadcast_transaction`
+
+通过broadcast_transaction来广播一笔转账交易: 1.2.17 --> 1.2.6 10GXC
+
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [2,"broadcast_transaction",[{"ref_block_num":3698,"ref_block_prefix":1780126622,"expiration":"2018-12-18T10:56:09","operations":[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.17","to":"1.2.6","amount":{"amount":1000000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":["204444e23dff4e911e33d4059b36c91f7d4f85022c90ebd3e509f9b2caeb6bca273c8616ebd4f0786ac03b3ef2796a56d754de301e97aff0e43df6f3dfb12d1e62"]}]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
