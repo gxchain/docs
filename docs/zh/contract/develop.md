@@ -475,7 +475,7 @@ void examgettime(){
 
 ### get\_trx\_sender
 
-**函数类型:** `int64_t get_trx_sender()`
+**函数类型:** `uint64_t get_trx_sender()`
 
 **头文件:** `<graphenelib/global.h>`
 
@@ -486,7 +486,7 @@ void examgettime(){
 ```cpp
 // @abi action
 void examgettrx(){
-    int64_t sender_id;
+    uint64_t sender_id;
     sender_id = get_trx_sender();
     print("call action instance id: ",sender_id);
 }
@@ -536,7 +536,7 @@ void examgetacid(std::string data){
 
 `<uint32_t> length` 账号名的长度，例如nathan的长度是6
 
-`account_id` account的instance id或者id
+`<int64_t> account_id` account的instance id或者id
 
 如果帐户存在，返回值为0，如果帐户不存在，则返回-1
 
