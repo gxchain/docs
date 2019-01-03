@@ -15,6 +15,7 @@
 | 测试网络 | 配置 |
 | :-- | :-- |
 | 接入点 *(在测试网络钱包中已内置)* | wss://testnet.gxchain.org |
+| RPC地址 | https://testnet.gxchain.org |
 | 种子节点 *(在节点启动时候指定)* | testnet.gxchain.org:6789 |
 | 智能合约编译服务 *(在IDE中配置)* | https://testnet.gxx.gxchain.org |
 | 区块浏览器 | https://testnet.explorer.gxchain.org |
