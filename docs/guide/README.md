@@ -35,7 +35,8 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ### 2. Start
 
 ``` bash
-./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090" &
+export LC_ALL=C
+nohup ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090"  1>nohup.out 2>&1 &
 ```
 
 That's it, here we start a witness listening at `127.0.0.1:28090`, and we indicate the block database dir is `<path>/<to>/<your>/<application>/trusted_node`
