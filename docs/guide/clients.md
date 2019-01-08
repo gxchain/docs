@@ -8,7 +8,7 @@ We introduced how to download and install in [getting started with GXChain]
 Start cli after nodes synchronization
 
 ``` bash
-./programes/cli_wallet/cli_wallet
+./programs/cli_wallet/cli_wallet 
 ```
 
 Learn API via Help and get_help
