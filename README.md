@@ -2,6 +2,8 @@
 
 本工程为GXChain最新的技术文档，基于VuePress构建，使用Markdown编辑
 
+<img width="400px" src='https://raw.githubusercontent.com/gxchain/gxips/master/assets/images/task-docs.png'/>
+
 在线文档 [Getting Started](https://docs.gxchain.org)
 
 ## 如何编辑
