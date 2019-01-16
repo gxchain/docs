@@ -106,7 +106,7 @@ curl --data '{
 
 ### `get_full_accounts`
 
-根据`account_ids`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等
+根据`account_ids 或者 account_names`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等。
 
 ``` bash
 curl --data '{
@@ -116,6 +116,7 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+
 
 ### `is_account_registered`
 查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
