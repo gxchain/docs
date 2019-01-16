@@ -184,7 +184,8 @@ function genSidebarConfig (module, title) {
                     'deploy',
                     'debug',
                     'question',
-                    'error_collection'
+                    'error_collection',
+                    'abi'
                 ]
             }
         ];
