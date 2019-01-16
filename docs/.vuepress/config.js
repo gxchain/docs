@@ -157,8 +157,7 @@ function genSidebarConfig (module, title) {
                     'private_chain',
                     'api_server',
                     'witness',
-                    'asset',
-                    'unpackblock'
+                    'asset'
                 ]
             }
         ];
