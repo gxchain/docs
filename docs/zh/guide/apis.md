@@ -295,10 +295,47 @@ params包含3个参数，分别为api id、方法名和参数，其中api id固�
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [2,"broadcast_transaction_synchronous",[{"ref_block_num":3698,"ref_block_prefix":1780126622,"expiration":"2018-12-18T10:56:09","operations":[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.17","to":"1.2.6","amount":{"amount":1000000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":["204444e23dff4e911e33d4059b36c91f7d4f85022c90ebd3e509f9b2caeb6bca273c8616ebd4f0786ac03b3ef2796a56d754de301e97aff0e43df6f3dfb12d1e62"]}]],
+    "params": [2,"broadcast_transaction_synchronous",[{"ref_block_num":63524,"ref_block_prefix":3478923091,"expiration":"2019-01-21T07:59:24","operations":[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.22","to":"1.2.18","amount":{"amount":100000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":["20165321fabdce0ca561370ba547738be12a33b929b17889845ab9b8c1a4ed2fa04bc555205bc945cf6f0129765a0f1c06265437c111957a4008167ef720c49f71"]}]],
     "id": 1
 }' https://node23.gxb.io/rpc
 ```
 #### 参数说明：
 params包含3个参数，分别为api id、方法名和参数，其中api id固定为2， 方法名固定为broadcast_transaction_synchronous， []中的参数为带签名的交易消息体。
 
+返回示例
+```
+{
+	"id": 1,
+	"jsonrpc": "2.0",
+	"result": {
+		"id": "8e2a0d30d68a6a34f58cece5b7879d8a8ec123bd",
+		"block_num": 10680361,
+		"trx_num": 0,
+		"trx": {
+			"ref_block_num": 63524,
+			"ref_block_prefix": 3478923091,
+			"expiration": "2019-01-21T07:59:24",
+			"operations": [
+				[0, {
+					"fee": {
+						"amount": 1000,
+						"asset_id": "1.3.1"
+					},
+					"from": "1.2.22",
+					"to": "1.2.18",
+					"amount": {
+						"amount": 100000,
+						"asset_id": "1.3.1"
+					},
+					"extensions": []
+				}]
+			],
+			"extensions": [],
+			"signatures": ["20165321fabdce0ca561370ba547738be12a33b929b17889845ab9b8c1a4ed2fa04bc555205bc945cf6f0129765a0f1c06265437c111957a4008167ef720c49f71"],
+			"operation_results": [
+				[0, {}]
+			]
+		}
+	}
+}
+```
