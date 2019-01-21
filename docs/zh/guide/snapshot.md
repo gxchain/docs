@@ -1,33 +1,32 @@
 ## GXChain snapshot
 
-Get the newest package with snapshot functionality
+snapshot是节点的状态数据库快照，本文档介绍如何生成节点状态的snapshot，用于快速恢复一个节点。
+下载支持snapshot的安装包
 ```
 ~/opt/gxb# wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz -O gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz
 ```
 
-You can also build mainnet-snapshot-190121 branch from source:
+也可以源码编译github 上的 mainnet-snapshot-190121 分支
 ```
 https://github.com/gxchain/gxb-core/tree/mainnet-snapshot-190121
 ```
 
 
-### Creating a Snapshot
-#### 1. To enable snapshot RPC, restart witness_node, and specify the path to save snapshot data as follows:
+### 创建snapshot
+#### 1. 重启witness_node， 指定snapshot path
 ```
 ~/opt/gxb# ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint=127.0.0.1:28090 --state-snapshots-dir "/opt/gxchain/data/snapshots" 
 ```
 
-#### 2. Execute the RPC command as shown below
+#### 2. 执行rpc请求，生成snapshot
 ```
 ~/opt/gxb# curl --data '{"jsonrpc": "2.0", "method": "call", "params": [0, "create_snapshot", []], "id": 1}' http://127.0.0.1:28090
 
 {"id":1,"jsonrpc":"2.0","result":{"head_block_num":10580657,"head_block_id":"00a172b14a44015d35202ecabbdf1547be7fbbfe","snapshot_dir":"/opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe"}}
 ```
 
-
-Execution result shows head_block_id value and snapshot location and file name when the corresponding snapshot is created
-
-The head block id can be confirmed by cli_wallet get_block block_num command.
+执行结果中，返回当前的区块号、区块id和snapshot数据所在的路径。
+其中区块id和区块号，可以通过如下命令验证：
 
 ```
 ~/opt/gxb# curl --data '{ "jsonrpc": "2.0", "method": "call", "params": [0, "get_block_header", [10580657]], "id": 1 }' http://127.0.0.1:28090
@@ -37,21 +36,18 @@ The head block id can be confirmed by cli_wallet get_block block_num command.
 
 ```
 
-Snapshot data is valid after the head block is confirmed as an irreversible block. 
 
-### Recovering Snapshot Data
+### 使用snapshot数据，恢复节点
 
-The blocks log must have log data after the block ID at the time of creation of the snapshot becomes the Irreversible Block and can not be recovered by restoring to the log file before the confirmation block.
-
-In order to test the data recovery of Snapshot, we will forcibly terminate the witness_node that is currently in normal operation, and proceed with recovery.
+snapshot数据，需要在当前区块号变为不可逆后，才能使用。
+为了测试snapshot数据，我们强制kill掉witness_node程序，让当前节点的状态数据库坏掉。
 
 ```
 kill -s SIGKILL $(pgrep witness_node)
 
 ```
 
-When recovering to snapshot data, you must delete all files and directories except the blocks log file in the trusted_node directory. 
-
+然后删除掉数据目录下状态数据库，也就是trusted_node目录下的object_database
 ```
 ~/opt/gxb# ls -al trusted_node/blockchain/
 total 71624
@@ -62,14 +58,14 @@ drwxr-xr-x   3 root root     4096 Nov 14  2017 database
 drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
 ~/opt/gxb# rm -rf trusted_node/blockchain/object_database
 ```
-Now use snapshot to proceed with the recovery.  Move snapshot data to blockchain directory.
+
+然后将刚刚保存的snapshot 数据移到trusted_node/blockchain/object_database
 ```
 ~/opt/gxb# mv /opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe  trusted_node/blockchain/object_database
 ```
 
-It performs additional replay for the remaining blocks(blocks after 10580657) based on the point at which index creation is completed and snapshot is made .
 
-Then start witness_node
+现在可以重新启动witnesss_node了：
 ```
 ~/opt/gxb# ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint=127.0.0.1:28090 &
 ```
