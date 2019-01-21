@@ -1,6 +1,7 @@
 ## GXChain snapshot
 
 snapshot是节点的状态数据库快照，本文档介绍如何生成节点状态的snapshot，用于快速恢复一个节点。
+
 下载支持snapshot的安装包
 ```
 ~/opt/gxb# wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz -O gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz
