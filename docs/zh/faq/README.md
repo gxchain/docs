@@ -61,9 +61,9 @@ Websocket++: 0.7.0
 ```
 ps xf | grep witness_node
 ```
-   如果是启动了多个witness_node，需要全部关闭，再重新启动。
+   如果是启动了多个witness_node，需要全部关闭，再重新启动:
 ```
-kill -s SIGKILL $(pgrep witness_node)
+for i in $(pgrep witness_node); do echo kill -9 $i; done
 ```
    
 ### 8. witness_node启动失败，无日志，进程不存在
