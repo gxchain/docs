@@ -21,7 +21,7 @@ curl --data '{
 
 
 ``` bash
-curl POST --data '{
+curl -XPOST --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_dynamic_global_properties", []],
