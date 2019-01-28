@@ -7,6 +7,7 @@ GXChain的节点提供WebSocket和JSONRPC两种接口形式
 ### `get_chain_id`
 获取链id
 
+params: 无
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -19,6 +20,7 @@ curl --data '{
 ### `get_dynamic_global_properties`
 获取动态全局对象
 
+params: 无
 
 ``` bash
 curl -XPOST --data '{
@@ -36,6 +38,7 @@ curl -XPOST --data '{
 
 通过区块号获取区块信息
 
+params: <区块号>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -49,6 +52,7 @@ curl --data '{
 
 根据区块号获取区块头信息
 
+params: 区块号
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -66,6 +70,7 @@ curl --data '{
 
 根据对象ID获取对象信息
 
+params: <[对象ids]>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -81,6 +86,7 @@ curl --data '{
 
 获取链上帐户总数量
 
+params: 无
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -95,6 +101,8 @@ curl --data '{
 
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
 
+params: 帐户名
+
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -108,6 +116,7 @@ curl --data '{
 
 根据`account_ids 或者 account_names`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等。
 
+params: <[帐户名s或者帐户ids]>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -120,6 +129,8 @@ curl --data '{
 
 ### `is_account_registered`
 查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
+
+params: 帐户名
 
 ``` bash
 curl --data '{
@@ -134,6 +145,7 @@ curl --data '{
 ### `get_key_references`
 根据公钥，查询关联的帐户，返回关联的帐户id
 
+params: <[公钥s]>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -149,6 +161,7 @@ curl --data '{
 
 根据首字母查询资产
 
+params: 资产名 limit
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -162,6 +175,7 @@ curl --data '{
 
 根据资产名称获取资产详情
 
+params: <[资产名字s]>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -174,6 +188,7 @@ curl --data '{
 ### `get_account_balances`
 根据帐户id和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
+params: <帐户id> <[资产ids]>
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
