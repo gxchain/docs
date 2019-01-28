@@ -82,7 +82,7 @@ curl --data '{
 
 根据区块号获取区块头信息
 
-params: 区块号
+params: <区块号>
 
 request:
 ``` bash
@@ -133,7 +133,7 @@ curl --data '{
 
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
 
-params: 帐户名
+params: <帐户名>
 
 request:
 ``` bash
@@ -414,7 +414,7 @@ response:
 ### `is_account_registered`
 查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
 
-params: 帐户名
+params: <帐户名>
 
 ``` bash
 curl --data '{
