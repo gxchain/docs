@@ -22,7 +22,7 @@ Learn API via Help and get_help
 
 ## GXClient
 
-To conveniently call gxchain api, we encapsulated gxclient and realized the following functions:
+To conveniently call gxchain api, we encapsulated gxclient and implements the following functions:
 
 - [x] [KeyPair generation](https://github.com/gxchain/gxclient-node#2-keypair-generation)
 - [x] [Account register](https://github.com/gxchain/gxclient-node#3-account-register)
