@@ -43,6 +43,10 @@ module.exports = {
                         link: '/guide/',
                     },
                     {
+                        text: 'Advanced',
+                        link: '/advanced/',
+                    },
+                    {
                         text: 'FAQs',
                         link: '/faq/',
                     },
@@ -65,10 +69,22 @@ module.exports = {
                                 items: [
                                     {text: 'Github', link: 'https://github.com/gxchain'},
                                     {text: 'Core(gxb-core)', link: 'https://github.com/gxchain/gxb-core'},
-                                    {text: 'Smart Contract IDE(gxchain-alpha)', link: 'https://github.com/gxchain/gxchain-alpha'},
-                                    {text: 'Light Wallet(gxchain-light)', link: 'https://github.com/gxchain/gxchain-light'},
-                                    {text: 'Mobile Wallet(gxchain-wallet)', link: 'https://github.com/gxchain/gxchain-wallet'},
-                                    {text: 'Explorer(gxchain-explorer)', link: 'https://github.com/gxchain/gxchain-explorer'},
+                                    {
+                                        text: 'Smart Contract IDE(gxchain-alpha)',
+                                        link: 'https://github.com/gxchain/gxchain-alpha'
+                                    },
+                                    {
+                                        text: 'Light Wallet(gxchain-light)',
+                                        link: 'https://github.com/gxchain/gxchain-light'
+                                    },
+                                    {
+                                        text: 'Mobile Wallet(gxchain-wallet)',
+                                        link: 'https://github.com/gxchain/gxchain-wallet'
+                                    },
+                                    {
+                                        text: 'Explorer(gxchain-explorer)',
+                                        link: 'https://github.com/gxchain/gxchain-explorer'
+                                    },
                                 ]
                             }
                         ]
@@ -76,6 +92,7 @@ module.exports = {
                 ],
                 sidebar: {
                     '/guide/': genSidebarConfig ('guide', 'Guide'),
+                    '/advanced/': genSidebarConfig ('advanced', 'Advanced'),
                     '/faq/': genSidebarConfig ('faq', 'FAQ'),
                     '/contract/': genSidebarConfig ('contract', 'Smart Contract'),
                     '/baas-api/': genSidebarConfig ('baas', 'BaaS Storage'),
@@ -97,6 +114,10 @@ module.exports = {
                     {
                         text: '指南',
                         link: '/zh/guide/',
+                    },
+                    {
+                        text: '高级教程',
+                        link: '/zh/advanced/',
                     },
                     {
                         text: '常见问题',
@@ -124,7 +145,10 @@ module.exports = {
                                     {text: '智能合约IDE(gxchain-alpha)', link: 'https://github.com/gxchain/gxchain-alpha'},
                                     {text: '轻钱包(gxchain-light)', link: 'https://github.com/gxchain/gxchain-light'},
                                     {text: '手机钱包(gxchain-wallet)', link: 'https://github.com/gxchain/gxchain-wallet'},
-                                    {text: '区块浏览器(gxchain-explorer)', link: 'https://github.com/gxchain/gxchain-explorer'},
+                                    {
+                                        text: '区块浏览器(gxchain-explorer)',
+                                        link: 'https://github.com/gxchain/gxchain-explorer'
+                                    },
                                 ]
                             }
                         ]
@@ -132,6 +156,7 @@ module.exports = {
                 ],
                 sidebar: {
                     '/zh/guide/': genSidebarConfig ('guide', '指南'),
+                    '/zh/advanced/': genSidebarConfig ('advanced', '高级教程'),
                     '/zh/faq/': genSidebarConfig ('faq', '常见问题'),
                     '/zh/contract/': genSidebarConfig ('contract', '智能合约'),
                     '/zh/baas-api/': genSidebarConfig ('baas', 'BaaS存储'),
@@ -152,13 +177,24 @@ function genSidebarConfig (module, title) {
                     '',
                     'clients',
                     'apis',
-                    //'contract',
                     'testnet',
                     'private_chain',
                     'api_server',
                     'witness',
                     'asset',
                     'unpackblock'
+                ]
+            }
+        ];
+    }
+    if (module === 'advanced') {
+        return [
+            {
+                title,
+                collapsable: false,
+                children: [
+                    '',
+                    'send_transaction'
                 ]
             }
         ];
@@ -191,7 +227,7 @@ function genSidebarConfig (module, title) {
         ];
     }
 
-    if(module === 'des'){
+    if (module === 'des') {
         return [
             {
                 title,
