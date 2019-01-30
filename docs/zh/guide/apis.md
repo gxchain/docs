@@ -65,7 +65,7 @@ response:
 
 通过区块号获取区块信息
 
-params: <区块号>
+params: ```<区块号>```
 
 request:
 ``` bash
@@ -82,7 +82,7 @@ curl --data '{
 
 根据区块号获取区块头信息
 
-params: <区块号>
+params: ```<区块号>```
 
 request:
 ``` bash
@@ -102,7 +102,7 @@ curl --data '{
 
 根据对象ID获取对象信息
 
-params: <[对象ids]>
+params: ```<[对象ids]>```
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -133,7 +133,7 @@ curl --data '{
 
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
 
-params: <帐户名>
+params: ```<帐户名>```
 
 request:
 ``` bash
@@ -149,7 +149,7 @@ curl --data '{
 
 根据`account_ids 或者 account_names`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等。
 
-params: <[帐户名s或者帐户ids]>
+params: ```<[帐户名s或者帐户ids]>```
 
 request:
 ``` bash
@@ -414,7 +414,7 @@ response:
 ### `is_account_registered`
 查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
 
-params: <帐户名>
+params: ```<帐户名>```
 
 ``` bash
 curl --data '{
@@ -429,7 +429,7 @@ curl --data '{
 ### `get_key_references`
 根据公钥，查询关联的帐户，返回关联的帐户id
 
-params: <[公钥s]>
+params: ```<[公钥s]>```
 request:
 ``` bash
 curl --data '{
@@ -446,7 +446,7 @@ curl --data '{
 
 根据首字母查询资产
 
-params: 资产名 limit
+params: ```<资产名> <limit>```
 
 request:
 ``` bash
@@ -462,7 +462,7 @@ curl --data '{
 
 根据资产名称获取资产详情
 
-params: <[资产名字s]>
+params: ```<[资产名字s]>```
 
 request:
 ``` bash
@@ -477,7 +477,7 @@ curl --data '{
 ### `get_account_balances`
 根据帐户id和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
-params: <帐户id> <[资产ids]>
+params:``` <帐户id> <[资产ids]> ```
 
 request:
 ``` bash
@@ -512,7 +512,7 @@ response:
 
 根据帐户名和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
-params: <帐户名> <[资产ids]>
+params: ```<帐户名> <[资产ids]>```
 
 request:
 ``` bash
@@ -529,7 +529,7 @@ curl --data '{
 
 根据帐户id获取帐户所有的待解冻余额
 
-params: <帐户名>
+params: ```<帐户名>```
 
 request:
 ``` bash
@@ -624,7 +624,7 @@ curl --data '{
 
 根据`account_id`获取`公信节点`信息，包括节点公钥、总票数、缺块数等
 
-params: <帐户id>
+params: ```<帐户id>```
 
 request:
 ``` bash
@@ -659,7 +659,7 @@ response:
 
 根据vote_id返回所属公信节点的信息, 返回对应的worker对象
 
-params: <vote id>
+params: ```<vote id>```
 
 request:
 ``` bash
@@ -677,7 +677,7 @@ curl --data '{
 ### `get_table_rows`
 根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit （修改合约名、表名为你自己的）
 
-params: <contract_name> <table_name> <start> <limit>
+params: ```<contract_name> <table_name> <start> <limit>```
 
 request:
 ```bash
@@ -696,7 +696,7 @@ curl --data '{
 
 异步api，向网络广播一笔带签名的交易，但不等待交易执行的结果
 
-params: <signed_trx>
+params: ```<signed_trx>```
 	
 ``` bash
 # 该接口尚未升级到主网的API服务器，如果要使用，需要源码编译程序
