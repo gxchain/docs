@@ -553,6 +553,186 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `get_vesting_balances`
+
+Get all the unspent balances of the account based on the account id
+
+params: ```<account_id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_vesting_balances", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":[
+        {
+            "id":"1.13.89",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":0,
+                "asset_id":"1.3.0"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":7776000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"0",
+                    "coin_seconds_earned_last_update":"2018-11-09T11:29:30"
+                }
+            ]
+        },
+        {
+            "id":"1.13.123",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":24657392,
+                "asset_id":"1.3.1"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":7776000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"191735880192000",
+                    "coin_seconds_earned_last_update":"2018-12-04T07:40:00"
+                }
+            ]
+        },
+        {
+            "id":"1.13.237",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":1907009,
+                "asset_id":"1.3.1"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":2592000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"4942967328000",
+                    "coin_seconds_earned_last_update":"2019-01-28T00:40:00"
+                }
+            ]
+        }
+    ]
+}
+```
+
+## Trust_node
+
+### `get_trust_nodes`
+
+Get the account id of all trust nodes
+
+params:  none
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_trust_nodes", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_witness_by_account`
+
+Obtain the information of the public trust node according to `account_id`, including the node public key, the total number of votes, the number of missing blocks, etc.
+
+params: ```<account_id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_witness_by_account", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":{
+        "id":"1.6.35",
+        "witness_account":"1.2.748971", // Account_id
+        "last_aslot":0,
+        "signing_key":"GXC5YFfb3LtUDnHCu4bTfSMUxoVMz2xwnCbTT99oAdVPCcB2nMKz9", // Sign the block's public key
+        "vote_id":"1:56", // Witness's vote id
+        "total_votes":"82099555219", // Total votes
+        "url":".",
+        "total_missed":0, // Total missing blocks
+        "last_confirmed_block_num":0, // Last packaged block
+        "is_valid":true // Witness state
+    }
+}
+```
+
+### `lookup_vote_ids`
+
+Returns the worker object based on the information of the public node returned by vote_id
+
+params: ```<vote id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "lookup_vote_ids", [["1:22", "0:72"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+
+## Contract_table
+
+### `get_table_rows`
+According to the contract and table, query the table contents of the contract. Specify the contract name, table name, start, and limit when querying.Modify 'contract_name' and 'table_name' for your own contract name and table name
+
+params: ```<contract_name> <table_name> <start> <limit>```
+
+request:
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows", ["contract_name", "table_name", 0, 10]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_table_rows_ex`
+The extension interface of `get_table_rows` provides richer query functions. (The default value is used when the parameter field is not passed.)
+
+params: ```<contract_name> <table_name> <params_object> ```
+
+request:
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
+    "id": 1
+}' 
+```
+
+
 ## broadcast
 
 ### `broadcast_transaction`
@@ -569,6 +749,9 @@ curl --data '{
     "id": 1
 }' https://node23.gxb.io/rpc
 ```
+parameter description:
+
+Parameter in `[]` is signed transaction message body.
 
 ### `broadcast_transaction_synchronous`
 Broadcast a signed transaction to the network, and wait for the transaction result synchronously. Wait for about 2 seconds depending on factors such as network and transaction confirmation.
@@ -584,6 +767,10 @@ curl --data '{
     "id": 1
 }' https://node23.gxb.io/rpc
 ```
+
+parameter description:
+
+Parameter in `[]` is signed transaction message body.
 
 response:
 ```

@@ -689,6 +689,21 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `get_table_rows_ex`
+`get_table_rows`的扩展接口，提供更丰富的查询功能。（参数字段不传时，使用默认值）
+
+params: ```<contract_name> <table_name> <params_object> ```
+
+request:
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
+    "id": 1
+}' 
+```
+
 
 ## 广播接口
 
