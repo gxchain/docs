@@ -36,7 +36,7 @@
 }
 ```
 
-从上面的交易结构中我们看到，整个交易主要分为三部分: *区块头信息*、*操作数组*和*签名*。
+从上面的交易结构中我们看到，整个交易主要分为三部分: **区块头信息**、**操作数组**和**签名**。
 
 区块头信息包含3个字段:
 
@@ -58,11 +58,11 @@ curl -XPOST --data '{
 - [gxclient-node](https://github.com/gxchain/gxclient-node/blob/master/lib/src/TransactionBuilder.js#L56)
 - [gxclient-ios](https://github.com/gxchain/gxclient-ios/blob/master/gxclient-ios/lib/chain/GXTransactionBuilder.m#L87)
 
-上面的交易是未完成签名的，这样的交易无法在区块链上进行广播，接下来我们需要对交易进行*序列化*和*签名*
+上面的交易是未完成签名的，这样的交易无法在区块链上进行广播，接下来我们需要对交易进行**序列化**和**签名**
 
 ## Step2: 交易序列化
 
-GXChain链上一共76种不同的交易消息体结构，交易序列化采用一种自定义的Protocol Buffer协议，实现了以下*基础类型*序列化(toByteBuffer)和反序列化(fromByteBuffer):
+GXChain链上一共76种不同的交易消息体结构，交易序列化采用一种自定义的Protocol Buffer协议，实现了以下**基础类型**序列化(toByteBuffer)和反序列化(fromByteBuffer):
 
 | 类型 | 描述 |
 | --- | --- |
@@ -101,7 +101,7 @@ export const transfer = new Serializer (
 );
 ```
 
-`Serializer`实例提供fromBuffer和toBuffer方法，可以将一个JSON根据所定义的结构进行序列化和反序列化。Serializer可以相互嵌套，序列化过程中，在碰到*非基础类型*时，会进行递归序列化, 如转账消息体中的`memo`字段是这样定义的:
+`Serializer`实例提供fromBuffer和toBuffer方法，可以将一个JSON根据所定义的结构进行序列化和反序列化。Serializer可以相互嵌套，序列化过程中，在碰到**非基础类型**时，会进行递归序列化, 如转账消息体中的`memo`字段是这样定义的:
 
 ```js
 export const memo_data = new Serializer (
@@ -222,7 +222,7 @@ tx.signatures=[signature];
 
 ## Step4: 广播交易
 
-通过调用`broadcast_transaction_synchronous`，我们就可以把交易推送到接入点上想整个网络广播了
+通过调用`broadcast_transaction_synchronous`，我们就可以把交易推送到接入点上向整个网络广播了
 
 ``` bash
 curl --data '{

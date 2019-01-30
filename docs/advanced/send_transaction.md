@@ -1,6 +1,6 @@
-# 发送交易
+# Send Transaction
 
-## Step1: 构造交易
+## Step1: Construct
 
 ``` json
 {
@@ -36,14 +36,14 @@
 }
 ```
 
-从上面的交易结构中我们看到，整个交易主要分为三部分: *区块头信息*、*操作数组*和*签名*。
+From the above transaction structure, we can see that the whole transaction is mainly divided into three parts: **block Header**, **operations** and **signatures**.
 
-区块头信息包含3个字段:
+The block header contains 3 fields:
 
 - ref_block_num = head_block_num & 0xFFFF (head_block_num mod 65535)
 - ref_block_prefix = hex2Num(head_block_id.substring(12,14)+head_block_id.substring(10,12)+head_block_id.substring(8,10))
 
-其中`head_block_num`和`ref_block_prefix`可以通过`get_dynamic_global_properties`来获得
+`head_block_num` and `ref_block_prefix` can be obtained by `get_dynamic_global_properties
 
 ``` bash
 curl -XPOST --data '{
@@ -54,38 +54,38 @@ curl -XPOST --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-参考代码:
+Reference:
 - [gxclient-node](https://github.com/gxchain/gxclient-node/blob/master/lib/src/TransactionBuilder.js#L56)
 - [gxclient-ios](https://github.com/gxchain/gxclient-ios/blob/master/gxclient-ios/lib/chain/GXTransactionBuilder.m#L87)
 
-上面的交易是未完成签名的，这样的交易无法在区块链上进行广播，接下来我们需要对交易进行*序列化*和*签名*
+The above transaction is not signed, such a transaction cannot be broadcast on the blockchain before we do **Serialize** and **Signature**
 
-## Step2: 交易序列化
+## Step2: Serialize a transaction
 
-GXChain链上一共76种不同的交易消息体结构，交易序列化采用一种自定义的Protocol Buffer协议，实现了以下*基础类型*序列化(toByteBuffer)和反序列化(fromByteBuffer):
+There are a total of 76 different transaction structures on the GXChain. The transaction serialization uses a custom Protocol Buffer protocol to implement serialization (toByteBuffer) and deserialization (fromByteBuffer) of the following **Basic Types**:
 
-| 类型 | 描述 |
+| type | description |
 | --- | --- |
-| uint8 | 单字节无符号整型 |
-| uint16 | 2字节无符号整型 |
-| uint32 | 4字节无符号整型 |
-| uint64 | 8字节无符号整型 |
-| int64 | 8字节整型 |
-| bool | 布尔类型 |
-| string | 字符串 |
-| bytes | 字节数组 |
-| array | 数组类型(仅支持自定义类型) |
-| protocol_id_type | 协议id类型(如1.3.1, 1.2.1) |
-| vote_id | 投票id类型(如0:11, 1:13)|
-| map | key-value类型 |
-| set | 集合类型(和array的区别是仅支持整形和字符串类型) |
-| public_key | 公钥类型 |
-| time_point_second | 时间戳类型 |
-| name_type | base32类型 |
-| optional | 可空类型 |
-| future_extensions | 扩展类型 |
+| uint8 | Single-byte unsigned integer |
+| uint16 | 2-byte unsigned integer |
+| uint32 | 4-byte unsigned integer |
+| uint64 | 8-byte unsigned integer |
+| int64 | 8-byte integer |
+| bool | Boolean |
+| string | String |
+| bytes | byte array |
+| array | Array type for custom types |
+| protocol_id_type | protocol object id type on gxchain(eg. 1.3.1 and 1.2.1) |
+| vote_id | vote type id on gxchain (eg. 0:11 and 1:13)|
+| map | a map of key-value |
+| set | collection type (the difference with array is that only number and string types are supported in a set) |
+| public_key | public key string type |
+| time_point_second | timestamp(eg. "2019-01-18T03:35:54") |
+| name_type | base32 encoded string |
+| optional | use to describe optional and nullable field |
+| future_extensions | extension features(usually an empty array) |
 
-我们来看一下常见的转账操作，是这样定义的:
+Let's take a look at the transfer operation serializer, which is defined like this:
 
 ``` js
 export const transfer = new Serializer (
@@ -101,7 +101,7 @@ export const transfer = new Serializer (
 );
 ```
 
-`Serializer`实例提供fromBuffer和toBuffer方法，可以将一个JSON根据所定义的结构进行序列化和反序列化。Serializer可以相互嵌套，序列化过程中，在碰到*非基础类型*时，会进行递归序列化, 如转账消息体中的`memo`字段是这样定义的:
+The `Serializer` instance provides fromBuffer and toBuffer methods, which can serialize and deserialize a JSON according to the defined structure. Serializers can be nested with each other. During the serialization process, recursive serialization is performed when a **non-basic type** is encountered. For example, the `memo` field in the transfer message body is defined as follows:
 
 ```js
 export const memo_data = new Serializer (
@@ -115,28 +115,29 @@ export const memo_data = new Serializer (
 );
 ```
 
-序列化和反序列化的细节，可以参考以下源码:
+For details on serialization and deserialization, you can refer to the following source code:
 - [fromByteBuffer(bytes)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L17)
 - [appendByteBuffer(bytes, object)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L59)
 
-假如你是一个开发者，在交易封装的过程中，序列化的过程是比较头疼的，不用担心，我们已经为你准备好了现成的[tx_serializer](https://unpkg.com/gxbjs@1.3.18/build/tx_serializer.js)
+The process of serialization is complicated in the process of transaction encapsulation. Don't worry, we have prepared ready-made lib for you.[tx_serializer](https://unpkg.com/gxbjs@1.3.18/build/tx_serializer.js)
 
-`tx_serializer.js`提供了两个方法
+`tx_serializer.js` Provides 2 methods:
 
-1. 智能合约参数序列化
+1. Smart contract parameter serialization
 
 ```js
 var serializeCallData = function serializeCallData(action, params, abi)
 ```
-2. 交易序列化
+2. Transaction serialization
 
 ```js
 var serializeTransaction = function serializeTransaction(transaction)
 ```
 
-所以问题回归到如何在程序中调用`tx_serializer.js`对交易消息体进行序列化，可以参考gxclient-ios的实现：
+So the problem returns to how to call `tx_serializer.js` in the program to serialize the transaction body. You can refer to the implementation of gxclient-ios:
 
-首先我们构造了一个JS执行环境(jsContext)，加载`tx_serializer.js`
+
+First we construct a JS execution environment (jsContext), load `tx_serializer.js`
 
 ``` Objective-C
 +(JSContext*)jsContext{
@@ -155,7 +156,7 @@ var serializeTransaction = function serializeTransaction(transaction)
 }
 ```
 
-然后我们就可以调用jsContext的两个方法对合约调用参数和交易进行序列化了
+Then we can call the two methods of jsContext to serialize the contract call parameters and transactions.
 
 ``` Objective-C
 +(NSString*) serialize_action_data:(NSString*)action params:(NSDictionary*)params abi:(NSDictionary*)abi{
@@ -171,9 +172,9 @@ var serializeTransaction = function serializeTransaction(transaction)
 }
 ```
 
-通过序列化，我们把一个json结构的交易压缩成了一个byte数组，接下来就是对这个byte数组进行签名
+Since now we have compress a json formatted transaction into a byte array, the next step is to sign the byte array with your private key.
 
-## Step3: 交易签名
+## Step3: Sign a transaction
 
 ```js
 let tx_buffer = serializer.serializeTransaction(tx);
@@ -182,7 +183,7 @@ let signature = ecc.Signature.signBuffer(tx_buffer, privateKey).toHex();
 tx.signatures=[signature];
 ```
 
-于是我们得到了签名好的交易
+So we got the signed transaction
 
 ``` json
 {
@@ -220,9 +221,9 @@ tx.signatures=[signature];
 }
 ```
 
-## Step4: 广播交易
+## Step4: Broadcast a transaction
 
-通过调用`broadcast_transaction_synchronous`，我们就可以把交易推送到接入点上想整个网络广播了
+By calling `broadcast_transaction_synchronous`, we can push the transaction to the entry point and broadcast it to GXChain network.
 
 ``` bash
 curl --data '{
