@@ -555,7 +555,7 @@ curl --data '{
 
 ## broadcast
 
-### ```broadcast_transaction```
+### `broadcast_transaction`
 Broadcast a signed transaction to the network
 
 params: ```<signed_transaction>```
@@ -570,7 +570,7 @@ curl --data '{
 }' https://node23.gxb.io/rpc
 ```
 
-### ```broadcast_transaction_synchronous```
+### `broadcast_transaction_synchronous`
 Broadcast a signed transaction to the network, and wait for the transaction result synchronously. Wait for about 2 seconds depending on factors such as network and transaction confirmation.
 
 params:  ```<signed_transaction>```
