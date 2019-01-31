@@ -1,170 +1,165 @@
-# 快速开始
-## 入门指导
+# Quick start
+## Overview
 
-本教程的目的是为GXChain智能合约开发提供指导，包括合约开发、部署、调试以及常见错误归类等相关内容。
+This tutorial provides guidance for GXChain smart contract development, including contract development, deployment, debugging, and common errors.
 
-GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为Webassembly虚拟机执行的字节码文件。  
+The GXChain smart contract is developed in C++, compiled by the [Webassembly](https://webassembly.org/) virtual machine and deployed on the GXChain blockchain network. The compiled smart contract includes the abi file and the wast file, the `abi` file is the interface file defined by the contract, and the `wast` file is the bytecode file executed by the Webassembly virtual machine.  
 
-**开发智能合约之前，你需要做如下准备:**
+**Before developing a smart contract, you need to do the following:**
 
-- 对C++语言开发有一定程度的了解
-- 对Linux、Mac系统命令有一定程度的了解
-- 在本地编译源码，启动本地私链或连接到测试网络（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
+- Experience in C++ language development
+- Experience with Linux or Mac
+- Compile the source to start the local private chain or download the release program to connect to the test network (source compilation tutorial point [here](https://github.com/gxchain/gxb-core)）
 
 
-### 1. 启动本地私链
+### 1. Start witness_node
 
-编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../guide/private_chain.md )
+You need to compile the source code to start the private chain, and then switch to the directory where the witness_node program is located, use the following command to start the node, the `data` directory to save the configuration information, the generated block information, etc. Start the private chain tutorial click [here](../guide/private_chain.md )
 
 ```bash
 ./witness_node -d data
 ```
 
-启动后大致如下图所示（请记录下Chain ID，cli_wallet连接时会使用到）：
+**It is recommended to synchronize the test network node and then develop the contract. Start the test network node tutorial click [here](../guide/testnet.md)**
+
 
 ![](./png/chain_id.jpg)
 
-出块节点运行之后，切换到cli_wallet目录，运行如下命令，启动cli_wallet客户端与出块节点交互，包括创建账号、部署合约、调用合约等功能，均可通过cli_wallet客户端进行测试。(chain-id 切换为自己的id)
+Switch to the `cli_wallet` directory, start the `cli_wallet` client and connect to the `witness_node`. The `cli_wallet` program features include creating accounts, deploying contracts, calling contracts, and more. (`chain-id` is replaced with your `chain-id`)
 
 ```bash
 ./cli_wallet -sws://localhost:11011 --chain-id=679beed54a9081edfd3ede349a0aa1962ea2dc9d379808fecce56226cb199c84
 ```
 
-启动后大致如下图所示：（**初次启动显示为new**）
-
 ![](./png/cli_wallet.jpg)
 
 
-### 2. 创建一个新钱包
+### 2. Create a new wallet
 
 
-首先你需要为你的钱包创建一个新的密码，钱包密码用来解锁你的钱包。在教程中我们使用如下密码：`supersecret`
-你也可以使用字母和数字的组合来创建属于你的密码。请输入如下命令创建：
+You need to create a new password for your wallet, and the wallet password is used to unlock your wallet. In the tutorial we use the following password: `supersecret`, you can also use a combination of letters and numbers to create your own password.
 
 ```bash
 >>> set_password supersecret
 ```
 
-现在你可以解锁你新建的钱包了：
+Now you can unlock your new wallet:
 
 ```bash
 unlock supersecret
 ```
 
-### 3. 申领初始余额
+### 3. Claim initial balances
 
-资产账户包含在钱包账户中， 要向你的钱包中添加钱包账户, 你需要知道账户名以及账户的私钥。
-在例子中，我们将通过`import_key`命令向现有钱包中导入my-genesis.json中初始化的`nathan`帐户：
+To add assets to your wallet, you need the account name and the private key of the account.
+In the example, we will import the `nathan` account initialized in `my-genesis.json` into the existing wallet by the `import_key` command:
 
 ```bash
 import_key nathan 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
 
-::: warning 提示
-* `nathan`在初始文件中会被用于定义账户名,  如果你修改过`my-genesies.json` 文件，你可以填入一个不同的名字。并且，请注意`5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3`是定义在`config.ini`内的私钥
+::: warning note
+* `nathan` will be used to define the account name in the initial file. If you have modified the `my-genesies.json` file, you can fill in a different name. Also, please note that `5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3` is the private key defined in `config.ini`
 :::
 
-现在我们已经将私钥导入进钱包, my-genesis.json中初始化的余额，需要通过`import_balance`命令来申领，无需申明费用：
+Now that we have imported the private key into the wallet, the balance initialized in `my-genesis.json` needs to be claimed by the `import_balance` command.
 
 ```bash
 import_balance nathan ["5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"] true
 ```
 
-你可以通过以下命令来检视你的账户：
+You can view your account by the following command:
 
 ```bash
 get_account nathan
 ```
 
-用以下命令获取账户余额：
+Use the following command to get the account balance:
 
 ```bash
 list_account_balances nathan
 ```
 
-### 4. 创建账户
+### 4. Create account
 
-现在我们将创建一个新的账户`alpha` ，这样我们可以在 `nathan`和`alpha`两个账户中来回转账了。
+Now we will create a new account `alpha` so that we can revolve in the two accounts `nathan` and `alpha`.
 
-通常我们用一个已有账户来创建新账户，因为登记员需要缴纳注册费用。 并且，登记员的账户需要进入Also, there is the requirement  lifetime member \(LTM\)状态。因此我们必须在创建新账户前，先将账户`nathan`升级到LTM状态， 使用`upgrade_account`命令来升级账户：
+Usually we use an existing account to create a new account because the registrar is required to pay the registration fee. Also, the registrar's account needs to enter the state of `Also, there is the requirement lifetime member (LTM)`. So we must upgrade the account `nathan` to the LTM state and the `upgrade_account` command to upgrade the account before creating a new account:
 
 ```bash
 upgrade_account nathan GXC true
 ```
-返回的信息中，在`membership_expiration_date`边上你会发现`2106-02-07T06:28:15`。 如果你看到`1970-01-01T00:00:00`，说明之前的操作出现了错误，`nathan`没能成功升级。
+In the returned information, you will find `2106-02-07T06:28:15` on the side of `membership_expiration_date`. If you see `1970-01-01T00:00:00`, it means that the previous operation has an error and the `nathan` upgrade failed.
 
-成功升级后，我们可以通过`nathan`来注册新账户，但首先我们需要拥有新账户的公钥。通过使用`suggest_brain_key`命令来生成公私钥对：
+After a successful upgrade, we can register a new account with `nathan`, but first we need to have the public key for the new account. Generate a public-private key pair by using the `suggest_brain_key` command:
 
 ```bash
-// 生成秘钥对
 suggest_brain_key
 ```
 
-然后调用register\_account / register\_account2接口创建新帐户
+Call the `register_account` / `register_account2` interface to create a new account.
 
 ```bash
 register_account alpha GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ nathan nathan 10 true
 ```
 
-使用transfer3命令转移部分资产到账户
+Transfer some assets to the account using the `transfer3` command
 
 ```bash
 transfer3 nathan alpha 1000 GXC test GXC true
 ```
 
-使用如下命令查看资产余额：
+Use the following command to get the asset balance:
 
 ```bash
 list_account_balances alpha
 ```
-## Hello World合约简介
+## Hello World
 
-在阅读本篇教程之前，假定您已经阅读完了[入门指导](#入门指导)
+Before reading this tutorial, assume that you have already read the [Overview](#Overview)
 
-### 1. 功能简介与部署调用
+### 1. Function introduction
 
-####  1.0 合约功能
+####  1.0 Introduction
 
-[Hello World合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/helloworld)是一个最精简的GXChain合约，通过分析该合约，我们可以掌握智能合约开发的基本框架。该合约实现了一个`hi action`，action是合约给外部调用提供的接口，功能为打印两次`hi user(user为调用action的参数)`字符串到控制台，输出结果如下
+[Hello World](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/helloworld)
+This is the simplest GXChain contract, and we can master the basic process of smart contract development through this contract. The contract implements a `hi` action, which is the interface provided by the contract to the external call. The function is to print the `hi user ` string to the console twice. 
 
 ![](./png/console_print.jpg)
 
-####  1.1 编译合约
-智能合约编写完成后包括xxx.hpp文件和xxx.cpp文件，需要编译为xxx.wast文件和xxx.abi文件，才能部署到区块链上。您可以使用GXChain提供的gxx工具，编译wast和abi文件，该工具可以在目录`~/gxb-core/build/tools/gxx`找到。您可以切换到gxx所在目录，然后使用如下命令进行编译：
+####  1.1 Compile contract
+Smart contracts include xxx.hpp files and xxx.cpp files, which need to be compiled into xxx.wast files and xxx.abi files to be deployed on the blockchain. You can compile the wast and abi files using the gxx tool provided by GXChain, which can be found in the directory `~/gxb-core/build/tools/gxx`.
 
 ```bash
-//编译wast文件，路径需要替换成你自己的
 ./gxx -o /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld/helloworld.wast /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld/helloworld.cpp
 
-//编译abi文件，路径需要替换成自己的
 ./gxx -g /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld/helloworld.abi /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld/helloworld.hpp
 ```
-####  1.2 部署合约
+####  1.2 Deployment contract
 
-您可以使用如下命令部署Hello World合约，hello为合约用户名（执行部署合约命令则会创建一个合约账户，合约账户的资产只能通过合约来控制），nathan为支付手续费的账户，0 0 表示虚拟机类型和版本，/Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld 为合约路径（**包括wast文件和abi文件**），GXC表示手续费类型，true表示是否广播。
+You can deploy the Hello World contract, `hello` for the contract username, `nathan` for the account that pays the fee, `0 0` for the virtual machine type and version, `/Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld` is the contract path, GXC indicates the fee type, and true indicates the broadcast.
 
 ```bash
-// 部署合约
 deploy_contract hello nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts/examples/helloworld GXC true
 ```
 
-::: warning 注意
-* 部署合约时，支付手续费的账户必须已经导入过私钥（上面命令支付账户为`nathan`），且账户余额足够支付手续费
+::: warning note
+* When deploying the contract, the account that pays the fee must have imported the private key (the above payment account is `nathan`), and the account balance is sufficient to pay the handling fee.
 :::
 
-####  1.3 调用合约
+####  1.3 Call contract
 
-您可以使用如下命令调用合约接口，GXChain的调用合约接口可以附加资产发送选项。附加资产的调用方式，会将资产发送到合约账户。合约账户的资产，只能通过合约自身代码使用提现API`withdraw_asset`来控制。
+You can attach assets when you call the contract interface. This will send the asset to the contract account. The assets of the contract account can only be controlled by the contract's own code.
+
 ```bash
-// 不附带资产
+
 call_contract nathan hello null hi "{\"user\":\"gxchain!!!\"}" GXC true
 
-// 附带资产(附带资产的action，需要在合约中添加 // @abi payable )
 call_contract nathan hello {"amount":10000000,"asset_id":1.3.1} hi "{\"user\":\"gxchain!!!\"}" GXC true
 
 ```
 
-::: warning 带转移资产的action定义
+::: warning // @abi payable means attached assets
 ```cpp
 // @abi action
 // @abi payable
@@ -179,15 +174,15 @@ void hi(std::string user)
 ```
 :::
 
-### 2. 代码解析
+### 2. Code
 
-Hello World智能合约只包含一个action，是一个最简单的智能合约。我们可以以此为例，分析智能合约的基本框架。
+The `Hello World` Smart Contract contains only one action and is the simplest smart contract.
 
-合约的开发包括**定义一个合约类，并提供一个apply接口**，apply接口可以使用系统提供的`GRAPHENE_ABI`来定义。
+The development contract requires **to define a contract class and provide an apply interface**, which can be defined using the system-provided `GRAPHENE_ABI`.
 
 ![](./png/hello_code.jpg)
 
-以上，一个基础智能合约就完成了。其中头文件所在目录为`/Users/zhaoxiangfei/code/gxb-core/contracts/graphenelib`(更改为你的对应目录)，合约开发过程中，引入相关头文件之后，便可以使用合约的内置类型和内置api函数了。下一篇教程分析一个较为复杂的智能合约-红包合约。
+The directory where the header file is located is `/Users/zhaoxiangfei/code/gxb-core/contracts/graphenelib` (change to your directory). After importing the header file, you can use the built-in type of the contract and the built-in api function. The next tutorial analyzes a more complex smart contract - red envelope contract.
 
 ## 红包合约简介
 
