@@ -488,7 +488,7 @@ curl --data '{
 
 ### `get_account_balances`
 
-Get account balance based on account id and asset id, return all asset balance if asset id is not specified
+Get account balances based on account id and asset id, return all asset balances if asset id is not specified
 
 params: `<account_id> <[asset_ids]>`
 
@@ -523,7 +523,7 @@ response:
 
 ### `lookup_asset_symbols`
 
-Obtain details by asset name
+Obtain asset details by asset name
 
 params: ```<[asset_names]>```
 
@@ -539,7 +539,7 @@ curl --data '{
 
 ### `get_named_account_balances`
 
-Obtain account balance based on account name and asset id, return all asset balance if asset id is not specified
+Obtain account balances based on account name and asset id, return all asset balance if asset id is not specified
 
 params: ```<account_name> <[asset_ids]>```
 
@@ -634,7 +634,7 @@ response:
 
 ### `get_trust_nodes`
 
-Get the account id of all trust nodes
+Get the account ids of all trust nodes
 
 params:  none
 
@@ -650,7 +650,7 @@ curl --data '{
 
 ### `get_witness_by_account`
 
-Obtain the information of the public trust node according to `account_id`, including the node public key, the total number of votes, the number of missing blocks, etc.
+Obtain the information of the trust node according to `account_id`, including the public key, the total votes, missing blocks, etc.
 
 params: ```<account_id>```
 
@@ -703,7 +703,7 @@ curl --data '{
 ## Contract_table
 
 ### `get_table_rows`
-According to the contract and table, query the table contents of the contract. Specify the contract name, table name, start, and limit when querying.Modify 'contract_name' and 'table_name' for your own contract name and table name
+Query the table contents of the contract. Specify the contract name, table name, start, and limit when querying.Modify 'contract_name' and 'table_name' for your own contract name and table name
 
 params: ```<contract_name> <table_name> <start> <limit>```
 
@@ -751,6 +751,8 @@ curl --data '{
 ```
 parameter description:
 
+broadcast API id in params is 2 by default.
+
 Parameter in `[]` is signed transaction message body.
 
 ### `broadcast_transaction_synchronous`
@@ -769,6 +771,8 @@ curl --data '{
 ```
 
 parameter description:
+
+broadcast API id in params is 2 by default.
 
 Parameter in `[]` is signed transaction message body.
 
