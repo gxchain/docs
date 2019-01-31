@@ -700,7 +700,7 @@ request:
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
+    "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":20}]],
     "id": 1
 }' https://testnet.gxchain.org
 ```
@@ -712,6 +712,7 @@ upper_bound， 查询时指定的key最大值，默认为-1，即最大的无符
 limit， 查询时指定返回limit条，默认返回10条
 index_position， 查询时指定的index，默认为1，即第1个索引
 reverse， 查询结果按key的倒序输出，默认为0，即按key从小到大输出
+get_table_rows_params所有的参数都有默认值，如无需要改变默认值，可以不传入
 ```
 
 
