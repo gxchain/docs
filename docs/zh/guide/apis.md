@@ -692,16 +692,26 @@ curl --data '{
 ### `get_table_rows_ex`
 `get_table_rows`的扩展接口，提供更丰富的查询功能。（参数字段不传时，使用默认值）
 
-params: ```<contract_name> <table_name> <params_object> ```
+params: ```<contract_name> <table_name> <get_table_rows_params> ```
 
 request:
 ```bash
+# 该接口已上线测试网，主网暂不支持
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
     "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
     "id": 1
-}' 
+}' https://testnet.gxchain.org
+```
+
+get_table_rows_params参数说明：
+```
+lower_bound， 查询时指定的key最小值, 默认为0
+upper_bound， 查询时指定的key最大值，默认为-1，即最大的无符号整形
+limit， 查询时指定返回limit条，默认返回10条
+index_position， 查询时指定的index，默认为1，即第1个索引
+reverse， 查询结果按key的倒序输出，默认为0，即按key从小到大输出
 ```
 
 
