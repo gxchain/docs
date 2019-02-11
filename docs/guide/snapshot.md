@@ -2,7 +2,7 @@
 
 Get the newest package with snapshot functionality
 ```
-~/opt/gxb# wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz -O gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz
+~/opt/gxb# wget 'http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_1.0.190211-snapshot-ubuntu-14.04.tar.gz' -O gxb_1.0.190211-snapshot-ubuntu-14.04.tar.gz
 ```
 
 You can also build mainnet-snapshot-190121 branch from source:
