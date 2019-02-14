@@ -195,7 +195,8 @@ function genSidebarConfig (module, title) {
                 children: [
                     '',
                     'send_transaction',
-                    'confirm_transaction'
+                    'confirm_transaction',
+                    'deal_with_memo'
                 ]
             }
         ];
