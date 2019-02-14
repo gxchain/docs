@@ -119,7 +119,7 @@ For details on serialization and deserialization, you can refer to the following
 - [fromByteBuffer(bytes)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L17)
 - [appendByteBuffer(bytes, object)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L59)
 
-The process of serialization is complicated in the process of transaction encapsulation. Don't worry, we have prepared ready-made lib for you.[tx_serializer](https://unpkg.com/gxbjs@1.3.18/build/tx_serializer.js)
+The process of serialization is complicated in the process of transaction encapsulation. Don't worry, we have prepared ready-made lib for you.[tx_serializer](https://unpkg.com/gxbjs@1.3.19/build/tx_serializer.js)
 
 `tx_serializer.js` Provides 2 methods:
 

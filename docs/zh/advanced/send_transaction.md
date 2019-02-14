@@ -119,7 +119,7 @@ export const memo_data = new Serializer (
 - [fromByteBuffer(bytes)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L17)
 - [appendByteBuffer(bytes, object)](https://github.com/gxchain/gxbjs/blob/master/lib/serializer/src/serializer.js#L59)
 
-假如你是一个开发者，在交易封装的过程中，序列化的过程是比较头疼的，不用担心，我们已经为你准备好了现成的[tx_serializer](https://unpkg.com/gxbjs@1.3.18/build/tx_serializer.js)
+假如你是一个开发者，在交易封装的过程中，序列化的过程是比较头疼的，不用担心，我们已经为你准备好了现成的[tx_serializer](https://unpkg.com/gxbjs@1.3.19/build/tx_serializer.js)
 
 `tx_serializer.js`提供了两个方法
 
