@@ -116,7 +116,7 @@ list_account_balances alpha
 ```
 ## Hello World
 
-Before reading this tutorial, assume that you have already read the [Overview](#Overview)
+Before reading this tutorial, assume that you have already read the [Overview](#overview)
 
 ### 1. Function introduction
 
@@ -186,7 +186,7 @@ The directory where the header file is located is `/Users/zhaoxiangfei/code/gxb-
 
 ## Red Packet
 
-Before reading this tutorial, assume that you have already read the [Overview](#Overview)
+Before reading this tutorial, assume that you have already read the [Overview](#overview)
 
 ### 1. Function introduction
 
@@ -375,19 +375,19 @@ packets.modify(packet_iter, sender, [&](auto &o) {
 // Erase item
 packets.erase(packet_iter);
 ``` 
-## bank合约简介
+## Bank
 
-在阅读本篇教程之前，假定您已经阅读完了[入门指导](#入门指导)
+Before reading this tutorial, assume that you have already read the [Overview](#overview)
 
-### 1. 功能简介与部署调用
 
-####  1.0 合约功能
+### 1. Function introduction
 
-[bank](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/bank)合约提供了代币存取功能。共包含两个action接口，一个为储存接口，用户调用该接口时，附加的代币资产为用户需要储存的资产。第二个为提现接口，可以指定提取一定数量的资产到指定账户。包含一个`account table`，存储的内容为用户id以及其所储存的资产列表。
+####  1.0 Introduction
 
-- **调用储存资产接口，调用过程与结果反馈如下**
+[Bank](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/bank)contracts can deposit and withdraw assets. There are two action interfaces, one is the 'deposit'. When the user calls the interface, the additional token assets are the assets that the user needs to deposit. The second is to withdraw assets and can be withdrawn to the account. Contains an `account table`, including a list of user ids and their deposited assets.
+
 ```bash
-//nathan调用deposit接口储存10GXC到bank合约
+// Call the 'deposit' interface to deposit 10GXC to the bank contract
 unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXC true
 {
   {
@@ -398,7 +398,7 @@ unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} depos
   ...
   ...
 }
-//查看合约内account table，获取账户储存的资产,asset_id表示GXC，owner为instance id，17表示nathan账户
+//View the account table in the contract, get the account balance
 unlocked >>> get_table_rows bank account 0 -1
 [{
     "owner": 17,
@@ -410,10 +410,9 @@ unlocked >>> get_table_rows bank account 0 -1
   }
 ]
 ```
-- **调用提现资产接口，调用过程与结果反馈如下**
 
 ```bash
-//nathan调用提现资产接口，提取1GXC到hello账户
+// Call the cash 'withdraw' interface to withdraw 1GXC to the hello account
 unlocked >>> call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXC true
 {
   "ref_block_num": 36733,
@@ -422,78 +421,70 @@ unlocked >>> call_contract nathan bank null withdraw "{\"to_account\":\"hello\",
   ...
   ...
 }
-//提现之后，查看hello账户余额
+// View 'hello' account balance
 unlocked >>> list_account_balances hello
 1 GXC
 ```
-####  1.1 编译合约
-
-您可以使用如下命令编译智能合约的abi文件和wast文件
+####  1.1 Compile contract
 
 ```bash
-# 其中的bank.cpp所在路径需要替换为你自己的路径
 ./gxx -g /Users/zhaoxiangfei/code/contracts_work/bank/bank.abi /Users/zhaoxiangfei/code/contracts_work/bank/bank.cpp
 
-# 其中的bank.cpp所在路径需要替换为你自己的路径
 ./gxx -o /Users/zhaoxiangfei/code/contracts_work/bank/bank.wast /Users/zhaoxiangfei/code/contracts_work/bank/bank.cpp
 ```
 
-#### 1.2  部署合约
+####  1.2 Deployment contract
 
-您可以使用如下命令部署bank银行存取合约
 
 ```bash
-# 需要将智能合约所在路径替换为你自己的路径
 deploy_contract bank nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/bank GXC true
 ```
 
-#### 1.3 调用合约
+#### 1.3 Call contract
 
 ```bash
-# 储存资产接口调用方式
+# Deposit asset
 call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} deposit "{}" GXC true
 
-# 提现资产接口调用方式
+# Withdraw asset
 call_contract nathan bank null withdraw "{\"to_account\":\"hello\",\"amount\":{\"asset_id\":1,\"amount\":100000}}" GXC true
 ```
 
-### 2.代码解析
+### 2. Code
 
-bank合约包括两个action接口和一个table，本篇教程主要分析合约的功能逻辑的实现。
-
-存储用户id以及资产列表的table
+Table stores the user id and the list of assets
 ```cpp
-//主键为用户instance_id，balances字段为用户储存的资产列表
+//The primary key is instance_id, and the balances field is the list of assets stored by the user.
 //@abi table account i64
 struct account {
     uint64_t owner;
-    std::vector<contract_asset> balances;  //复杂类型vector，元素为contract_asset内置类型
+    std::vector<contract_asset> balances;  
 
     uint64_t primary_key() const { return owner; }
 
     GRAPHENE_SERIALIZE(account, (owner)(balances))
 };
 ```
-储存资产的action，该接口没有参数。当你想调用该接口储存资产时，通过附加资产传送来达到目的。该接口逻辑功能为，获取附加资产信息（资产id，资产数量），遍历持久化table account，将储存的资产信息添加到table中。
+'deposit' is an interface with no parameters. You can deposit by attaching assets. The interface function includes obtaining additional asset information (asset id, asset quantity), traversing 'table', and adding asset information to the table.
 
-:::warning 提示
-修改table中的字段时，需要调用GXChain提供的modify接口修改，不可以直接使用遍历得到的迭代器修改，find方法返回的迭代器类型是const的。
+:::warning Note
+The table field can only be modified by the 'modify' interface provided by GXChain. It cannot be modified using the iterator obtained by traversal. The iterator type returned by the find method is const.
 :::
 ```cpp
-// payable用来表名该action调用时可以附加资产
+// Payable means that the action can attach assets
 // @abi action
 // @abi payable
 void deposit()
 {
-    // 通过get_action_asset_amount与get_action_asset_id获取调用action时附加的资产id和资产数量
+    // Obtain additional 'asset_id' and 'asset_amount' by 'get_action_asset_amount' and 'get_action_asset_id' functions
     int64_t asset_amount = get_action_asset_amount();
     uint64_t asset_id = get_action_asset_id();
     contract_asset amount{asset_amount, asset_id};
 
-    // 获取调用者id
+    // Get caller account_id
     uint64_t owner = get_trx_sender();
     auto it = accounts.find(owner);
-    //如果调用者尚未存储过资产，则为其创建table项，主键为用户instance_id
+    // If the caller has not deposited assets, create a table entry for it, the primary key is the 'instance_id'
     if (it == accounts.end()) {
         accounts.emplace(owner, [&](auto &o) {
             o.owner = owner;
@@ -503,7 +494,7 @@ void deposit()
         uint16_t asset_index = std::distance(it->balances.begin(),
                                              find_if(it->balances.begin(), it->balances.end(), [&](const auto &a) { return a.asset_id == asset_id; }));
         if (asset_index < it->balances.size()) {
-            // contract_asset类重载了+=运算符，当用户往资产上继续存储时，可以直接添加
+            // The 'contract_asset' class overloads the '+=' operator
             accounts.modify(it, 0, [&](auto &o) { o.balances[asset_index] += amount; });
         } else {
             accounts.modify(it, 0, [&](auto &o) { o.balances.emplace_back(amount); });
@@ -513,17 +504,17 @@ void deposit()
 
 ```
 
-提现资产的action，该接口有两个参数，第一个参数为账户名（非账户id），第二个资产为提现的资产（资产id和提现的数量）。该函数的功能为校验请求通过之后，调用内置提现api（withdraw_asset），将资产从合约提现到指定账户。详细功能查看如下注释：
+The `withdraw` interface has two parameters, the first parameter is the account name (not the account id), and the second is the asset object (the asset id and the number of withdrawals). If the validation request passes, the built-in api (withdraw_asset) is called to withdraw the asset to the account.
 ```cpp
 // @abi action
 void withdraw(std::string to_account, contract_asset amount)
 {
-    //根据用户名 获取用户instance_id，此为需要提现到的账户
+    // Get the instance_id by account name, this is the account that needs to be withdrawn
     int64_t account_id = get_account_id(to_account.c_str(), to_account.size());
     graphene_assert(account_id >= 0, "invalid account_name to_account");
     graphene_assert(amount.amount > 0, "invalid amount");
 
-    // 获取action调用者id
+    // Get the caller account id
     uint64_t owner = get_trx_sender();
     auto it = accounts.find(owner);
     graphene_assert(it != accounts.end(), "owner has no asset");
@@ -533,11 +524,11 @@ void withdraw(std::string to_account, contract_asset amount)
         if ((amount.asset_id) == asset_it->asset_id) {
             graphene_assert(asset_it->amount >= amount.amount, "balance not enough");
             if (asset_it->amount == amount.amount) {
-                //当用户某个资产提取完毕时，清空列表中该资产
+                //Clear the asset status information when the user withdraws an asset.
                 accounts.modify(it, 0, [&](auto &o) {
                     o.balances.erase(asset_it);
                 });
-                //当用户资产列表为空时，即用户提现完了所有资产，清空用户列表
+                //Empty the user's ‘accounts table’ when the user asset list is empty
                 if (it->balances.size() == 0) {
                     accounts.erase(it);
                 }
@@ -550,7 +541,7 @@ void withdraw(std::string to_account, contract_asset amount)
         }
         asset_index++;
     }
-    //内置api，提现资产到指定账户
+    //Built-in api, withdraw assets to a specified account
     withdraw_asset(_self, account_id, amount.asset_id, amount.amount);
 }
 ```
