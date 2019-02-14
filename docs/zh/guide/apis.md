@@ -497,7 +497,7 @@ response:
     "jsonrpc":"2.0",
     "result":[
         {
-            "amount":"79795227868", 
+            "amount":"79795227868",
             "asset_id":"1.3.0"  // 1.3.0为NULL资产
         },
         {
@@ -697,7 +697,7 @@ curl --data '{
 异步api，向网络广播一笔带签名的交易，但不等待交易执行的结果
 
 params: <signed_trx>
-	
+
 ``` bash
 # 该接口尚未升级到主网的API服务器，如果要使用，需要源码编译程序
 curl --data '{
