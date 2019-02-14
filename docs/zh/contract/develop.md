@@ -127,11 +127,11 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | expiration | 获取交易到期时间 |
 | <graphenelib/global.h> | tapos_block_num | 返回交易引用的区块号 |
 | <graphenelib/global.h> | tapos_block_prefix | 返回交易引用的区块ID（第二个32位数） |
-| <graphenelib/action.h> | read_action_data | 读取当前action数据
-| <graphenelib/action.h> | action_data_size | 返回当前action数据读取所需字节数
-| <graphenelib/action.hpp> | unpack_action_data | 将当前action数据反序列化为定义的action对象
+| <graphenelib/action.h> | read_action_data | 读取当前action数据 |
+| <graphenelib/action.h> | action_data_size | 返回当前action数据读取所需字节数 |
+| <graphenelib/action.hpp> | unpack_action_data | 将当前action数据反序列化为定义的action对象 |
 | <graphenelib/system.h> | graphene_assert | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
-| <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，输出必要的信息，但是本次合约的执行会继续 |
+| <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
 | <graphenelib/system.h> | print | 用于调试时日志的打印 |
 
 
@@ -778,7 +778,7 @@ void examassert(){
 
 **头文件:** `<graphenelib/system.h>`
 
-**功能说明:** 如果条件不满足，输出必要的信息，但是本次合约的执行会继续
+**功能说明:** 如果条件不满足，中断本次合约的执行并会滚所有状态
 
 
 **params:**

@@ -55,7 +55,7 @@ transaction_fee = basic_fee + ram_usage * price_per_kb + cpu_usage * price_per_m
 ```
 
 
-## 内置API调用示例合约
+## Built-in_api_example
 
 ```cpp
 #include <graphenelib/system.h>
