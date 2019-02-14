@@ -1,6 +1,6 @@
 # Deal with transfer memo
 
-## 1. construct memo
+## 1. Construct memo
 
 Let's review the transfer message constructed in the [How to send a transaction to GXChain?](./send_transaction.md) section.
 
@@ -169,7 +169,7 @@ let payload = checksum.concat(message.toBytes());
 let encryptedMessage = aes.encrypt(payload);
 ```
 
-## 2. decrypt memo
+## 2. Decrypt memo
 
 ### Step1: Get memo public key of from account
 
