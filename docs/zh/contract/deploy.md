@@ -118,10 +118,8 @@ unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" 
 
 ### 6. 更新合约
 
-测试网络支持更新合约
-
 ```bash
-// hello120301为合约名  测试网
+// hello120301为合约名
 unlocked >>> update_contract hello120301 zhao-123 /Users/zhaoxiangfei/code/contracts_work/example_contract_02/helloworld GXC true
 ```
 

@@ -1,127 +1,126 @@
-# 合约部署
+# Contract deployment
 
-## 智能合约IDE方式
+## Smart Contract IDE
 
-### 1. 注册账户
+### 1. register account
 
-访问测试网络[在线钱包](https://testnet.wallet.gxchain.org/#/) 注册钱包帐户
+Access test-net [online wallet](https://testnet.wallet.gxchain.org/#/) Register a wallet account
 
-### 2. 申领测试Token
+### 2. Claim test-net Token
 
-注册完成后, 点击[申领测试代币](http://blockcity.mikecrm.com/2SVDb67)
+After registration is complete, claim test-net token(browser access [https://testnet.gxchain.org/gxc/get_token?your_account_name](), Please replace your_account_name with your test web wallet account name)
 
-### 3. IDE下载
-通过智能合约IDE，可以编写、编译、部署、调用智能合约。
-[点击下载](https://github.com/gxchain/gxchain-alpha/releases/latest)
+### 3. IDE download
+Smart Contracts can be written, compiled, deployed, and debug by the Smart Contract IDE.
 
-### 4. 导入账户
+[click download](https://github.com/gxchain/gxchain-alpha/releases/latest)
 
-先去步骤1中的[在线钱包](https://testnet.wallet.gxchain.org/#/)找到自己的活跃权限私钥
+### 4. Import account
+
+Go to [Online Wallet](https://testnet.wallet.gxchain.org/#/) in Step 1  to find your own active permission private key.
 
 ![](../guide/assets/ide/queryPvk.png)
 
 ![](../guide/assets/ide/queryPvk2.png)
 
-再打开客户端，进入设置页面，导入账户
+Open the client again and import the account on the settings page.
 
-::: warning 提示
-密码不会上传到服务器，如果忘记需要移除账户重新导入
+::: warning Note
+The password will not be uploaded to the server, if you forget to remove the account and re-import
 :::
 
 ![](../guide/assets/ide/import.png)
 
-### 5. 选择模板工程
+### 5. Select template project
 
 ![](../guide/assets/ide/addProject.png)
 
-### 6. 编译
+### 6. Compile
 
 ![](../guide/assets/ide/compile.png)
 
-### 7. 部署
+### 7. Deploy
 
-部署之前需要先解锁钱包
+Need to unlock the wallet before deployment
 
 ![](../guide/assets/ide/deploy.png)
 
 ![](../guide/assets/ide/deploy2.png)
 
-### 8. 调用
+### 8. Call
 
-与部署一样，也需要先解锁钱包
+As with deployment, you also need to unlock your wallet first.
 
 ![](../guide/assets/ide/call.png)
 
 ![](../guide/assets/ide/call2.png)
 
-## 本地命令行方式
+## Cli_wallet
 
-### 1. GXChain源码编译
+### 1. GXChain source code compilation
 
-如果不想使用智能合约IDE工具，或者想构建一个更加稳定可靠的编译环境；可以本地编译GXChain程序，通过命令行方式编译、部署、调用智能合约；GXChain源码编译，目前支持ubuntu系统和mac系统：
+If you don't want to use smart contract IDE tools, or want to build a more stable and reliable compilation environment; you can compile GXChain program locally, compile, deploy, and call smart contracts through command line; GXChain source code compile, currently supports ubuntu system and mac system.
 
 - [Build on Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
 - [Build on OS X](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
 
-### 2. 使用模板创建合约
+### 2. Create a contract using a template
 
-使用gxx的模板创建一个helloworld合约
+Create a helloworld contract with the `gxx` tool
 
 ```bash
 gxx -n helloworld
 ```
 
-### 3. 编译合约，生成wast和abi
+### 3. Compile the contract, generate wast and abi
 
-编译合约，生成wast和wasm文件
+Compile the contract and generate wast and wasm files
 
 ```bash
 gxx -o helloworld/helloworld.wast helloworld/helloworld.cpp
 ```
-生成abi文件
+Generate abi file
 
 ```bash
 gxx -g helloworld/helloworld.abi helloworld/helloworld.cpp
 ```
 
-### 4. 部署合约
+### 4. Deployment contract
 
-需要开启cli_wallet，连接本地节点或者远程testnet节点
+Need to start cli_wallet, connect local node or remote testnet node
 
 ```bash
 ./programs/cli_wallet/cli_wallet -swss://testnet.gxchain.org --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4
 ```
 
-导入钱包私钥
+Import wallet private key
 
 ```bash
-# 如果是新钱包，需要设置一个解锁密码，此处为mylocalpassword
+# If it is a new wallet, you need to set an unlock password, here mylocalpassword
 
 new >>> set_password mylocalpassword
 
-# 解锁
+# Unlock
 locked >>> unlock mylocalpassword
 
-# 导入钱包私钥
+# Import wallet private key
 unlocked >>> import_key your_account_name your_private_key
 
-# 部署合约, 指定合约名为helloworld，发起的钱包帐户为your_accoutn_name， 0和0分别为vm type和vm version，./helloworld为wast/abi文件所在路径， GXC表示手续费资产类型，true表示发起广播
+# Deployment contract,0 and 0 are vm type and vm version respectively
 unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXC true
 ```
 
-### 5. 调用合约
-部署合约成功后，可以使用call_contract接口调用合约
+### 5. Call contract
+After the deployment contract is successful, you can call the contract using the call_contract interface.
 
 ```bash
 unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXC true
 ```
 
-### 6. 更新合约
-
-测试网络支持更新合约
+### 6. Update contract
 
 ```bash
-// hello120301为合约名  测试网
+// 'hello120301' is contract name
 unlocked >>> update_contract hello120301 zhao-123 /Users/zhaoxiangfei/code/contracts_work/example_contract_02/helloworld GXC true
 ```
 
