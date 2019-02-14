@@ -194,7 +194,8 @@ function genSidebarConfig (module, title) {
                 collapsable: false,
                 children: [
                     '',
-                    'send_transaction'
+                    'send_transaction',
+                    'confirm_transaction'
                 ]
             }
         ];
