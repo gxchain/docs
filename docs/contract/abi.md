@@ -1,22 +1,22 @@
 
-# ABI文件解析
+# Abi Parsing
 
-abi文件是调用智能合约action的外部接口，定义了action的参数和table的字段，（注：没有abi文件也可以调用合约中的action，只是需要修改一下钱包客户端）。我们正常调用action时，经常会因为abi文件某些项的缺失，导致action调用失败。所以本节教程解析abi文件，当您开发合约过程中，遇到abi文件错误时，也可以定位到出问题的原因。
+The abi file is the external interface that calls the smart contract action. It defines the parameters of the action and the fields of the table. (Note: there is no abi file to call the action in the contract, just need to modify the wallet client). When we call the action normally, the action call fails because of the lack of certain items in the abi file. Therefore, this section of the tutorial parses the abi file. When you encounter an abi file error during the development of the contract, you can also locate the cause of the problem.
 
-abi文件主要包含四个重要字段：types、structs、actions、tables。
+he abi file mainly contains four important fields: types、structs、actions、tables。
 ![](./png/abi.jpg)
 
 ## types
 
-types字段定义了合约开发过程中，类型的自定义别名，示例：
+The types field defines a custom alias for the type during contract development, for example:
 ```cpp
-// 合约中有如下定义
+// The contract has the following definition
 typedef std::string mystring;
 // @abi action
 void appyourcom(mystring comname,std::string compub);
 ...
 
-// 生成的abi中定义如下
+// The generated abi is defined as follows
 "types": [{
 	"new_type_name": "mystring",
 	"type": "string"
@@ -26,10 +26,9 @@ void appyourcom(mystring comname,std::string compub);
 
 ## structs
 
-structs字段定义了table名称、包含的字段类型以及action名称、包含的参数类型
+The structs field defines the table name, the type of the field it contains, the name of the action, and the type of the parameter it contains.
 
 ```json
-// 以红包合约abi文件为例，structs包含了table的定义和字段、action的定义和字段等详细定义
 "structs": [{
 	.......
 	{
@@ -61,7 +60,7 @@ structs字段定义了table名称、包含的字段类型以及action名称、�
 
 ## actions
 
-actions字段包括定义的对外接口的name、type（同name）、payable（bool类型，调用action是否附加资产）
+The actions field includes the defined external interface name, type (same name), payable (bool type, whether the action is attached to the asset)
 
 ```json
 "actions": [{
@@ -80,7 +79,7 @@ actions字段包括定义的对外接口的name、type（同name）、payable（
 
 ## tables
 
-table字段包括定义的多索引表，name（表名，与合约中定义的table名称一致）、index_type（主键索引类型，为i64）、key_names（主键成员名称）、key_types（主键成员类型）、type（同表名）
+The table field includes the defined multi-index table, name (table name), index_type (primary key index type, i64), key_names (primary key member name), key_types (primary key member type), type (table name)
 
 ```json
 "tables": [{
