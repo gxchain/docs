@@ -180,7 +180,6 @@ The `Hello World` Smart Contract contains only one action and is the simplest sm
 
 The development contract requires **to define a contract class and provide an apply interface**, which can be defined using the system-provided `GRAPHENE_ABI`.
 
-![](./png/hello_code.jpg)
 
 The directory where the header file is located is `/Users/zhaoxiangfei/code/gxb-core/contracts/graphenelib` (change to your directory). After importing the header file, you can use the built-in type of the contract and the built-in api function. The next tutorial analyzes a more complex smart contract - red packet contract.
 
@@ -606,14 +605,12 @@ unlocked >>> call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\"
 ####  1.2 Deployment contract
 
 ```bash
-# 需要将智能合约所在路径替换为你自己的路径
 deploy_contract riddle nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/riddle GXC true
 ```
 
 ####  1.3 Call contract
 
 ```bash
-生成答案的sha256哈希值
 echo -n "4" | shasum -a 256
 # Generate the sha256 hash of the answer
 call_contract nathan riddle null issue "{\"question\":\"2 + 2 = ?\", \"hashed_answer\":\"4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a\"}" GXC true
@@ -678,19 +675,19 @@ void reveal(const std::string& issuer, const std::string& answer)
 }
 ```
 
-## linear\_vesting\_asset合约简介
+## Linear\_vesting\_asset
 
-在阅读本篇教程之前，假定您已经阅读完了[入门指导](#入门指导)
+Before reading this tutorial, assume that you have already read the [Overview](#overview)
 
-### 1. 功能简介与部署调用
+### 1. Function introduction
 
-####  1.0 合约功能
+####  1.0 Introduction
 
-[linear_vesting_asset合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/linear_vesting_asset)的功能是向某一个账户按时间线性释放资产。用户可以创建一个资产释放项，包含接收释放资产的账户，冻结时间，释放时间。描述为：账户A通过合约向账户B线性释放一笔资产。可以指定冻结xx时间（xx表示冻结时间）后，开始释放，总共xx时间（xx表示释放时间）释放完，资产释放是线性的。
+[linear_vesting_asset合约](https://github.com/gxchain/gxb-core/tree/dev_master/contracts/examples/linear_vesting_asset)contract releases the asset linearly in time to an account. Users can create an asset release task that includes receiving accounts, freezing time, and releasing time.
 
-- **创建线性释放资产项**
+- **Create a linear release asset task**
 ```bash
-// 创建一个到hello账户的线性资产释放项，冻结时间为30s，释放时间为120s
+// Create a linear asset release to the `hello` account with a freeze time of 30s and a release time of 120s.
 call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXC true
 unlocked >>> get_table_rows vesting vestingrule 0 -1
 [{
@@ -704,58 +701,52 @@ unlocked >>> get_table_rows vesting vestingrule 0 -1
   }
 ]
 ```
-- **线性解冻合约**
+- **Claiming assets**
 
 ```bash
-// 解冻资产到hello账户
+// Claiming assets
 unlocked >>> call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXC true
 unlocked >>> list_account_balances hello
 11 GXC
 ```
-####  1.1 编译合约
+#### 1.1 Compile contract
 
-您可以使用如下命令编译智能合约的abi文件和wast文件
 
 ```bash
-# 其中的linear_vesting_asset.cpp所在路径需要替换为你自己的路径
 ./gxx -g /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.abi /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.cpp
 
-# 其中的linear_vesting_asset.cpp所在路径需要替换为你自己的路径
 ./gxx -o /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.wast /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset/linear_vesting_asset.cpp
 ```
 
-#### 1.2  部署合约
-
-您可以使用如下命令部署vesting线性释放资产合约
+#### 1.2 Deployment contract
 
 ```bash
-# 需要将智能合约所在路径替换为你自己的路径
 deploy_contract vesting nathan 0 0 /Users/zhaoxiangfei/code/contracts_work/linear_vesting_asset GXC true
 ```
 
-#### 1.3 调用合约
+#### 1.3 Call contract
 ```bash
-// 合约名 vesting，附加的资产为10 GXC（资产id为1.3.1），释放的账户为hello账户，冻结30s之后开始释放，经过120s的时间之后，完全完所有的资产。
+// Release the assets to the hello account, release the freeze after 30s, and release all the assets after 120s.
 call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXC true
 
-// 认领释放的资产到hello账户（必须30s之后才可以认领，30s为冻结时间）
+// Claim the released assets (it must be claimed after 30s, 30s is the freezing time)
 call_contract nathan vesting null vestingclaim "{\"who\":\"hello\"}" GXC true
 ```
 
-### 2.代码解析
-- 该合约包含一个table（vestingrule，持久化存储保存了锁定资产数量、锁定时间、释放时间等字段）
+### 2. Code
+- The vestingrule table stores fields such as the number of locked assets, lock time, release time, etc.
 ```cpp
 //@abi table vestingrule i64
 struct vestingrule {
-    uint64_t account_id;        //认领账户的id 主键，不能同时有两项向同一账户释放资产
+    uint64_t account_id;        //Claiming the id of the account, two tasks cannot release assets to the same account
 
-    int64_t vesting_amount;     //初始锁定资产
-    int64_t vested_amount;      //已释放资产
+    int64_t vesting_amount;     //Release of assets
+    int64_t vested_amount;      //Released assets
 
-    int64_t lock_time_point;    //锁定开始时间
-    int64_t lock_duration;      //锁定多久开始释放
-    int64_t release_time_point; //释放开始时间
-    int64_t release_duration;   //释放多久全部释放完毕
+    int64_t lock_time_point;    //Lock start time
+    int64_t lock_duration;      //Locked time
+    int64_t release_time_point; //Release start time
+    int64_t release_duration;   //Released time
 
     uint64_t primary_key() const { return account_id; }
 
@@ -764,23 +755,22 @@ struct vestingrule {
 };
 ```
 
-- 包含两个action（vestingcreate action用来创建一个线性释放资产项；vestingclaim action用来认领线性释放的资产）
+- `vestingcreate` creates a linear release asset task; `vestingclaim` claims linearly released assets
 
 ```cpp
 /// @abi action
 /// @abi payable
 void vestingcreate(std::string to, int64_t lock_duration, int64_t release_duration)
 {
-    // contract_asset_id是一个自定义变量，表示GXC资产，线性释放资产只支持GXC
+    // Linear release assets only support 'GXC'
     graphene_assert(contract_asset_id == get_action_asset_id(), "not supported asset");
     contract_asset ast{get_action_asset_amount(), contract_asset_id};
     int64_t to_account_id = get_account_id(to.c_str(), to.size());
-    // 验证认领账户是否有效 以及该认领账户是否有已经锁定的资产
+    // Verify that the claim is valid and that the claim has an locked asset
     graphene_assert(to_account_id >= 0, "invalid account_name to");
     auto lr = vestingrules.find(to_account_id);
     graphene_assert(lr == vestingrules.end(), "have been locked, can only lock one time");
 
-    //创建资产释放项，在vestingrule table中添加一项，使用emplace接口
     vestingrules.emplace(0, [&](auto &o) {
         o.account_id = to_account_id;
         o.vesting_amount = ast.amount;
@@ -795,15 +785,15 @@ void vestingcreate(std::string to, int64_t lock_duration, int64_t release_durati
 /// @abi action
 void vestingclaim(std::string who)
 {   
-    // 验证认领账户id是否有效
+    // Verify that the claim account id is valid
     int64_t who_account_id = get_account_id(who.c_str(), who.size());
     graphene_assert(who_account_id >= 0, "invalid account_name to");
 
-    // 验证该账户是否存在锁定待释放的资产
+    // Verify that the account has locked assets to be released
     auto lr = vestingrules.find(who_account_id);
     graphene_assert(lr != vestingrules.end(), "current account have no locked asset");
 
-    // 验证资产是否经过了冻结时间，并计算可以认领的资产数量
+    // Verify that the asset is in the release period and obtain the number of assets that can be claimed
     uint64_t now = get_head_block_time();
     graphene_assert(now > lr->release_time_point, "within lock duration, can not release");
     int percentage = (now - lr->release_time_point) * 100 / lr->release_duration;
@@ -813,10 +803,10 @@ void vestingclaim(std::string who)
     vested_amount = vested_amount - lr->vested_amount;
     graphene_assert(vested_amount > 0, "vested amount must > 0");
 
-    // 提现资产到认领账户
+    // Withdrawal of assets to claim accounts
     withdraw_asset(_self, who_account_id, contract_asset_id, vested_amount);
 
-    // 提现之后，修改资产认领项的vesting_amount、vested_amount字段
+    // Modify the vesting_amount, vested_amount fields
     vestingrules.modify(lr, 0, [&](auto &o) {
         o.vested_amount += vested_amount;
     });
