@@ -729,7 +729,7 @@ curl --data '{
     "method": "call",
     "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
     "id": 1
-}' 
+}'
 ```
 
 
@@ -737,6 +737,10 @@ curl --data '{
 
 ### `broadcast_transaction`
 Broadcast a signed transaction to the network
+
+::: tip Tips
+[How to construct and send a transaction to GXChain?](../advanced/send_transaction.md)
+:::
 
 params: ```<signed_transaction>```
 
@@ -757,6 +761,10 @@ Parameter in `[]` is signed transaction message body.
 
 ### `broadcast_transaction_synchronous`
 Broadcast a signed transaction to the network, and wait for the transaction result synchronously. Wait for about 2 seconds depending on factors such as network and transaction confirmation.
+
+::: tip Tips
+[How to construct and send a transaction to GXChain?](../advanced/send_transaction.md)
+:::
 
 params:  ```<signed_transaction>```
 

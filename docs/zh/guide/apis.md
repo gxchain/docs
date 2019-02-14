@@ -722,6 +722,10 @@ get_table_rows_params所有的参数都有默认值，如无需要改变默认�
 
 异步api，向网络广播一笔带签名的交易，但不等待交易执行的结果
 
+::: tip Tips
+[如何发起链上交易？](../advanced/send_transaction.md)
+:::
+
 params: ```<signed_trx>```
 
 ``` bash
@@ -739,6 +743,10 @@ params包含3个参数，分别为api id、方法名和参数，其中api id固�
 ### `broadcast_transaction_synchronous`
 
 同步api，向网络广播一笔带签名的交易，并同步的等待交易结果，视网络及交易确认等因素需要等待2秒左右
+
+::: tip Tips
+[如何发起链上交易？](../advanced/send_transaction.md)
+:::
 
 ``` bash
 # 该接口尚未发布release版本，需要源码编译程序或者连接GXChain团队提供的API服务器

@@ -1,11 +1,12 @@
 # Confirm transaction
 
 ## Irreversible block and irreversible transaction
+
 On GXChain, the block confirmed by 2/3 or more trustnodes is defined as a reversible block, and all transactions in the irreversible block become irreversible transactions. Therefore, judging whether a transaction is irreversible is achieved by judging whether the transaction appears in an irreversible block.
 
 The irreversible transaction is of great significance and can be used for scenarios such as transfer confirmation and exchange deposit confirmation. The main idea is to query related transactions by traversing irreversible blocks.
 
-## Get irreversible block height
+## Step1: Get irreversible block height
 
 Get dynamic global objects
 
@@ -43,7 +44,7 @@ response:
 }
 ```
 
-## Traversing irreversible blocks
+## Step2: Traversing irreversible blocks
 
 For example: to determine whether a transaction with a txid of `9df2d2a2804c235bb16428c44f71de9468409ae7` is in an irreversible block, we will start query from the height of a block when sending the transaction, up to the height of the irreversible block, if this txid is found in the transaction_ids array, that proves that the transaction is irreversible, ie the transaction is finally confirmed by the network.
 
