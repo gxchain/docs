@@ -2,13 +2,12 @@
 
 ## Cli
 
-We introduced how to download and install in [getting started with GXChain]
-(/guide/#install)
+We introduced how to download and install in [Getting started with GXChain](/guide/#install)
 
 Start cli after nodes synchronization
 
 ``` bash
-./programs/cli_wallet/cli_wallet 
+./programs/cli_wallet/cli_wallet
 ```
 
 Learn API via Help and get_help
