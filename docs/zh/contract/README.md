@@ -221,7 +221,7 @@ unlocked >>> list_account_balances redpacket
 11 GXC
 
 # 查看红包table信息，subpackets是随机分成的5个子红包序列，pub_key用来验证签名
-unlocked >>> get_table_objects redpacket packet 0 -1 10
+unlocked >>> get_table_rows redpacket packet 0 -1
 [{
     "issuer": 17,
     "pub_key": "GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b",
@@ -259,7 +259,7 @@ list_account_balances redpacket
 unlocked >>> list_account_balances redpacket
 7.09409 GXC
 #合约账户剩余红包分配序列，由5个减少为4个，减少的项为390591，代表3.90591个GXC 被抢走
-unlocked >>> get_table_objects redpacket packet 0 -1 10
+unlocked >>> get_table_rows redpacket packet 0 -1
 [{
     "issuer": 17,
     "pub_key": "GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b",
@@ -277,7 +277,7 @@ unlocked >>> get_table_objects redpacket packet 0 -1 10
   }
 ]
 # 抢红包记录
-unlocked >>> get_table_objects redpacket record 0 -1 10
+unlocked >>> get_table_rows redpacket record 0 -1
 [{
     "packet_issuer": 17,
     "accounts": [{
@@ -289,11 +289,6 @@ unlocked >>> get_table_objects redpacket record 0 -1 10
 ]
 
 ```
-::: warning 提示
-get_table_objects的参数分别为：
-
-redpacket（合约名）、record（表名）、0（lower）、-1（upper）、10（limit）
-:::
 
 - **调用关闭红包接口，该接口只能由发红包的用户调用，会将未抢完的红包返回给用户，调用过程与结果反馈如下**
 
@@ -334,7 +329,7 @@ deploy_contract redpacket nathan 0 0 /Users/zhaoxiangfei/code/gxb-core/contracts
 unlocked >>> call_contract nathan redpacket {"amount":1100000,"asset_id":1.3.1} issue "{\"pubkey\":\"GXC81z4c6gEHw57TxHfZyzjA52djZzYGX7KN8sJQcDyg6yitwov5b\",\"number\":5}" GXC true
 
 # 抢红包
-call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXC true
+unlocked >>> call_contract nathan redpacket null open "{\"issuer\":\"nathan\",\"sig\":\"1f1d104d5750beba9fd4b0637ce69cf54721a57cce91ca81904653307eb72b0a840bd8a80c58df0a7be206a4c5c5b1fa0d96d497667e54579e717d499d0a3498b2\"}" GXC true
 
 # 您可以使用如下命令关闭红包
 unlocked >>> call_contract nathan redpacket null close "{}" GXC true
@@ -423,7 +418,7 @@ unlocked >>> call_contract nathan bank {"amount":1000000,"asset_id":1.3.1} depos
   ...
 }
 //查看合约内account table，获取账户储存的资产,asset_id表示GXC，owner为instance id，17表示nathan账户
-unlocked >>> get_table_objects bank account 0 -1 10
+unlocked >>> get_table_rows bank account 0 -1
 [{
     "owner": 17,
     "balances": [{
@@ -733,7 +728,7 @@ void reveal(const std::string& issuer, const std::string& answer)
 ```bash
 // 创建一个到hello账户的线性资产释放项，冻结时间为30s，释放时间为120s
 call_contract nathan vesting {"amount":1000000,"asset_id":1.3.1} vestingcreate "{\"to\":\"hello\",\"lock_duration\":30,\"release_duration\":120}" GXC true
-unlocked >>> get_table_objects vesting vestingrule 0 -1 10
+unlocked >>> get_table_rows vesting vestingrule 0 -1
 [{
     "account_id": 22,
     "vesting_amount": 1000000,

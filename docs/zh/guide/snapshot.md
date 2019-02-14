@@ -4,12 +4,8 @@ snapshot是节点的状态数据库快照，本文档介绍如何生成节点状
 
 下载支持snapshot的安装包
 ```
-~/opt/gxb# wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz -O gxb_1.0.190121-snapshot-ubuntu-14.04.tar.gz
-```
-
-也可以源码编译github 上的 mainnet-snapshot-190121 分支
-```
-https://github.com/gxchain/gxb-core/tree/mainnet-snapshot-190121
+# 目前snapshot接口已支持测试网络，暂不支持主网
+curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_testnet_install.sh' | bash
 ```
 
 

@@ -2,12 +2,74 @@
 
 GXChain nodes support WebSocket and JSONRPC
 
-## Block API
+## Chain
+
+### `get_chain_id`
+
+Get chain id
+
+params: none
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_chain_id", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_dynamic_global_properties`
+
+Get dynamic global properties
+
+params: none
+
+request:
+```
+curl -XPOST --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_dynamic_global_properties", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+
+```
+
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":{
+        "id":"2.1.0",
+        "head_block_number":16757465, // latest block num
+        "head_block_id":"00ffb2d9f6e344f2190a8dfba58baaadd49e76c4", // latest block id (block hash)
+        "time":"2019-01-28T06:08:00", // head block time
+        "current_witness":"1.6.52",
+        "next_maintenance_time":"2019-01-28T06:40:00",
+        "last_budget_time":"2019-01-28T05:40:00",
+        "witness_budget":3065824,
+        "accounts_registered_this_interval":2,
+        "recently_missed_count":0,
+        "current_aslot":16958091,
+        "recent_slots_filled":"340282366920938463463374607431768211455",
+        "dynamic_flags":0,
+        "last_irreversible_block_num":16757449 // last irreversible block num
+    }
+}
+```
+
+## Block
 
 ### `get_block`
 
 Obtain block info via block number
 
+params: `<block_num>`
+
+request:
 ``` bash
 curl POST --data '{
     "jsonrpc": "2.0",
@@ -21,6 +83,9 @@ curl POST --data '{
 
 Obtain block header info via block number
 
+params: `<block_num>`
+
+request:
 ``` bash
 curl POST --data '{
     "jsonrpc": "2.0",
@@ -30,7 +95,7 @@ curl POST --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-## Object API
+## Object
 
 GXChain stores different types of data via different objects, following are several types:
 
@@ -59,6 +124,9 @@ GXChain stores different types of data via different objects, following are seve
 
 Obtain object info via ID
 
+params: `<[object_ids]>`
+
+request:
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -67,12 +135,31 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-## Object API
+## Account
+
+### `get_account_count`
+
+Obtain total account count
+
+params: none
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_account_count", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 ### `get_account_by_name`
 
 Obtain account info via `account_name`, **exclude** association object
 
+prams: `<account_name>`
+
+request:
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -86,6 +173,9 @@ curl --data '{
 
 Obtain full account info via `account_ids`, **include** association object
 
+params: `<[account_names or account_ids])`
+
+request:
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -95,12 +185,298 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-## Asset API
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":[
+        [
+            "blockcitybp",
+            {
+                "account":{
+                    "id":"1.2.1089881",
+                    "membership_expiration_date":"2106-02-07T06:28:15",
+                    "merchant_expiration_date":"1970-01-01T00:00:00",
+                    "datasource_expiration_date":"1970-01-01T00:00:00",
+                    "data_transaction_member_expiration_date":"1970-01-01T00:00:00",
+                    "registrar":"1.2.1089881",
+                    "referrer":"1.2.1089881",
+                    "lifetime_referrer":"1.2.1089881",
+                    "merchant_auth_referrer":"1.2.0",
+                    "datasource_auth_referrer":"1.2.0",
+                    "network_fee_percentage":2000,
+                    "lifetime_referrer_fee_percentage":8000,
+                    "referrer_rewards_percentage":1000,
+                    "name":"blockcitybp", // account name
+                    "vm_type":"",
+                    "vm_version":"",
+                    "code":"",  // contract account's code is not empty
+                    "code_version":"",
+                    "abi":{
+                        "version":"gxc::abi/1.0",
+                        "types":[
+
+                        ],
+                        "structs":[
+
+                        ],
+                        "actions":[
+
+                        ],
+                        "tables":[
+
+                        ],
+                        "error_messages":[
+
+                        ],
+                        "abi_extensions":[
+
+                        ]
+                    },
+                    "owner":{
+                        "weight_threshold":1,
+                        "account_auths":[
+
+                        ],
+                        "key_auths":[
+                            [
+                                "GXC8XrrSD9LE4UuUvB1QtTA1EhUfjQeJLZwgeP7br56Koh1zrxez7",
+                                1
+                            ]
+                        ],
+                        "address_auths":[
+
+                        ]
+                    },
+                    "active":{
+                        "weight_threshold":1,
+                        "account_auths":[
+
+                        ],
+                        "key_auths":[
+                            [
+                                "GXC8XrrSD9LE4UuUvB1QtTA1EhUfjQeJLZwgeP7br56Koh1zrxez7",
+                                1
+                            ]
+                        ],
+                        "address_auths":[
+
+                        ]
+                    },
+                    "options":{
+                        "memo_key":"GXC8XrrSD9LE4UuUvB1QtTA1EhUfjQeJLZwgeP7br56Koh1zrxez7",
+                        "voting_account":"1.2.5",
+                        "num_witness":0,
+                        "num_committee":0,
+                        "votes":[
+
+                        ],
+                        "extensions":[
+
+                        ]
+                    },
+                    "statistics":"2.6.1089881",
+                    "whitelisting_accounts":[
+
+                    ],
+                    "blacklisting_accounts":[
+
+                    ],
+                    "whitelisted_accounts":[
+
+                    ],
+                    "blacklisted_accounts":[
+
+                    ],
+                    "cashback_vb":"1.13.278",
+                    "owner_special_authority":[
+                        0,
+                        {
+
+                        }
+                    ],
+                    "active_special_authority":[
+                        0,
+                        {
+
+                        }
+                    ],
+                    "top_n_control_flags":0
+                },
+                "statistics":{
+                    "id":"2.6.1089881",
+                    "owner":"1.2.1089881",
+                    "most_recent_op":"2.9.201931750",
+                    "total_ops":13,
+                    "removed_ops":0,
+                    "total_core_in_orders":0,
+                    "lifetime_fees_paid":5153414,
+                    "pending_fees":0,
+                    "pending_vested_fees":0
+                },
+                "registrar_name":"blockcitybp",
+                "referrer_name":"blockcitybp",
+                "lifetime_referrer_name":"blockcitybp",
+                "votes":[
+
+                ],
+                "cashback_balance":{ // cashback balance
+                    "id":"1.13.278",
+                    "owner":"1.2.1089881",
+                    "balance":{
+                        "amount":1932,
+                        "asset_id":"1.3.1"
+                    },
+                    "policy":[
+                        1,
+                        {
+                            "vesting_seconds":2592000,
+                            "start_claim":"1970-01-01T00:00:00",
+                            "coin_seconds_earned":"5007744000",
+                            "coin_seconds_earned_last_update":"2019-01-16T07:40:00"
+                        }
+                    ]
+                },
+                "balances":[ // account balance
+                    {
+                        "id":"2.5.456853",
+                        "owner":"1.2.1089881",
+                        "asset_type":"1.3.1",
+                        "balance":265386
+                    }
+                ],
+                "locked_balances":[
+
+                ],
+                "vesting_balances":[ // vesting balance
+                    {
+                        "id":"1.13.171",
+                        "owner":"1.2.1089881",
+                        "balance":{
+                            "amount":0,
+                            "asset_id":"1.3.1"
+                        },
+                        "policy":[
+                            1,
+                            {
+                                "vesting_seconds":7776000,
+                                "start_claim":"1970-01-01T00:00:00",
+                                "coin_seconds_earned":"0",
+                                "coin_seconds_earned_last_update":"2018-12-27T03:04:21"
+                            }
+                        ]
+                    },
+                    {
+                        "id":"1.13.259",
+                        "owner":"1.2.1089881",
+                        "balance":{
+                            "amount":265747140,
+                            "asset_id":"1.3.1"
+                        },
+                        "policy":[
+                            1,
+                            {
+                                "vesting_seconds":86400,
+                                "start_claim":"1970-01-01T00:00:00",
+                                "coin_seconds_earned":"22960140940800",
+                                "coin_seconds_earned_last_update":"2019-01-28T06:11:57"
+                            }
+                        ]
+                    },
+                    {
+                        "id":"1.13.278",
+                        "owner":"1.2.1089881",
+                        "balance":{
+                            "amount":1932,
+                            "asset_id":"1.3.1"
+                        },
+                        "policy":[
+                            1,
+                            {
+                                "vesting_seconds":2592000,
+                                "start_claim":"1970-01-01T00:00:00",
+                                "coin_seconds_earned":"5007744000",
+                                "coin_seconds_earned_last_update":"2019-01-16T07:40:00"
+                            }
+                        ]
+                    }
+                ],
+                "pledge_balances":[ // trustnode pledge balance
+                    {
+                        "id":"1.26.1",
+                        "owner_account":"1.2.1089881",
+                        "amount":{
+                            "amount":1000000000,
+                            "asset_id":"1.3.1"
+                        }
+                    }
+                ],
+                "limit_orders":[
+
+                ],
+                "call_orders":[
+
+                ],
+                "settle_orders":[
+
+                ],
+                "proposals":[
+
+                ],
+                "assets":[
+
+                ],
+                "withdraws":[
+
+                ]
+            }
+        ]
+    ]
+}
+```
+
+### `is_account_registered`
+
+Check if the account name is already registered. Returns true if registered, returns false if unregistered or the account name is invalid
+
+params: `<account_name>`
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "is_account_registered", ["nathan"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_key_references`
+
+Obtain the associated accounts based on the public key , and return the associated account id
+
+params: `<[public_keys]>`
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_key_references", [["GXC7mmfnZWUYtz2tjNGqduZRe2w5x79GCjuoMiVkmEGRE94Vq7gAo"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+## Asset
 
 ### `list_assets`
 
 Query asset via initials
 
+params: `<asset_name> <limit>`
+
+request:
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -110,10 +486,48 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `get_account_balances`
+
+Get account balances based on account id and asset id, return all asset balances if asset id is not specified
+
+params: `<account_id> <[asset_ids]>`
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_account_balances", ["1.2.42", ["1.3.0", "1.3.1"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+
+```
+
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":[
+        {
+            "amount":"79795227868",
+            "asset_id":"1.3.0"
+        },
+        {
+            "amount":"3949999988445",
+            "asset_id":"1.3.1"
+        }
+    ]
+}
+```
+
 ### `lookup_asset_symbols`
 
-Obtain details by asset name
+Obtain asset details by asset name
 
+params: ```<[asset_names]>```
+
+request:
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -123,10 +537,279 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+### `get_named_account_balances`
+
+Obtain account balances based on account name and asset id, return all asset balance if asset id is not specified
+
+params: ```<account_name> <[asset_ids]>```
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_named_account_balances", ["gxbfoundation", ["1.3.0", "1.3.1"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_vesting_balances`
+
+Get all the unspent balances of the account based on the account id
+
+params: ```<account_id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_vesting_balances", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":[
+        {
+            "id":"1.13.89",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":0,
+                "asset_id":"1.3.0"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":7776000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"0",
+                    "coin_seconds_earned_last_update":"2018-11-09T11:29:30"
+                }
+            ]
+        },
+        {
+            "id":"1.13.123",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":24657392,
+                "asset_id":"1.3.1"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":7776000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"191735880192000",
+                    "coin_seconds_earned_last_update":"2018-12-04T07:40:00"
+                }
+            ]
+        },
+        {
+            "id":"1.13.237",
+            "owner":"1.2.748971",
+            "balance":{
+                "amount":1907009,
+                "asset_id":"1.3.1"
+            },
+            "policy":[
+                1,
+                {
+                    "vesting_seconds":2592000,
+                    "start_claim":"1970-01-01T00:00:00",
+                    "coin_seconds_earned":"4942967328000",
+                    "coin_seconds_earned_last_update":"2019-01-28T00:40:00"
+                }
+            ]
+        }
+    ]
+}
+```
+
+## Trust_node
+
+### `get_trust_nodes`
+
+Get the account ids of all trust nodes
+
+params:  none
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_trust_nodes", []],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_witness_by_account`
+
+Obtain the information of the trust node according to `account_id`, including the public key, the total votes, missing blocks, etc.
+
+params: ```<account_id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_witness_by_account", ["1.2.748971"]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+response:
+```
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":{
+        "id":"1.6.35",
+        "witness_account":"1.2.748971", // Account_id
+        "last_aslot":0,
+        "signing_key":"GXC5YFfb3LtUDnHCu4bTfSMUxoVMz2xwnCbTT99oAdVPCcB2nMKz9", // Sign the block's public key
+        "vote_id":"1:56", // Witness's vote id
+        "total_votes":"82099555219", // Total votes
+        "url":".",
+        "total_missed":0, // Total missing blocks
+        "last_confirmed_block_num":0, // Last packaged block
+        "is_valid":true // Witness state
+    }
+}
+```
+
+### `lookup_vote_ids`
+
+Returns the worker object based on the information of the public node returned by vote_id
+
+params: ```<vote id>```
+
+request:
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "lookup_vote_ids", [["1:22", "0:72"]]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
 
 
+## Contract_table
+
+### `get_table_rows`
+Query the table contents of the contract. Specify the contract name, table name, start, and limit when querying.Modify 'contract_name' and 'table_name' for your own contract name and table name
+
+params: ```<contract_name> <table_name> <start> <limit>```
+
+request:
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows", ["contract_name", "table_name", 0, 10]],
+    "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+### `get_table_rows_ex`
+The extension interface of `get_table_rows` provides richer query functions. (The default value is used when the parameter field is not passed.)
+
+params: ```<contract_name> <table_name> <params_object> ```
+
+request:
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":10,"index_position":1,"reverse":0}]],
+    "id": 1
+}' 
+```
 
 
+## broadcast
 
+### `broadcast_transaction`
+Broadcast a signed transaction to the network
 
+params: ```<signed_transaction>```
 
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [2,"broadcast_transaction",[{"ref_block_num":3698,"ref_block_prefix":1780126622,"expiration":"2018-12-18T10:56:09","operations":[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.17","to":"1.2.6","amount":{"amount":1000000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":["204444e23dff4e911e33d4059b36c91f7d4f85022c90ebd3e509f9b2caeb6bca273c8616ebd4f0786ac03b3ef2796a56d754de301e97aff0e43df6f3dfb12d1e62"]}]],
+    "id": 1
+}' https://node23.gxb.io/rpc
+```
+parameter description:
+
+broadcast API id in params is 2 by default.
+
+Parameter in `[]` is signed transaction message body.
+
+### `broadcast_transaction_synchronous`
+Broadcast a signed transaction to the network, and wait for the transaction result synchronously. Wait for about 2 seconds depending on factors such as network and transaction confirmation.
+
+params:  ```<signed_transaction>```
+
+request:
+```
+curl --data '{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [2,"broadcast_transaction_synchronous",[{"ref_block_num":63524,"ref_block_prefix":3478923091,"expiration":"2019-01-21T07:59:24","operations":[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.22","to":"1.2.18","amount":{"amount":100000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":["20165321fabdce0ca561370ba547738be12a33b929b17889845ab9b8c1a4ed2fa04bc555205bc945cf6f0129765a0f1c06265437c111957a4008167ef720c49f71"]}]],
+    "id": 1
+}' https://node23.gxb.io/rpc
+```
+
+parameter description:
+
+broadcast API id in params is 2 by default.
+
+Parameter in `[]` is signed transaction message body.
+
+response:
+```
+{
+	"id": 1,
+	"jsonrpc": "2.0",
+	"result": {
+		"id": "8e2a0d30d68a6a34f58cece5b7879d8a8ec123bd",
+		"block_num": 10680361,
+		"trx_num": 0,
+		"trx": {
+			"ref_block_num": 63524,
+			"ref_block_prefix": 3478923091,
+			"expiration": "2019-01-21T07:59:24",
+			"operations": [
+				[0, {
+					"fee": {
+						"amount": 1000,
+						"asset_id": "1.3.1"
+					},
+					"from": "1.2.22",
+					"to": "1.2.18",
+					"amount": {
+						"amount": 100000,
+						"asset_id": "1.3.1"
+					},
+					"extensions": []
+				}]
+			],
+			"extensions": [],
+			"signatures": ["20165321fabdce0ca561370ba547738be12a33b929b17889845ab9b8c1a4ed2fa04bc555205bc945cf6f0129765a0f1c06265437c111957a4008167ef720c49f71"],
+			"operation_results": [
+				[0, {}]
+			]
+		}
+	}
+}
+```
