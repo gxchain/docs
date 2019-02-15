@@ -136,7 +136,7 @@ response:
 ```
 
 we get:
-```
+``` js
 let to_memo_key = to_account.options.memo_key
 ```
 
