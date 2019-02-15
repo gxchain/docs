@@ -1,4 +1,4 @@
-# Send transaction
+# How to send a transaction
 
 ## Step1: Construct
 

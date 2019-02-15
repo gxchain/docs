@@ -1,4 +1,4 @@
-# Key Pair Generations
+# How to generate key pair
 
 Private key on GXChain is a Random BigInteger, and the public key is the product of G and PrivateKey on ECC (elliptic curve cryptography). The token is a point on the elliptic curve. Like most blockchain systems, GXChain's public-private key pair is based on the secp256k1 curve. The relationship between private key `p` and public key `P` is expressed as:
 

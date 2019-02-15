@@ -1,4 +1,4 @@
-# API Server
+# How to start API server
 ## Requirement
 
 - **macOS / Ubuntu 14.04 LTS 64-bit**, with **4.4.0-63-generic** kernel or higher

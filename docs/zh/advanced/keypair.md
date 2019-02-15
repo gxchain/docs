@@ -1,4 +1,4 @@
-# 公私钥生成
+# 如何生成公私钥对
 
 GXChain的私钥(PrivateKey)是一个随机大整型(Random BigInteger)，而公钥是ECC(椭圆曲线密码学)上的G和PrivateKey的乘积，代表着椭圆曲线上的一个点。和大多数区块链系统一样，GXChain的公私钥对是建立在secp256k1这个曲线上的，私钥`p`和公钥`P`的关系表达为：
 

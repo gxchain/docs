@@ -1,4 +1,4 @@
-# Asset
+# How to create and issue new asset
 
 ## 1. Create an asset
 

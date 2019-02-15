@@ -1,4 +1,4 @@
-# Become TrustNode Candidate
+# How to become trustnode candidate
 
 This document describes how to become a TrustNode in the GXChain network.
 

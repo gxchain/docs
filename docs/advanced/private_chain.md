@@ -1,4 +1,4 @@
-# Private Chain
+# How to start private chain
 
 ## 1. Download
 

@@ -1,4 +1,4 @@
-# Confirm transaction
+# How to confirm a transaction
 
 ## Irreversible block and irreversible transaction
 

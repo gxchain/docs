@@ -1,4 +1,4 @@
-# Deal with transfer memo
+# How to Deal with transfer memo
 
 ## 1. Construct memo
 

@@ -1,4 +1,4 @@
-# Testnet
+# How to start testnet
 
 ## Introduction
 The testnet is the external test environment of GXChain with the same parameters as the main chain.
