@@ -31,7 +31,9 @@
 
 | 客户端 | 链接 |
 | :-- | :-- |
-| gxclient-java | [gxchain/gxclient-java](https://github.com/gxchain/gxclient-java) |
 | gxclient-node | [gxchain/gxclient-node](https://github.com/gxchain/gxclient-node) |
+| gxclient-ios | [gxchain/gxclient-node](https://github.com/gxchain/gxclient-ios) |
+| gxclient-java | [gxchain/gxclient-java](https://github.com/gxchain/gxclient-java) |
+
 
 > 更多的方法在添加中，欢迎提交[Feature Request](https://github.com/gxchain/gxclient-node/issues/new?template=feature_request.md)和[Pull Request](https://github.com/gxchain/gxclient-node)
