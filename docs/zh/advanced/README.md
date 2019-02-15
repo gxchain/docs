@@ -11,5 +11,5 @@
 - [如何启动api服务节点？](./api_server.md)
 - [如何使用镜像功能？](./snapshot.md)
 - [如何启动测试网络?](./testnet.md)
-- [如何搭建私有链？](./private_cahin.md)
+- [如何搭建私有链？](./private_chain.md)
 

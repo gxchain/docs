@@ -19,9 +19,9 @@ Smart Contracts can be written, compiled, deployed, and debug by the Smart Contr
 
 Go to [Online Wallet](https://testnet.wallet.gxchain.org/#/) in Step 1  to find your own active permission private key.
 
-![](../guide/assets/ide/queryPvk.png)
+![](../advanced/assets/ide/queryPvk.png)
 
-![](../guide/assets/ide/queryPvk2.png)
+![](../advanced/assets/ide/queryPvk2.png)
 
 Open the client again and import the account on the settings page.
 
@@ -29,31 +29,31 @@ Open the client again and import the account on the settings page.
 The password will not be uploaded to the server, if you forget to remove the account and re-import
 :::
 
-![](../guide/assets/ide/import.png)
+![](../advanced/assets/ide/import.png)
 
 ### 5. Select template project
 
-![](../guide/assets/ide/addProject.png)
+![](../advanced/assets/ide/addProject.png)
 
 ### 6. Compile
 
-![](../guide/assets/ide/compile.png)
+![](../advanced/assets/ide/compile.png)
 
 ### 7. Deploy
 
 Need to unlock the wallet before deployment
 
-![](../guide/assets/ide/deploy.png)
+![](../advanced/assets/ide/deploy.png)
 
-![](../guide/assets/ide/deploy2.png)
+![](../advanced/assets/ide/deploy2.png)
 
 ### 8. Call
 
 As with deployment, you also need to unlock your wallet first.
 
-![](../guide/assets/ide/call.png)
+![](../advanced/assets/ide/call.png)
 
-![](../guide/assets/ide/call2.png)
+![](../advanced/assets/ide/call2.png)
 
 ## Cli_wallet
 
