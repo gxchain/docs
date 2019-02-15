@@ -176,13 +176,7 @@ function genSidebarConfig (module, title) {
                 children: [
                     '',
                     'clients',
-                    'apis',
-                    'testnet',
-                    'private_chain',
-                    'api_server',
-                    'witness',
-                    'asset',
-                    'snapshot'
+                    'apis'
                 ]
             }
         ];
@@ -197,7 +191,13 @@ function genSidebarConfig (module, title) {
                     'keypair',
                     'send_transaction',
                     'confirm_transaction',
-                    'deal_with_memo'
+                    'deal_with_memo',
+                    'asset',
+                    'trustnode',
+                    'api_server',
+                    'snapshot',
+                    'testnet',
+                    'private_chain'
                 ]
             }
         ];
