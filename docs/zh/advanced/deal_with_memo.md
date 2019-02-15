@@ -23,7 +23,7 @@
           "amount": 173600000,
           "asset_id": "1.3.1"
         },
-        "memo": {
+        "memo": { // memo
           "from": "GXC6cUP6LvdpcfC9G4TMre4yxB3PxttUjVK1ybybgt63ZtEKCXamC", // memo_key of from account
           "to": "GXC7o71VExYFoFJKtduFXEF15jgPdbmC1tdyT8BPCpnzCTeFiXEog", // memo_key of to account
           "nonce": 1, // nonce of encryption key
