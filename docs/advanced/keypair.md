@@ -100,7 +100,7 @@ Swift:
 * [https://github.com/yuzushioh/WalletKit](https://github.com/yuzushioh/WalletKit)
 
 C++:
-* [https://github.com/libbitcoin/libbitcoin/blob/master/include/bitcoin/bitcoin/wallet/mnemonic.hpp](https://github.com/libbitcoin/libbitcoin/blob/master/include/bitcoin/bitcoin/wallet/mnemonic.hpp)
+* [https://github.com/libbitcoin/libbitcoin-system/blob/master/src/wallet/mnemonic.cpp](https://github.com/libbitcoin/libbitcoin-system/blob/master/src/wallet/mnemonic.cpp)
 
 C (with Python/Java/Javascript bindings):
 * [https://github.com/ElementsProject/libwally-core](https://github.com/ElementsProject/libwally-core)
