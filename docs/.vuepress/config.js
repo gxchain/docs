@@ -194,6 +194,7 @@ function genSidebarConfig (module, title) {
                 collapsable: false,
                 children: [
                     '',
+                    'keypair',
                     'send_transaction',
                     'confirm_transaction',
                     'deal_with_memo'
