@@ -32,7 +32,7 @@
 | 客户端 | 链接 |
 | :-- | :-- |
 | gxclient-node | [gxchain/gxclient-node](https://github.com/gxchain/gxclient-node) |
-| gxclient-ios | [gxchain/gxclient-node](https://github.com/gxchain/gxclient-ios) |
+| gxclient-ios | [gxchain/gxclient-ios](https://github.com/gxchain/gxclient-ios) |
 | gxclient-java | [gxchain/gxclient-java](https://github.com/gxchain/gxclient-java) |
 
 
