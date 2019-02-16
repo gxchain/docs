@@ -56,47 +56,14 @@ module.exports = {
                     },
                     {
                         text: 'Ecosystem',
-                        items: [
-                            {
-                                text: 'DApps', items: [
-                                    {text: 'Blockcity', link: 'https://blockcity.gxb.io/download'},
-                                    {text: 'DES', link: '/zh/des/'},
-                                    {text: 'BaaS Storage', link: '/zh/baas-api/'}
-                                ]
-                            },
-                            {
-                                text: 'Open Source',
-                                items: [
-                                    {text: 'Github', link: 'https://github.com/gxchain'},
-                                    {text: 'Core(gxb-core)', link: 'https://github.com/gxchain/gxb-core'},
-                                    {
-                                        text: 'Smart Contract IDE(gxchain-alpha)',
-                                        link: 'https://github.com/gxchain/gxchain-alpha'
-                                    },
-                                    {
-                                        text: 'Light Wallet(gxchain-light)',
-                                        link: 'https://github.com/gxchain/gxchain-light'
-                                    },
-                                    {
-                                        text: 'Mobile Wallet(gxchain-wallet)',
-                                        link: 'https://github.com/gxchain/gxchain-wallet'
-                                    },
-                                    {
-                                        text: 'Explorer(gxchain-explorer)',
-                                        link: 'https://github.com/gxchain/gxchain-explorer'
-                                    },
-                                ]
-                            }
-                        ]
-                    }
+                        link: '/ecosystem/',                    }
                 ],
                 sidebar: {
                     '/guide/': genSidebarConfig ('guide', 'Guide'),
                     '/advanced/': genSidebarConfig ('advanced', 'Advanced'),
                     '/faq/': genSidebarConfig ('faq', 'FAQ'),
                     '/contract/': genSidebarConfig ('contract', 'Smart Contract'),
-                    '/baas-api/': genSidebarConfig ('baas', 'BaaS Storage'),
-                    '/des/': genSidebarConfig ('des', 'DES')
+                    '/ecosystem/': genSidebarConfig ('ecosystem', "Ecosystem")
                 }
             },
             '/zh/': {
@@ -129,29 +96,7 @@ module.exports = {
                     },
                     {
                         text: '生态系统',
-                        items: [
-                            {
-                                text: 'DApps', items: [
-                                    {text: '布洛克城(Blockcity)', link: 'https://blockcity.gxb.io/download'},
-                                    {text: '数据交换服务(DES)', link: '/zh/des/'},
-                                    {text: '区块链存储(BaaS Storage)', link: '/zh/baas-api/'}
-                                ]
-                            },
-                            {
-                                text: '开源项目',
-                                items: [
-                                    {text: 'Github首页', link: 'https://github.com/gxchain'},
-                                    {text: '主链核心(gxb-core)', link: 'https://github.com/gxchain/gxb-core'},
-                                    {text: '智能合约IDE(gxchain-alpha)', link: 'https://github.com/gxchain/gxchain-alpha'},
-                                    {text: '轻钱包(gxchain-light)', link: 'https://github.com/gxchain/gxchain-light'},
-                                    {text: '手机钱包(gxchain-wallet)', link: 'https://github.com/gxchain/gxchain-wallet'},
-                                    {
-                                        text: '区块浏览器(gxchain-explorer)',
-                                        link: 'https://github.com/gxchain/gxchain-explorer'
-                                    },
-                                ]
-                            }
-                        ]
+                        link: '/zh/ecosystem/'
                     }
                 ],
                 sidebar: {
@@ -159,8 +104,7 @@ module.exports = {
                     '/zh/advanced/': genSidebarConfig ('advanced', '高级教程'),
                     '/zh/faq/': genSidebarConfig ('faq', '常见问题'),
                     '/zh/contract/': genSidebarConfig ('contract', '智能合约'),
-                    '/zh/baas-api/': genSidebarConfig ('baas', 'BaaS存储'),
-                    '/zh/des/': genSidebarConfig ('des', 'DES')
+                    '/zh/ecosystem/': genSidebarConfig ('ecosystem','生态系统')
                 }
             }
         }
@@ -231,29 +175,16 @@ function genSidebarConfig (module, title) {
         ];
     }
 
-    if (module === 'des') {
+    if (module === 'ecosystem') {
         return [
             {
                 title,
                 collapsable: false,
                 children: [
                     '',
-                    'architecture',
-                    'interface'
-                ]
-            }
-        ];
-    }
-    if (module === 'baas') {
-        return [
-            {
-                title,
-                collapsable: false,
-                children: [
-                    '',
-                    'provider',
-                    'store',
-                    'data'
+                    'des',
+                    'baas_storage',
+                    'open_source'
                 ]
             }
         ];
