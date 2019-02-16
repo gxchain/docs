@@ -1,3 +1,3 @@
 
-# 布洛克城(Blockcity)
-[布洛克城](https://blockcity.gxb.io/download)是全球用户进入区块链世界的入口，布洛克城通过数据激励模式吸引了海量用户，并入驻了丰富的精品区块链应用，为全球用户提供多元化服务，帮助用户探索独特的区块链世界。在未来，布洛克城将致力于服务可信数据经济，让公民成为自己数据的主人，让数据为公民自己所用，打造尊重用户隐私的区块链应用生态。
+# Blockcity
+[Blockcity](https://blockcity.gxb.io/download)is the entry point for global users to enter the world of blockchain. Blockcity attracts a large number of users through the data incentive model, and is integrated into a rich boutique blockchain application to provide diversified services for users around the world, helping users to explore unique blockchain world. In the future, Blockcity will be committed to serving the trusted data economy, allowing citizens to become the masters of their own data, allowing data to be used by citizens themselves, and creating a blockchain application ecosystem that respects user privacy.

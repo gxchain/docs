@@ -1,15 +1,15 @@
-# 开源项目
+# Open Source
 
-开源项目包括GXChain公链、钱包、浏览器等项目的github开源代码。Github主页包括四十多个开源库代码，您可以通过下面链接索引到对应的开源库
+Open source projects include github code for gxb-core, wallets, explorer, and more. The Github home page includes more than forty open source code, which you can index to the corresponding open source code via the link below.
 
-- [Github首页](https://github.com/gxchain)
+- [Github](https://github.com/gxchain)
 
-- [主链核心(gxb-core)](https://github.com/gxchain/gxb-core)
+- [gxb-core](https://github.com/gxchain/gxb-core)
 
-- [智能合约IDE(gxchain-alpha)](https://github.com/gxchain/gxc-smart-contract-ide)
+- [Contract IDE(gxchain-alpha)](https://github.com/gxchain/gxc-smart-contract-ide)
 
-- [轻钱包(gxchain-light)](https://github.com/gxchain/gxchain-light)
+- [Light Wallet(gxchain-light)](https://github.com/gxchain/gxchain-light)
 
-- [手机钱包(gxchain-wallet)](https://github.com/gxchain/gxchain-wallet)
+- [Wallet(gxchain-wallet)](https://github.com/gxchain/gxchain-wallet)
 
-- [区块浏览器(gxchain-explorer)](https://github.com/gxchain/gxchain-explorer)
+- [Explorer(gxchain-explorer)](https://github.com/gxchain/gxchain-explorer) 

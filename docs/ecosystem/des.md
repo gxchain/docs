@@ -1,64 +1,64 @@
-# 数据交换服务(DES)
-## 项目背景
+# DES
+## Background of the project
 
-在公信宝数据交易所1.0是全球首个落地的去中心化数据交易所，通过区块链技术实现了去中心化、可靠、可信的数据交易的完整流程，并引入数据源权益保护、数据版权存证、个人隐私保护、信用贡献证明\(POCS\)等机制，在对数据交易的流程优化后，完整交易流程可在500ms完成，数据交易的效率媲美于传统中心化交易方式。
+'GongXinBao' Data Exchange 1.0 is the world's first decentralized data exchange,Through the blockchain technology, the complete process of decentralized, reliable and reliable data transactions is realized.And introduce data source rights protection, data copyright deposit, personal privacy protection, credit contribution proof \(POCS\) and other mechanisms, after the optimization of the data transaction process, the complete transaction process can be completed in 500ms, the efficiency of data transactions is comparable to traditional centralized trading methods.
 
-在1.0版本正式上线以及商业化推进一段时间后，也发现了一些不足，主要体现在以下几个方面：
-1. 接入方需要部署单独box，增加了架构复杂度
-2. 大量广播操作在GXChain中进行，总区块大小增加较快，而很多广播的内容存储在区块中意义不大
-3. 大量功能依赖于主链，主链升级频繁会造成节点管理者维护成本增加，而产品灵活性受限
-3. 区块链节点和数据交易Box通过Websocket方式进行双向通信，单节点负载和稳定性比较难控制
-4. 联盟市场数据交易中，接入方恶意数据造假问题
+After the 1.0 version was officially launched and commercialization was promoted for some time, some shortcomings were also found, mainly reflected in the following aspects:
+1. Accessors need to deploy separate 'box', increasing the complexity of the architecture
+2. A large number of broadcast operations are performed in GXChain, and the total block size increases rapidly, and the content of many broadcasts is not meaningful in the block.
+3. A large number of functions depend on the GXChain, and frequent upgrades of the GXChain will result in increased maintenance costs for node managers and limited product flexibility.
+3. Blockchain nodes and data transaction box are bidirectionally communicated via Websocket, and single node load and stability are difficult to control.
+4. In the alliance market data transaction, the access party malicious data fraud problem
 
-数据交易2.0版本的设计，将在保证去中心化、稳定、功能一致性的前提下，进一步简化数据交易的流程，提供更可靠、高效、稳定的服务，新的版本将带来以下特性：
-1. SDK安装，http方式调用，减少架构复杂度
-2. 提供单独的数据交换服务DES，减少链上广播，降低主链负载，减少区块大小
-3. http方式调用，DES支持负载均衡，保证数据交易流程的稳定性
-4. 引入BaaS服务，通过侧链来存证数据，提供存证和验证接口，通过存证、数据校验等方式来进一步提高数据造假难度，减少数据造假动机
+The data transaction version 2.0 design will further simplify the data transaction process and provide more reliable, efficient and stable services under the premise of ensuring decentralization, stability and functional consistency. The new version will bring the following features:
+1. Add sdk installation mode and http call mode, reducing architectural complexity
+2. Provide separate data exchange service DES, reduce chain broadcast, reduce GXChain load, and reduce block size
+3. Add http call mode, DES supports load balancing to ensure the stability of data transaction process
+4. Introduce BaaS services, store data in sidechains, provide deposit and verification interfaces, use deposit certificates and data verification to further improve data fraud and reduce data fraud motives
 
-## 数据交易2.0技术架构
+## V-2.0 Technical Architecture
 
-### **2.1 架构图2-1**
+### **2.1 Architecture diagram**
 
 ![](./assets/architecture.jpg)
 
-### **2.2 参与者说明**
+### **2.2 Participant description**
 
-* Merchant: 商户，即数据买方;
+* Merchant: the data buyer;
 
-* DES\(Data Exchange Service\): 数据交换服务，提供预扣费、数据暂存等功能;
+* DES\(Data Exchange Service\): Data exchange service, providing functions such as withholding fee and data temporary storage;
 
-* Datasource: 数据源，即数据卖方;
+* Datasource: Data seller;
 
-### **2.3 过程描述**
+### **2.3 Process description**
 
 ![](./assets/flow.png)
 
-下面描述一个数据交易的完整流程:
+The following describes the complete process of a data transaction:
 
-- 步骤1:【数据源】向DES注册服务
-- 步骤2:【商户】调用_产品信息接口_
-- 步骤3:【DES】返回产品信息以及在线数据源列表
-- 步骤4:【商户】调用_交易创建接口_创建数据交易，指定查询数据源，并使用数据源public\_key对入参进行加密
-- 步骤5:【DES】验证商户签名,验证余额是否充足,创建数据交易，生成唯一request\_id并返回
-- 步骤6:【DES】带上商户发起数据交易消息，向指定数据源发送数据交易请求
-- 步骤7:【数据源】接收请求，解密消息体，处理请求，使用买方public_key加密数据后回传DES
-- 步骤8:【DES】拿到加密数据，存IPFS，调用代理记账
-- 步骤9:【DES】数据和request\_id建立映射
-- 步骤10:【商户】通过request\_id获取数据
+- step 1: [Datasource] Registering with DES
+- step 2: [Merchant] Call product information interface
+- step 3: [DES] Return product information and online data source list
+- step 4: [Merchant] Call the transaction creation interface to create a data transaction, specify the query data source, and encrypt the input parameters using the data source public\_key
+- step 5: [DES] Verify the merchant’s signature, verify that the balance is sufficient, create a data transaction, generate a unique request\_id and return
+- step 6: [DES] Bring a merchant to initiate a data transaction message and send a data transaction request to the specified data source
+- step 7: [Datasource] Receive the request, decrypt the message body, process the request, use the buyer public_key to encrypt the data and then return the DES
+- step 8: [DES] Get encrypted data, save it on IPFS network, call agent accounting
+- step 9: [DES] Data and request\_id to establish mapping
+- step 10: [Merchant] Get data via request\_id
 
-## 1 DES市场接口定义
+## 1 DES market interface definition
 
-### 1.1 账户绑定
+### 1.1 Account binding
 
 ```bash
 POST /market/account/bind
 {
-    "accountId":"1.2.11", //账户id
-    "merchantId":14, //平台用户id
-    "serviceUrl":"http://gxb.io/service", //数据源服务地址
-    "timestamp":150918591212, //时间戳
-    "signature":"Private.sign('1.2.11|14|http://gxb.io/service|150918591212')" //签名
+    "accountId":"1.2.11", //Account id
+    "merchantId":14, //Platform user id
+    "serviceUrl":"http://gxb.io/service", //Data source service address
+    "timestamp":150918591212, //Timestamp
+    "signature":"Private.sign('1.2.11|14|http://gxb.io/service|150918591212')" //signature
 }
 
 {
@@ -67,7 +67,7 @@ POST /market/account/bind
 }
 ```
 
-### 1.2 发布类目（Internal）
+### 1.2 category release（Internal）
 
 ```bash
 POST /market/category/create
@@ -85,22 +85,22 @@ POST /market/category/create
 }
 ```
 
-### 1.3 发布产品
+### 1.3 product release
 
 ```bash
 POST /market/product/create
 {
     "productName": "KYC认证",
-    "logoImgBase64": "Base64.encode(imgByte)", //产品logo，需前端进行大小限制
+    "logoImgBase64": "Base64.encode(imgByte)", //Product logo, size limit is required
     "brieDesc": "123",
-    "voteThrehold":0.7, // 投票阈值，0.7代表70%投票通过则操作生效
-    "categoryId": 1, // 类目
-    "price": { // 价格
+    "voteThrehold":0.7, // Voting threshold, 0.7 means 70% vote, the operation takes effect
+    "categoryId": 1, 
+    "price": { 
         "amount": 100000,
         "assetId":"1.1"
     },
-    "privacy":false, // 是否涉及用户隐私
-    "input":{ // 入参定义
+    "privacy":false, // Whether user privacy is involved
+    "input":{ 
         "name": {
             "type": "string",
             "desc": "姓名",
@@ -120,7 +120,7 @@ POST /market/product/create
             "sample": "6Ieq5ouN54WnYmFzZTY0..."
         }
     },
-    "output":{ // 出参定义
+    "output":{ 
         "result": {
             "type": "boolean",
             "desc": "是否匹配",
@@ -135,13 +135,13 @@ POST /market/product/create
 }
 ```
 
-### 1.4 邀请/申请成为产品数据源
+### 1.4 Invite/Apply as data source
 
-> 验证逻辑：当前账号如果已经在产品members列表中，则为邀请成员加入，members中自动过滤已存在的成员；当前账号如果未在产品members列表中，则为申请加入，忽略members参数，发起申请加入的投票
+> Verification logic: If the current account is already in the member list of the product, the member is invited to join, and the existing members are automatically filtered in the members; if the current account is not in the members list, the application is added (ignoring the members parameter)
 >
-> 通知逻辑：1. 邮件通知现有的members 2. 通知中心
+> Notification logic: 1. Email notification of existing members 2. Notification Center
 >
-> 更严格的限制：同一个账号不可多次发起相同的申请，连续被拒绝5次的账号将在3天内无法发起加入申请，被邀请的账号必须绑定过链上账户
+> More restrictive restrictions: the same account cannot be used to initiate the same application multiple times. Accounts that are rejected 5 times in a row will not be able to initiate the application within 3 days. The invited account must be bound to the account on the GXChain.
 
 ```bash
 POST /market/product/:productId/members/add
@@ -154,26 +154,26 @@ POST /market/product/:productId/members/add
     "msg":"成功",
     "data":{
         "voteId":1,
-        "expireAt":1501230180812, //过期时间 = timestamp + 2*24*3600 //2天内有效
+        "expireAt":1501230180812, //expire time = timestamp + 2*24*3600 //Valid for 2 days
     }
 }
 ```
 
-### 1.6 更新产品信息
+### 1.6 Update product information
 
 ```bash
 POST /market/product/:productId/update
 {
     "productName": "KYC认证",
-    "logoImgBase64": "Base64.encode(imgByte)", //产品logo，需前端进行大小限制
+    "logoImgBase64": "Base64.encode(imgByte)", //Product logo, size limit is required
     "briefDesc": "通过姓名、身份证号和自拍照验证是否一致",
     "price":{
         "amount":990000,
         "assetId":"1.1"
     },
-    "categoryId": 1, // 类目
-    "privacy":false, // 是否涉及用户隐私
-    "input":{ // 入参定义
+    "categoryId": 1, 
+    "privacy":false, // Whether user privacy is involved
+    "input":{ 
         "name": {
             "type": "string",
             "desc": "姓名",
@@ -190,7 +190,7 @@ POST /market/product/:productId/update
             "sample": "6Ieq5ouN54WnYmFzZTY0..."
         }
     },
-    "output":{ // 出参定义
+    "output":{ 
         "result": {
             "type": "boolean",
             "desc": "是否匹配",
@@ -204,17 +204,17 @@ POST /market/product/:productId/update
     "msg":"成功",
     "data":{
         "voteId":1,
-        "expireAt":1501230180812, //过期时间 = timestamp + 2*24*3600 //2天内有效
+        "expireAt":1501230180812, //expire time = timestamp + 2*24*3600 //Valid for 2 days
     }
 }
 ```
 
-### 1.7 产品信息变更投票
+### 1.7 Product information change vote
 
 ```bash
 POST /market/product/vote
 {
-    "agree": 1, // 同意: 1, 不同意: 0
+    "agree": 1, // Agree: 1, Disagree: 0
     "voteId": 1
 }
 
@@ -224,21 +224,21 @@ POST /market/product/vote
 }
 ```
 
-### 1.8 产品列表
-> shareStatus=1为自由市场，0为联盟市场
+### 1.8 Product List
+> shareStatus=1 is free market, 0 is alliance market
 
 ```bash
 GET /market/product/list/:categoryId/:shareStatus?page=1&limit=20
 {
     "code":1,
     "msg":"成功",
-    "total":15, //共15条记录
+    "total":15, //A total of 15 records
     "data":[{
         "productId":1,
         "productName":"KYC认证",
         "logoUrl": "https://des-developer-test.oss-cn-hangzhou.aliyuncs.com/product/logo/logo_20180627205612_L8Ky6BKr.png",
         "briefDesc": "通过姓名、身份证号和自拍照验证是否一致",
-        "privacy":false, // 是否涉及用户隐私
+        "privacy":false, // Whether user privacy is involved
         "price":{
             "amount":"990000",
             "assetId":"1.1"
@@ -247,7 +247,7 @@ GET /market/product/list/:categoryId/:shareStatus?page=1&limit=20
 }
 ```
 
-### 1.9 产品详情
+### 1.9 Product Details
 
 ```bash
 GET /market/product/:productId
@@ -263,9 +263,9 @@ GET /market/product/:productId
             "amount":"990000",
             "assetId":"1.1"
         },
-        "categoryId": "1", // 类目
-        "privacy":false, // 是否涉及用户隐私
-        "input":{ // 入参定义
+        "categoryId": "1", 
+        "privacy":false, // Whether user privacy is involved
+        "input":{ 
             "name": {
                 "type": "string",
                 "desc": "姓名",
@@ -282,7 +282,7 @@ GET /market/product/:productId
                 "sample": "6Ieq5ouN54WnYmFzZTY0..."
             }
         },
-        "output":{ // 出参定义
+        "output":{ 
             "result": {
                 "type": "boolean",
                 "desc": "是否匹配",
@@ -293,28 +293,28 @@ GET /market/product/:productId
 }
 ```
 
-### 1.10 产品对应投票列表
+### 1.10 Product corresponding voting list
 
 ```bash
-GET /market/product/<:productId>/votes/:type?page=1&limit=20 //productId为all则获取全部, type=0(未投票) 1(已通过) 2（已拒绝）
+GET /market/product/<:productId>/votes/:type?page=1&limit=20 //productId为all则获取全部, Type=0(no vote) 1 (passed) 2（已拒绝）
 
 {
     "code":1,
     "msg":"成功",
-    "total":25, //共25条记录
+    "total":25, //25 records in total
     "data":[{
         "voteId":1,
         "productId":1,
         "productName":"kyc认证",
-        "createDate":"2018-03-12T12:23:10",//创建时间
-        "status":"INPROGRESS" //INPROGRESS|PASS|REJECT 投票中|同意|拒绝
-        "requester":14,//申请企业
-        "type": "APPLY" //APPLY|ADD_MEMBER|UPDATE_PRODUCT 申请加入|邀请加入|更新产品
+        "createDate":"2018-03-12T12:23:10",//Create time
+        "status":"INPROGRESS" //INPROGRESS|PASS|REJECT Vote | agree | reject
+        "requester":14,//Apply for a business
+        "type": "APPLY" //APPLY|ADD_MEMBER|UPDATE_PRODUCT Apply to join|Invite to join|Update product
     }]
 }
 ```
 
-### 1.11 产品投票详情
+### 1.11 Product voting details
 
 ```bash
 GET /market/product/votes/:voteId
@@ -325,20 +325,20 @@ GET /market/product/votes/:voteId
     "data":<item>
 }
 
-// ============================ item可能结果枚举 ===============================
+// ============================ Item may result in enumeration ===============================
 
 {
     "voteId":1,
     "productId":1,
     "status":"INPROGRESS" //INPROGRESS|PASS|REJECT
     "requester":14,
-    "type": "APPLY", //申请加入
+    "type": "APPLY", 
     "members":[{
         "merchantId":14,
-        "authorizerName": "草虫", //法人姓名
-        "merchantName": "杭州存信数据科技有限公司", //公司名称
+        "authorizerName": "草虫", 
+        "merchantName": "杭州存信数据科技有限公司",
         "logoUrl": "http://www.gxb.io/files/merchant/201610/11/1_yzXExf.jpg", //logo
-        "merchantAddress": "https://gxb.io", // 公司网站
+        "merchantAddress": "https://gxb.io", 
     }]
 }
 
@@ -346,19 +346,19 @@ GET /market/product/votes/:voteId
     "voteId":1,
     "productId":1,
     "requester":14,
-    "type": "ADD_MEMBER", //邀请加入
+    "type": "ADD_MEMBER", 
     "members":[{
         "merchantId":16,
-        "authorizerName": "草虫", //法人姓名
-        "merchantName": "杭州存信数据科技有限公司", //公司名称
+        "authorizerName": "草虫", 
+        "merchantName": "杭州存信数据科技有限公司", 
         "logoUrl": "http://www.gxb.io/files/merchant/201610/11/1_yzXExf.jpg", //logo
-        "merchantAddress": "https://gxb.io", // 公司网站
+        "merchantAddress": "https://gxb.io", 
         },{
         "merchantId":15,
-        "authorizerName": "草虫", //法人姓名
-        "merchantName": "杭州存信数据科技有限公司", //公司名称
+        "authorizerName": "草虫", 
+        "merchantName": "杭州存信数据科技有限公司", 
         "logoUrl": "http://www.gxb.io/files/merchant/201610/11/1_yzXExf.jpg", //logo
-        "merchantAddress": "https://gxb.io", // 公司网站
+        "merchantAddress": "https://gxb.io", 
     }]
 }
 
@@ -366,7 +366,7 @@ GET /market/product/votes/:voteId
     "voteId":1,
     "productId":1,
     "requester":14,
-    "type": "UPDATE_PRODUCT", // 更新产品
+    "type": "UPDATE_PRODUCT", 
     "from":{
         "productName": "KYC认证",
         "briefDesc": "通过姓名、身份证号和自拍照验证是否一致",
@@ -374,9 +374,9 @@ GET /market/product/votes/:voteId
             "amount":990000,
             "assetId":"1.1"
         },
-        "categoryId": 1, // 类目
-        "privacy":false, // 是否涉及用户隐私
-        "input":{ // 入参定义
+        "categoryId": 1, 
+        "privacy":false, 
+        "input":{ 
             "name": {
                 "type": "string",
                 "desc": "姓名",
@@ -396,7 +396,7 @@ GET /market/product/votes/:voteId
                 "sample": "6Ieq5ouN54WnYmFzZTY0..."
             }
         },
-        "output":{ // 出参定义
+        "output":{ 
             "result": {
                 "type": "boolean",
                 "desc": "是否匹配",
@@ -411,9 +411,9 @@ GET /market/product/votes/:voteId
             "amount":990000,
             "assetId":"1.1"
         },
-        "categoryId": 1, // 类目
-        "privacy":false, // 是否涉及用户隐私
-        "input":{ // 入参定义
+        "categoryId": 1, 
+        "privacy":false, 
+        "input":{ // 
             "name": {
                 "type": "string",
                 "desc": "姓名",
@@ -433,7 +433,7 @@ GET /market/product/votes/:voteId
                 "sample": "6Ieq5ouN54WnYmFzZTY0..."
             }
         },
-        "output":{ // 出参定义
+        "output":{ 
             "result": {
                 "type": "boolean",
                 "desc": "是否匹配",
@@ -444,7 +444,7 @@ GET /market/product/votes/:voteId
 }
 ```
 
-### 1.12 消费明细
+### 1.12 Consumer details
 
 ```bash
 GET /market/dataexchange/log?gmtCreatedFrom=2018-01-01&gmtCreatedTo=2018-01-02&productId=1&pageNo=1&pageSize=20
@@ -454,17 +454,17 @@ GET /market/dataexchange/log?gmtCreatedFrom=2018-01-01&gmtCreatedTo=2018-01-02&p
     "msg": "",
     "data": [{
         "id": 16,
-        "requestId": "Qma2L9V1rVHBAMMSNLrqCRS1wicv7mhFWtou8JJDL5khCh", //请求 id
-        "productId": 1, //消费项
-        "productName": "学历信息1", //消费项
-        "amount": 0, // 消费金额
-        "gmtCreated": 1523416611000 //消费时间
+        "requestId": "Qma2L9V1rVHBAMMSNLrqCRS1wicv7mhFWtou8JJDL5khCh", 
+        "productId": 1, 
+        "productName": "学历信息1", 
+        "amount": 0, 
+        "gmtCreated": 1523416611000 //time
     }],
     "total": null
 }
 ```
 
-### 1.13 数据查询
+### 1.13 data query
 
 ```bash
 GET /market/dataexchange/detail?gmtCreatedFrom=2018-01-01&gmtCreatedTo=2018-01-02&toAccount=1.2.11&requestId=fb17941dce8dc78d6275b04afbb4a5202f7fd4defca4918cf21c913abe706d4e&txid=fb17941dce8dc78d6275b04afbb4a5202f7fd4defca4918cf21c913abe706d4e
@@ -474,17 +474,17 @@ GET /market/dataexchange/detail?gmtCreatedFrom=2018-01-01&gmtCreatedTo=2018-01-0
     "msg": "",
     "data": [{
         "id": 16,
-        "gmtCreated": 1523416611000, //日期
-        "fromAccount": "1.2.19", //数据源账户
-        "toAccount": "1.2.323", //发起账户
-        "requestId": "Qma2L9V1rVHBAMMSNLrqCRS1wicv7mhFWtou8JJDL5khCh", //请求id
-        "txid": "d150b067f5f740ef8e0c755a6ee1e462f63d4ecf" //交易id
+        "gmtCreated": 1523416611000, 
+        "fromAccount": "1.2.19", //Data source account
+        "toAccount": "1.2.323", //Initiate an account
+        "requestId": "Qma2L9V1rVHBAMMSNLrqCRS1wicv7mhFWtou8JJDL5khCh", 
+        "txid": "d150b067f5f740ef8e0c755a6ee1e462f63d4ecf" 
     }],
     "total": null
 }
 ```
 
-### 1.14 月度账单
+### 1.14 Monthly bill
 
 ```bash
 GET /market/bill/month?date=2018-05-01
@@ -496,14 +496,14 @@ GET /market/bill/month?date=2018-05-01
         "code": 0,
         "msg": null,
         "data": [{
-            "productId": 1, //消费项Id
-            "productName": "学历信息1", //消费项
-            "transferCount": 16, //月度调用次数
-            "unitPrice": 0.001, //单价
-            "consumeAmount": 0.016 //消费金额
+            "productId": 1, 
+            "productName": "学历信息1", 
+            "transferCount": 16, //Monthly calls
+            "unitPrice": 0.001, 
+            "consumeAmount": 0.016 
         },{
             "productId": 2,
-            "productName": "学历信息2", //消费项
+            "productName": "学历信息2", 
             "transferCount": 1,
             "unitPrice": 1,
             "consumeAmount": 1
@@ -514,7 +514,7 @@ GET /market/bill/month?date=2018-05-01
 }
 ```
 
-### 1.15 月度账户信息
+### 1.15 Monthly account information
 
 ```bash
 GET /market/bill/monthTotal?date=2018-05-01
@@ -524,30 +524,31 @@ GET /market/bill/monthTotal?date=2018-05-01
     "msg": "",
     "data": {
         "date": null,
-        "consumeAmount": 0.022, //消费总额
-        "incomeAmount": 106.91608, //充值金额
-        "transferCount": 3, //交易总数
-        "balance": 0, // 账户余额
+        "consumeAmount": 0.022, //total
+        "incomeAmount": 106.91608, 
+        "transferCount": 3, 
+        "balance": 0, 
         "average": null
     },
     "total": null
 }
 ```
 
-### 1.16 最近30天消费信息（7天截取使用）
+### 1.16 Consumption information
 
 ```bash
+# Consumption information for the last 30 days (7 days interception use)
 GET /market/bill/recent
 
-#按照日期倒序展示
+#Displayed in reverse order by date
 {
     "code": 1,
     "msg": "",
     "data": [{
             "date": 1527350400000,
-            "consumeAmount": 0, // 消费总额
-            "incomeAmount": 0, // 充值金额
-            "transferCount": 0, // 交易次数
+            "consumeAmount": 0, 
+            "incomeAmount": 0, 
+            "transferCount": 0, 
             "balance": null,
             "average": null
         },{
@@ -562,7 +563,7 @@ GET /market/bill/recent
 }
 ```
 
-### 1.17 账户总览信息
+### 1.17 Account information
 
 ```bash
 GET /market/bill/total
@@ -573,19 +574,19 @@ GET /market/bill/total
     "data": {
         "overview": {
             "date": null,
-            "consumeAmount": 1.06, //消费总额
+            "consumeAmount": 1.06, 
             "incomeAmount": null,
             "transferCount": null,
-            "balance": 0, //账户余额
-            "average": 0.02465 //日平均消费
+            "balance": 0, 
+            "average": 0.02465 //Average daily consumption
         },
         "productList": [{
-                "productId": 1, //消费项 id
-                "productName": "学历信息1", //消费项
+                "productId": 1, 
+                "productName": "学历信息1", 
                 "logoUrl": "https://des-developer-test.oss-cn-hangzhou.aliyuncs.com/product/logo/logo_20180627205612_L8Ky6BKr.png",
-                "transferCount": 22, //总调用次数
-                "unitPrice": 0.001, //单价
-                "consumeAmount": 0.06 //消费总额
+                "transferCount": 22, 
+                "unitPrice": 0.001, 
+                "consumeAmount": 0.06 
             },{
                 "productId": 2,
                 "productName": "学历信息2",
@@ -599,33 +600,33 @@ GET /market/bill/total
 }
 ```
 
-## 2 DES接口定义
+## 2 DES interface definition
 
-### 2.1 数据源注册服务
+### 2.1 Data source registration service
 
-数据源的sdk或者box启动的时候，向DES注册服务，声明在线
+When the sdk or box of the data source is started, register the service with DES and declare it online.
 
-> 客户端需要30s发一次心跳，过期时间为50s，50s内未收到注册请求，则数据源状态变成离线
+> The client needs to send a heartbeat packet for 30s, the expiration time is 50s, and the registration request is not received within 50s, the data source status becomes offline.
 
 ```bash
 POST /api/datasource/heartbeat
 {
     "account":"1.2.11",
     "products":[1,2],
-    "timestamp":15089110248010, // 3秒内有效
+    "timestamp":15089110248010, // Valid for 3 seconds
     "signature":"d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8d787ad8" // Private.sign("1.2.11|15089110248010")
 }
 ```
 
-### 2.2 查询数据产品信息
+### 2.2 Query data product information
 
-商户向DES查询数据产品信息
+Merchants query DES for data product information
 
 ```bash
 GET /api/product/:product_id
 ```
 
-返回结果：
+Return result：
 
 ```bash
 {
@@ -638,10 +639,10 @@ GET /api/product/:product_id
             "amount": 100000,
             "asset_id":"1.1"
         },
-        "datasources":["1.2.10","1.2.12","1.2.15","1.2.18"], // 联盟成员
-        "issuer": 14, // 发行商户id
-        "privacy":false, // 是否涉及用户隐私
-        "input":{ // 入参定义
+        "datasources":["1.2.10","1.2.12","1.2.15","1.2.18"], // Alliance member
+        "issuer": 14, // Publisher id
+        "privacy":false, // Whether user privacy is involved
+        "input":{ 
             "name": {
                 "type": "string",
                 "desc": "姓名",
@@ -661,7 +662,7 @@ GET /api/product/:product_id
                 "sample": "6Ieq5ouN54WnYmFzZTY0..."
             }
         },
-        "output":{ // 出参定义
+        "output":{ 
             "result": {
                 "type": "boolean",
                 "desc": "是否匹配",
@@ -679,34 +680,34 @@ GET /api/product/:product_id
 }
 ```
 
-### 2.3 创建数据交易
+### 2.3 Create a data transaction
 
-商户发起数据交易请求
+Merchant initiates a data transaction request
 
 ```bash
 POST /api/request/create/:product_id/[/:version]
 [{
-    "params":"HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E==", //加密请求参数数据包
+    "params":"HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E==", // Encryption request parameter packet
     "nonce":150123121123123,
     "requestParams":{
-        "from": "1.2.20", // 从该帐户转帐，转帐数量为amount
-        "to": "1.2.11", // 转帐至该帐户, 数据源账户
-        "proxy_account":"1.2.17", // 代理记帐方
-        "percent":10000, // amount的百分比，转至proxy_account
-        "amount": { //转帐数量
-            "amount": 50000, // 同上面的fee
+        "from": "1.2.20", // Transfer from this account, the amount of transfer is amount
+        "to": "1.2.11", // Transfer to this account, data source account
+        "proxy_account":"1.2.17", // Agent billing party
+        "percent":10000, // Percentage of amount, transfer to proxy_account
+        "amount": { 
+            "amount": 50000, 
             "asset_id": "1.1"
         },
-        "memo": "68b329da9893e34099c7d8ad5cb9c940", // 请求参数的MD5值
-        "expiration": "2017-12-09T07:58:39", // 授权过期时间， 也是signatures的有效期，expiration < now + maximum_time_until_expiration
+        "memo": "68b329da9893e34099c7d8ad5cb9c940", // Request parameter MD5 value
+        "expiration": "2017-12-09T07:58:39", // Authorization expiration time, also the validity period of signatures，expiration < now + maximum_time_until_expiration
         "signatures": [
-            "xxxx" // 调用方(授权方)用自己的私钥对request_params结构体进行签名
+            "xxxx" // The caller (authorizer) signs the request_params structure with its own private key
         ]
     }
 }]
 ```
 
-返回结果:
+Return result:
 
 ```bash
 {
@@ -714,57 +715,57 @@ POST /api/request/create/:product_id/[/:version]
 }
 ```
 
-### 2.4 查询数据交易状态
+### 2.4 Query data transaction status
 
-商户通过request\_id获取交易状态
+Merchants get transaction status via request\_id
 
 ```bash
 GET /api/request/:request_id
 ```
 
-返回结果:
+Return result:
 
 ```bash
 {
     "status":"IN_PROGRESS", // IN_PROGRESS, FINISHED
-    "total": 4, // 向4个数据源发起请求，应该有4条结果
+    "total": 4, // Initiating a request to 4 data sources, there should be 4 results
     "datasources":[{
         "status":"SUCCESS", //SUCCESS, FAIL, NONE, TIMEOUT
         "comment": "余额不足",
-        "datasource":"1.2.11", //数据源id
+        "datasource":"1.2.11", //Data source id
         "nonce":150123121123123,
-        "data":"<encrypted_data>", //用商户公钥加密的数据
-        "txid":"f4d6d30fb9d33813e801869723cfe75d20380f71dca43079b72a9c580fd3732e" // 交易id，可以通过区块浏览器进行查询
+        "data":"<encrypted_data>", // Data encrypted with the merchant\'s public key
+        "txid":"f4d6d30fb9d33813e801869723cfe75d20380f71dca43079b72a9c580fd3732e" // Transaction id, which can be queried by the block explorer
     }]
 }
 ```
 
-## 3 witness接口定义
+## 3 Witness interface definition
 
-witness增加代理记帐的操作proxy\_transfer, 由DES发起对应的交易广播
+Witness adds agent billing operation proxy\_transfer, corresponding transaction broadcast initiated by DES
 
 ### 3.1 proxy\_transfer
 
 ```js
 {
-        "proxy_memo": "QmbTuAu2zM53Rj8rk8J2o7mCzHJr6vf8WdjYyiq5SNaDBF", // 由proxy_count 填写
-        "fee": {  // 手续费，由proxy_account支付
+        "proxy_memo": "QmbTuAu2zM53Rj8rk8J2o7mCzHJr6vf8WdjYyiq5SNaDBF", // Filled in by proxy_count
+        "fee": {  // Fee, paid by proxy_account
           "amount": 166015, // int64_t
           "asset_id": "1.3.0"
         },
-        "request_params": {  // 调用方(授权方)发起
-          "from": "1.2.20",  // 从该帐户转帐，转帐数量为amount
-          "to": "1.2.11",    // 转帐至该帐户
-          "proxy_account":"1.2.17", // 代理记帐方
-          "percent":10000,    // amount的百分比，转至proxy_account
-          "amount": {    //转帐数量
-            "amount": 50000,  // 同上面的fee
+        "request_params": {  // Caller (authorizer) initiated
+          "from": "1.2.20",  // Transfer from this account, the amount of transfer is amount
+          "to": "1.2.11",    // Transfer to this account
+          "proxy_account":"1.2.17", // Agent billing party
+          "percent":10000,    // Percentage of amount, transfer to proxy_account
+          "amount": {    
+            "amount": 50000,  
             "asset_id": "1.1"
           },
           "memo": "68b329da9893e34099c7d8ad5cb9c940", // string
-          "expiration": "2017-12-09T07:58:39", // 授权过期时间， 也是signatures的有效期，expiration < now + maximum_time_until_expiration
+          "expiration": "2017-12-09T07:58:39", // Authorization expiration time, also the validity period of signatures，expiration < now + maximum_time_until_expiration
           "signatures": [
-            "xxxx" // 调用方(授权方)用自己的私钥对request_params结构体进行签名
+            "xxxx" // The caller (authorizer) signs the request_params structure with its own private key
           ]
         },
         "extensions": []
@@ -772,36 +773,36 @@ witness增加代理记帐的操作proxy\_transfer, 由DES发起对应的交易�
 }
 ```
 
-## 4 数据源接口定义
+## 4 Data source interface definition
 
-数据源应该遵循特定的接口定义，以响应由DES发起的数据交易请求
+The data source should follow a specific interface definition in response to a data transaction request initiated by DES
 
-::: tip 规则
-有数据返回http状态码200，无数据返回http状态码404
+::: tip rule
+There is data returning http status code 200, no data returning http status code 404
 :::
 
-### 4.1 数据源接口
+### 4.1 Data source interface
 
-推荐接口定义：
+Recommended interface definition:
 
 ```
 POST /data/request
 ```
 
-入参：
+Incoming parameters:
 
 ```js
 {
-    "params" : "HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E", //加密请求参数数据包
-    "publicKey": "GXC7XzFVivuBtuc2rz3Efkb41JCN4KH7iENAx9rch9QkowEmc4UvV", // 请求方公钥
-    "productId": 1, // 产品ID
+    "params" : "HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E", //Encryption request parameter packet
+    "publicKey": "GXC7XzFVivuBtuc2rz3Efkb41JCN4KH7iENAx9rch9QkowEmc4UvV", // Requester public key
+    "productId": 1, 
 }
 ```
 
-出参（返回数据转成JSON String, 调用DESClient.encrypt\(jsonString\) 生成）：
+Outgoing parameter(Return the data into a JSON String, call DESClient.encrypt\(jsonString\) to generate):
 
 ```js
 {
-    "data": "HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E" //加密返回数据包
+    "data": "HUI712124DMOKF23F2G23H8FG1H8GH482GH34GH83H9KD1K0D1K0F10DQK0S0K1210E12E" //Encrypted return packet
 }
 ```
