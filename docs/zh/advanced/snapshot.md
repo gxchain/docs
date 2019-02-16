@@ -1,4 +1,4 @@
-## 使用快照
+# 如何使用快照
 
 snapshot是节点的状态数据库快照，本文档介绍如何生成节点状态的snapshot，用于快速恢复一个节点。
 
@@ -9,13 +9,13 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ```
 
 
-### 创建snapshot
-#### 1. 重启witness_node， 指定snapshot path
+## 创建snapshot
+### 1. 重启witness_node， 指定snapshot path
 ```
 ~/opt/gxb# ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint=127.0.0.1:28090 --state-snapshots-dir "/opt/gxchain/data/snapshots"
 ```
 
-#### 2. 执行rpc请求，生成snapshot
+### 2. 执行rpc请求，生成snapshot
 ```
 ~/opt/gxb# curl --data '{"jsonrpc": "2.0", "method": "call", "params": [0, "create_snapshot", []], "id": 1}' http://127.0.0.1:28090
 
@@ -34,7 +34,7 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ```
 
 
-### 使用snapshot数据，恢复节点
+## 使用snapshot数据，恢复节点
 
 snapshot数据，需要在当前区块号变为不可逆后，才能使用。
 为了测试snapshot数据，我们强制kill掉witness_node程序，让当前节点的状态数据库坏掉。

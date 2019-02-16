@@ -1,4 +1,4 @@
-## How to use snapshot
+# How to use snapshot
 
 Get the newest package with snapshot functionality
 ```
@@ -11,13 +11,13 @@ https://github.com/gxchain/gxb-core/tree/mainnet-snapshot-190121
 ```
 
 
-### Creating a Snapshot
-#### 1. To enable snapshot RPC, restart witness_node, and specify the path to save snapshot data as follows:
+## Creating a Snapshot
+### 1. To enable snapshot RPC, restart witness_node, and specify the path to save snapshot data as follows:
 ```
 ~/opt/gxb# ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint=127.0.0.1:28090 --state-snapshots-dir "/opt/gxchain/data/snapshots"
 ```
 
-#### 2. Execute the RPC command as shown below
+### 2. Execute the RPC command as shown below
 ```
 ~/opt/gxb# curl --data '{"jsonrpc": "2.0", "method": "call", "params": [0, "create_snapshot", []], "id": 1}' http://127.0.0.1:28090
 
@@ -39,7 +39,7 @@ The head block id can be confirmed by cli_wallet get_block block_num command.
 
 Snapshot data is valid after the head block is confirmed as an irreversible block.
 
-### Recovering Snapshot Data
+## Recovering Snapshot Data
 
 The blocks log must have log data after the block ID at the time of creation of the snapshot becomes the Irreversible Block and can not be recovered by restoring to the log file before the confirmation block.
 
