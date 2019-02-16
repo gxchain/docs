@@ -93,8 +93,8 @@ module.exports = {
                 sidebar: {
                     '/guide/': genSidebarConfig ('guide', 'Guide'),
                     '/advanced/': genSidebarConfig ('advanced', 'Advanced'),
-                    '/faq/': genSidebarConfig ('faq', 'FAQ'),
                     '/contract/': genSidebarConfig ('contract', 'Smart Contract'),
+                    '/faq/': genSidebarConfig ('faq', 'FAQ'),
                     '/baas-api/': genSidebarConfig ('baas', 'BaaS Storage'),
                     '/des/': genSidebarConfig ('des', 'DES')
                 }
@@ -120,12 +120,12 @@ module.exports = {
                         link: '/zh/advanced/',
                     },
                     {
-                        text: '常见问题',
-                        link: '/zh/faq/',
-                    },
-                    {
                         text: '智能合约',
                         link: '/zh/contract/'
+                    },
+                    {
+                        text: '常见问题',
+                        link: '/zh/faq/',
                     },
                     {
                         text: '生态系统',
