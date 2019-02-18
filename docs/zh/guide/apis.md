@@ -160,23 +160,23 @@ curl --data '{
 
 ### `get_objects`
 
-    根据对象ID获取对象信息
+根据对象ID获取对象信息
 
 #### 参数说明
-    参数 | 参数说明
-    ---|---
-    API id | 接口由DB API提供，id为0
-    [对象ids] | 数组，可传入多个对应id
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+[对象ids] | 数组，可传入多个对应id
 
 #### 示例
 
-    **request:**
-    ``` bash
-    curl --data '{
-        "jsonrpc": "2.0",
-            "method": "call",
-            "params": [0, "get_objects", [["1.3.1","2.3.1"]]], "id": 1
-    }' https://node1.gxb.io/rpc
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_objects", [["1.3.1","2.3.1"]]], "id": 1
+}' https://node1.gxb.io/rpc
 ```
 
 **response:**
