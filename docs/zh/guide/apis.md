@@ -23,7 +23,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-```bash
+``` json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -99,7 +99,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -140,7 +140,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -180,7 +180,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -247,7 +247,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -276,7 +276,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -366,7 +366,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-```
+``` json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -637,7 +637,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -666,7 +666,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -701,7 +701,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -814,7 +814,7 @@ curl --data '{
 ```
 
 **response:**
-```
+``` json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -855,7 +855,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -890,7 +890,7 @@ curl --data '{
 ```
 
 **response:**
-```
+``` json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -993,7 +993,7 @@ curl --data '{
 ```
 
 **response:**
-```
+``` json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -1069,7 +1069,7 @@ curl --data '{
 ```
 
 **response:**
-```bash
+``` json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -1172,7 +1172,7 @@ API id | 接口由BROADCAST API提供，id为2
 ```
 
 **response:**
-```bash
+``` json
 {
     "id": 1,
         "jsonrpc": "2.0",
