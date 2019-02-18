@@ -23,7 +23,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -51,7 +51,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -99,7 +99,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -140,7 +140,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -180,7 +180,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -247,7 +247,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -276,7 +276,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
@@ -366,7 +366,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -637,7 +637,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -666,7 +666,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -701,7 +701,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -814,7 +814,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -855,7 +855,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -879,6 +879,7 @@ curl --data '{
 API id | 接口由DB API提供，id为0
 `<account name>` | 帐户名
 
+#### 示例
 **request:**
 ``` bash
 curl --data '{
@@ -890,7 +891,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -961,7 +962,8 @@ curl --data '{
 ---|---
 API id | 接口由DB API提供，id为0
 
-request:
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -970,7 +972,30 @@ curl --data '{
         "id": 1
 }' https://node1.gxb.io/rpc
 ```
-
+**response:**
+```json
+{
+   "id":1,
+   "jsonrpc":"2.0",
+   "result":[
+      "1.2.3429",
+      "1.2.3431",
+      "1.2.3432",
+      "1.2.3433",
+      "1.2.3434",
+      "1.2.748971",
+      "1.2.1090296",
+      "1.2.1090419",
+      "1.2.1061353",
+      "1.2.1090653",
+      "1.2.1090792",
+      "1.2.1090458",
+      "1.2.1091083",
+      "1.2.1092168",
+      "1.2.1106749"
+   ]
+}
+```
 ### `get_witness_by_account`
 
 根据`account_id`获取`公信节点`信息，包括节点公钥、总票数、缺块数等
@@ -993,7 +1018,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
     "id":1,
         "jsonrpc":"2.0",
@@ -1069,7 +1094,7 @@ curl --data '{
 ```
 
 **response:**
-``` json
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
@@ -1172,7 +1197,7 @@ API id | 接口由BROADCAST API提供，id为2
 ```
 
 **response:**
-``` json
+```json
 {
     "id": 1,
         "jsonrpc": "2.0",
