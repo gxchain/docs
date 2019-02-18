@@ -1042,6 +1042,7 @@ reverse， 查询结果按key的倒序输出，默认为0，即按key从小到�
 get_table_rows_params所有的参数都有默认值，如无需要改变默认值，可以不传入
 ```
 
+#### 示例
 **request:**
 ```bash
 curl --data '{
@@ -1051,6 +1052,7 @@ curl --data '{
         "id": 1
 }' https://node1.gxb.io
 ```
+
 **response:**
 ```bash
 {
@@ -1110,8 +1112,15 @@ curl --data '{
 [如何发起链上交易？](../advanced/send_transaction.md)
 :::
 
-params: ```<signed_trx>```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由BROADCAST API提供，id为2
+`<method_name>` | 固定为broadcast_transaction
+`<signed_trx>` | 带签名的交易消息体
 
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -1120,8 +1129,6 @@ curl --data '{
         "id": 1
 }' https://node23.gxb.io/rpc
 ```
-#### 参数说明：
-params包含3个参数，分别为api id、方法名和参数，其中api id固定为2， 方法名固定为broadcast_transaction， []中的参数为带签名的交易消息体。
 
 ### `broadcast_transaction_synchronous`
 
@@ -1131,6 +1138,15 @@ params包含3个参数，分别为api id、方法名和参数，其中api id固�
 [如何发起链上交易？](../advanced/send_transaction.md)
 :::
 
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由BROADCAST API提供，id为2
+`<method_name>` | 固定为broadcast_transaction_synchronous
+`<signed_trx>` | 带签名的交易消息体
+
+#### 示例
+**request:**
 ``` bash
     curl --data '{
         "jsonrpc": "2.0",
@@ -1139,16 +1155,14 @@ params包含3个参数，分别为api id、方法名和参数，其中api id固�
             "id": 1
     }' https://node23.gxb.io/rpc
 ```
-#### 参数说明：
-params包含3个参数，分别为api id、方法名和参数，其中api id固定为2， 方法名固定为broadcast_transaction_synchronous， []中的参数为带签名的交易消息体。
 
-返回示例
-```
+**response:**
+```bash
 {
     "id": 1,
         "jsonrpc": "2.0",
         "result": {
-            "id": "8e2a0d30d68a6a34f58cece5b7879d8a8ec123bd",
+            "id": "8e2a0d30d68a6a34f58cece5b7879d8a8ec123bd", // txid
             "block_num": 10680361,
             "trx_num": 0,
             "trx": {
