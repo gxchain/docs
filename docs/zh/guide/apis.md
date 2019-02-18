@@ -794,9 +794,15 @@ curl --data '{
 ### `get_account_balances`
 根据帐户id和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
-params:``` <帐户id> <[资产ids]> ```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<account id>` | 帐户id
+`<[asset ids]>` | 数组，资产id
 
-request:
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -807,7 +813,7 @@ curl --data '{
 
 ```
 
-response:
+**response:**
 ```
 {
     "id":1,
@@ -829,9 +835,15 @@ response:
 
 根据帐户名和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
-params: ```<帐户名> <[资产ids]>```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<account name>` | 帐户名
+`<[asset ids]>` | 数组，资产id
 
-request:
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -846,9 +858,13 @@ curl --data '{
 
 根据帐户id获取帐户所有的待解冻余额
 
-params: ```<帐户名>```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<account name>` | 帐户名
 
-request:
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -858,7 +874,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-response:
+**response:**
 ```
 {
     "id":1,
@@ -925,7 +941,10 @@ response:
 
 获取所有的公信节点所属帐户id
 
-params:  无
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
 
 request:
 ``` bash
@@ -941,9 +960,14 @@ curl --data '{
 
 根据`account_id`获取`公信节点`信息，包括节点公钥、总票数、缺块数等
 
-params: ```<帐户id>```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<account id>` | 帐户id
 
-request:
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -952,7 +976,8 @@ curl --data '{
         "id": 1
 }' https://node1.gxb.io/rpc
 ```
-response:
+
+**response:**
 ```
 {
     "id":1,
@@ -976,9 +1001,14 @@ response:
 
 根据vote_id返回所属公信节点的信息, 返回对应的worker对象
 
-params: ```<vote id>```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<vote id>` | vote id
 
-request:
+#### 示例
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -991,36 +1021,16 @@ curl --data '{
 
 ## 智能合约存储表相关
 
-### `get_table_rows`
-根据contract和table，查询合约的表内容。查询时指定合约名、表名、start和limit （修改合约名、表名为你自己的）
-
-params: ```<contract_name> <table_name> <start> <limit>```
-
-request:
-```bash
-curl --data '{
-    "jsonrpc": "2.0",
-        "method": "call",
-        "params": [0, "get_table_rows", ["contract_name", "table_name", 0, 10]],
-        "id": 1
-}' https://node1.gxb.io/rpc
-```
-
 ### `get_table_rows_ex`
 `get_table_rows`的扩展接口，提供更丰富的查询功能。（参数字段不传时，使用默认值）
 
-params: ```<contract_name> <table_name> <get_table_rows_params> ```
-
-request:
-```bash
-# 该接口已上线测试网，主网暂不支持
-curl --data '{
-    "jsonrpc": "2.0",
-        "method": "call",
-        "params": [0, "get_table_rows_ex", ["contract_name", "table_name", {"lower_bound":0,"upper_bound":-1,"limit":20}]],
-        "id": 1
-}' https://testnet.gxchain.org
-```
+#### 参数说明
+参数 | 参数说明
+---|---
+API id | 接口由DB API提供，id为0
+`<contract_name>` | 合约帐户名
+`<table_name>` | 表名
+`<get_table_rows_params>` | 查询参数，默认为空
 
 get_table_rows_params参数说明：
 ```
@@ -1030,6 +1040,63 @@ limit， 查询时指定返回limit条，默认返回10条
 index_position， 查询时指定的index，默认为1，即第1个索引
 reverse， 查询结果按key的倒序输出，默认为0，即按key从小到大输出
 get_table_rows_params所有的参数都有默认值，如无需要改变默认值，可以不传入
+```
+
+**request:**
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_table_rows_ex", ["gdice", "prizepool", {"lower_bound":0,"upper_bound":-1,"limit":20}]],
+        "id": 1
+}' https://node1.gxb.io
+```
+**response:**
+```bash
+{
+	"id": 1,
+	"jsonrpc": "2.0",
+	"result": {
+		"rows": [{
+			"pool": {
+				"amount": "3294138495",
+				"asset_id": 1
+			},
+			"totalbet": "30845491144",
+			"betcount": 38425,
+			"wincount": 31459,
+			"minbet": 50000,
+			"minbank": 10000000,
+			"investtotalpercent": 2643728290,
+			"profit": 462683014
+		}, {
+			"pool": {
+				"amount": 0,
+				"asset_id": 2
+			},
+			"totalbet": 0,
+			"betcount": 0,
+			"wincount": 0,
+			"minbet": 1000000,
+			"minbank": 100000000,
+			"investtotalpercent": 0,
+			"profit": 0
+		}, {
+			"pool": {
+				"amount": "100000000000",
+				"asset_id": 14
+			},
+			"totalbet": 0,
+			"betcount": 0,
+			"wincount": 0,
+			"minbet": 10000000,
+			"minbank": 1000000000,
+			"investtotalpercent": 100000000,
+			"profit": 0
+		}],
+		"more": false
+	}
+}
 ```
 
 
