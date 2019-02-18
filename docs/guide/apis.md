@@ -11,7 +11,7 @@ Get chain id
 params: none
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -27,7 +27,7 @@ Get dynamic global properties
 params: none
 
 request:
-```
+```bash
 curl -XPOST --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -38,7 +38,7 @@ curl -XPOST --data '{
 ```
 
 response:
-```
+```json
 {
     "id":1,
     "jsonrpc":"2.0",
@@ -144,7 +144,7 @@ Obtain total account count
 params: none
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -186,7 +186,7 @@ curl --data '{
 ```
 
 response:
-```
+```json
 {
     "id":1,
     "jsonrpc":"2.0",
@@ -443,7 +443,7 @@ Check if the account name is already registered. Returns true if registered, ret
 params: `<account_name>`
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -459,7 +459,7 @@ Obtain the associated accounts based on the public key , and return the associat
 params: `<[public_keys]>`
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -493,7 +493,7 @@ Get account balances based on account id and asset id, return all asset balances
 params: `<account_id> <[asset_ids]>`
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -504,7 +504,7 @@ curl --data '{
 ```
 
 response:
-```
+```json
 {
     "id":1,
     "jsonrpc":"2.0",
@@ -544,7 +544,7 @@ Obtain account balances based on account name and asset id, return all asset bal
 params: ```<account_name> <[asset_ids]>```
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -570,7 +570,7 @@ curl --data '{
 ```
 
 response:
-```
+```json
 {
     "id":1,
     "jsonrpc":"2.0",
@@ -664,7 +664,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 response:
-```
+```json
 {
     "id":1,
     "jsonrpc":"2.0",
@@ -745,7 +745,7 @@ Broadcast a signed transaction to the network
 params: ```<signed_transaction>```
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -769,7 +769,7 @@ Broadcast a signed transaction to the network, and wait for the transaction resu
 params:  ```<signed_transaction>```
 
 request:
-```
+```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
@@ -785,7 +785,7 @@ broadcast API id in params is 2 by default.
 Parameter in `[]` is signed transaction message body.
 
 response:
-```
+```json
 {
 	"id": 1,
 	"jsonrpc": "2.0",
