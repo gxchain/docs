@@ -1,6 +1,6 @@
-# 区块、operation和对象介绍
+# 如何了解链上信息
 
-### 1. GXChain的区块结构
+## 1. GXChain的区块结构
 
 - 区块中包含了transaction，transaction包含了operation，opreation包含了调用合约、投票、转账等操作
 
@@ -66,7 +66,7 @@
   ]
 }
 ```
-### 2. operation
+## 2. Operation
 
 GXChain区块链包含一系统operation, 每个operation对应一个Code，根据Code可以判断区块中包含哪些operation，比如区块 [1769028](https://block.gxb.io/#/block/1769028) 包含了一笔转帐交易，Code 0 对应转帐操作。 常用的Code和operation的对应关系:
 
@@ -80,7 +80,7 @@ GXChain区块链包含一系统operation, 每个operation对应一个Code，根�
 | 75 | 调用合约 |
 | 76 | 更新合约 |
 
-### 3. GXChain上的对象
+## 3. GXChain上的对象
 
 GXChain上相关类型的数据结构是通过对象保存的，对象ID作为其标识(格式为：x.x.x)，对象的instance id 为对象ID的最后一位。示例：nathan账户ID为1.2.17，instance id为17；GXC资产ID为1.3.1，instance id为1，常见对象类型如下：
 
