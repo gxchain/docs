@@ -42,7 +42,7 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 ``` bash
 export LC_ALL=C
 
-./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" &
+nohup ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" 1>nohup.out 2 >&1 &
 ```
 
 根据上面的步骤:
