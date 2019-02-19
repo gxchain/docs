@@ -8,25 +8,42 @@ GXChain nodes support WebSocket and JSONRPC
 
 Get chain id
 
-params: none
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [0, "get_chain_id", []],
+    "params": [0, "get_chain_id", []],    
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+**response:**
+```json
+{
+    "id":1,
+        "jsonrpc":"2.0",
+        "result":"4f7d07969c446f8342033acb3ab2ae5044cbe0fde93db02de75bd17fa8fd84b8" // chain id
+}
+```
+
 
 ### `get_dynamic_global_properties`
 
 Get dynamic global properties
 
-params: none
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
 
-request:
+#### Example
+**request:**
 ```bash
 curl -XPOST --data '{
     "jsonrpc": "2.0",
@@ -37,7 +54,7 @@ curl -XPOST --data '{
 
 ```
 
-response:
+**response:**
 ```json
 {
     "id":1,
@@ -67,9 +84,15 @@ response:
 
 Obtain block info via block number
 
-params: `<block_num>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+block_num | block num
 
-request:
+#### Example
+
+**request:**
 ``` bash
 curl POST --data '{
     "jsonrpc": "2.0",
@@ -79,13 +102,38 @@ curl POST --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+    "id": 1,
+        "jsonrpc": "2.0",
+        "result": {
+            "previous": "0000270f5b219bc4c6996f2cca89b23ef653a2b0", // Block id of the previous block(block hash)
+            "timestamp": "2017-06-10T22:53:45", // Timestamp of the current block
+            "witness": "1.6.23", // Wrap the current block's witness id
+            "transaction_merkle_root": "0000000000000000000000000000000000000000", // Merkle root of the transaction in the current block
+            "extensions": [],
+            "witness_signature": "204e95ba3f871d8f670cc8088d5f563704c9c0c8acd42a80077bd7c6a47ecde095633e6a614c7f73830d972c3b617d5c01e8e0e151bfc489a327103597d3f0c244", // Witness signature
+            "transactions": [], // Transaction list
+            "block_id": "000027100ef5386d4ea4481dc302401de66fe358", // Block id of the current block
+            "signing_key": "GXC7ouC3miJyKrLf1XyeyDv6u5W9Q8BT3WdbJbJYACiFm2Zx8vPna", // Current witness's signing key
+            "transaction_ids": [] // The tx id corresponding to the transaction list
+        }
+}
+```
+
 ### `get_block_header`
 
 Obtain block header info via block number
 
-params: `<block_num>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+block_num | block num
 
-request:
+#### Example
+**request:**
 ``` bash
 curl POST --data '{
     "jsonrpc": "2.0",
@@ -95,38 +143,37 @@ curl POST --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+    "id": 1,
+        "jsonrpc": "2.0",
+        "result": {
+            "previous": "0000270f5b219bc4c6996f2cca89b23ef653a2b0", // Block id (block hash) of the previous block
+            "timestamp": "2017-06-10T22:53:45", // Timestamp of the current block
+            "witness": "1.6.23", // Wrap the current block's witness id
+            "transaction_merkle_root": "0000000000000000000000000000000000000000", // Merkle root of the transaction in the current block
+            "extensions": []
+        }
+}
+```
+
 ## Object
 
-GXChain stores different types of data via different objects, following are several types:
-
-| ID | Object Type |
-| :--- | :--- |
-| 1.2.x | Account |
-| 1.3.x | Asset |
-| 1.5.x | Committee |
-| 1.6.x | Witness |
-| 1.10.x | Proposal |
-| 1.11.x | Operation History |
-| 1.13.x | Vesting Balance |
-| 1.14.x | Worker |
-| 1.25.x | Loyalty program |
-| 2.0.0 | System parameters |
-| 2.1.x | Dynamic parameters |
-| 2.3.x | Asset parameters |
-| 2.5.x | Balance |
-| 2.6.x | Account Statistics |
-| 2.7.x | Transaction |
-| 2.8.x | Block Summary |
-| 2.9.x | Account Trasaction History |
-| 2.12.x | Witness schedule |
+GXChain stores different types of data via different objects, Click here to view [object types on GXChain](../advanced/block_operation_object.html#_3-object-on-gxchain)
 
 ### `get_objects`
 
 Obtain object info via ID
 
-params: `<[object_ids]>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+object_ids | Array, can pass multiple corresponding ids
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -135,15 +182,63 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+    "id": 1,
+        "jsonrpc": "2.0",
+        "result": [{ // 1.3.1 object
+            "id": "1.3.1",
+            "symbol": "GXC",
+            "precision": 5,
+            "issuer": "1.2.0",
+            "options": {
+                "max_supply": "10000000000000",
+                "market_fee_percent": 0,
+                "max_market_fee": 0,
+                "issuer_permissions": 69,
+                "flags": 0,
+                "core_exchange_rate": {
+                    "base": {
+                        "amount": 100000,
+                        "asset_id": "1.3.1"
+                    },
+                    "quote": {
+                        "amount": 100000,
+                        "asset_id": "1.3.1"
+                    }
+                },
+                "whitelist_authorities": [],
+                "blacklist_authorities": [],
+                "whitelist_markets": [],
+                "blacklist_markets": [],
+                "description": "{\"main\":\"GXC是公信宝基金会在GXChain（公信链）上发行的Token，不仅具有流通价值，同时在公信链上开发、认证应⽤、使⽤链上服务（例如链上转账的矿⼯费）以及使⽤BaaS服务都需要⽀付或燃烧GXC，GXC是作为链上应⽤运⾏使⽤到的Token。 在布洛克城中也可以很方便地利用GXC进行支付结算，如居民之间互相使用GXC进行结算，使用城市公共服务需要用GXC结算，商家提供的服务也需要用GXC来购买等等\",\"short_name\":\"\",\"market\":\"\"}",
+                "extensions": []
+            },
+            "dynamic_asset_data_id": "2.3.1"
+        }, { // 2.3.1 Object
+            "id": "2.3.1",
+                "current_supply": "9958303550217",
+                "confidential_supply": 0,
+                "accumulated_fees": 0,
+                "fee_pool": 0
+        }]
+}
+```
+
 ## Account
 
 ### `get_account_count`
 
 Obtain total account count
 
-params: none
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -153,13 +248,26 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+    "id": 1,
+        "jsonrpc": "2.0",
+        "result": 1118627 // Total number of accounts on the chain
+}
+```
+
 ### `get_account_by_name`
 
 Obtain account info via `account_name`, **exclude** association object
 
-prams: `<account_name>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_name | Account name
 
-request:
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -168,14 +276,88 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+**response:**
+```json
+{
+    "id": 1,
+        "jsonrpc": "2.0",
+        "result": {
+            "id": "1.2.17", // account id
+            "membership_expiration_date": "2106-02-07T06:28:15", // Not for 1970-01-01T00:00:00, representing a lifetime membership
+            "merchant_expiration_date": "1970-01-01T00:00:00", // Not 1970-01-01T00:00:00, indicating a merchant
+            "datasource_expiration_date": "1970-01-01T00:00:00", // Not 1970-01-01T00:00:00, indicating the data source
+            "data_transaction_member_expiration_date": "1970-01-01T00:00:00", // Not 1970-01-01T00:00:00, with transaction confirmation permission in DES 1.0
+            "registrar": "1.2.17", // Account registrant
+            "referrer": "1.2.17", // Account recommender
+            "lifetime_referrer": "1.2.17", // Lifetime member recommender
+            "merchant_auth_referrer": "1.2.0", // Merchant recommender
+            "datasource_auth_referrer": "1.2.0", // Data source recommender
+            "network_fee_percentage": 2000, // Fee sharing, network fee ratio
+            "lifetime_referrer_fee_percentage": 8000, // Fee sharing, lifetime member referrals
+            "referrer_rewards_percentage": 0, // Fee sharing, proportion of referees
+            "name": "nathan", // account name
+            "vm_type": "", // vm type ,reserved text
+            "vm_version": "", // vm version, reserved text
+            "code": "", // Code for applicable contract accounts
+            "code_version": "", // code hash
+            "abi": { // Code corresponding to abi, for applicable contract accounts
+                "version": "gxc::abi/1.0",
+                "types": [],
+                "structs": [],
+                "actions": [],
+                "tables": [],
+                "error_messages": [],
+                "abi_extensions": []
+            },
+            "owner": { // Account owner permission, can be used to modify account permissions
+                "weight_threshold": 1,
+                "account_auths": [],
+                "key_auths": [
+                    ["GXC6cdTzGgTLv7VohhT76o82WmZmTwvijrkr5hJ3k8G2dEREee6wV", 1]
+                ],
+                "address_auths": []
+            },
+            "active": { // Active permissions on the account, can be used to spend account funds
+                "weight_threshold": 1,
+                "account_auths": [],
+                "key_auths": [
+                    ["GXC6cdTzGgTLv7VohhT76o82WmZmTwvijrkr5hJ3k8G2dEREee6wV", 1]
+                ],
+                "address_auths": []
+            },
+            "options": {
+                "memo_key": "GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", // memo key
+                "voting_account": "1.2.5",
+                "num_witness": 0,
+                "num_committee": 0,
+                "votes": [],
+                "extensions": []
+            },
+            "statistics": "2.6.17", // Account statistics object
+            "whitelisting_accounts": [],
+            "blacklisting_accounts": [],
+            "whitelisted_accounts": [],
+            "blacklisted_accounts": [],
+            "cashback_vb": "1.13.246", // Return object id
+            "owner_special_authority": [0, {}],
+            "active_special_authority": [0, {}],
+            "top_n_control_flags": 0
+        }
+}
+```
 
 ### `get_full_accounts`
 
 Obtain full account info via `account_ids`, **include** association object
 
-params: `<[account_names or account_ids])`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+[account_names or account_ids] | Array, you can pass in the account name or account id
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -185,7 +367,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-response:
+**response:**
 ```json
 {
     "id":1,
@@ -440,9 +622,14 @@ response:
 
 Check if the account name is already registered. Returns true if registered, returns false if unregistered or the account name is invalid
 
-params: `<account_name>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_name | account name
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -451,14 +638,27 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+**response:**
+```json
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": true // True means the account has been registered
+}
+```
 
 ### `get_key_references`
 
 Obtain the associated accounts based on the public key , and return the associated account id
 
-params: `<[public_keys]>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+[public_keys] | Array, passing in a series of public keys
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -467,6 +667,16 @@ curl --data '{
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+**response:**
+```json
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": [
+        ["1.2.26", "1.2.26"] // Account id associated with the public key
+    ]
+}
+```
 
 ## Asset
 
@@ -474,25 +684,127 @@ curl --data '{
 
 Query asset via initials
 
-params: `<asset_name> <limit>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+asset_name | Asset symbol or first string, such as GX
+limit | Number of results returned
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
     "method": "call",
-    "params": [0, "list_assets", ["A", 100]],
+    "params": [0, "list_assets", ["G", 2]],
     "id": 1
 }' https://node1.gxb.io/rpc
 ```
+**response:**
+```json
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": [{
+        "id": "1.3.11", // Return to asset 1.3.11
+        "symbol": "GBA", // Asset name GBA
+        "precision": 5, // Precision
+        "issuer": "1.2.1110589", // Asset issuer
+        "options": {
+            "max_supply": "200000000000000", // Maximum supply of assets
+            "market_fee_percent": 0,
+            "max_market_fee": 0,
+            "issuer_permissions": 0,
+            "flags": 0,
+            "core_exchange_rate": { // Exchange rate with GXC
+                "base": {
+                    "amount": 100000,
+                    "asset_id": "1.3.1"
+                },
+                "quote": {
+                    "amount": 1000000,
+                    "asset_id": "1.3.11"
+                }
+            },
+            "whitelist_authorities": [],
+            "blacklist_authorities": [],
+            "whitelist_markets": [],
+            "blacklist_markets": [],
+            "description": "{\"main\":\"Green Building Asset，简称GBA，是基于公信链的50%免费分发绿色资产。\",\"market\":\"\"}",
+            "extensions": []
+        },
+        "dynamic_asset_data_id": "2.3.11" // The dynamic attribute corresponding to the asset corresponds to the id
+    }, {
+        "id": "1.3.5", // Return to asset 1.3.5
+        "symbol": "GCNY", // Asset name GCNY
+        "precision": 5,
+        "issuer": "1.2.785392",
+        "options": {
+            "max_supply": "1000000000000000",
+            "market_fee_percent": 0,
+            "max_market_fee": 0,
+            "issuer_permissions": 79,
+            "flags": 0,
+            "core_exchange_rate": {
+                "base": {
+                    "amount": 1000000,
+                    "asset_id": "1.3.1"
+                },
+                "quote": {
+                    "amount": 100000,
+                    "asset_id": "1.3.5"
+                }
+            },
+            "whitelist_authorities": [],
+            "blacklist_authorities": [],
+            "whitelist_markets": [],
+            "blacklist_markets": [],
+            "description": "",
+            "extensions": []
+        },
+        "dynamic_asset_data_id": "2.3.5"
+    }]
+}
+```
+
+### `lookup_asset_symbols`
+
+Get asset details based on asset name
+
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+asset_name | Asset symbol or first string, such as 'GXC'
+
+#### Example
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "lookup_asset_symbols", [["GXC"]]],
+        "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+**response:**
+The same result list_assets
 
 ### `get_account_balances`
 
 Get account balances based on account id and asset id, return all asset balances if asset id is not specified
 
-params: `<account_id> <[asset_ids]>`
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_id | account id
+[asset_ids] | array,asset ids
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -503,7 +815,7 @@ curl --data '{
 
 ```
 
-response:
+**response:**
 ```json
 {
     "id":1,
@@ -511,39 +823,29 @@ response:
     "result":[
         {
             "amount":"79795227868",
-            "asset_id":"1.3.0"
+            "asset_id":"1.3.0" //1.3.0 is a NULL asset
         },
         {
-            "amount":"3949999988445",
-            "asset_id":"1.3.1"
+            "amount":"3949999988445", // GXC asset accuracy is 5, the actual number is 39499999.88445
+            "asset_id":"1.3.1" // 1.3.1 is a GXC asset
         }
     ]
 }
-```
-
-### `lookup_asset_symbols`
-
-Obtain asset details by asset name
-
-params: ```<[asset_names]>```
-
-request:
-``` bash
-curl --data '{
-    "jsonrpc": "2.0",
-    "method": "call",
-    "params": [0, "lookup_asset_symbols", [["GXS"]]],
-    "id": 1
-}' https://node1.gxb.io/rpc
 ```
 
 ### `get_named_account_balances`
 
 Obtain account balances based on account name and asset id, return all asset balance if asset id is not specified
 
-params: ```<account_name> <[asset_ids]>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_id | account id
+[asset_ids] | array,asset ids
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -553,13 +855,33 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": [{
+        "amount": "79795227868", // 1.3.0 Asset balance
+        "asset_id": "1.3.0"
+    }, {
+        "amount": "3949999988445", // 1.3.1 Asset balance, ie GXC assets, since the accuracy of GXC assets is 5, the actual quantity is 3949999988445 / 100000
+        "asset_id": "1.3.1"
+    }]
+}
+```
+
 ### `get_vesting_balances`
 
 Get all the unspent balances of the account based on the account id
 
-params: ```<account_id>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_id | account id
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -569,7 +891,7 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
-response:
+**response:**
 ```json
 {
     "id":1,
@@ -636,9 +958,13 @@ response:
 
 Get the account ids of all trust nodes
 
-params:  none
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -648,13 +974,43 @@ curl --data '{
 }' https://node1.gxb.io/rpc
 ```
 
+**response:**
+```json
+{
+   "id":1,
+   "jsonrpc":"2.0",
+   "result":[
+      "1.2.3429",
+      "1.2.3431",
+      "1.2.3432",
+      "1.2.3433",
+      "1.2.3434",
+      "1.2.748971",
+      "1.2.1090296",
+      "1.2.1090419",
+      "1.2.1061353",
+      "1.2.1090653",
+      "1.2.1090792",
+      "1.2.1090458",
+      "1.2.1091083",
+      "1.2.1092168",
+      "1.2.1106749"
+   ]
+}
+```
+
 ### `get_witness_by_account`
 
 Obtain the information of the trust node according to `account_id`, including the public key, the total votes, missing blocks, etc.
 
-params: ```<account_id>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+account_id | account id
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -687,9 +1043,14 @@ response:
 
 Returns the worker object based on the information of the public node returned by vote_id
 
-params: ```<vote id>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+[vote_id] | Array, vote ids
 
-request:
+#### Example
+**request:**
 ``` bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -702,27 +1063,30 @@ curl --data '{
 
 ## Contract_table
 
-### `get_table_rows`
-Query the table contents of the contract. Specify the contract name, table name, start, and limit when querying.Modify 'contract_name' and 'table_name' for your own contract name and table name
-
-params: ```<contract_name> <table_name> <start> <limit>```
-
-request:
-```bash
-curl --data '{
-    "jsonrpc": "2.0",
-    "method": "call",
-    "params": [0, "get_table_rows", ["contract_name", "table_name", 0, 10]],
-    "id": 1
-}' https://node1.gxb.io/rpc
-```
-
 ### `get_table_rows_ex`
 The extension interface of `get_table_rows` provides richer query functions. (The default value is used when the parameter field is not passed.)
 
-params: ```<contract_name> <table_name> <params_object> ```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 0
+contract_name | contract name
+table_name | table name
+params_object | params struct
 
-request:
+get_table_rows_params description:
+
+- **lower_bound:** The minimum value of the key specified during the query. The default is 0.
+- **upper_bound:** The maximum value of the key specified during the query. The default is -1, which is the largest unsigned integer.
+- **limit:** Specify the return limit bar when querying, and return 10 by default.
+- **index_position:** The index specified when querying, the default is 1, that is, the first index.
+- **reverse:** The result of the query is output in reverse order of the key. The default is 0, that is, the key is output from small to large.
+
+All parameters of 'get_table_rows_params' have default values. If there is no need to change the default value, you can not pass in
+
+
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -731,7 +1095,53 @@ curl --data '{
     "id": 1
 }'
 ```
-
+**response:**
+```json
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "rows": [{
+            "pool": {
+                "amount": "3294138495",
+                "asset_id": 1
+            },
+            "totalbet": "30845491144",
+            "betcount": 38425,
+            "wincount": 31459,
+            "minbet": 50000,
+            "minbank": 10000000,
+            "investtotalpercent": 2643728290,
+            "profit": 462683014
+        }, {
+            "pool": {
+                "amount": 0,
+                "asset_id": 2
+            },
+            "totalbet": 0,
+            "betcount": 0,
+            "wincount": 0,
+            "minbet": 1000000,
+            "minbank": 100000000,
+            "investtotalpercent": 0,
+            "profit": 0
+        }, {
+            "pool": {
+                "amount": "100000000000",
+                "asset_id": 14
+            },
+            "totalbet": 0,
+            "betcount": 0,
+            "wincount": 0,
+            "minbet": 10000000,
+            "minbank": 1000000000,
+            "investtotalpercent": 100000000,
+            "profit": 0
+        }],
+        "more": false
+    }
+}
+```
 
 ## broadcast
 
@@ -742,9 +1152,14 @@ Broadcast a signed transaction to the network
 [How to construct and send a transaction to GXChain?](../advanced/send_transaction.md)
 :::
 
-params: ```<signed_transaction>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 2
+signed_transaction | Signed transaction message body
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
@@ -766,9 +1181,14 @@ Broadcast a signed transaction to the network, and wait for the transaction resu
 [How to construct and send a transaction to GXChain?](../advanced/send_transaction.md)
 :::
 
-params:  ```<signed_transaction>```
+#### Parameter Description
+Parameter | Description
+---|---
+API id | The interface is provided by the DB API with an id of 2
+signed_transaction | Signed transaction message body
 
-request:
+#### Example
+**request:**
 ```bash
 curl --data '{
     "jsonrpc": "2.0",
