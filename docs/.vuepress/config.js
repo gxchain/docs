@@ -141,7 +141,8 @@ function genSidebarConfig (module, title) {
                     'api_server',
                     'snapshot',
                     'testnet',
-                    'private_chain'
+                    'private_chain',
+                    'block_operation_object'
                 ]
             }
         ];

@@ -12,4 +12,5 @@
 - [如何使用镜像功能？](./snapshot.md)
 - [如何启动测试网络?](./testnet.md)
 - [如何搭建私有链？](./private_chain.md)
+- [区块、operation和对象介绍](./block_operation_object.md)
 
