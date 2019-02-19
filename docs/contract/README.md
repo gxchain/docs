@@ -23,13 +23,13 @@ The GXChain smart contract is developed in C++, compiled by the [Webassembly](ht
 
 ### 1. Start witness_node
 
-You need to compile the source code to start the private chain, and then switch to the directory where the witness_node program is located, use the following command to start the node, the `data` directory to save the configuration information, the generated block information, etc. Start the private chain tutorial click [here](../guide/private_chain.md )
+You need to compile the source code to start the private chain, and then switch to the directory where the witness_node program is located, use the following command to start the node, the `data` directory to save the configuration information, the generated block information, etc. Start the private chain tutorial click [here](../advanced/private_chain.md )
 
 ```bash
 ./witness_node -d data
 ```
 
-**It is recommended to synchronize the test network node and then develop the contract. Start the test network node tutorial click [here](../guide/testnet.md)**
+**It is recommended to synchronize the test network node and then develop the contract. Start the test network node tutorial click [here](../advanced/testnet.md)**
 
 
 ![](./png/chain_id.jpg)

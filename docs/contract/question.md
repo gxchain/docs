@@ -2,11 +2,11 @@
 
 
 ## Local start private chain
-Reference [Private Chain](../guide/private_chain.html)
+Reference [Private Chain](../advanced/private_chain.html)
 
 ## Deploy testnet node
 
-Reference [Testnet](../guide/testnet.html)
+Reference [Testnet](../advanced/testnet.html)
 
 ## Random number
 
@@ -34,7 +34,7 @@ sha256("da161d9ee3c116083030737d5a4d478ee1a7654f8ea51e0513020937a9206b0f"+"77f3b
 
 ## Contract and distributed storage
 
-Smart contracts bring the possibility of decentralization of complex business logic, and can store relevant business data in the chain to develop decentralized DAPP. The storage on the chain uses RAM resources, which are suitable for storing high-frequency read and write data. The RAM on the chain is expensive to store. Some large files do not need to be stored in the chain ram. You can use the distributed storage service provided by GXChian to make large files. Storage is hosted on [BaaS Storage](../baas-api/)
+Smart contracts bring the possibility of decentralization of complex business logic, and can store relevant business data in the chain to develop decentralized DAPP. The storage on the chain uses RAM resources, which are suitable for storing high-frequency read and write data. The RAM on the chain is expensive to store. Some large files do not need to be stored in the chain ram. You can use the distributed storage service provided by GXChian to make large files. Storage is hosted on [BaaS Storage](../ecosystem/baas_storage.html)
 
 ## Contract fee 
 

@@ -25,7 +25,7 @@ GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassemb
 
 ### 1. 启动本地私链
 
-编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../guide/private_chain.md )
+编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../advanced/private_chain.md )
 
 ```bash
 ./witness_node -d data

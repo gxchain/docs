@@ -40,9 +40,15 @@ apt-get install libstdc++-7-dev
 
 ## Install
 
+The following steps demonstrate the startup of the primary network node.
+
+- If you are a developer and want a quick experience, go to [TestNet](../advanced/testnet.html)
+- If you want to build a private chain based on GXChain, go to [Private Chain](../advanced/private_chain.html)
+
 ### 1. Download
 
 ``` bash
+# Executing this shell script will automatically download the latest program from github and extract it to the current directory.
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 ### 2. Start
@@ -52,9 +58,13 @@ export LC_ALL=C
 nohup ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="127.0.0.1:28090"  1>nohup.out 2>&1 &
 ```
 
-That's it, here we start a witness listening at `127.0.0.1:28090`, and we indicate the block database dir is `<path>/<to>/<your>/<application>/trusted_node`
+- That's it, here we start a witness listening at `127.0.0.1:28090`.
+- we indicate the block database dir is `<path>/<to>/<your>/<application>/trusted_node`
 
-It takes about **6 hours** to sync the blocks as usual, it also depend on your network.
+::: tip note
+- The sync block takes about **30+ hours**, which of course has something to do with your network.
+- Before the block sync is complete, you just have to wait patiently, during which you can read the documentation.
+:::
 
 check the log:
 
@@ -64,7 +74,7 @@ tail -f trusted_node/logs/witness.log
 
 ### 3. Check the log
 
-When the node is ready, the log should looks like this:
+When the node is ready, the log should looks like this(Receive 1 new block from the network every 3 seconds):
 
 ``` bash
 root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log

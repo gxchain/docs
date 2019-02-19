@@ -31,22 +31,13 @@ The following sections explain how to use the above private key and how to defin
 
 ## 3. create genesis.json
 
-::: tip About genisis.json
-- `genisis.json` is the genesis file
-- Each chain has a unique genesis.json
-- `genesis.json` specifies the configuration information necessary for the genesis block and initialization parameters for node startup
-- Any change in a character will result in a different chain_id
-- A different chain_id will result in an inability to communicate with seed_node
-- Therefore: **do not change genisis.json, unless you want to run a** [Private-hain](/zh/guide/private_chain)
-:::
-
 Run this command to create an initial file called `my-genesis.json`:
 
 ```bash
 ./programs/witness_node/witness_node --create-genesis-json my-genesis.json
 ```
 
-The file 1my-genesis.json` will be stored in the root directory of your private key folder. After running this command, all the witness nodes will complete the command themselves.
+The file `my-genesis.json` will be stored in the root directory of your private key folder. After running this command, all the witness nodes will complete the command themselves.
 
 If you want to customize the initialization, open `my-genesis.json` and you can make the following changes:
 
