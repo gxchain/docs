@@ -129,6 +129,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | tapos_block_prefix | 返回交易引用的区块ID（第二个32位数） |
 | <graphenelib/action.h> | read_action_data | 读取当前action数据 |
 | <graphenelib/action.h> | action_data_size | 返回当前action数据读取所需字节数 |
+| <graphenelib/action.h> | send_inline      | 内联调用action |
 | <graphenelib/action.hpp> | unpack_action_data | 将当前action数据反序列化为定义的action对象 |
 | <graphenelib/system.h> | graphene_assert | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
 | <graphenelib/system.h> | graphene_assert_message | 如果条件不满足，中断本次合约的执行并会滚所有状态 |
@@ -724,6 +725,14 @@ void examrasize(uint64_t num,std::string number){
 }
 ```
 
+### send\_inline
+
+**函数类型:** `void send_inline(char *serialized_action, size_t size)`
+
+**头文件:** `<graphenelib/action.h>`
+
+**功能说明:** 内联执行action（一般通过构造action，并通过其send成员方法来内联执行action，其内部实现为send\_inline，[跨合约调用](#跨合约调用)）
+
 ### unpack\_action\_data
 
 **函数类型:** `T unpack_action_data()`
@@ -824,6 +833,56 @@ void examprint(){
 关于api使用的示例合约已经部署到了测试网络，可以通过IDE客户端引入合约进行测试，点击查看[合约源码](./question.html#内置api调用示例合约)，合约账户`apitest`
 
 ![](./png/apitest.jpg)
+
+## 跨合约调用
+
+### 说明
+GXChain支持合约间调用，并支持设置ram费用的支付账户。跨合约调用示例如`User --> contract_A --> contract_B`，对于合约`contract_B`，`User`为原始调用者，`contract_A`为sender。
+
+合约中使用到的ram资源，支付账户可以设置为以下4种身份：
+
+| payer | description |
+| --- | --- |
+| sender | 由调用者支付 |
+| receiver | 由合约账户支付 |
+| original caller | 由原始调用者支付 |
+| 0 | 同receiver | 
+
+### 示例
+`contract_A --> contract_B`，`contract_A`合约调用`contract_B`合约。
+1. 在`contract_A`中构造action，包含`contract_B`账户id/账户名、action名、参数、调用账户（\_self）、附加资产
+2. 调用action的send方法，完成跨合约调用。
+
+```cpp
+#contract_b合约
+···
+void hi(std::string name,uint64_t number)
+{
+    ···
+}
+···
+#contract_A合约
+···
+struct param {
+    std::string name;
+    uint64_t number;
+};
+
+
+void inlinecall(uint64_t con_b_id, std::string con_b_name){
+
+    param par{"hello", 100};
+
+    // 方式1：构造action时，使用合约账户id
+    action contract_b_id(con_b_id, N(hi), std::move(par), _self, {1000, 1});
+    contract_b_id.send();
+
+    // 方式2：构造action时，使用合约账户名
+    action contract_b_name(con_b_name, N(hi), std::move(par), _self, {1000,1});
+    contract_b_name.send();
+}
+···
+```
 
 
 ## 多索引表

@@ -128,6 +128,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | tapos_block_prefix | Returns the block ID of the transaction reference (the second 32 digits) |
 | <graphenelib/action.h> | read_action_data | Read current action data |
 | <graphenelib/action.h> | action_data_size | Returns the number of bytes required to read the current action data |
+| <graphenelib/action.h> | send_inline      | inline execute action |
 | <graphenelib/action.hpp> | unpack_action_data | Deserialize the current action data into a defined action object |
 | <graphenelib/system.h> | graphene_assert | If the assertion fails, interrupt the execution of this contract and roll all states |
 | <graphenelib/system.h> | graphene_assert_message | If the assertion fails, interrupt the execution of this contract and roll all states |
@@ -721,6 +722,15 @@ void examrasize(uint64_t num,std::string number){
 }
 ```
 
+### send\_inline
+
+**Function:** `void send_inline(char *serialized_action, size_t size)`
+
+**Head file:** `<graphenelib/action.h>`
+
+**Description:** inline execute action（
+Generally, by constructing an action and inlining the action through its send member method, its internal implementation is send\_inline，[Inline action](#Inline-action)）
+
 ### unpack\_action\_data
 
 **Function:** `T unpack_action_data()`
@@ -820,6 +830,57 @@ void examprint(){
 
 The sample contract for api usage has been deployed to the test network, which can be tested by the IDE client, click to view [contract source](./question.html#Built-in_api_example),contract name is `apitest`
 
+## Inline action
+
+### Description
+
+GXChain supports inter-contract calls and supports payment accounts that set ram fees. Examples of cross-contract calls are `User --> contract_A --> contract_B`, for contract `contract_B`, `User` is the original caller, and `contract_A` is sender.
+
+The ram resource used in the contract, the payment account can be set to the following four identities:
+
+| payer | description |
+| --- | --- |
+| sender | sender |
+| receiver | contract account |
+| original caller | original caller |
+| 0 | receiver | 
+
+### Example
+
+`contract_A --> contract_B`, `contract_A` contract calls `contract_B` contract.
+1. Construct an action in `contract_A` containing `contract_B` account id/account name, action name, parameters, calling account (\_self), additional assets
+2. Call the send method of the action to complete the cross-contract call.
+
+```cpp
+#contract_b
+···
+void hi(std::string name,uint64_t number)
+{
+    ···
+}
+···
+#contract_A
+···
+struct param {
+    std::string name;
+    uint64_t number;
+};
+
+
+void inlinecall(uint64_t con_b_id, std::string con_b_name){
+
+    param par{"hello", 100};
+
+    // 1: When constructing an action, use the contract account id
+    action contract_b_id(con_b_id, N(hi), std::move(par), _self, {1000, 1});
+    contract_b_id.send();
+
+    // 2: When constructing an action, use the contract account name
+    action contract_b_name(con_b_name, N(hi), std::move(par), _self, {1000,1});
+    contract_b_name.send();
+}
+···
+```
 
 ## Multi-index table
 
