@@ -729,7 +729,7 @@ void examrasize(uint64_t num,std::string number){
 **Head file:** `<graphenelib/action.h>`
 
 **Description:** inline execute action（
-Generally, by constructing an action and inlining the action through its send member method, its internal implementation is send\_inline，[Inline action](#Inline-action)）
+Generally, by constructing an action and inlining the action through its send member method, its internal implementation is send\_inline，[Inline action](#inline-action)）
 
 ### unpack\_action\_data
 
