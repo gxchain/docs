@@ -46,8 +46,8 @@ apt-get install libstdc++-7-dev
 
 以下的步骤演示的是**主网节点**的启动
 
-- 如果你是开发者，希望快速体验，可前往[测试网络](testnet.html)
-- 如果你想基于GXChain搭建私有链，可前往[私有链搭建](private_chain.html)
+- 如果你是开发者，希望快速体验，可前往[测试网络](../advanced/testnet.html)
+- 如果你想基于GXChain搭建私有链，可前往[私有链搭建](../advanced/private_chain.html)
 
 ### 1. 下载Release包
 
