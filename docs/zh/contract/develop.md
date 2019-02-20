@@ -249,36 +249,6 @@ void examgetbl(int64_t account, int64_t asset_id){
 }
 ```
 
-### assert\_recover\_key
-
-**函数类型:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
-                              const char *pub, uint32_t publen);`
-
-**头文件:** `<graphenelib/crypto.h>`
-
-**功能说明:** 校验给定的签名和hash是否能够恢复公钥
-
-
-**params:**
-
-`<const checksum256 *> data` sha256 hash值
-
-`<const signature *> sig` 对原字符串签名后的数据
-
-`<const char *> pub` 公钥
-
-`<uint32_t> publen` 公钥长度
-
-```cpp
-// @abi action
-void examrecover(std::string user,signature sig,std::string pkey)
-{
-    checksum256 dig;
-    sha256(user.c_str(),user.length(),&dig);
-    assert_recover_key(&dig,&sig,pkey.c_str(), pkey.length());
-}
-```
-
 ### sha1
 
 **函数类型:** `void sha1(const char *data, uint32_t length, checksum160 *hash)`
@@ -419,7 +389,33 @@ void examverify(std::string data,signature sig,std::string pk){
 }
 ```
 
+### assert\_recover\_key
 
+**函数类型:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
+                              const char *pub, uint32_t publen);`
+
+**头文件:** `<graphenelib/crypto.h>`
+
+**功能说明:** 校验给定的签名和hash是否能够恢复公钥
+
+
+**params:**
+
+`<const checksum256 *> data` sha256 hash值
+
+`<const signature *> sig` 对原字符串签名后的数据
+
+`<const char *> pub` 公钥
+
+`<uint32_t> publen` 公钥长度
+
+```cpp
+// @abi action
+void examrecover(checksum256 hash,signature sig,std::string pkey)
+{
+    assert_recover_key(&hash, &sig, pkey.c_str(), pkey.length());
+}
+```
 
 ### get\_head\_block\_num
 

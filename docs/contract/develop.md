@@ -248,36 +248,6 @@ void examgetbl(int64_t account, int64_t asset_id){
 }
 ```
 
-### assert\_recover\_key
-
-**Function:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
-                              const char *pub, uint32_t publen);`
-
-**Head file:** `<graphenelib/crypto.h>`
-
-**Description:** Verify that the given signature and hash can recover the public key
-
-
-**params:**
-
-`<const checksum256 *> data` sha256 hash
-
-`<const signature *> sig` signature
-
-`<const char *> pub` public key
-    
-`<uint32_t> publen` plulic key length
-
-```cpp
-// @abi action
-void examrecover(std::string user,signature sig,std::string pkey)
-{
-    checksum256 dig;
-    sha256(user.c_str(),user.length(),&dig);
-    assert_recover_key(&dig,&sig,pkey.c_str(), pkey.length());
-}
-```
-
 ### sha1
 
 **Function:** `void sha1(const char *data, uint32_t length, checksum160 *hash)`
@@ -417,7 +387,33 @@ void examverify(std::string data,signature sig,std::string pk){
     print("verify result: ",result);
 }
 ```
+### assert\_recover\_key
 
+**Function:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
+                              const char *pub, uint32_t publen);`
+
+**Head file:** `<graphenelib/crypto.h>`
+
+**Description:** Verify that the given signature and hash can recover the public key
+
+
+**params:**
+
+`<const checksum256 *> data` sha256 hash
+
+`<const signature *> sig` signature
+
+`<const char *> pub` public key
+    
+`<uint32_t> publen` plulic key length
+
+```cpp
+// @abi action
+void examrecover(checksum256 dig,signature sig,std::string pkey)
+{
+    assert_recover_key(&dig,&sig,pkey.c_str(), pkey.length());
+}
+```
 
 
 ### get\_head\_block\_num
