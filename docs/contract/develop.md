@@ -108,6 +108,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | Returns the number of assets sent to the contract by this call |
 | <graphenelib/asset.h> | withdraw_asset | Transfer assets from the current contract account to the other account |
 | <graphenelib/asset.h> | get_balance | Get the balance of an asset in the account on the chain |
+| <graphenelib/crypto.h> | assert_recover_key | Verify that the given signature and hash can recover the public key |
 | <graphenelib/crypto.h> | sha1 | Obtain the encrypted data of the sha1 algorithm |
 | <graphenelib/crypto.h> | sha256 | Obtain the encrypted data of the sha256 algorithm |
 | <graphenelib/crypto.h> | sha512 | Obtain the encrypted data of the sha512 algorithm |
@@ -244,6 +245,36 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 void examgetbl(int64_t account, int64_t asset_id){
     int64_t balance = get_balance(account, asset_id);
     print("account balance: ",balance);
+}
+```
+
+### assert\_recover\_key
+
+**Function:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
+                              const char *pub, uint32_t publen);`
+
+**Head file:** `<graphenelib/crypto.h>`
+
+**Description:** Verify that the given signature and hash can recover the public key
+
+
+**params:**
+
+`<const checksum256 *> data` sha256 hash
+
+`<const signature *> sig` signature
+
+`<const char *> pub` public key
+    
+`<uint32_t> publen` plulic key length
+
+```cpp
+// @abi action
+void examrecover(std::string user,signature sig,std::string pkey)
+{
+    checksum256 dig;
+    sha256(user.c_str(),user.length(),&dig);
+    assert_recover_key(&dig,&sig,pkey.c_str(), pkey.length());
 }
 ```
 

@@ -109,6 +109,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | 返回本次调用向合约发送的资产数量 |
 | <graphenelib/asset.h> | withdraw_asset | 将当前合约帐户的资产转移到链上账户 |
 | <graphenelib/asset.h> | get_balance | 获取链上账户的某资产余额 |
+| <graphenelib/crypto.h> | assert_recover_key | 校验给定的签名和hash是否能够恢复公钥 |
 | <graphenelib/crypto.h> | sha1 | 计算数据的sha1 |
 | <graphenelib/crypto.h> | sha256 | 计算数据的sha256 |
 | <graphenelib/crypto.h> | sha512 | 计算数据的sha512 |
@@ -245,6 +246,36 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 void examgetbl(int64_t account, int64_t asset_id){
     int64_t balance = get_balance(account, asset_id);
     print("account balance: ",balance);
+}
+```
+
+### assert\_recover\_key
+
+**函数类型:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
+                              const char *pub, uint32_t publen);`
+
+**头文件:** `<graphenelib/crypto.h>`
+
+**功能说明:** 校验给定的签名和hash是否能够恢复公钥
+
+
+**params:**
+
+`<const checksum256 *> data` sha256 hash值
+
+`<const signature *> sig` 对原字符串签名后的数据
+
+`<const char *> pub` 公钥
+
+`<uint32_t> publen` 公钥长度
+
+```cpp
+// @abi action
+void examrecover(std::string user,signature sig,std::string pkey)
+{
+    checksum256 dig;
+    sha256(user.c_str(),user.length(),&dig);
+    assert_recover_key(&dig,&sig,pkey.c_str(), pkey.length());
 }
 ```
 
