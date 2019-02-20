@@ -19,8 +19,9 @@ GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassemb
 **工具介绍:**
 
 - **witness_node**：节点程序，可以根据不同的配置启动不同的功能。例如，在开发合约过程中，启动RPC端口与cli_wallet交互，用来调用合约查询table
-- **cli_wallet**：命令行钱包程序，主要用于管理钱包并与witness_node程序交互，命令包括：部署合约、调用合约、更新合约、查询table等（使用`help`命令和`get_help`命令查看该工具的使用）。
+- **cli_wallet**：命令行钱包程序，主要用于管理钱包并与witness_node程序交互，命令包括：部署合约、调用合约、更新合约、查询table等（使用`help`命令和`gethelp`命令查看该工具的使用）。
 - **gxx**：用于将`C++`源码文件编译为abi文件和wasm文件以部署到GXChain。
+- **gxc-smart-contract-ide**: 通过智能合约IDE，可以编写、编译、部署、调用智能合约。 [点击下载](https://github.com/gxchain/gxchain-alpha/releases/latest)
 
 
 ### 1. 启动本地私链

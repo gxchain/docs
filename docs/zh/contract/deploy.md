@@ -1,4 +1,4 @@
-# 合约部署
+# 合约部署、调用和更新
 
 ## 智能合约IDE方式
 
@@ -8,7 +8,7 @@
 
 ### 2. 申领测试Token
 
-注册完成后, 点击[申领测试代币](http://blockcity.mikecrm.com/2SVDb67)
+注册完成后, 浏览器访问 `https://testnet.gxchain.org/gxc/get_token?your_account_name`申领测试币， 请将your_account_name 替换为你的测试网络帐户名
 
 ### 3. IDE下载
 通过智能合约IDE，可以编写、编译、部署、调用智能合约。
