@@ -36,12 +36,10 @@ struct signature {
 
 示例：
 ```cpp
-void verify(std::string raw_string, std::string pub_key, signature sig)
+void verify(checksum256 hash, std::string pub_key, signature sig)
 {   
-    print("string, ", raw_string, "\n");
     print(pub_key, "\n");
-    bool flag = verify_signature(raw_string.c_str(), raw_string.length(), &sig, pub_key.c_str(), pub_key.length());
-    print("ret code, ", flag, "\n");
+    assert_recover_key(&hash, &sig, pub_key.c_str(), pub_key.length());
 } 
  ```
 
@@ -109,12 +107,11 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | 返回本次调用向合约发送的资产数量 |
 | <graphenelib/asset.h> | withdraw_asset | 将当前合约帐户的资产转移到链上账户 |
 | <graphenelib/asset.h> | get_balance | 获取链上账户的某资产余额 |
-| <graphenelib/crypto.h> | assert_recover_key | 校验给定的签名和hash是否能够恢复公钥 |
 | <graphenelib/crypto.h> | sha1 | 计算数据的sha1 |
 | <graphenelib/crypto.h> | sha256 | 计算数据的sha256 |
 | <graphenelib/crypto.h> | sha512 | 计算数据的sha512 |
 | <graphenelib/crypto.h> | ripemd160 | 计算数据的ripemd160 |
-| <graphenelib/crypto.h> | verify_signature | 验证签名 |
+| <graphenelib/crypto.h> | assert_recover_key | 校验给定的签名和hash是否能够恢复公钥 |
 | <graphenelib/global.h> | get_head_block_num | 获取最新区块号 |
 | <graphenelib/global.h> | get_head_block_id | 获取最新区块hash |
 | <graphenelib/global.h> | get_block_id_for_num | 获取指定区块hash |
@@ -352,40 +349,6 @@ void examripemd(std::string data){
     checksum160 hash;
     ripemd160(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
-}
-```
-
-
-### verify\_signature
-
-**函数类型:** `bool verify_signature(const char *data, uint32_t datalen, const signature *sig, const char * pub_key, uint32_t pub_keylen)`
-
-**头文件:** `<graphenelib/crypto.h>`
-
-**功能说明:** 验证签名
-
-**返回值:** 返回验证结果（bool值）
-
-
-**params:**
-
-`<const char *> data` 签名的原始字符串
-
-`<uint32_t> datalen` data字符串的长度
-
-`<const signature *> sig` 签名数据
-
-`<const char *> pub_key` 签名私钥对应的公钥
-
-`<uint32_t> pub_keylen` 公钥的长度
-
-```cpp
-//verify_signature (other example: redpacket)
-// @abi action
-void examverify(std::string data,signature sig,std::string pk){
-    bool result;
-    result = verify_signature(data.c_str(), data.length(), &sig, pk.c_str(), pk.length());
-    print("verify result: ",result);
 }
 ```
 

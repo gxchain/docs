@@ -37,12 +37,10 @@ struct signature {
 
 example：
 ```cpp
-void verify(std::string raw_string, std::string pub_key, signature sig)
+void verify(checksum256 hash, std::string pub_key, signature sig)
 {   
-    print("string, ", raw_string, "\n");
     print(pub_key, "\n");
-    bool flag = verify_signature(raw_string.c_str(), raw_string.length(), &sig, pub_key.c_str(), pub_key.length());
-    print("ret code, ", flag, "\n");
+    assert_recover_key(&hash, &sig, pub_key.c_str(), pub_key.length());
 } 
  ```
 
@@ -108,12 +106,11 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | Returns the number of assets sent to the contract by this call |
 | <graphenelib/asset.h> | withdraw_asset | Transfer assets from the current contract account to the other account |
 | <graphenelib/asset.h> | get_balance | Get the balance of an asset in the account on the chain |
-| <graphenelib/crypto.h> | assert_recover_key | Verify that the given signature and hash can recover the public key |
 | <graphenelib/crypto.h> | sha1 | Obtain the encrypted data of the sha1 algorithm |
 | <graphenelib/crypto.h> | sha256 | Obtain the encrypted data of the sha256 algorithm |
 | <graphenelib/crypto.h> | sha512 | Obtain the encrypted data of the sha512 algorithm |
 | <graphenelib/crypto.h> | ripemd160 | Obtain the encrypted data of the ripemd160 algorithm |
-| <graphenelib/crypto.h> | verify_signature | Verification signature |
+| <graphenelib/crypto.h> | assert_recover_key | Verify that the given signature and hash can recover the public key |
 | <graphenelib/global.h> | get_head_block_num | Get the head block number |
 | <graphenelib/global.h> | get_head_block_id | Get the head block hash |
 | <graphenelib/global.h> | get_block_id_for_num | Get the specified block hash |
@@ -354,39 +351,6 @@ void examripemd(std::string data){
 }
 ```
 
-
-### verify\_signature
-
-**Function:** `bool verify_signature(const char *data, uint32_t datalen, const signature *sig, const char * pub_key, uint32_t pub_keylen)`
-
-**Head file:** `<graphenelib/crypto.h>`
-
-**Description:** Verification signature
-
-**Return value:** Verification result (bool value)
-
-
-**params:**
-
-`<const char *> data` data start address
-
-`<uint32_t> datalen` data length
-
-`<const signature *> sig` signature
-
-`<const char *> pub_key` public key
-
-`<uint32_t> pub_keylen` public key length
-
-```cpp
-//verify_signature (other example: redpacket)
-// @abi action
-void examverify(std::string data,signature sig,std::string pk){
-    bool result;
-    result = verify_signature(data.c_str(), data.length(), &sig, pk.c_str(), pk.length());
-    print("verify result: ",result);
-}
-```
 ### assert\_recover\_key
 
 **Function:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
