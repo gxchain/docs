@@ -8,9 +8,25 @@ GXChain的节点提供WebSocket和JSONRPC两种接口形式
 获取链id
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
+
+<table>
+    <tr>
+        <th rowspan="1">请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_chain_id</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>
+        <td colspan="2" align="center">空</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -35,9 +51,25 @@ curl --data '{
 获取动态全局对象
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
+
+<table>
+    <tr>
+        <th rowspan="1">请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_dynamic_global_properties</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>
+        <td colspan="2" align="center">空</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -82,10 +114,33 @@ curl --data '{
 通过区块号获取区块信息
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-block_num | 区块号/区块高度
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_block</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>block_num</td>
+        <td>区块号/区块高度</td>
+    </tr>
+</table>
+
 
 #### 示例
 **request:**
@@ -123,10 +178,32 @@ curl --data '{
 根据区块号获取区块头信息
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-block_num | 区块号/区块高度
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_block_header</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>block_num</td>
+        <td>区块号/区块高度</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -163,10 +240,32 @@ curl --data '{
 根据对象ID获取对象信息
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-[对象ids] | 数组，可传入多个对应id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_objects</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>[对象id]</td>
+        <td>数组，可传入多个对应id</td>
+    </tr>
+</table>
 
 #### 示例
 
@@ -231,9 +330,25 @@ curl --data '{
 获取链上帐户总数量
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_count</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>   
+        <td colspan="2" align="center">空</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -260,10 +375,32 @@ curl --data '{
 根据`account_name`获取`account`信息，**不包含**关联对象的信息，如账户资产余额、待解冻余额、忠诚计划冻结余额等
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<account_name> | 帐户名
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_by_name</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>账户名</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -350,10 +487,36 @@ curl --data '{
 根据`account_ids 或者 account_names`获取完整账户信息，**包含**关联对象的信息，如账户资产余额，冻结余额等。
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<[帐户名s或者帐户ids]> | 数组，可传入帐户名或者帐户id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_full_accounts</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>[帐户名或者帐户id]</td>
+        <td>数组，可传入帐户名或者帐户id</td>
+    </tr>
+    <tr>
+        <td>bool型</td>
+        <td>是否订阅</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -620,10 +783,32 @@ curl --data '{
 查询帐户名是否已注册。 若已注册，则返回true，未注册或者帐户名不合法，返回false
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<account_name> | 帐户名
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">is_account_registered</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>账户名</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -649,10 +834,32 @@ curl --data '{
 根据公钥，查询关联的帐户，返回关联的帐户id
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<[公钥s]> | 数组，传入一系列公钥
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_key_references</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>[公钥]</td>
+        <td>数组，传入一系列公钥</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -683,11 +890,36 @@ curl --data '{
 查询资产, 返回比传入参数大的资产对象
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<资产名> | 资产符号或者首字符串，如GX
-`<limit>` | 返回的结果数量
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">list_assets</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>资产名</td>
+        <td>资产符号或者首字符串，比如G</td>
+    </tr>
+    <tr>
+        <td>limit</td>
+        <td>返回的结果数量</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -772,10 +1004,32 @@ curl --data '{
 根据资产名称获取资产详情
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-<[资产名字s]> | 资产符号或者首字符串
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">lookup_asset_symbols</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>[资产名]</td>
+        <td>数组，资产符号或者首字符串，比如G</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -795,11 +1049,36 @@ curl --data '{
 根据帐户id和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<account id>` | 帐户id
-`<[asset ids]>` | 数组，资产id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>帐户id</td>
+    </tr>
+    <tr>
+        <td>[asset id]</td>
+        <td>数组，资产id</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -836,11 +1115,36 @@ curl --data '{
 根据帐户名和资产id获取帐户余额， 如果资产id不指定，返回全部资产余额
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<account name>` | 帐户名
-`<[asset ids]>` | 数组，资产id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_named_account_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>账户名</td>
+    </tr>
+    <tr>
+        <td>[asset id]</td>
+        <td>数组，资产id</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -874,10 +1178,32 @@ curl --data '{
 根据帐户id获取帐户所有的待解冻余额
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<account name>` | 帐户名
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_vesting_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>帐户id</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -958,9 +1284,26 @@ curl --data '{
 获取所有的公信节点所属帐户id
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_trust_nodes</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>   
+        <td colspan="2" align="center">空</td>
+    </tr>
+</table>
+
 
 #### 示例
 **request:**
@@ -1001,10 +1344,32 @@ curl --data '{
 根据`account_id`获取`公信节点`信息，包括节点公钥、总票数、缺块数等
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<account id>` | 帐户id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_witness_by_account</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>帐户id</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -1042,10 +1407,33 @@ curl --data '{
 根据vote_id返回所属公信节点的信息, 返回对应的worker对象
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<vote id>` | vote id
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">lookup_vote_ids</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>vote_id</td>
+        <td>投票id</td>
+    </tr>
+</table>
+
 
 #### 示例
 **request:**
@@ -1065,12 +1453,40 @@ curl --data '{
 `get_table_rows`的扩展接口，提供更丰富的查询功能。（参数字段不传时，使用默认值）
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由DB API提供，id为0
-`<contract_name>` | 合约帐户名
-`<table_name>` | 表名
-`<get_table_rows_params>` | 查询参数，默认为空
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_table_rows_ex</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>contract_name</td>
+        <td>合约账户名</td>
+    </tr>
+    <tr>
+        <td>table_name</td>
+        <td>表名</td>
+    </tr>
+    <tr>
+        <td>get_table_rows_params</td>
+        <td>参数对象，可以为{}</td>
+    </tr>
+</table>
 
 get_table_rows_params参数说明：
 ```
@@ -1153,11 +1569,32 @@ curl --data '{
 :::
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由BROADCAST API提供，id为2
-`<method_name>` | 固定为broadcast_transaction
-`<signed_trx>` | 带签名的交易消息体
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">2</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">broadcast_transaction</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>signed_trx</td>
+        <td>带签名的交易消息体</td>
+    </tr>
+</table>
 
 #### 示例
 **request:**
@@ -1179,11 +1616,33 @@ curl --data '{
 :::
 
 #### 参数说明
-参数 | 参数说明
----|---
-API id | 接口由BROADCAST API提供，id为2
-`<method_name>` | 固定为broadcast_transaction_synchronous
-`<signed_trx>` | 带签名的交易消息体
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">2</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">broadcast_transaction_synchronous</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>signed_trx</td>
+        <td>带签名的交易消息体</td>
+    </tr>
+</table>
+
 
 #### 示例
 **request:**
