@@ -1027,7 +1027,7 @@ curl --data '{
     </tr>
     <tr>
         <td>[资产名]</td>
-        <td>数组，资产符号或者首字符串，比如G</td>
+        <td>数组，资产符号或者首字符串，比如GXC</td>
     </tr>
 </table>
 
@@ -1037,7 +1037,7 @@ curl --data '{
 curl --data '{
     "jsonrpc": "2.0",
         "method": "call",
-        "params": [0, "lookup_asset_symbols", [["GXS"]]],
+        "params": [0, "lookup_asset_symbols", [["GXC"]]],
         "id": 1
 }' https://node1.gxb.io/rpc
 ```
@@ -1429,8 +1429,8 @@ curl --data '{
         <th>API参数说明</th>
     </tr>
     <tr>
-        <td>vote_id</td>
-        <td>投票id</td>
+        <td>[vote_id]</td>
+        <td>数组，投票id</td>
     </tr>
 </table>
 
