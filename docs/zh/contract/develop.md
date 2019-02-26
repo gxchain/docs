@@ -571,7 +571,7 @@ void examgetname(int64_t accid){
     char data[65]={0};
     int64_t result;
     result = get_account_name_by_id(data,65,accid);
-    prints(data,"\n");
+    print(static_cast<const char*>data,"\n");
 }
 ```
 
