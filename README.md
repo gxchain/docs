@@ -49,10 +49,10 @@ npm start
     - [github.com/gxchain/gxb-core](https://github.com/gxchain/gxb-core)
 - 轻钱包
     - GXChain资产管理PC客户端
-    - [github.com/gxchain/gxb-light](https://github.com/gxchain/gxb-light)
+    - [github.com/gxchain/gxchain-light](https://github.com/gxchain/gxchain-light)
 - 手机钱包
     - GXChain资产管理手机端
-    - [github.com/gxchain/gxs-wallet](https://github.com/gxchain/gxs-wallet)
+    - [github.com/gxchain/gxchain-wallet](https://github.com/gxchain/gxchain-wallet)
 - 区块浏览器
     - 区块查询，交易查询，账户查询，资产查询
     - [github.com/gxchain/gxb-explorer](https://github.com/gxchain/gxb-explorer)
