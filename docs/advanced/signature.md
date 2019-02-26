@@ -52,5 +52,6 @@ function sign(message, private_key){
 
 ## Code Reference
 
+- [gxclient-java](https://github.com/gxchain/common-signature/blob/master/src/main/java/com/gxchain/common/signature/crypto/ec/GxcPrivateKey.java#L129)
 - [gxclient-node](https://github.com/gxchain/gxbjs/blob/master/lib/ecc/src/signature.js#L77)
 - [gxclient-ios](https://github.com/gxchain/gxclient-ios/blob/master/gxclient-ios/lib/ecc/GXPrivateKey.m#L82)
