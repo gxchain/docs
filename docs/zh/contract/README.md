@@ -3,7 +3,7 @@
 
 本教程的目的是为GXChain智能合约开发提供指导，包括合约开发、部署、调试以及常见错误归类等相关内容。
 
-GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为Webassembly虚拟机执行的字节码文件。  
+GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassembly.org/)虚拟机编译后部署在GXChain区块链网络上。编译后的智能合约主要包括abi文件与wast文件，abi文件是合约定义的接口文件，wast文件为Webassembly虚拟机执行的字节码文件。GXChain使用WebAssembly虚拟机来支持用多种语言（如C ++和TypeScript）编写的智能合约。 
 
 **开发智能合约之前，你需要做如下准备:**
 
@@ -11,10 +11,22 @@ GXChain智能合约采用C++语言编写，通过[Webassembly](https://webassemb
 - 对Linux、Mac系统命令有一定程度的了解
 - 在本地编译源码，启动本地私链或连接到测试网络（源码编译教程点[这里](https://github.com/gxchain/gxb-core)）
 
+**相关术语:**
+
+- **Action**：智能合约提供的外部接口，可以与前端进行交互，用户调用的`Action`记录在区中。
+- **Table**：智能合约提供持久化存储，类似于数据库中的表，支持多个索引，存储在合约帐户对象下。
+
+**工具介绍:**
+
+- **witness_node**：节点程序，可以根据不同的配置启动不同的功能。例如，在开发合约过程中，启动RPC端口与cli_wallet交互，用来调用合约查询table
+- **cli_wallet**：命令行钱包程序，主要用于管理钱包并与witness_node程序交互，命令包括：部署合约、调用合约、更新合约、查询table等（使用`help`命令和`gethelp`命令查看该工具的使用）。
+- **gxx**：用于将`C++`源码文件编译为abi文件和wasm文件以部署到GXChain。
+- **gxc-smart-contract-ide**: 通过智能合约IDE，可以编写、编译、部署、调用智能合约。 [点击下载](https://github.com/gxchain/gxchain-alpha/releases/latest)
+
 
 ### 1. 启动本地私链
 
-编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../guide/private_chain.md )
+编译完成后，切换到witness_node程序所在目录，使用如下命令启动本地出块节点，data保存配置信息、生成的区块信息等。 启动本地私链教程点击[这里](../advanced/private_chain.md )
 
 ```bash
 ./witness_node -d data

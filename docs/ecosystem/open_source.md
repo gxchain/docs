@@ -13,3 +13,11 @@ Open source projects include github code for gxb-core, wallets, explorer, and mo
 - [Wallet(gxchain-wallet)](https://github.com/gxchain/gxchain-wallet)
 
 - [Explorer(gxchain-explorer)](https://github.com/gxchain/gxchain-explorer) 
+
+- [gxips](https://github.com/gxchain/gxips)
+
+gxclient | github
+---|---
+`Node` | [https://github.com/gxchain/gxclient-node](https://github.com/gxchain/gxclient-nod)
+`Objective-C` | [https://github.com/gxchain/gxclient-ios](https://github.com/gxchain/gxclient-ios)
+`Java` | [https://github.com/gxchain/gxclient-java](https://github.com/gxchain/gxclient-java)

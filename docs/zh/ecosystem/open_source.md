@@ -13,3 +13,11 @@
 - [手机钱包(gxchain-wallet)](https://github.com/gxchain/gxchain-wallet)
 
 - [区块浏览器(gxchain-explorer)](https://github.com/gxchain/gxchain-explorer)
+
+- [改进提案(gxips)](https://github.com/gxchain/gxips)
+
+gxclient多语言版本 | 开源地址
+---|---
+`Node` | [https://github.com/gxchain/gxclient-node](https://github.com/gxchain/gxclient-nod)
+`Objective-C` | [https://github.com/gxchain/gxclient-ios](https://github.com/gxchain/gxclient-ios)
+`Java` | [https://github.com/gxchain/gxclient-java](https://github.com/gxchain/gxclient-java)

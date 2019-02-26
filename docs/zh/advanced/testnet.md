@@ -6,7 +6,7 @@
 在测试网络上，开发者可以:
 
 - 测试网络Token自动申领, 每次200个，每天1000个, 浏览器访问 ```https://testnet.gxchain.org/gxc/get_token?your_account_name```   请将your_account_name 替换为你的测试网络钱包帐户名
-- 测试[客户端](clients.html)
+- 测试[客户端](../guide/clients.html)
 - 体验最新功能
 - 参与GXChain开发
 - 项目开发，合约调试
@@ -82,7 +82,7 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 - genesis.json中指定了创世区块所必须的配置信息和节点启动的初始化参数
 - 任意一个字符的改变，都会得到一个不同的chain_id
 - 不同的chain_id将导致无法和seed_node之间相互通讯
-- 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/zh/guide/private_chain)
+- 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/private_chain)
 :::
 
 ## 5. 启动测试网络节点， 同步数据

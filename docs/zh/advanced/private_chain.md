@@ -31,15 +31,6 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 
 ## 3. 生成创世文件genesis.json
 
-::: tip 关于genisis.json
-- genisis.json即创世文件
-- 每一条链都有唯一的genesis.json
-- genesis.json中指定了创世区块所必须的配置信息和节点启动的初始化参数
-- 任意一个字符的改变，都会得到一个不同的chain_id
-- 不同的chain_id将导致无法和seed_node之间相互通讯
-- 因此：**请勿改变genisis.json**，除非你想跑一条[私有链](/zh/guide/private_chain)
-:::
-
 运行这条命令来创建一个名为`my-genesis.json`的初始文件：
 
 ```bash

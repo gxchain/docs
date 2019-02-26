@@ -6,7 +6,7 @@ The testnet is the external test environment of GXChain with the same parameters
 Testnet can provide developers:
 
 - Apply token on [testnet](http://blockcity.mikecrm.com/2SVDb67)
-- Test [Client](clients.html)
+- Test [Client](../guide/clients.html)
 - Experience the latest features
 - Participate in GXChain development
 - Project development, Contract debugging
@@ -52,7 +52,7 @@ wget http://gxb-package.oss-cn-hangzhou.aliyuncs.com/gxb-core/genesis/testnet-ge
 - `genesis.json` specifies the configuration information necessary for the genesis block and initialization parameters for node startup
 - Any change in a character will result in a different chain_id
 - A different chain_id will result in an inability to communicate with seed_node
-- Therefore: **do not change genisis.json, unless you want to run a** [Private-hain](/zh/guide/private_chain)
+- Therefore: **do not change genisis.json, unless you want to run a** [Private-hain](/private_chain)
 :::
 
 ## 5. Start node

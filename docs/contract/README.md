@@ -3,7 +3,7 @@
 
 This tutorial provides guidance for GXChain smart contract development, including contract development, deployment, debugging, and common errors.
 
-The GXChain smart contract is developed in C++, compiled by the [Webassembly](https://webassembly.org/) virtual machine and deployed on the GXChain blockchain network. The compiled smart contract includes the abi file and the wast file, the `abi` file is the interface file defined by the contract, and the `wast` file is the bytecode file executed by the Webassembly virtual machine.  
+The GXChain smart contract is developed in C++, compiled by the [Webassembly](https://webassembly.org/) virtual machine and deployed on the GXChain blockchain network. The compiled smart contract includes the abi file and the wast file, the `abi` file is the interface file defined by the contract, and the `wast` file is the bytecode file executed by the Webassembly virtual machine. The GXChain smart uses WebAssembly virtual machine to support smart contracts written in multiple languages ​​such as C++ and TypeScript.
 
 **Before developing a smart contract, you need to do the following:**
 
@@ -11,16 +11,25 @@ The GXChain smart contract is developed in C++, compiled by the [Webassembly](ht
 - Experience with Linux or Mac
 - Compile the source to start the local private chain or download the release program to connect to the test network (source compilation tutorial point [here](https://github.com/gxchain/gxb-core)）
 
+**Related terms:**
+
+- **Action**：The external interface provided by the contract can be interacted with by the front end, and the action invoked by the user is recorded in the block.
+- **Table**：The contract provides persistent storage, similar to the table in the database, supports multiple index, and the table is stored under the contract account object.
+
+**Tool introduction**
+- **witness_node**：The node program is used to produce blocks, which can start different functions according to different configurations. For example, the startup RPC port interacts with cli_wallet to call the contract and lookup table.
+- **cli_wallet**：The command line wallet is mainly used to manage the wallet and interact with witness_node program.
+- **gxx**：Used to compile `C++` files into abi files and wasm files for deployment to GXChain.
 
 ### 1. Start witness_node
 
-You need to compile the source code to start the private chain, and then switch to the directory where the witness_node program is located, use the following command to start the node, the `data` directory to save the configuration information, the generated block information, etc. Start the private chain tutorial click [here](../guide/private_chain.md )
+You need to compile the source code to start the private chain, and then switch to the directory where the witness_node program is located, use the following command to start the node, the `data` directory to save the configuration information, the generated block information, etc. Start the private chain tutorial click [here](../advanced/private_chain.md )
 
 ```bash
 ./witness_node -d data
 ```
 
-**It is recommended to synchronize the test network node and then develop the contract. Start the test network node tutorial click [here](../guide/testnet.md)**
+**It is recommended to synchronize the test network node and then develop the contract. Start the test network node tutorial click [here](../advanced/testnet.md)**
 
 
 ![](./png/chain_id.jpg)
