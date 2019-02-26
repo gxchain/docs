@@ -18,7 +18,7 @@ function ec_sign(message, private_key){
 
 ## Signature的要求
 
-为了防止双花问题，`r`和`s`需要满足要求：
+为了防止双花问题,除了BIP62的要求外，GXChain对`r`和`s`的值做了更严格的限制：
 
 ``` js
 function isCanonical(r,s){
@@ -45,8 +45,9 @@ function sign(message, private_key){
 
 ## 讨论和参考
 
-- [https://github.com/bitshares/bitshares1-core/issues/1129](https://github.com/bitshares/bitshares1-core/issues/1129)
-- [https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1](https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1)
+- [bip-0062.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki)
+- [bitshares1-core/issues/1129](https://github.com/bitshares/bitshares1-core/issues/1129)
+- [bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1](https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1)
 
 
 ## 代码实现

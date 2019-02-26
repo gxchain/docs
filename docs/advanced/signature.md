@@ -16,9 +16,9 @@ function ec_sign(message, private_key){
 }
 ```
 
-## Signature Limitation
+## Signature malleability
 
-In order to prevent double-spend problems, value `r` and value `s` need to meet the requirements:
+In order to prevent the double-spend problem, in addition to the requirements of BIP62, GXChain imposes stricter restrictions on the values ​​of `r` and `s`:
 
 ``` js
 function isCanonical(r,s){
@@ -45,8 +45,9 @@ function sign(message, private_key){
 
 ## Discussion and Reference
 
-- [https://github.com/bitshares/bitshares1-core/issues/1129](https://github.com/bitshares/bitshares1-core/issues/1129)
-- [https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1](https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1)
+- [bip-0062.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki)
+- [bitshares1-core/issues/1129](https://github.com/bitshares/bitshares1-core/issues/1129)
+- [bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1](https://github.com/bitshares/bitshares-fc/compare/68d3ff57bfb28a699751f0b61251be8116e62b21...cb66666edddb9d553ebbd5dbcfe6eb00d94b86f1)
 
 
 ## Code Reference
