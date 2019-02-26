@@ -31,7 +31,7 @@ function isCanonical(r,s){
 
 That is, the range of `r` and `s` is [2^247, 2^255)
 
-After the judgment of `isCanonical', the `sign` method is like this:
+After the judgment of `isCanonical`, the `sign` method is like this:
 
 ``` js
 function sign(message, private_key){

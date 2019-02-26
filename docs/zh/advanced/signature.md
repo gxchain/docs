@@ -31,7 +31,7 @@ function isCanonical(r,s){
 
 即`r`和`s`取值范围为[2^247,2^255)
 
-加上`isCanonical的判断后`，`sign`方法是这样的
+加上`isCanonical`的判断后，`sign`方法是这样的
 
 ``` js
 function sign(message, private_key){
