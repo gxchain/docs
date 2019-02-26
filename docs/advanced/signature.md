@@ -2,7 +2,7 @@
 
 ## GXChain Signature
 
-In [How to generate key pair](./keypair.md), we introduce the public-private key pair of GXChain based on the 'elliptic curve cryptography (ECC)` and `secp256k1` curves, so the signature of GXChain is based on the `elliptic curve digital signature algorithm (ECDSA)`, consists of a 1-byte `recover_id`, a 32-byte `r` value, and a 32-byte `s` value.
+In [How to generate key pair](./keypair.md), we introduce the public-private key pair of GXChain based on the `elliptic curve cryptography (ECC)` and `secp256k1` curves, so the signature of GXChain is based on the `elliptic curve digital signature algorithm (ECDSA)`, consists of a 1-byte `recover_id`, a 32-byte `r` value, and a 32-byte `s` value.
 
 ``` js
 function ec_sign(message, private_key){
