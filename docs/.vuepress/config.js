@@ -133,6 +133,7 @@ function genSidebarConfig (module, title) {
                 children: [
                     '',
                     'keypair',
+                    'signature',
                     'send_transaction',
                     'confirm_transaction',
                     'deal_with_memo',
