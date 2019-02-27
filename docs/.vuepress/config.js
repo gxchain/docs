@@ -47,12 +47,12 @@ module.exports = {
                         link: '/advanced/',
                     },
                     {
-                        text: 'FAQs',
-                        link: '/faq/',
-                    },
-                    {
                         text: 'Smart Contract',
                         link: '/contract/',
+                    },
+                    {
+                        text: 'FAQs',
+                        link: '/faq/',
                     },
                     {
                         text: 'Ecosystem',
