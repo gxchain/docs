@@ -1,9 +1,13 @@
 # How to start API server
-## Requirement
 
-- **macOS / Ubuntu 14.04 LTS 64-bit**, with **4.4.0-63-generic** kernel or higher
-- RAM: 8GB+
+This document describes how to deploy a GXChain API server.
+
+## 1. Requirement
+
+- Os:  macOS / Ubuntu 14.04 LTS 64-bit, with 4.4.0-63-generic kernel or higher
+- Ram:  16GB+
 - Disk: 100GB+
+- Net:  10MB bandwidth, with public network independent IP
 
 ::: warning DEPENDENCY NOTE
 
@@ -24,33 +28,36 @@ apt-get install libstdc++-7-dev
 ```
 :::
 
-## Install
-
-### 1. Download
+## 2. Download Release 
 
 ``` bash
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
-### 2. Start
+## 3. Start witness_node
 
 ``` bash
 export LC_ALL=C
-nohup ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090"  1>nohup.out 2>&1 &
+
+nohup ./programs/witness_node/witness_node --data-dir=trusted_node --rpc-endpoint="0.0.0.0:28090" --p2p-endpoint="0.0.0.0:6789" 1>nohup.out 2 >&1 &
 ```
+According to the above steps:
 
-That's it, here we start a witness listening at `0.0.0.0:28090`, and we indicate the block database dir is `<path>/<to>/<your>/<application>/trusted_node`
+- The specified block information is saved in the ./trusted_node directory.
 
-It takes about **6 hours** to sync the blocks as usual, it also depend on your network.
+- Start an RPC service with a listening port of 28090, open the API service, and provide RPC calls to the wallet client.
 
-check the log:
+- Start a P2P service with listening port 6789, which can serve as a seed node to provide connection and block synchronization services for other nodes in the network.
+
+::: tip note
+- The sync block takes about **30+ hours**, which of course has something to do with your network.
+:::
+
+## 4. Check the log
 
 ``` bash
 tail -f trusted_node/logs/witness.log
 ```
-
-### 3. Check the log
-
-When the node is ready, the log should looks like this:
+During the block synchronization process, one line of logs is printed every 1000 blocks; when syncing to the latest block, one line of logs is printed every 3 seconds, the block number is continuous, and the log looks like this:
 
 ``` bash
 root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log
@@ -67,5 +74,11 @@ root@iZbp1biztyjfqwug9wq9fpZ:~/opt/gxb tail -f trusted_node/logs/witness.log
 2018-06-28T03:43:33 th_a:invoke handle_block         handle_block ] Got block: #10731541 time: 2018-06-28T03:43:33 latency: 23 ms from: caitlin  irreversible: 10731526 (-15)		application.cpp:489
 ```
 
-> You can do nothing but wait before the node is ready
+## 5. Test if the API service is available
+
+Assuming your public IP address is ```x.x.x.x```, call the node's get_dynamic_global_properties API to see the latest block number:
+
+```bash
+curl POST --data '{ "jsonrpc": "2.0", "method": "call", "params": [0, "get_dynamic_global_properties", []], "id": 1 }' http://x.x.x.x:28090
+```
 
