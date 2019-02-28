@@ -36,5 +36,4 @@ Welcome to submit a Pull Request. During the translation process, you may need t
 1. Config file：`docs/.vuepress/config.js`
 2. Content：`docs/zh`
 
-> The `docs/zh` directory is always the latest content, the en language defaults to the `docs` root directory.
 
