@@ -13,4 +13,4 @@ The advanced tutorial will contain the most basic knowledge of GXChain, and the 
 - [How to use snapshot？](./snapshot.md)
 - [How to start testnet?](./testnet.md)
 - [How to launch private chain？](./private_chain.md)
-- [How to understand the information on the GXChain](./block_operation_object.md)
+- [Introduction to block and transaction structure](./block_operation_object.md)

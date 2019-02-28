@@ -1,4 +1,4 @@
-# How to acquire the information on the chain
+# Introduction to block and transaction structure
 
 ## 1. Block structure of GXChain
 

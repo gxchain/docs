@@ -66,14 +66,14 @@ apt-get install libstdc++-7-dev
 
 
 #### 下载节点程序
-```
+```bash
 # 执行这个shell脚本，会自动从github下载最新的主网程序，并解压至当前目录下
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
 #### 启动公信节点程序, 同步数据
 
-```
+```bash
 # 通过PC钱包或者网页钱包，查看自己的公信节点id
 # 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点帐户的公私钥, 用于签署区块
 
@@ -84,7 +84,7 @@ nohup ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"'
 ```
 
 其中
-```
+::: tip Parameter introduction
 --data-dir指定区块数据存储路径
 
 -w 指定的是自己的公信节点id, 注意是'"1.6.x"'，双引号外面带单引号
@@ -92,16 +92,15 @@ nohup ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"'
 以上2个参数必须正确，否则将影响区块生产
 
 &表示程序后台运行
-```
+:::
 
 完全同步区块需要约30+小时。可以通过后台日志文件trusted_node/logs/witness.log可查看区块同步进度，访问[GXChain区块浏览器](https://block.gxb.io/)查看最新区块。
 
 #### 查看日志
 
 通过tail -f trusted_node/log/witness.log查看日志。
-```
+```bash
 tail -f trusted_node/logs/witness.log
-
 ```
 区块同步过程中，每隔1000个区块会打印一行日志； 同步到最新区块时，每3秒打印一行日志，区块号连续，日志看起来是这样的:
 ```
@@ -120,7 +119,7 @@ tail -f trusted_node/logs/witness.log
 
 如果当选为活跃公信节点，可以看到类似如下生成区块的日志：
 
-```
+```bash
 Generated block #367 with timestamp 2017-08-05T20:46:30 at time 2017-08-05T20:46:30
 ```
 
