@@ -1,4 +1,4 @@
-# Contract debugging
+# Debug
 
 In the process of developing smart contracts, debugging is also very important. At present, the way to debug smart contracts is mainly to print the logs to the witness console using the interface provided by the GXChain blockchain, so build a private chain or synchronize the test network locally. For the debugging of smart contracts is very necessary.
 

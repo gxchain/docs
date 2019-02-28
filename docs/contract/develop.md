@@ -1,4 +1,4 @@
-# Contract development
+# Develop and API introduction
 
 ## Built-in type
 The contract provides built-in types in addition to the basic types.
@@ -278,6 +278,7 @@ void examsha1(std::string data){
     checksum160 hash;
     sha1(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -306,6 +307,7 @@ void examsha25(std::string data){
     checksum256 hash;
     sha256(data.c_str(),data.length(),&hash);
     printhex(hash.hash,32);
+    print("\n");
 }
 ```
 
@@ -334,6 +336,7 @@ void examsha512(std::string data){
     checksum512 hash;
     sha512(data.c_str(),data.length(),&hash);
     printhex(hash.hash,64);
+    print("\n");
 }
 ```
 
@@ -362,6 +365,7 @@ void examripemd(std::string data){
     checksum160 hash;
     ripemd160(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -436,6 +440,7 @@ void examgetid(){
     checksum160 block_hash;
     get_head_block_id(&block_hash);
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -463,6 +468,7 @@ void examidnum(){
     checksum160 block_hash;
     get_block_id_for_num(&block_hash,1);             //get the hash of first block 
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
