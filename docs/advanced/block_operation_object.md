@@ -15,7 +15,7 @@
   "transaction_merkle_root": "b0e3fc1caf19cb57530f5b14ad903779221f487c",    //Trading Merkelgen
   "extensions": [],
   "witness_signature": "1f6335138fa77a52986ed0e0980ece86b919f84cf06647c2fdea3382578287c2e5403088d960cd75d5d5f134647bae80d1189e0a417f0d5bc127b294949864d662",    //signature
-  "transactions": [         
+  "transactions": [
     {
       "ref_block_num": 43928,               // The block information referenced by the transaction (ref_block_num, ref_block_prefix are from the previous block ID, which can be specified by itself)
       "ref_block_prefix": 3666011859,
@@ -73,9 +73,9 @@ For example, the block [1769028](https://block.gxb.io/#/block/1769028) contains 
 
 | Code | Operation Type |
 | :--- | :--- |
+| 0 | transfer |
 | 5 | create account |
 | 6 | update account |
-| 0 | transfer |
 | 73 | proxy transfer |
 | 74 | deploy contract |
 | 75 | call contract |
