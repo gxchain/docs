@@ -11,7 +11,9 @@ This project is the latest technical documentation of GXChain, built on VuePress
     </a>
 </p>
 
-Online documents: [Getting Started](https://docs.gxchain.org)
+## Online documents
+
+[Getting Started](https://docs.gxchain.org)
 
 ## How to use
 
