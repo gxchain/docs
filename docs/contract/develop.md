@@ -1,4 +1,4 @@
-# Contract development
+# Develop and API introduction
 
 ## Built-in type
 The contract provides built-in types in addition to the basic types.
@@ -37,12 +37,10 @@ struct signature {
 
 example：
 ```cpp
-void verify(std::string raw_string, std::string pub_key, signature sig)
+void verify(checksum256 hash, std::string pub_key, signature sig)
 {   
-    print("string, ", raw_string, "\n");
     print(pub_key, "\n");
-    bool flag = verify_signature(raw_string.c_str(), raw_string.length(), &sig, pub_key.c_str(), pub_key.length());
-    print("ret code, ", flag, "\n");
+    assert_recover_key(&hash, &sig, pub_key.c_str(), pub_key.length());
 } 
  ```
 
@@ -108,12 +106,11 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | Returns the number of assets sent to the contract by this call |
 | <graphenelib/asset.h> | withdraw_asset | Transfer assets from the current contract account to the other account |
 | <graphenelib/asset.h> | get_balance | Get the balance of an asset in the account on the chain |
-| <graphenelib/crypto.h> | assert_recover_key | Verify that the given signature and hash can recover the public key |
 | <graphenelib/crypto.h> | sha1 | Obtain the encrypted data of the sha1 algorithm |
 | <graphenelib/crypto.h> | sha256 | Obtain the encrypted data of the sha256 algorithm |
 | <graphenelib/crypto.h> | sha512 | Obtain the encrypted data of the sha512 algorithm |
 | <graphenelib/crypto.h> | ripemd160 | Obtain the encrypted data of the ripemd160 algorithm |
-| <graphenelib/crypto.h> | verify_signature | Verification signature |
+| <graphenelib/crypto.h> | assert_recover_key | Verify that the given signature and hash can recover the public key |
 | <graphenelib/global.h> | get_head_block_num | Get the head block number |
 | <graphenelib/global.h> | get_head_block_id | Get the head block hash |
 | <graphenelib/global.h> | get_block_id_for_num | Get the specified block hash |
@@ -129,7 +126,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | tapos_block_prefix | Returns the block ID of the transaction reference (the second 32 digits) |
 | <graphenelib/action.h> | read_action_data | Read current action data |
 | <graphenelib/action.h> | action_data_size | Returns the number of bytes required to read the current action data |
-| <graphenelib/action.h> | send_inline      | inline execute action |
+| <graphenelib/action.h> | send_inline      | Inline execute action |
 | <graphenelib/action.hpp> | unpack_action_data | Deserialize the current action data into a defined action object |
 | <graphenelib/system.h> | graphene_assert | If the assertion fails, interrupt the execution of this contract and roll all states |
 | <graphenelib/system.h> | graphene_assert_message | If the assertion fails, interrupt the execution of this contract and roll all states |
@@ -145,13 +142,15 @@ typedef struct checksum160      block_id_type;
 
 **Description:** Returns the instance_id of the current contract account
 
-**Return value:** instance_id 
+**Return value:** Instance_id 
+
+**Example:**
 
 ```cpp
 // @abi action
 void examcurr(){
     uint64_t ins_id = current_receiver();
-    print("current contract account id: ", ins_id);
+    print("current contract account id: ", ins_id, "\n");
 }
 ```
 
@@ -167,11 +166,13 @@ void examcurr(){
 
 **Return value:** Action does not attach assets, returns 0, otherwise returns instance_id    
 
+**Example:**
+
 ```cpp
 // @abi action
 void examgetast(){
     uint64_t ast_id = get_action_asset_id();
-    print("call action asset id: ",ast_id);
+    print("call action asset id: ",ast_id, "\n");
 }
 ```
 
@@ -185,12 +186,14 @@ void examgetast(){
 
 **Return value:** Action does not attach assets, returns 0, otherwise returns amount   
 
+**Example:**
+
 ```cpp
 //get_action_asset_amount 
 // @abi action
 void examgetamo(){
     int64_t amount = get_action_asset_amount();
-    print("call action asset amount: ",amount);      
+    print("call action asset amount: ",amount,"\n");      
 }
 ```
 
@@ -203,21 +206,22 @@ void examgetamo(){
 
 **Description:** Transfer assets from the current contract account to the other account
 
-**params:**
+**Params:**
 
-`<uint64_t> from`  Must be \_self
+Params | Type | Description
+---|---|---
+from | uint64_t | Must be \_self
+to   | uint64_t | The instance_id of the receiver account
+asset_id | uint64_t | Asset id used to transfer
+amount | int64_t | Transfer amount
 
-`<uint64_t> to` The instance_id of the receiver account
-
-`<uint64_t> asset_id` Asset id used to transfer
-
-`<int64_t> amount` transfer amount
+**Example:**
 
 ```cpp
 // @abi action
 void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
     withdraw_asset(from,to,asset_id,amount);
-    print("withdraw_asset example");
+    print("withdraw_asset example\n");
 }
 ```
 
@@ -230,21 +234,22 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 
 **Description:** Get the balance of an asset in the account on the chain
 
-**Return value:** the balance
+**Return value:** The balance
 
+**Params:**
 
+Params | Type | Description
+---|---|---
+account | int64_t | Account's instace_id
+asset_id | int64_t | Asset's instance_id
 
-**params:**
-
-`<int64_t> account` Account's instace_id
-
-`<int64_t> asset_id` Asset's instance_id
+**Example:**
 
 ```cpp
 // @abi action
 void examgetbl(int64_t account, int64_t asset_id){
     int64_t balance = get_balance(account, asset_id);
-    print("account balance: ",balance);
+    print("account balance: ",balance,"\n");
 }
 ```
 
@@ -257,13 +262,15 @@ void examgetbl(int64_t account, int64_t asset_id){
 **Description:** Obtain the encrypted data of the sha1 algorithm 
 
 
-**params:**
+**Params:**
 
-`<const char *> data` data start address
+Params | Type | Description
+---|---|---
+data | const char* | Data start address
+length | uint32_t | Data length
+hash | checksum160* | Hash value
 
-`<uint32_t> length` data length
-
-`<checksum160 *> hash` hash value
+**Example:**
 
 ```cpp
 // @abi action
@@ -271,6 +278,7 @@ void examsha1(std::string data){
     checksum160 hash;
     sha1(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -283,13 +291,15 @@ void examsha1(std::string data){
 **Description:** Obtain the encrypted data of the sha256 algorithm
 
 
-**params:**
+**Params:**
 
-`<const char *> data` data start address
+Params | Type | Description
+---|---|---
+data | const char* | Data start address
+length | uint32_t | Data length
+hash | checksum256* | Hash value
 
-`<uint32_t> length` data length
-
-`<checksum256 *> hash` hash value
+**Example:**
 
 ```cpp
 // @abi action
@@ -297,6 +307,7 @@ void examsha25(std::string data){
     checksum256 hash;
     sha256(data.c_str(),data.length(),&hash);
     printhex(hash.hash,32);
+    print("\n");
 }
 ```
 
@@ -309,14 +320,15 @@ void examsha25(std::string data){
 
 **Description:** Obtain the encrypted data of the sha512 algorithm
 
+**Params:**
 
-**params:**
+Params | Type | Description
+---|---|---
+data | const char* | Data start address
+length | uint32_t | Data length
+hash | checksum512* | Hash value
 
-`<const char *> data` data start address
-
-`<uint32_t> length` data length
-
-`<checksum512 *> hash` hash value
+**Example:**
 
 ```cpp
 // @abi action
@@ -324,6 +336,7 @@ void examsha512(std::string data){
     checksum512 hash;
     sha512(data.c_str(),data.length(),&hash);
     printhex(hash.hash,64);
+    print("\n");
 }
 ```
 
@@ -336,14 +349,15 @@ void examsha512(std::string data){
 
 **Description:** Obtain the encrypted data of the ripemd160 algorithm
 
+**Params:**
 
-**params:**
+Params | Type | Description
+---|---|---
+data | const char* | Data start address
+length | uint32_t | Data length
+hash | checksum160* | Hash value
 
-`<const char *> data` data start address
-
-`<uint32_t> length` data length
-
-`<checksum160 *> hash` hash value
+**Example:**
 
 ```cpp
 // @abi action
@@ -351,42 +365,10 @@ void examripemd(std::string data){
     checksum160 hash;
     ripemd160(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
+    print("\n");
 }
 ```
 
-
-### verify\_signature
-
-**Function:** `bool verify_signature(const char *data, uint32_t datalen, const signature *sig, const char * pub_key, uint32_t pub_keylen)`
-
-**Head file:** `<graphenelib/crypto.h>`
-
-**Description:** Verification signature
-
-**Return value:** Verification result (bool value)
-
-
-**params:**
-
-`<const char *> data` data start address
-
-`<uint32_t> datalen` data length
-
-`<const signature *> sig` signature
-
-`<const char *> pub_key` public key
-
-`<uint32_t> pub_keylen` public key length
-
-```cpp
-//verify_signature (other example: redpacket)
-// @abi action
-void examverify(std::string data,signature sig,std::string pk){
-    bool result;
-    result = verify_signature(data.c_str(), data.length(), &sig, pk.c_str(), pk.length());
-    print("verify result: ",result);
-}
-```
 ### assert\_recover\_key
 
 **Function:** `void assert_recover_key(const checksum256 *digest,const signature *sig,
@@ -396,16 +378,16 @@ void examverify(std::string data,signature sig,std::string pk){
 
 **Description:** Verify that the given signature and hash can recover the public key
 
+**Params:**
 
-**params:**
+Params | Type | Description
+---|---|---
+data | const checksum256* | Sha256 hash
+sig | const signature* | Signature
+pub | const char* | Public key
+publen | uint32_t | Plulic key length
 
-`<const checksum256 *> data` sha256 hash
-
-`<const signature *> sig` signature
-
-`<const char *> pub` public key
-    
-`<uint32_t> publen` plulic key length
+**Example:**
 
 ```cpp
 // @abi action
@@ -424,13 +406,15 @@ void examrecover(checksum256 dig,signature sig,std::string pkey)
 
 **Description:** Get the time of the block, return the value in seconds
 
-**Return value:** the head block number
+**Return value:** The head block number
+
+**Example:**
 
 ```cpp
 // @abi action
 void examgetnum(){
     int64_t head_num = get_head_block_num();
-    print("head block num: ",head_num);
+    print("head block num: ",head_num, "\n");
 }
 ```
 
@@ -442,9 +426,13 @@ void examgetnum(){
 
 **Description:** Get the head block hash
 
-**params:**
+**Params:**
 
-`<checksum160 *> hash` the head block hash value
+Params | Type | Description
+---|---|---
+hash | checksum160* | The head block hash value
+
+**Example:**
 
 ```cpp
 // @abi action
@@ -452,6 +440,7 @@ void examgetid(){
     checksum160 block_hash;
     get_head_block_id(&block_hash);
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -464,11 +453,14 @@ void examgetid(){
 
 **Description:** Get the specified block hash
 
-**params:**
+**Params:**
 
-`<checksum160 *> hash` the specified block hash
+Params | Type | Description
+---|---|---
+hash | checksum160* | The specified block hash
+block_num | uint32_t | Block num
 
-`<uint32_t> blcok_num` block num
+**Example:**
 
 ```cpp
 // @abi action
@@ -476,6 +468,7 @@ void examidnum(){
     checksum160 block_hash;
     get_block_id_for_num(&block_hash,1);             //get the hash of first block 
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -488,14 +481,16 @@ void examidnum(){
 
 **Description:** Get the time of the block, return the value in seconds
 
-**Return Value:** the time of the block
+**Return Value:** The time of the block
+
+**Example:**
 
 ```cpp
 // @abi action
 void examgettime(){
     int64_t head_time;
     head_time = get_head_block_time();
-    print("head block time: ",head_time);
+    print("head block time: ",head_time,"\n");
 }
 ```
 
@@ -508,14 +503,16 @@ void examgettime(){
 
 **Description:** Get the instance_id of the account that called the contract
 
-**Return Value:** instance_id of the account
+**Return Value:** Instance_id of the account
+
+**Example:**
 
 ```cpp
 // @abi action
 void examgettrx(){
     uint64_t sender_id;
     sender_id = get_trx_sender();
-    print("call action instance id: ",sender_id);
+    print("call action instance id: ",sender_id, "\n");
 }
 ```
 
@@ -530,19 +527,21 @@ void examgettrx(){
 
 **Return Value:** Returns the instance_id of the account if the account exists, or -1 if the account does not exist
 
-**params:**
+**Params:**
 
-`<const char *> data` account name
+Params | Type | Description
+---|---|---
+data | const char* | Account name
+length | uint32_t | Account name length
 
-`<uint32_t> length` account name length
-
+**Example:**
 
 ```cpp
 // @abi action
 void examgetacid(std::string data){
     int64_t acc_id;
     acc_id = get_account_id(data.c_str(), data.length());
-    print("account id: ",acc_id);
+    print("account id: ",acc_id, "\n");
 }
 ```
 
@@ -556,14 +555,15 @@ void examgetacid(std::string data){
 
 **Return Value:** Returns 0 if the account exists, or -1 if the account does not exist
 
-**params:**
+**Params:**
 
-`<const char *> data` account name
+Params | Type | Description
+---|---|---
+data | const char* | Account name
+length | uint32_t | Account name length
+account_id | int64_t | Account instance_id
 
-`<uint32_t> length` account name length
-
-`<int64_t> account_id` account instance_id
-
+**Example:**
 
 ```cpp
 // @abi action
@@ -571,7 +571,7 @@ void examgetname(int64_t accid){
     char data[65]={0};
     int64_t result;
     result = get_account_name_by_id(data,65,accid);
-    prints(data);
+    print(static_cast<const char*>data,"\n");
 }
 ```
 
@@ -585,18 +585,21 @@ void examgetname(int64_t accid){
 
 **Return Value:** Returns the instance_id of the asset if the asset exists, or -1 if the asset does not exist
 
-**params:**
+**Params:**
 
-`<const char *> data` asset name
+Params | Type | Description
+---|---|---
+data | const char* | Asset name
+length | uint32_t | Asset name length
 
-`<uint32_t> length` asset name length
+**Example:**
 
 ```cpp
 // @abi action
 void examassid(std::string data){
     int64_t assid;
     assid = get_asset_id(data.c_str(),data.length());
-    print("asset id: ",assid);
+    print("asset id: ",assid, "\n");
 }
 ```
 
@@ -610,11 +613,14 @@ void examassid(std::string data){
 
 **Return Value:** If dst_size is 0, the number of bytes required for reading is returned; if dst_size is not 0, the number of bytes actually read is returned.
 
-**params:**
+**Params:**
 
-`<char*> dst` buffer address
+Params | Type | Description
+---|---|---
+dst | char* | Buffer address
+dst_size | uint32_t | Read size
 
-`<uint32_t> dst_size` read size
+**Example:**
 
 ```cpp
 // @abi action
@@ -637,12 +643,14 @@ void examreadtrx(){
 
 **Return Value:** The length of the data
 
+**Example:**
+
 ```cpp
 // @abi action
 void examtrxsize(){
     int dwsize;
     dwsize =transaction_size();
-    print("the size of the serialize trx: ",dwsize);
+    print("the size of the serialize trx: ",dwsize,"\n");
 }
 ```
 
@@ -654,13 +662,15 @@ void examtrxsize(){
 
 **Description:** Get transaction expiration time
 
-**Return Value:** the transaction expiration time
+**Return Value:** The transaction expiration time
+
+**Example:**
 
 ```cpp
 // @abi action
 void exampira(){
     uint64_t timenum = expiration();
-    print("the expiration time: ", timenum);
+    print("the expiration time: ", timenum, "\n");
 }
 ```
 
@@ -673,14 +683,16 @@ void exampira(){
 
 **Description:** Returns the block number referenced by the transaction
 
-**Return Value:** the block number
+**Return Value:** The block number
+
+**Example:**
 
 ```cpp
 // @abi action
 void examtapnum(){
     uint64_t tapos_num;
     tapos_num = tapos_block_num();
-    print("ref block num: ",tapos_num);
+    print("ref block num: ",tapos_num, "\n");
 }
 ```
 
@@ -695,12 +707,14 @@ void examtapnum(){
 
 **Return Value:** Returns the block ID of the transaction reference (the second 32 digits)
 
+**Example:**
+
 ```cpp
 // @abi action
 void examtappre(){
     uint64_t tapos_prefix;
     tapos_prefix = tapos_block_prefix();
-    print("ref block id: ",tapos_prefix);
+    print("ref block id: ",tapos_prefix, "\n");
 }
 ```
 
@@ -713,13 +727,16 @@ void examtappre(){
 
 **Description:** Read current action data
 
-**Return Value:** read size
+**Return Value:** Read size
 
-**params:**
+**Params:**
 
-`<void* > msg` buffer address
+Params | Type | Description
+---|---|---
+msg | void* | Buffer address
+len | uint32_t | Buffer size
 
-`<uint32_t> len` buffer size
+**Example:**
 
 ```cpp
 // @abi action
@@ -739,13 +756,15 @@ void examract(uint64_t num,std::string number){
 
 **Description:** Returns the number of bytes required to read the current action data
 
-**Return Value:** the number of bytes
+**Return Value:** The number of bytes
+
+**Example:**
 
 ```cpp
 // @abi action
 void examrasize(uint64_t num,std::string number){
     auto size = action_data_size();
-    print("size: ", size);
+    print("size: ", size, "\n");
 }
 ```
 
@@ -755,7 +774,7 @@ void examrasize(uint64_t num,std::string number){
 
 **Head file:** `<graphenelib/action.h>`
 
-**Description:** inline execute action（
+**Description:** Inline execute action（
 Generally, by constructing an action and inlining the action through its send member method, its internal implementation is send\_inline，[Inline action](#inline-action)）
 
 ### unpack\_action\_data
@@ -766,7 +785,9 @@ Generally, by constructing an action and inlining the action through its send me
 
 **Description:** Deserialize the current action data into a defined action object
 
-**Return Value:** action object
+**Return Value:** Action object
+
+**Example:**
 
 ```cpp
 struct myaction {
@@ -778,7 +799,7 @@ struct myaction {
 // @abi action
 void examupact(uint64_t num,std::string name){
     auto my = unpack_action_data<myaction>();
-    print(my.name);
+    print(my.name, "\n");
 }
 ```
 
@@ -790,12 +811,14 @@ void examupact(uint64_t num,std::string name){
 
 **Description:** If the assertion fails, interrupt the execution of this contract and roll all states
 
+**Params:**
 
-**params:**
+Params | Type | Description
+---|---|---
+test | uint32_t | Assertion
+msg | const char* | Message
 
-`<uint32_t> test` assertion
-
-`<const char*> msg` message
+**Example:**
 
 ```cpp
 // @abi action
@@ -815,13 +838,15 @@ void examassert(){
 **Description:** If the assertion fails, interrupt the execution of this contract and roll all states
 
 
-**params:**
+**Params:**
 
-`<uint32_t> test` assertion
+Params | Type | Description
+---|---|---
+test | uint32_t | Assertion
+msg | const char* | Message
+msg_len | uint32_t | Message size
 
-`<const char*> msg` message
-
-`<uint32_t> msg_len` message size
+**Example:**
 
 ```cpp
 // @abi action
@@ -842,14 +867,18 @@ void examassmsg(){
 **Description:** Print log（Please click [Contract Debugging](debug.html#print)）
 
 
-**params:**
+**Params:**
 
-`<const char*> ptr`  log
+Params | Type | Description
+---|---|---
+ptr | const char* | Log
+
+**Example:**
 
 ```cpp
 // @abi action
 void examprint(){
-    print("example example example!!!");
+    print("example example example!!!\n");
 }
 ```
 

@@ -3,6 +3,7 @@
 The advanced tutorial will contain the most basic knowledge of GXChain, and the content will be continuously updated.
 
 - [How to generate key pair？](./keypair.md)
+- [How to sign a transaction?](./signature.md)
 - [How to send a transaction?](./send_transaction.md)
 - [How to confirm a transaction?](./confirm_transaction.md)
 - [How to deal with transfer memo?](./deal_with_memo.md)
@@ -12,4 +13,4 @@ The advanced tutorial will contain the most basic knowledge of GXChain, and the 
 - [How to use snapshot？](./snapshot.md)
 - [How to start testnet?](./testnet.md)
 - [How to launch private chain？](./private_chain.md)
-- [How to understand the information on the GXChain](./block_operation_object.md)
+- [Introduction to block and transaction structure](./block_operation_object.md)

@@ -47,12 +47,12 @@ module.exports = {
                         link: '/advanced/',
                     },
                     {
-                        text: 'FAQs',
-                        link: '/faq/',
-                    },
-                    {
                         text: 'Smart Contract',
                         link: '/contract/',
+                    },
+                    {
+                        text: 'FAQs',
+                        link: '/faq/',
                     },
                     {
                         text: 'Ecosystem',
@@ -133,6 +133,7 @@ function genSidebarConfig (module, title) {
                 children: [
                     '',
                     'keypair',
+                    'signature',
                     'send_transaction',
                     'confirm_transaction',
                     'deal_with_memo',

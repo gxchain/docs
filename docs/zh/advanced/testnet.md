@@ -19,7 +19,6 @@
 | 智能合约编译服务 *(在IDE中配置)* | https://testnet.gxx.gxchain.org |
 | 区块浏览器 | https://testnet.explorer.gxchain.org |
 | 在线钱包 | https://testnet.wallet.gxchain.org |
-| 水龙头 | https://testnet.faucet.gxchain.org |
 
 ::: tip 提示
 社区开发者贡献节点可以加入测试网络，申请成为公信节点。
@@ -30,7 +29,7 @@
 - 系统: **Ubuntu 14.04 LTS 64-bit**, **4.4.0-63-generic** 内核 或者  **macOS 系统**
 - 内存: 2GB+ (越多越好)
 - 硬盘: 40GB+
-- 网络： 10MB+带宽
+- 网络：10MB+带宽
 
 ::: warning 依赖安装
 

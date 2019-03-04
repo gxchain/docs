@@ -55,30 +55,30 @@ apt-get install libstdc++-7-dev
 
 
 Download the latest version of ``TrustNode``
-```
+```bash
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
 Start TrustedNode
 
-```
+```bash
 ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"' \
 --private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
 ```
 
-其中
-```
---data-dir <block data storage>
-
--w <witness_id>
---private-key <[active_public_key, active_private_key]>
-# The above two parameters must be correct, otherwise it will affect the block production.
-& daemon mode
-```
+::: tip Parameter introduction
+- --data-dir block data storage
+- -w witness\_id
+- --private-key [active\_public\_key, active\_private\_key] The above two parameters must be correct, otherwise it will affect the block production.
+- & daemon mode
+:::
 
 It takes about 24 hours to fully synchronize the block. You can view the block synchronization progress through the background log file witness\_node\_data\_dir/logs/witness.log, and visit the [Block Explorer] (https://block.gxb.io/) to view the latest block. .
 
-```
+```bash
 Generated block #367 with timestamp 2017-08-05T20:46:30 at time 2017-08-05T20:46:30
 ```
 
+### 3. View the public letter node out of the block reward
+If elected as an active public node, each package will have a corresponding GXC reward. The block reward will be deposited into the account's pending balance, and you need to apply for it. You can view and claim the reward through PC wallet or web wallet.
+![](./assets/witness/witness_bonus.jpg)

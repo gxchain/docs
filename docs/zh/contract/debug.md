@@ -14,6 +14,10 @@ appenders=stderr,FILE
 
 print调试方式，实现了多种参数类型的重载实现。支持字符串、int型、浮点数、十六进制等。
 
+::: tip 提示：
+print打印日志时要加"\n"，否则无法打印出来。
+:::
+
 
 
 ## print

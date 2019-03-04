@@ -1,4 +1,4 @@
-# Contract deployment
+# Deploy, Call, and Update
 
 ## Smart Contract IDE
 

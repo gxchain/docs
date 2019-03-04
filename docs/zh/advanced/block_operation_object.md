@@ -72,9 +72,9 @@ GXChain区块链包含一系统operation, 每个operation对应一个Code，根�
 
 | Code | Operation Type |
 | :--- | :--- |
+| 0 | 转账 |
 | 5 | 创建账户 |
 | 6 | 更新账户 |
-| 0 | 转账 |
 | 73 | 代理转账 |
 | 74 | 部署合约 |
 | 75 | 调用合约 |

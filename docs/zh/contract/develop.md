@@ -36,12 +36,10 @@ struct signature {
 
 示例：
 ```cpp
-void verify(std::string raw_string, std::string pub_key, signature sig)
+void verify(checksum256 hash, std::string pub_key, signature sig)
 {   
-    print("string, ", raw_string, "\n");
     print(pub_key, "\n");
-    bool flag = verify_signature(raw_string.c_str(), raw_string.length(), &sig, pub_key.c_str(), pub_key.length());
-    print("ret code, ", flag, "\n");
+    assert_recover_key(&hash, &sig, pub_key.c_str(), pub_key.length());
 } 
  ```
 
@@ -109,12 +107,11 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_amount | 返回本次调用向合约发送的资产数量 |
 | <graphenelib/asset.h> | withdraw_asset | 将当前合约帐户的资产转移到链上账户 |
 | <graphenelib/asset.h> | get_balance | 获取链上账户的某资产余额 |
-| <graphenelib/crypto.h> | assert_recover_key | 校验给定的签名和hash是否能够恢复公钥 |
 | <graphenelib/crypto.h> | sha1 | 计算数据的sha1 |
 | <graphenelib/crypto.h> | sha256 | 计算数据的sha256 |
 | <graphenelib/crypto.h> | sha512 | 计算数据的sha512 |
 | <graphenelib/crypto.h> | ripemd160 | 计算数据的ripemd160 |
-| <graphenelib/crypto.h> | verify_signature | 验证签名 |
+| <graphenelib/crypto.h> | assert_recover_key | 校验给定的签名和hash是否能够恢复公钥 |
 | <graphenelib/global.h> | get_head_block_num | 获取最新区块号 |
 | <graphenelib/global.h> | get_head_block_id | 获取最新区块hash |
 | <graphenelib/global.h> | get_block_id_for_num | 获取指定区块hash |
@@ -148,11 +145,13 @@ typedef struct checksum160      block_id_type;
 
 **返回值:** 返回当前合约账号的instance id
 
+**示例:**
+
 ```cpp
 // @abi action
 void examcurr(){
     uint64_t ins_id = current_receiver();
-    print("current contract account id: ", ins_id);
+    print("current contract account id: ", ins_id, "\n");
 }
 ```
 
@@ -166,13 +165,15 @@ void examcurr(){
 
 **功能说明:** 返回本次调用向合约发送的资产instance id (即资产id的最后一位)
 
-**返回值:** 返回0表示action无附带资产，返回非0表示资产的instance id       
+**返回值:** 返回0表示action无附带资产，返回非0表示资产的instance id   
+
+**示例:**    
 
 ```cpp
 // @abi action
 void examgetast(){
     uint64_t ast_id = get_action_asset_id();
-    print("call action asset id: ",ast_id);
+    print("call action asset id: ",ast_id,"\n");
 }
 ```
 
@@ -186,12 +187,14 @@ void examgetast(){
 
 **返回值:** 返回0表示合约无附带资产，返回非0表示附带资产数量，数量需要除以10万
 
+**示例:**
+
 ```cpp
 //get_action_asset_amount 
 // @abi action
 void examgetamo(){
     int64_t amount = get_action_asset_amount();
-    print("call action asset amount: ",amount);      
+    print("call action asset amount: ",amount,"\n");      
 }
 ```
 
@@ -206,19 +209,20 @@ void examgetamo(){
 
 **params:**
 
-`<uint64_t> from` 从哪个账号转账，一般是_self
+参数 | 类型 | 描述
+---|---|---
+from | uint64_t | 从哪个账号转账，一般是_self
+to   | uint64_t | 转账到哪个外部账户，必须只传账号的instance_id，比如外部账户是1.2.33，那么传33即可
+asset_id | uint64_t | 指定转账的资产id，必须只传资产id的instance_id, 比如资产id是1.3.0， 那么传0即可
+amount | int64_t | 转账金额，这个数字包含了资产的精度，比如想转1个GXC，那么应该写100000
 
-`<uint64_t> to` 转账到哪个外部账户，必须只传账号的instance_id，比如外部账户是1.2.33，那么传33即可
-
-`<uint64_t> asset_id` 指定转账的资产id，必须只传资产id的instance_id, 比如资产id是1.3.0， 那么传0即可
-
-`<int64_t> amount` 转账金额，这个数字包含了资产的精度，比如想转1个GXC，那么应该写100000
+**示例:**
 
 ```cpp
 // @abi action
 void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
     withdraw_asset(from,to,asset_id,amount);
-    print("withdraw_asset example");
+    print("withdraw_asset example\n");
 }
 ```
 
@@ -233,19 +237,20 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 
 **返回值:** 返回链上帐户的某资产余额
 
-
-
 **params:**
 
-`<int64_t> account` 链上账户的instace_id
+参数 | 类型 | 描述
+---|---|---
+account | int64_t | 链上账户的instace_id
+asset_id | int64_t | 指定资产的instance_id
 
-`<int64_t> asset_id` 指定资产的instance_id
+**示例:**
 
 ```cpp
 // @abi action
 void examgetbl(int64_t account, int64_t asset_id){
     int64_t balance = get_balance(account, asset_id);
-    print("account balance: ",balance);
+    print("account balance: ",balance,"\n");
 }
 ```
 
@@ -257,14 +262,15 @@ void examgetbl(int64_t account, int64_t asset_id){
 
 **功能说明:** 计算数据的sha1
 
-
 **params:**
 
-`<const char *> data` 用于计算sha1的字符串首地址
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 用于计算sha1的字符串首地址
+length | uint32_t | data字符串的长度
+hash | checksum160* | 出参 用于存储计算的sha1
 
-`<uint32_t> length` data字符串的长度
-
-`<checksum160 *> hash` 出参 用于存储计算的sha1
+**示例:**
 
 ```cpp
 // @abi action
@@ -272,6 +278,7 @@ void examsha1(std::string data){
     checksum160 hash;
     sha1(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -286,11 +293,13 @@ void examsha1(std::string data){
 
 **params:**
 
-`<const char *> data` 用于计算sha256的字符串首地址
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 用于计算sha256的字符串首地址
+length | uint32_t | data字符串的长度
+hash | checksum256* | 出参 用于存储计算的sha256
 
-`<uint32_t> length` data字符串的长度
-
-`<checksum256 *> hash` 出参 用于存储计算的sha256
+**示例:**
 
 ```cpp
 // @abi action
@@ -298,6 +307,7 @@ void examsha25(std::string data){
     checksum256 hash;
     sha256(data.c_str(),data.length(),&hash);
     printhex(hash.hash,32);
+    print("\n");
 }
 ```
 
@@ -313,11 +323,13 @@ void examsha25(std::string data){
 
 **params:**
 
-`<const char *> data` 用于计算sha512的字符串首地址
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 用于计算sha512的字符串首地址
+length | uint32_t | data字符串的长度
+hash | checksum512* | 出参 用于存储计算的sha512
 
-`<uint32_t> length` data字符串的长度
-
-`<checksum512 *> hash` 出参 用于存储计算的sha512
+**示例:**
 
 ```cpp
 // @abi action
@@ -325,6 +337,7 @@ void examsha512(std::string data){
     checksum512 hash;
     sha512(data.c_str(),data.length(),&hash);
     printhex(hash.hash,64);
+    print("\n");
 }
 ```
 
@@ -340,11 +353,13 @@ void examsha512(std::string data){
 
 **params:**
 
-`<const char *> data` 用于计算ripemd160的字符串首地址
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 用于计算ripemd160的字符串首地址
+length | uint32_t | data字符串的长度
+hash | checksum160* | 出参 用于存储计算的ripemd160
 
-`<uint32_t> length` data字符串的长度
-
-`<checksum160 *> hash` 出参 用于存储计算的ripemd160
+**示例:**
 
 ```cpp
 // @abi action
@@ -352,40 +367,7 @@ void examripemd(std::string data){
     checksum160 hash;
     ripemd160(data.c_str(),data.length(),&hash);
     printhex(hash.hash,20);
-}
-```
-
-
-### verify\_signature
-
-**函数类型:** `bool verify_signature(const char *data, uint32_t datalen, const signature *sig, const char * pub_key, uint32_t pub_keylen)`
-
-**头文件:** `<graphenelib/crypto.h>`
-
-**功能说明:** 验证签名
-
-**返回值:** 返回验证结果（bool值）
-
-
-**params:**
-
-`<const char *> data` 签名的原始字符串
-
-`<uint32_t> datalen` data字符串的长度
-
-`<const signature *> sig` 签名数据
-
-`<const char *> pub_key` 签名私钥对应的公钥
-
-`<uint32_t> pub_keylen` 公钥的长度
-
-```cpp
-//verify_signature (other example: redpacket)
-// @abi action
-void examverify(std::string data,signature sig,std::string pk){
-    bool result;
-    result = verify_signature(data.c_str(), data.length(), &sig, pk.c_str(), pk.length());
-    print("verify result: ",result);
+    print("\n");
 }
 ```
 
@@ -401,13 +383,14 @@ void examverify(std::string data,signature sig,std::string pk){
 
 **params:**
 
-`<const checksum256 *> data` sha256 hash值
+参数 | 类型 | 描述
+---|---|---
+data | const checksum256* | sha256 hash值
+sig | const signature* | 对原字符串签名后的数据
+pub | const char* | 公钥
+publen | uint32_t | 公钥长度
 
-`<const signature *> sig` 对原字符串签名后的数据
-
-`<const char *> pub` 公钥
-
-`<uint32_t> publen` 公钥长度
+**示例:**
 
 ```cpp
 // @abi action
@@ -427,11 +410,13 @@ void examrecover(checksum256 hash,signature sig,std::string pkey)
 
 **返回值:** 返回最新区块数
 
+**示例:**
+
 ```cpp
 // @abi action
 void examgetnum(){
     int64_t head_num = get_head_block_num();
-    print("head block num: ",head_num);
+    print("head block num: ",head_num, "\n");
 }
 ```
 
@@ -445,7 +430,11 @@ void examgetnum(){
 
 **params:**
 
-`<checksum160 *> hash` 获取最新区块的hash值
+参数 | 类型 | 描述
+---|---|---
+hash | checksum160* | 获取最新区块的hash值
+
+**示例:**
 
 ```cpp
 // @abi action
@@ -453,6 +442,7 @@ void examgetid(){
     checksum160 block_hash;
     get_head_block_id(&block_hash);
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -467,9 +457,12 @@ void examgetid(){
 
 **params:**
 
-`<checksum160 *> hash` 获取指定区块的hash值
+参数 | 类型 | 描述
+---|---|---
+hash | checksum160* | 获取指定区块的hash值
+block_num | uint32_t | 指定的区块号
 
-`<uint32_t> blcok_num` 指定的区块号
+**示例:**
 
 ```cpp
 // @abi action
@@ -477,6 +470,7 @@ void examidnum(){
     checksum160 block_hash;
     get_block_id_for_num(&block_hash,1);             //get the hash of first block 
     printhex(block_hash.hash,20);
+    print("\n");
 }
 ```
 
@@ -491,12 +485,14 @@ void examidnum(){
 
 **返回值:** 返回最新区块时间
 
+**示例:**
+
 ```cpp
 // @abi action
 void examgettime(){
     int64_t head_time;
     head_time = get_head_block_time();
-    print("head block time: ",head_time);
+    print("head block time: ",head_time,"\n");
 }
 ```
 
@@ -511,12 +507,14 @@ void examgettime(){
 
 **返回值:** 返回调用账户的instance id
 
+**示例:**
+
 ```cpp
 // @abi action
 void examgettrx(){
     uint64_t sender_id;
     sender_id = get_trx_sender();
-    print("call action instance id: ",sender_id);
+    print("call action instance id: ",sender_id,"\n");
 }
 ```
 
@@ -533,18 +531,21 @@ void examgettrx(){
 
 **params:**
 
-`<const char *> data` 账号名，例如nathan
-
-`<uint32_t> length` 账号名的长度，例如nathan的长度是6
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 账号名，例如nathan
+length | uint32_t | 账号名的长度，例如nathan的长度是6
 
 如果帐户存在，返回帐户的instance_id，如果帐户不存在，则返回-1
+
+**示例:**
 
 ```cpp
 // @abi action
 void examgetacid(std::string data){
     int64_t acc_id;
     acc_id = get_account_id(data.c_str(), data.length());
-    print("account id: ",acc_id);
+    print("account id: ",acc_id,"\n");
 }
 ```
 
@@ -560,13 +561,15 @@ void examgetacid(std::string data){
 
 **params:**
 
-`<const char *> data` 账号名，例如nathan
-
-`<uint32_t> length` 账号名的长度，例如nathan的长度是6
-
-`<int64_t> account_id` account的instance id或者id
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 账号名，例如nathan
+length | uint32_t | 账号名的长度，例如nathan的长度是6
+account_id | int64_t | account的instance id或者id
 
 如果帐户存在，返回值为0，如果帐户不存在，则返回-1
+
+**示例:**
 
 ```cpp
 // @abi action
@@ -574,7 +577,7 @@ void examgetname(int64_t accid){
     char data[65]={0};
     int64_t result;
     result = get_account_name_by_id(data,65,accid);
-    prints(data);
+    print(static_cast<const char*>data,"\n");
 }
 ```
 
@@ -590,16 +593,19 @@ void examgetname(int64_t accid){
 
 **params:**
 
-`<const char *> data` 资产名
+参数 | 类型 | 描述
+---|---|---
+data | const char* | 资产名
+length | uint32_t | 资产名的长度，例如GXC的长度是3
 
-`<uint32_t> length` 资产名的长度，例如GXC的长度是3
+**示例:**
 
 ```cpp
 // @abi action
 void examassid(std::string data){
     int64_t assid;
     assid = get_asset_id(data.c_str(),data.length());
-    print("asset id: ",assid);
+    print("asset id: ",assid,"\n");
 }
 ```
 
@@ -615,9 +621,12 @@ void examassid(std::string data){
 
 **params:**
 
-`<char*> dst` 接收读取到的数据buffer的指针
+参数 | 类型 | 描述
+---|---|---
+dst | char* | 接收读取到的数据buffer的指针
+dst_size | uint32_t | 要读取的长度
 
-`<uint32_t> dst_size` 要读取的长度
+**示例:**
 
 ```cpp
 // @abi action
@@ -640,12 +649,14 @@ void examreadtrx(){
 
 **返回值:** 返回序列化后的数据的长度
 
+**示例:**
+
 ```cpp
 // @abi action
 void examtrxsize(){
     int dwsize;
     dwsize =transaction_size();
-    print("the size of the serialize trx: ",dwsize);
+    print("the size of the serialize trx: ",dwsize,"\n");
 }
 ```
 
@@ -659,11 +670,13 @@ void examtrxsize(){
 
 **返回值:** 返回交易到期时间
 
+**示例:**
+
 ```cpp
 // @abi action
 void exampira(){
     uint64_t timenum = expiration();
-    print("the expiration time: ", timenum);
+    print("the expiration time: ", timenum,"\n");
 }
 ```
 
@@ -678,12 +691,14 @@ void exampira(){
 
 **返回值:** 返回交易引用的区块号
 
+**示例:**
+
 ```cpp
 // @abi action
 void examtapnum(){
     uint64_t tapos_num;
     tapos_num = tapos_block_num();
-    print("ref block num: ",tapos_num);
+    print("ref block num: ",tapos_num,"\n");
 }
 ```
 
@@ -698,12 +713,14 @@ void examtapnum(){
 
 **返回值:** 返回交易引用的区块ID（第二个32位数）
 
+**示例:**
+
 ```cpp
 // @abi action
 void examtappre(){
     uint64_t tapos_prefix;
     tapos_prefix = tapos_block_prefix();
-    print("ref block id: ",tapos_prefix);
+    print("ref block id: ",tapos_prefix,"\n");
 }
 ```
 
@@ -720,9 +737,12 @@ void examtappre(){
 
 **params:**
 
-`<void* > msg` 接收buffer指针
+参数 | 类型 | 描述
+---|---|---
+msg | void* | 接收buffer指针
+len | uint32_t | 读取的长度
 
-`<uint32_t> len` 读取的长度
+**示例:**
 
 ```cpp
 // @abi action
@@ -731,6 +751,7 @@ void examract(uint64_t num,std::string number){
     char *buffer = static_cast<char*>(malloc(size));
     read_action_data((void*)buffer,size);
     printhex(buffer,size);
+    print("\n");
 }
 ```
 
@@ -744,11 +765,13 @@ void examract(uint64_t num,std::string number){
 
 **返回值:** 返回读取所需要的字节数
 
+**示例:**
+
 ```cpp
 // @abi action
 void examrasize(uint64_t num,std::string number){
     auto size = action_data_size();
-    print("size: ", size);
+    print("size: ", size,"\n");
 }
 ```
 
@@ -770,6 +793,8 @@ void examrasize(uint64_t num,std::string number){
 
 **返回值:** 返回unpack后的action结构
 
+**示例:**
+
 ```cpp
 struct myaction {
     uint64_t num;
@@ -780,7 +805,7 @@ struct myaction {
 // @abi action
 void examupact(uint64_t num,std::string name){
     auto my = unpack_action_data<myaction>();
-    print(my.name);
+    print(my.name,"\n");
 }
 ```
 
@@ -795,9 +820,12 @@ void examupact(uint64_t num,std::string name){
 
 **params:**
 
-`<uint32_t> test` 验证条件
+参数 | 类型 | 描述
+---|---|---
+test | uint32_t | 验证条件
+msg | const char* | 条件不满足时，回滚输出的消息
 
-`<const char*> msg` 条件不满足时，回滚输出的消息
+**示例:**
 
 ```cpp
 // @abi action
@@ -819,11 +847,13 @@ void examassert(){
 
 **params:**
 
-`<uint32_t> test` 验证条件
+参数 | 类型 | 描述
+---|---|---
+test | uint32_t | 验证条件
+msg | const char* | 条件不满足时，回滚输出的消息
+msg_len | uint32_t | 消息内容的长度
 
-`<const char*> msg` 条件不满足时，回滚输出的消息
-
-`<uint32_t> msg_len` 消息内容的长度
+**示例:**
 
 ```cpp
 // @abi action
@@ -845,13 +875,16 @@ void examassmsg(){
 
 
 **params:**
+参数 | 类型 | 描述
+---|---|---
+ptr | const char* | 调试的消息体内容
 
-`<const char*> ptr`  调试的消息体内容
+**示例:**
 
 ```cpp
 // @abi action
 void examprint(){
-    print("example example example!!!");
+    print("example example example!!!\n");
 }
 ```
 

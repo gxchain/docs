@@ -9,9 +9,25 @@ GXChain nodes support WebSocket and JSONRPC
 Get chain id
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
+
+<table>
+    <tr>
+        <th rowspan="1">Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_chain_id</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>
+        <td colspan="2" align="center">null</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -38,9 +54,25 @@ curl --data '{
 Get dynamic global properties
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
+
+<table>
+    <tr>
+        <th rowspan="1">Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_dynamic_global_properties</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>
+        <td colspan="2" align="center">null</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -85,10 +117,32 @@ curl -XPOST --data '{
 Obtain block info via block number
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-block_num | block num
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_block</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>block_num</td>
+        <td>block num</td>
+    </tr>
+</table>
 
 #### Example
 
@@ -127,10 +181,32 @@ curl POST --data '{
 Obtain block header info via block number
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-block_num | block num
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_block_header</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>block_num</td>
+        <td>block num</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -167,10 +243,32 @@ GXChain stores different types of data via different objects, Click here to view
 Obtain object info via ID
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-object_ids | Array, can pass multiple corresponding ids
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_objects</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>[object_id]</td>
+        <td>Array, can pass multiple corresponding ids</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -233,9 +331,25 @@ curl --data '{
 Obtain total account count
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_count</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>   
+        <td colspan="2" align="center">null</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -262,10 +376,32 @@ curl --data '{
 Obtain account info via `account_name`, **exclude** association object
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_name | Account name
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_by_name</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>account name</td>
+    </tr>
+</table>
 
 **request:**
 ``` bash
@@ -351,10 +487,36 @@ curl --data '{
 Obtain full account info via `account_ids`, **include** association object
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-[account_names or account_ids] | Array, you can pass in the account name or account id
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_full_accounts</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>[account_names or account_id]</td>
+        <td>Array, you can pass in the account name or account id</td>
+    </tr>
+    <tr>
+        <td>bool type</td>
+        <td>subscribed</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -623,10 +785,32 @@ curl --data '{
 Check if the account name is already registered. Returns true if registered, returns false if unregistered or the account name is invalid
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_name | account name
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">is_account_registered</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>account name</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -652,10 +836,32 @@ curl --data '{
 Obtain the associated accounts based on the public key , and return the associated account id
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-[public_keys] | Array, passing in a series of public keys
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_key_references</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>[public_key]</td>
+        <td>Array, passing in a series of public keys</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -685,11 +891,36 @@ curl --data '{
 Query asset via initials
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-asset_name | Asset symbol or first string, such as GX
-limit | Number of results returned
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">list_assets</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>asset_name</td>
+        <td>Asset symbol or first string, such as G</td>
+    </tr>
+    <tr>
+        <td>limit</td>
+        <td>Number of results returned</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -773,10 +1004,32 @@ curl --data '{
 Get asset details based on asset name
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-asset_name | Asset symbol or first string, such as 'GXC'
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">lookup_asset_symbols</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>[asset_name]</td>
+        <td>Asset symbol or first string, such as 'GXC'</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -797,11 +1050,36 @@ The same result list_assets
 Get account balances based on account id and asset id, return all asset balances if asset id is not specified
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_id | account id
-[asset_ids] | array,asset ids
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_account_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>account id</td>
+    </tr>
+    <tr>
+        <td>[asset id]</td>
+        <td>array,asset ids</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -838,11 +1116,36 @@ curl --data '{
 Obtain account balances based on account name and asset id, return all asset balance if asset id is not specified
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_id | account id
-[asset_ids] | array,asset ids
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_named_account_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="4" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_name</td>
+        <td>账户名</td>
+    </tr>
+    <tr>
+        <td>[asset id]</td>
+        <td>array,asset ids</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -875,10 +1178,32 @@ curl --data '{
 Get all the unspent balances of the account based on the account id
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_id | account id
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_vesting_balances</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>account id</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -959,9 +1284,25 @@ curl --data '{
 Get the account ids of all trust nodes
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_trust_nodes</td>
+    </tr>
+    <tr>
+        <td>API Parameters</td>   
+        <td colspan="2" align="center">null</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -1004,10 +1345,32 @@ curl --data '{
 Obtain the information of the trust node according to `account_id`, including the public key, the total votes, missing blocks, etc.
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-account_id | account id
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_witness_by_account</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>account id</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -1044,10 +1407,32 @@ response:
 Returns the worker object based on the information of the public node returned by vote_id
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-[vote_id] | Array, vote ids
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">lookup_vote_ids</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>[vote_id]</td>
+        <td>Array, vote ids</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -1067,12 +1452,40 @@ curl --data '{
 The extension interface of `get_table_rows` provides richer query functions. (The default value is used when the parameter field is not passed.)
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 0
-contract_name | contract name
-table_name | table name
-params_object | params struct
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_table_rows_ex</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>contract_name</td>
+        <td>contract name</td>
+    </tr>
+    <tr>
+        <td>table_name</td>
+        <td>table name</td>
+    </tr>
+    <tr>
+        <td>get_table_rows_params</td>
+        <td>params struct</td>
+    </tr>
+</table>
 
 get_table_rows_params description:
 
@@ -1153,10 +1566,32 @@ Broadcast a signed transaction to the network
 :::
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 2
-signed_transaction | Signed transaction message body
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">2</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">broadcast_transaction</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>signed_trx</td>
+        <td>Signed transaction message body</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
@@ -1182,10 +1617,32 @@ Broadcast a signed transaction to the network, and wait for the transaction resu
 :::
 
 #### Parameter Description
-Parameter | Description
----|---
-API id | The interface is provided by the DB API with an id of 2
-signed_transaction | Signed transaction message body
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">2</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">broadcast_transaction_synchronous</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>signed_trx</td>
+        <td>Signed transaction message body</td>
+    </tr>
+</table>
 
 #### Example
 **request:**
