@@ -1557,6 +1557,71 @@ curl --data '{
 }
 ```
 
+## 广播手续费接口
+
+### `get_required_fees`
+
+根据交易内容，获取交易结构所需支付手续费数额
+
+#### 参数说明
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_required_fees</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>operations</td>
+        <td>交易结构体</td>
+    </tr>
+    <tr>
+        <td>asset_id</td>
+        <td>资产编号</td>
+    </tr>
+</table>
+
+
+#### 示例
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc":"2.0",
+    "method":"call",
+    "params":[0,"get_required_fees",[[[0,{"fee":{"amount":1000,"asset_id":"1.3.7"},"from":"1.2.955603","to":"1.2.1122226","amount":{"amount":40000,"asset_id":"1.3.7"},"extensions":[]}]],"1.3.1"]],
+    "id":1
+}' https://node1.gxb.io/rpc
+```
+
+**response:**
+```json
+{
+    "id":1,
+    "jsonrpc":"2.0",
+    "result":[
+        {
+            "amount":1000,
+            "asset_id":"1.3.1"
+        }
+    ]
+}
+```
+
+
 
 ## 广播接口
 
