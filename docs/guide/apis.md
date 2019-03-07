@@ -234,6 +234,56 @@ curl POST --data '{
 }
 ```
 
+## transaction
+
+### `get_transaction_hex`
+
+Obtain a hexdump of the serialized binary form of a transaction
+
+#### Parameter Description
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_transaction_hex</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>transaction</td>
+        <td>transaction</td>
+    </tr>
+</table>
+
+#### Example
+
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_transaction_hex", [{"ref_block_num":53237,"ref_block_prefix":892361345,"expiration":"2019-03-07T06:07:21","operations":[[0,{"fee":{"amount":50000,"asset_id":"1.3.1"},"from":"1.2.17","to":"1.2.6","amount":{"amount":100000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":[]}]], "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+**response:**
+```
+{"id":1,"jsonrpc":"2.0","result":"f5cf815a303519b5805c010050c3000000000000011106a0860100000000000100000000"}
+```
+
 ## Object
 
 GXChain stores different types of data via different objects, Click here to view [object types on GXChain](../advanced/block_operation_object.html#_3-object-on-gxchain)

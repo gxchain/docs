@@ -129,7 +129,7 @@ curl --data '{
         <td colspan="2" align="center">get_block</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -193,7 +193,7 @@ curl --data '{
         <td colspan="2" align="center">get_block_header</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -230,6 +230,55 @@ curl --data '{
         }
 }
 ```
+## 交易相关
+
+### `get_transaction_hex`
+
+以16进制形式，返回交易的序列化字符串
+
+#### 参数说明
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_transaction_hex</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>transaction</td>
+        <td>交易消息体</td>
+    </tr>
+</table>
+
+#### 示例
+
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_transaction_hex", [{"ref_block_num":53237,"ref_block_prefix":892361345,"expiration":"2019-03-07T06:07:21","operations":[[0,{"fee":{"amount":50000,"asset_id":"1.3.1"},"from":"1.2.17","to":"1.2.6","amount":{"amount":100000,"asset_id":"1.3.1"},"extensions":[]}]],"extensions":[],"signatures":[]}]], "id": 1
+}' https://node1.gxb.io/rpc
+```
+
+**response:**
+```
+{"id":1,"jsonrpc":"2.0","result":"f5cf815a303519b5805c010050c3000000000000011106a0860100000000000100000000"}
+```
 
 ## 对象相关
 
@@ -255,7 +304,7 @@ curl --data '{
         <td colspan="2" align="center">get_objects</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -345,7 +394,7 @@ curl --data '{
         <td colspan="2" align="center">get_account_count</td>
     </tr>
     <tr>
-        <td>API Parameters</td>   
+        <td>API Parameters</td>
         <td colspan="2" align="center">空</td>
     </tr>
 </table>
@@ -390,7 +439,7 @@ curl --data '{
         <td colspan="2" align="center">get_account_by_name</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -502,7 +551,7 @@ curl --data '{
         <td colspan="2" align="center">get_full_accounts</td>
     </tr>
     <tr>
-        <td rowspan="4" >API Parameters</td>   
+        <td rowspan="4" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -798,7 +847,7 @@ curl --data '{
         <td colspan="2" align="center">is_account_registered</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -849,7 +898,7 @@ curl --data '{
         <td colspan="2" align="center">get_key_references</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -905,7 +954,7 @@ curl --data '{
         <td colspan="2" align="center">list_assets</td>
     </tr>
     <tr>
-        <td rowspan="4" >API Parameters</td>   
+        <td rowspan="4" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1019,7 +1068,7 @@ curl --data '{
         <td colspan="2" align="center">lookup_asset_symbols</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1064,7 +1113,7 @@ curl --data '{
         <td colspan="2" align="center">get_account_balances</td>
     </tr>
     <tr>
-        <td rowspan="4" >API Parameters</td>   
+        <td rowspan="4" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1130,7 +1179,7 @@ curl --data '{
         <td colspan="2" align="center">get_named_account_balances</td>
     </tr>
     <tr>
-        <td rowspan="4" >API Parameters</td>   
+        <td rowspan="4" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1193,7 +1242,7 @@ curl --data '{
         <td colspan="2" align="center">get_vesting_balances</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1299,7 +1348,7 @@ curl --data '{
         <td colspan="2" align="center">get_trust_nodes</td>
     </tr>
     <tr>
-        <td>API Parameters</td>   
+        <td>API Parameters</td>
         <td colspan="2" align="center">空</td>
     </tr>
 </table>
@@ -1359,7 +1408,7 @@ curl --data '{
         <td colspan="2" align="center">get_witness_by_account</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1422,7 +1471,7 @@ curl --data '{
         <td colspan="2" align="center">lookup_vote_ids</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1468,7 +1517,7 @@ curl --data '{
         <td colspan="2" align="center">get_table_rows_ex</td>
     </tr>
     <tr>
-        <td rowspan="5" >API Parameters</td>   
+        <td rowspan="5" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1649,7 +1698,7 @@ curl --data '{
         <td colspan="2" align="center">broadcast_transaction</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
@@ -1696,7 +1745,7 @@ curl --data '{
         <td colspan="2" align="center">broadcast_transaction_synchronous</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="3" >API Parameters</td>
     </tr>
     <tr>
         <th>API参数</th>
