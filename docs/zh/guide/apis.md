@@ -1579,7 +1579,7 @@ curl --data '{
         <td colspan="2" align="center">get_required_fees</td>
     </tr>
     <tr>
-        <td rowspan="3" >API Parameters</td>   
+        <td rowspan="4" >API Parameters</td>   
     </tr>
     <tr>
         <th>API参数</th>
@@ -1602,7 +1602,7 @@ curl --data '{
 curl --data '{
     "jsonrpc":"2.0",
     "method":"call",
-    "params":[0,"get_required_fees",[[[0,{"fee":{"amount":1000,"asset_id":"1.3.7"},"from":"1.2.955603","to":"1.2.1122226","amount":{"amount":40000,"asset_id":"1.3.7"},"extensions":[]}]],"1.3.1"]],
+    "params":[0,"get_required_fees",[[[0,{"fee":{"amount":1000,"asset_id":"1.3.1"},"from":"1.2.955603","to":"1.2.1122226","amount":{"amount":40000,"asset_id":"1.3.1"},"extensions":[]}]],"1.3.1"]],
     "id":1
 }' https://node1.gxb.io/rpc
 ```
