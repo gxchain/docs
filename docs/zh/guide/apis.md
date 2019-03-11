@@ -1496,7 +1496,61 @@ curl --data '{
 ```
 
 
-## 智能合约存储表相关
+## 智能合约相关
+
+### `serialize_contract_call_args`
+以16进制形式，返回智能合约调用参数的序列化字符串
+#### 参数说明
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">serialize_contract_call_args</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>contract_name</td>
+        <td>合约账户名</td>
+    </tr>
+    <tr>
+        <td>method</td>
+        <td>方法名</td>
+    </tr>
+    <tr>
+        <td>json_args</td>
+        <td>合约方法对应的参数，key-value json字符串，可以为""</td>
+    </tr>
+</table>
+
+
+#### 示例
+**request:**
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "serialize_contract_call_args", ["gxc-redpacket", "issue", "{\"pubkey\":\"GXC5NEGqM8BTnMm5NT7Vv2Shxh4eg4tk1kfmAUf3EGHtksig5vZdN\", \"number\":10}"]],
+        "id": 1
+}' https://node1.gxb.io
+```
+
+**response:**
+```
+{"id":1,"jsonrpc":"2.0","result":"35475843354e4547714d3842546e4d6d354e54375676325368786834656734746b316b666d41556633454748746b73696735765a644e0a00000000000000"}
+```
 
 ### `get_table_rows_ex`
 `get_table_rows`的扩展接口，提供更丰富的查询功能。（参数字段不传时，使用默认值）

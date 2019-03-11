@@ -1496,7 +1496,61 @@ curl --data '{
 ```
 
 
-## Contract_table
+## Contract
+### `serialize_contract_call_args`
+Obtain a hexdump of the serialized binary form of a contract call args
+
+#### Parameter Description
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">serialize_contract_call_args</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>contract_name</td>
+        <td>contract account name</td>
+    </tr>
+    <tr>
+        <td>method</td>
+        <td>contract action name</td>
+    </tr>
+    <tr>
+        <td>json_args</td>
+        <td>args of contract action，key-value json string, can be ""</td>
+    </tr>
+</table>
+
+
+#### Example
+**request:**
+```bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "serialize_contract_call_args", ["gxc-redpacket", "issue", "{\"pubkey\":\"GXC5NEGqM8BTnMm5NT7Vv2Shxh4eg4tk1kfmAUf3EGHtksig5vZdN\", \"number\":10}"]],
+        "id": 1
+}' https://node1.gxb.io
+```
+
+**response:**
+```
+{"id":1,"jsonrpc":"2.0","result":"35475843354e4547714d3842546e4d6d354e54375676325368786834656734746b316b666d41556633454748746b73696735765a644e0a00000000000000"}
+```
 
 ### `get_table_rows_ex`
 The extension interface of `get_table_rows` provides richer query functions. (The default value is used when the parameter field is not passed.)
