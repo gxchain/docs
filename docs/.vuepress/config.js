@@ -171,7 +171,8 @@ function genSidebarConfig (module, title) {
                     'debug',
                     'question',
                     'error_collection',
-                    'abi'
+                    'abi',
+                    'contractfee'
                 ]
             }
         ];
