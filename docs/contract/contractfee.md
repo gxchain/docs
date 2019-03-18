@@ -7,7 +7,7 @@ In GXChain, deploy contracts, update contracts, and call contracts will result i
 The deployment contract fee is paid by the caller, and the payment fee is calculated as follows:
 
 ```cpp
-// base_fee is 1GXC, contract_size is the contract size, price_per_kbyte is the cost of 1kb ram, currently 1GXC
+// base_fee is 0.01GXC, contract_size is the contract size, price_per_kbyte is the cost of 1kb ram, currently 0.2GXC
 fee = base_fee + contract_size / 1024 * price_per_kbyte
 ```
 
@@ -16,7 +16,7 @@ fee = base_fee + contract_size / 1024 * price_per_kbyte
 The renewal contract fee is paid by the caller, and the payment fee is calculated as follows:
 
 ```cpp
-// base_fee is 1GXC, contract_size is the contract size, price_per_kbyte is the cost of 1kb ram, currently 1GXC
+// base_fee is 0.01GXC, contract_size is the contract size, price_per_kbyte is the cost of 1kb ram, currently 0.2GXC
 fee = base_fee + new_contract_size / 1024 * price_per_kbyte
 ```
 
@@ -29,7 +29,7 @@ The calling contract fee consists of two parts, ram_fee, cpu_fee and fee.
 Generated when an object is created or modified in the contract's table, ram_fee can specify the associated account to pay. How ram_fee is calculated:
 
 ```cpp
-// ram_bytes is the number of bytes of memory occupied, price_per_kbyte_ram is the cost of 1kb ram, currently 0.5GXC
+// ram_bytes is the number of bytes of memory occupied, price_per_kbyte_ram is the cost of 1kb ram, currently 0.2GXC
 ram_fee = ram_bytes / 1024 * price_per_kbyte_ram 
 ```
 
@@ -51,6 +51,6 @@ cpu_fee current unit price is 0
 In addition to using cpu_fee and ram_fee, the base contract fee is 0.01GXC. Therefore, the calculation method for calling the smart contract fee is:
 
 ```cpp
-// base_fee is 0.01GXC, ram_fee is calculated according to the payer and occupied memory, cpu_fee is 0
+// base_fee is 0.001GXC, ram_fee is calculated according to the payer and occupied memory, cpu_fee is 0
 fee = base_fee + ram_fee + cpu_fee
 ```

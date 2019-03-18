@@ -7,7 +7,7 @@ GXChain中，部署合约、更新合约、调用合约会产生不同数额的�
 部署合约手续费由调用者支付，支付的手续费计算方式如下:
 
 ```cpp
-// base_fee为1GXC，contract_size为合约大小，price_per_kbyte为1kb ram的费用，当前为1GXC
+// base_fee为0.01GXC，contract_size为合约大小，price_per_kbyte为1kb ram的费用，当前为0.2GXC
 fee = base_fee + contract_size / 1024 * price_per_kbyte
 ```
 
@@ -16,7 +16,7 @@ fee = base_fee + contract_size / 1024 * price_per_kbyte
 更新合约手续费由调用者支付，支付的手续费计算方式如下:
 
 ```cpp
-// base_fee为1GXC，contract_size为合约大小，price_per_kbyte为1kb ram的费用，当前为1GXC
+// base_fee为0.01GXC，contract_size为合约大小，price_per_kbyte为1kb ram的费用，当前为0.2GXC
 fee = base_fee + new_contract_size / 1024 * price_per_kbyte
 ```
 
@@ -29,7 +29,7 @@ fee = base_fee + new_contract_size / 1024 * price_per_kbyte
 在合约的table中创建或修改对象时产生，ram_fee可以指定关联账户来支付。ram_fee的计算方式：
 
 ```cpp
-// ram_bytes为占用的内存字节数，price_per_kbyte_ram为1kb ram的费用，当前为0.5GXC
+// ram_bytes为占用的内存字节数，price_per_kbyte_ram为1kb ram的费用，当前为0.2GXC
 ram_fee = ram_bytes / 1024 * price_per_kbyte_ram 
 ```
 
@@ -51,6 +51,6 @@ cpu_fee当前单价为0
 调用合约除了使用cpu_fee和ram_fee之外，基础手续费为0.01GXC。所以调用智能合约手续费计算方式为:
 
 ```cpp
-// base_fee为0.01GXC，ram_fee根据payer和所占内存来计算，cpu_fee为0
+// base_fee为0.001GXC，ram_fee根据payer和所占内存来计算，cpu_fee为0
 fee = base_fee + ram_fee + cpu_fee
 ```
