@@ -22,7 +22,7 @@ fee = base_fee + new_contract_size / 1024 * price_per_kbyte
 
 ## 调用合约手续费
 
-调用合约是免费的，但是在调用时会产生手续费，手续费共包含三部分，ram_fee、cpu_fee和fee，之后会进行返还。
+调用合约是免费的，但是在调用时会产生手续费，手续费共包含三部分，ram_fee、cpu_fee和base_fee，之后会进行返还。
 
 - **ram_fee**
 
@@ -46,13 +46,16 @@ ram_fee的返还：删除table中的对象后，会立即将创建时消耗的�
 
 cpu_fee当前单价为0
 
-- **fee**
+- **base_fee**
 
-调用合约除了使用cpu_fee和ram_fee之外，基础手续费为0.01GXC。所以调用智能合约手续费计算方式为:
+调用合约除了使用cpu_fee和ram_fee之外，基础手续费为0.01GXC。
+
+base_fee的返还：调用合约产生的基本手续费，会返还到用户的待解冻余额，需要用户手工领取。
+
+调用智能合约手续费计算方式为:
 
 ```cpp
 // base_fee为0.001GXC，ram_fee根据payer和所占内存来计算，cpu_fee为0
 fee = base_fee + ram_fee + cpu_fee
 ```
 
-base_fee的返还：调用合约产生的基本手续费，会返还到用户的待解冻余额，需要用户手工领取
