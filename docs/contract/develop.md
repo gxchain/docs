@@ -892,14 +892,16 @@ The sample contract for api usage has been deployed to the test network, which c
 
 GXChain supports inter-contract calls and supports payment accounts that set ram fees. Examples of cross-contract calls are `User --> contract_A --> contract_B`, for contract `contract_B`, `User` is the original caller, and `contract_A` is sender.
 
+Cross-contract call level limit: no more than three contracts in the call chain. That is: `User -> contract_A -> contract_B -> contract_C`, if the number of layers is exceeded, the execution will be terminated. (If the call chain forms a loop call, it will also terminate execution)
+
 The ram resource used in the contract, the payment account can be set to the following four identities:
 
-| payer | description |
-| --- | --- |
-| sender | sender |
-| receiver | contract account |
-| original caller | original caller |
-| 0 | receiver | 
+| ram_fee payer | Description |
+| --- | --- | 
+| 0 | Contract account itself (same as \_slef) |
+| \_self | Contract account itself (same as 0） |
+| sender | Contract call account |
+| original | Contract original call account, cross-contract call, call the account for the start |
 
 ### Example
 
