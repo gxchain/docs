@@ -143,7 +143,8 @@ function genSidebarConfig (module, title) {
                     'snapshot',
                     'testnet',
                     'private_chain',
-                    'block_operation_object'
+                    'block_operation_object',
+                    'account_rule'
                 ]
             }
         ];
