@@ -194,7 +194,7 @@ export LC_ALL=C
 
 
 ::: tip 建议
-程序启动命令行确定后，建议放入shell脚本，方便以后启动和停止。 脚本可参考[这里](https://github.com/gxcdac/gxchain-script/tree/master/gxchain-test-script)
+程序启动命令行确定后，建议放入shell脚本，方便以后启动和停止。 脚本可参考[这里](https://github.com/gxcdac/gxchain-deploy/tree/master/gxchain-script)
 
 ```
 #!/bin/bash
