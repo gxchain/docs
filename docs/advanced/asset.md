@@ -14,9 +14,9 @@ After completing the form, click "create assets", the confirmation page will pop
 Different lengths of assets require different burning fees (before creating an asset, you want to send enough GXS to the account):
 
 ```
-3 charactors 1000 GXS
-4 charactors 800 GXS
-5 charactors 500 GXS
+3 charactors 1000 GXC
+4 charactors 800 GXC
+5 charactors 500 GXC
 ```
 
 ## 2. Issue asset
