@@ -236,7 +236,8 @@ curl --data '{
 
 
 
-## 更多示例
+## 代码实现
+
 [bepalcore-java交易构造广播](https://github.com/Bepal/bepalcore-java/blob/master/src/test/java/pro/bepal/test/GXCTest.java#L71)
 [bepalcore-oc交易构造广播](https://github.com/Bepal/bepalcore-oc/blob/master/BepalCoreTests/GXCTest.m#L50)
 
