@@ -899,14 +899,17 @@ void examprint(){
 ### 说明
 GXChain支持合约间调用，并支持设置ram费用的支付账户。跨合约调用示例如`User --> contract_A --> contract_B`，对于合约`contract_B`，`User`为原始调用者，`contract_A`为sender。
 
+跨合约调用层数限制：调用链中，不超过三个合约。即：`User --> contract_A --> contract_B --> contract_C`，超过调用层数，则会终止执行。（如果调用链形成了循环调用，同样会终止执行）
+
 合约中使用到的ram资源，支付账户可以设置为以下4种身份：
 
-| payer | description |
-| --- | --- |
-| sender | 由调用者支付 |
-| receiver | 由合约账户支付 |
-| original caller | 由原始调用者支付 |
-| 0 | 同receiver | 
+| ram_fee payer | 说明 |
+| --- | --- | 
+| 0 | 合约账户自身（同\_slef） |
+| \_self | 合约账户自身（同0） |
+| sender | 合约调用账户 |
+| original | 合约原始调用账户，跨合约调用中，为起始调用账户 |
+
 
 ### 示例
 `contract_A --> contract_B`，`contract_A`合约调用`contract_B`合约。
