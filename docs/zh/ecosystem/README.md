@@ -37,3 +37,10 @@
     - 基于GXChain的智能合约开发工具集
     - 合约编译服务: [github.com/gxchain/gxx-server](https://github.com/gxchain/gxx-server)
     - IDE: [github.com/gxchain/gxchain-alpha](https://github.com/gxchain/gxchain-alpha)
+
+开源社区 [github.com/BEPAL](https://github.com/BEPAL)
+
+- 手机钱包SDK(底层)
+    - BIP44密语推导、交易构造、合约调用、投票、创建与更新账户
+    - [github.com/bepal/bepalcore-java](https://github.com/BEPAL/bepalcore-java)
+    - [github.com/bepal/bepalcore-oc](https://github.com/BEPAL/bepalcore-oc)

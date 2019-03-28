@@ -38,3 +38,10 @@ Main Repo: [github.com/gxchain](https://github.com/gxchain)
     - GXChain-based smart contract development toolset
     - Contract compilation service: [github.com/gxchain/gxx-server](https://github.com/gxchain/gxx-server)
     - IDE: [github.com/gxchain/gxchain-alpha](https://github.com/gxchain/gxchain-alpha)
+
+BEPAL Open Source [github.com/BEPAL](https://github.com/BEPAL)
+
+- wallet for mobile SDK (core)
+    - HDWallet、transaction、contract、vote、create and update account
+    - [github.com/bepal/bepalcore-java](https://github.com/BEPAL/bepalcore-java)
+    - [github.com/bepal/bepalcore-oc](https://github.com/BEPAL/bepalcore-oc)
