@@ -53,5 +53,7 @@ function sign(message, private_key){
 ## 代码实现
 
 - [gxclient-java](https://github.com/gxchain/common-signature/blob/master/src/main/java/com/gxchain/common/signature/crypto/ec/GxcPrivateKey.java#L129)
+- [bepalcore-java](https://github.com/Bepal/bepalcore-java/blob/master/src/main/java/pro/bepal/core/bitcoin/SecpECKey.java#L87)
 - [gxclient-node](https://github.com/gxchain/gxbjs/blob/master/lib/ecc/src/signature.js#L77)
 - [gxclient-ios](https://github.com/gxchain/gxclient-ios/blob/master/gxclient-ios/lib/ecc/GXPrivateKey.m#L82)
+
