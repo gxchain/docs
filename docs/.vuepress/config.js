@@ -144,7 +144,8 @@ function genSidebarConfig (module, title) {
                     'testnet',
                     'private_chain',
                     'block_operation_object',
-                    'account_rule'
+                    'account_rule',
+                    'cliwallet'
                 ]
             }
         ];
