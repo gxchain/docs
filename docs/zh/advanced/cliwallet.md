@@ -42,7 +42,17 @@ unlock 123456
 null
 ```
 
-解锁钱包后，界面显示为`unlocked`状态，此时便可以通过钱包进行复杂功能的操作。
+解锁钱包之后，如果想使用`cli_wallet`工具发起交易，需要导入自己的账户私钥，命令如下：
+
+```bash
+unlocked >>> import_key zhao-123 5JVtwDKFQCx9EqANKL4Qb3N6HbPiBnVXz6STz6gwzpJJusH7SqJ
+import_key zhao-123 5JVtwDKFQCx9EqANKL4Qb3N6HbPiBnVXz6STz6gwzpJJusH7SqJ
+2548361ms th_a       wallet.cpp:798                save_wallet_file     ] saving wallet to file wallet.json
+2548365ms th_a       wallet.cpp:473                copy_wallet_file     ] backing up wallet wallet.json to after-import-key-7c829d0b.wallet
+true
+```
+
+界面显示为`unlocked`状态，此时便可以通过钱包进行复杂功能的操作。
 
 ### 2.2 获取链上信息
 
@@ -383,14 +393,567 @@ get_witness 1.6.1
 
 ### 2.3 向其他账户转账
 
+这里我们通过`cli_wallet`命令行工具，发起一笔转账，请注意：在发起一笔转账前，需要保证已经导入了转账账户的私钥
+
+**接口定义：** `signed_transaction transfer(string from, string to, string amount, string asset_symbol, string memo, bool broadcast)`
+
+**功能说明：** 向其他账户转账
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+from | string | 转账账户
+to | string | 接收账户
+amount | string | 转账数量，不需要乘以精度（1 = 1 GXC）
+asset_symbol | string | 资产名称（例如GXC）
+memo | string | 备注
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> transfer zhao-123 nathan 1 GXC "transfer test" true
+transfer zhao-123 nathan 1 GXC "transfer test" true
+{
+  "ref_block_num": 60407,
+  "ref_block_prefix": 1572501575,
+  "expiration": "2019-04-08T06:43:03",
+  "operations": [[
+      0,{
+        "fee": {
+          "amount": 1210,
+          "asset_id": "1.3.1"
+        },
+        "from": "1.2.426",
+        "to": "1.2.17",
+        "amount": {
+          "amount": 100000,
+          "asset_id": "1.3.1"
+        },
+        "memo": {
+          "from": "GXC8cQnHYf2RGgeAEAQKAT3i9Hz9rxJagcXcXD8Znvtj16vYybwxE",
+          "to": "GXC8AoHzhXhMRV9AFTihMAcQPNXKFEZCeYNYomdcc7vh8Gzp7b7xP",
+          "nonce": "7135256515508096303",
+          "message": "d2d9e72e468fb8f4df7aaf8f0f3608701f95912800c96c6124eb3613699cb151"
+        },
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "203cb7f17515a68026eec4a43b9651fc2ad1cc3d521ef9d93ff4612e435a36ba2718ce4e12a69163698643e7f77cdaf1f621241fabb502b65d2b471592a8f069ae"
+  ]
+}
+```
+
 ### 2.4 与智能合约交互
 
-### 2.5 发起提案
+这里我们使用`cli_wallet`工具与智能合约交互，包括部署合约、更新合约、调用合约。
+
+#### deploy\_contract
+
+**接口定义：** `signed_transaction deploy_contract(string name, string account, string vm_type, string vm_version, string contract_dir, string fee_asset_symbol, bool broadcast)`
+
+**功能说明：** 部署智能合约
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+name | string | 合约账户名
+account | string | 支付手续费的账户
+vm_type | string | 设置为0
+vm_version | string | 设置为0
+contract_dir | string | 合约目录（绝对路径）
+fee_asset_symbol | string | 支付手续费的资产名
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> deploy_contract hello0306 zhao-123 0 0 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
+deploy_contract hello0306 zhao-123 0 0 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
+{
+  "ref_block_num": 60935,
+  "ref_block_prefix": 792061404,
+  "expiration": "2019-04-08T07:09:45",
+  "operations": [[
+      74,{
+        "fee"
+        ....
+    }
+    ]]
+}
+```
+
+#### update\_contract
+
+**接口定义：** `signed_transaction update_contract(string contract, optional<string> new_owner, string contract_dir, string fee_asset_symbol, bool broadcast)`
+
+**功能说明：** 更新智能合约
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+contract | string | 合约账户名
+new_owner | string | 合约所有者，部署合约时支付手续费的账户
+contract_dir | string | 合约目录（绝对路径）
+fee_asset_symbol | string | 支付手续费的资产名
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> update_contract hello0306 zhao-123 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
+update_contract hello0306 zhao-123 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
+{
+  "ref_block_num": 61224,
+  "ref_block_prefix": 3331763629,
+  "expiration": "2019-04-08T07:24:30",
+  "operations": [[
+      76,{
+        "fee":
+        ...
+      }
+   ]]
+}
+```
+
+#### call\_contract
+
+**接口定义：** `signed_transaction call_contract(string account, string contract, optional<asset> amount, string method, string arg, string fee_asset_symbol, bool broadcast)`
+
+**功能说明：** 调用智能合约
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+account | string | 调用账户
+contract | string | 合约账户名
+amount | optional\<asset\> | 附带的资产对象，不附带可以填null
+method | string | 合约方法名
+arg | string | 合约参数
+fee_asset_symbol | string | 支付手续费的资产名
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> call_contract zhao-123 hello0306 null hi \"{\"user\":\"gxchain\"}" GXC true
+call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
+{
+  "ref_block_num": 61393,
+  "ref_block_prefix": 3449630089,
+  "expiration": "2019-04-08T07:33:06",
+  "operations": [[
+      75,{
+        "fee":
+        ...
+    }
+    ]]
+}
+```
 
 ### 2.5 手工构造交易
 
-### 2.6 生成brain\_key
+以下内容为如何通过`cli_wallet`命令行工具构造交易，步骤如下
 
+>begin_builder_transaction  
+add_operation_to_builder_transaction  
+set_fees_on_builder_transaction  
+sign_builder_transaction
 
+#### begin\_builder\_transaction
 
+**接口定义：** `transaction_handle_type begin_builder_transaction()`
+
+**功能说明：** 构建`transaction`实例，与其他构建交易的命令一起使用
+
+**参数：** 无
+
+**示例：**
+
+```bash
+unlocked >>> begin_builder_transaction
+begin_builder_transaction
+0
+```
+
+#### add\_operation\_to\_builder\_transaction
+
+**接口定义：** `void add_operation_to_builder_transaction(transaction_handle_type transaction_handle, const operation & op)`
+
+**功能说明：** 添加一个`operation`到构建的实例中，与其他构建交易的命令一起使用
+
+**备注：** 该接口添加的operation结构可以使用`get_prototype_operation`命令获取，其中参数参见[operation类型说明](#operation)
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+transaction_handle | transaction_handle_type | begin_builder_transaction的返回值，构建的交易的索引
+op   | const operation & | 添加到transaction实例的operation对象
+
+**示例：** 
+
+```bash
+unlocked >>> add_operation_to_builder_transaction 0 [0,{"from":"1.2.426","to":"1.2.425","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
+add_operation_to_builder_transaction 0 [0,{"from":"1.2.426","to":"1.2.425","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
+null
+```
+
+#### set\_fees\_on\_builder\_transaction
+
+**接口定义：** `asset set_fees_on_builder_transaction(transaction_handle_type handle, string fee_asset)`
+
+**功能说明：** 设置构建交易的手续费
+
+**参数：** 
+
+参数 | 类型 | 描述
+---|---|---
+handle | transaction_handle_type | begin_builder_transaction的返回值，构建的交易的索引
+fee_asset   | string | 添加的手续费资产类型
+
+**示例：**
+
+```bash
+unlocked >>> set_fees_on_builder_transaction 0 GXC
+set_fees_on_builder_transaction 0 GXC
+{
+  "amount": 1000,
+  "asset_id": "1.3.1"
+}
+```
+
+#### sign\_builder\_transaction
+
+**接口定义：** `signed_transaction sign_builder_transaction(transaction_handle_type transaction_handle, bool broadcast)`
+
+**功能说明：** 签署构造的交易并选择广播
+
+**参数：** 
+
+参数 | 类型 | 描述
+---|---|---
+transaction_handle | transaction_handle_type | begin_builder_transaction的返回值，构建的交易的索引
+broadcast   | bool | 是否广播
+
+**示例：**
+
+```bash
+unlocked >>> sign_builder_transaction 0 true
+sign_builder_transaction 0 true
+{
+  "ref_block_num": 62831,
+  "ref_block_prefix": 3969632163,
+  "expiration": "2019-04-08T08:46:03",
+  "operations": [[
+      0,{
+        "fee": {
+          "amount": 1000,
+          "asset_id": "1.3.1"
+        },
+        "from": "1.2.426",
+        "to": "1.2.425",
+        "amount": {
+          "amount": 3,
+          "asset_id": "1.3.1"
+        },
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "207e9b0b29eb4b0dec8de0f7e64334109a3f0ebd4ce62b429b961f29a77c26799f3511f42638fdcf40811f5dab64f530c9f1f6013808c6d0d4167476e5afa52345"
+  ]
+}
+```
+
+#### operation
+
+```cpp
+   typedef fc::static_variant<
+            transfer_operation,
+            limit_order_create_operation,
+            limit_order_cancel_operation,
+            call_order_update_operation,
+            fill_order_operation,           // VIRTUAL
+            account_create_operation,
+            account_update_operation,//6
+            account_whitelist_operation,//7
+            account_upgrade_operation,//8
+            account_transfer_operation,//9
+            asset_create_operation,//10
+            asset_update_operation,//11
+            asset_update_bitasset_operation,//12
+            asset_update_feed_producers_operation,//13
+            asset_issue_operation,//14
+            asset_reserve_operation,//15
+            asset_fund_fee_pool_operation,//16
+            asset_settle_operation,//17
+            asset_global_settle_operation,//18
+            asset_publish_feed_operation,//19
+            witness_create_operation,//20
+            witness_update_operation,//21
+            proposal_create_operation,//22
+            proposal_update_operation,//23
+            proposal_delete_operation,//24
+            withdraw_permission_create_operation,//25
+            withdraw_permission_update_operation,//26
+            withdraw_permission_claim_operation,//27
+            withdraw_permission_delete_operation,//28
+            committee_member_create_operation,//29
+            committee_member_update_operation,//30
+            committee_member_update_global_parameters_operation,//31
+            vesting_balance_create_operation,//32
+            vesting_balance_withdraw_operation,//33
+            worker_create_operation,//34
+            custom_operation,//35
+            assert_operation,//36
+            balance_claim_operation,//37
+            override_transfer_operation,//38
+            transfer_to_blind_operation,//39
+            blind_transfer_operation,//40
+            transfer_from_blind_operation,//41
+            asset_settle_cancel_operation,  // VIRTUAL
+            asset_claim_fees_operation,//43
+            fba_distribute_operation,        // VIRTUAL
+            account_upgrade_merchant_operation,//45
+            account_upgrade_datasource_operation,//46
+            stale_data_market_category_create_operation,//47, stale
+            stale_data_market_category_update_operation,//48, stale
+            stale_free_data_product_create_operation,//49, stale
+            stale_free_data_product_update_operation,//50, stale
+            stale_league_data_product_create_operation,//51, stale
+            stale_league_data_product_update_operation,//52, stale
+            stale_league_create_operation,//53, stale
+            stale_league_update_operation,//54, stale
+            data_transaction_create_operation, // 55
+            data_transaction_update_operation, // 56
+            pay_data_transaction_operation,  // 57
+            account_upgrade_data_transaction_member_operation, // 58
+            data_transaction_datasource_upload_operation, // 59
+            data_transaction_datasource_validate_error_operation, // 60
+            data_market_category_create_operation,//61
+            data_market_category_update_operation,//62
+            free_data_product_create_operation,//63
+            free_data_product_update_operation,//64
+            league_data_product_create_operation,//65
+            league_data_product_update_operation,//66
+            league_create_operation,//67
+            league_update_operation,//68
+            datasource_copyright_clear_operation,//69
+            data_transaction_complain_operation,//70
+            balance_lock_operation,//71
+            balance_unlock_operation,//72
+            proxy_transfer_operation, //73
+            contract_deploy_operation, //74
+            contract_call_operation, //75
+            contract_update_operation, //76
+            trust_node_pledge_withdraw_operation, //77
+            inline_transfer_operation, //78
+            inter_contract_call_operation //79
+         > operation;
+```
+
+### 2.6 发起提案
+
+上面我们手工构造了一笔交易并发送成功，以下我们便发起一个提案。发起提案的操作与构造手工交易类似，相较于构造交易，增加了一个发起提案的命令。操作步骤如下所示：
+
+>begin_builder_transaction  
+add_operation_to_builder_transaction  
+propose_builder_transaction2  
+set_fees_on_builder_transaction  
+sign_builder_transaction
+
+其中可以通过`propose_builder_transaction2`命令发起提案。
+
+#### propose\_builder\_transaction2
+
+**接口定义：** `signed_transaction propose_builder_transaction2(transaction_handle_type handle, string account_name_or_id, time_point_sec expiration, uint32_t review_period_seconds, bool broadcast)`
+
+**功能说明：** 发起提案
+
+**参数：** 
+
+参数 | 类型 | 描述
+---|---|---
+transaction_handle | transaction_handle_type | begin_builder_transaction的返回值，构建的交易的索引
+account_name_or_id   | string | 发起提案的账户
+expiration | time_point_sec | 到期时间
+review_period_seconds | uint32_t | 审核期
+broadcast | bool | 是否广播
+
+**示例：**
+
+```bash
+unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
+propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
+{
+  "ref_block_num": 63344,
+  "ref_block_prefix": 2285425626,
+  "expiration": "2019-04-08T09:12:33",
+  "operations": [[
+      22,{
+        "fee": {
+          "amount": 100,
+          "asset_id": "1.3.1"
+        },
+        "fee_paying_account": "1.2.426",
+        "expiration_time": "2019-04-09T09:05:50",
+        "proposed_ops": [{
+            "op": [
+              0,{
+                "fee": {
+                  "amount": 1000,
+                  "asset_id": "1.3.1"
+                },
+                "from": "1.2.425",
+                "to": "1.2.426",
+                "amount": {
+                  "amount": 3,
+                  "asset_id": "1.3.1"
+                },
+                "extensions": []
+              }
+            ]
+          }
+        ],
+        "review_period_seconds": 3600,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
+  ]
+}
+```
+
+以下是一个发起提案的示例:
+
+```bash
+#构建交易示例
+unlocked >>> begin_builder_transaction
+begin_builder_transaction
+3
+#添加operation
+unlocked >>> add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
+add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
+null
+#发起提案
+unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
+propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
+{
+  "ref_block_num": 63344,
+  "ref_block_prefix": 2285425626,
+  "expiration": "2019-04-08T09:12:33",
+  "operations": [[
+      22,{
+        "fee": {
+          "amount": 100,
+          "asset_id": "1.3.1"
+        },
+        "fee_paying_account": "1.2.426",
+        "expiration_time": "2019-04-09T09:05:50",
+        "proposed_ops": [{
+            "op": [
+              0,{
+                "fee": {
+                  "amount": 1000,
+                  "asset_id": "1.3.1"
+                },
+                "from": "1.2.425",
+                "to": "1.2.426",
+                "amount": {
+                  "amount": 3,
+                  "asset_id": "1.3.1"
+                },
+                "extensions": []
+              }
+            ]
+          }
+        ],
+        "review_period_seconds": 3600,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
+  ]
+}
+#设置手续费
+unlocked >>> set_fees_on_builder_transaction 3 GXC
+set_fees_on_builder_transaction 3 GXC
+{
+  "amount": 100,
+  "asset_id": "1.3.1"
+}
+#签名并广播
+unlocked >>> sign_builder_transaction 3 true
+sign_builder_transaction 3 true
+{
+  "ref_block_num": 63350,
+  "ref_block_prefix": 1608432681,
+  "expiration": "2019-04-08T09:12:51",
+  "operations": [[
+      22,{
+        "fee": {
+          "amount": 100,
+          "asset_id": "1.3.1"
+        },
+        "fee_paying_account": "1.2.426",
+        "expiration_time": "2019-04-09T09:05:50",
+        "proposed_ops": [{
+            "op": [
+              0,{
+                "fee": {
+                  "amount": 1000,
+                  "asset_id": "1.3.1"
+                },
+                "from": "1.2.425",
+                "to": "1.2.426",
+                "amount": {
+                  "amount": 3,
+                  "asset_id": "1.3.1"
+                },
+                "extensions": []
+              }
+            ]
+          }
+        ],
+        "review_period_seconds": 3600,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "2068ca58484ad452fd8c1821927f244233b9dd82a7fe5098959ab598491def538e49ab4e1d9eb496a6793a75ef2747f9c183bdfaf8ab609d36cdf94e6fcbca203e"
+  ]
+}
+```
+
+### 2.7 生成brain\_key
+
+可以使用`cli_wallet`生成GXChain公私钥对，输入如下命令：
+
+```bash
+unlocked >>> suggest_brain_key
+suggest_brain_key
+{
+  "brain_priv_key": "JANE PUNLET SHINDLE TROPAL MORGAN FENBANK SMOLT HYMEN ABOUT ACINAR CARDED BILKER DAMINE CHYMIC FRINGE PROFIT",
+  "wif_priv_key": "5Jki4BJqFhjDhujv9235e3RzXNBtJRzwEDr21sWr73ybUPwGgv6",
+  "pub_key": "GXC58tBmaibqe6sYnwG9F2cVnqGkMoSzgnM8fVwVKUtbTWzjG6oTe"
+}
+```
 
