@@ -543,7 +543,7 @@ broadcast | bool | Whether to broadcast
 **Example:** 
 
 ```bash
-unlocked >>> call_contract zhao-123 hello0306 null hi \"{\"user\":\"gxchain\"}" GXC true
+unlocked >>> call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
 call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
 {
   "ref_block_num": 61393,
