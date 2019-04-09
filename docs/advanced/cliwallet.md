@@ -1,4 +1,4 @@
-# cli\_wallet introduce
+# Cli\_wallet Introduce
 
 cli_wallet is a command-line tool provided by GXChain that provides functions such as transferring funds, calling contracts, and querying objects. After starting the command line tool, executing the `help` command will output all the commands supported by the tool. This tutorial demonstrates how to use the `cli_wallet` tool.
 

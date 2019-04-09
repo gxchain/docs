@@ -14,4 +14,5 @@
 - [如何启动测试网络?](./testnet.md)
 - [如何搭建私有链？](./private_chain.md)
 - [区块和交易结构介绍](./block_operation_object.md)
+- [cli_wallet使用教程](./cliwallet.md)
 
