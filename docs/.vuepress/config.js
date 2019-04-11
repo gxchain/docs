@@ -145,7 +145,8 @@ function genSidebarConfig (module, title) {
                     'private_chain',
                     'block_operation_object',
                     'account_rule',
-                    'cliwallet'
+                    'cli_wallet',
+                    'mul_sign'
                 ]
             }
         ];
