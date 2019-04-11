@@ -54,7 +54,129 @@ true
 
 界面显示为`unlocked`状态，此时便可以通过钱包进行复杂功能的操作。
 
-### 2.2 获取链上信息
+### 2.2 账户操作
+
+可以使用`cli_wallet`工具注册账户，并升级账户为终身会员，具体命令如下：
+
+#### register\_account
+
+**接口定义：** `signed_transaction register_account(string name, public_key_type owner, public_key_type active, string registrar_account, string referrer_account, uint32_t referrer_percent, bool broadcast)`
+
+**功能说明：** 注册账户
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+name | string | 需要注册的账户名
+owner | public_key_type | ower公钥
+active | public_key_type | active 公钥
+registrar_account | string | 推荐人账户
+referrer_account | string | 推荐人返现百分比
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ zhao-123 zhao-123 10 true
+register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ zhao-123 zhao-123 10 true
+{
+  "ref_block_num": 10747,
+  "ref_block_prefix": 3037397366,
+  "expiration": "2019-04-11T03:47:24",
+  "operations": [[
+      5,{
+        "fee": {
+          "amount": 102,
+          "asset_id": "1.3.1"
+        },
+        "registrar": "1.2.426",
+        "referrer": "1.2.426",
+        "referrer_percent": 1000,
+        "name": "a111",
+        "owner": {
+          "weight_threshold": 1,
+          "account_auths": [],
+          "key_auths": [[
+              "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+              1
+            ]
+          ],
+          "address_auths": []
+        },
+        "active": {
+          "weight_threshold": 1,
+          "account_auths": [],
+          "key_auths": [[
+              "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+              1
+            ]
+          ],
+          "address_auths": []
+        },
+        "options": {
+          "memo_key": "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+          "voting_account": "1.2.5",
+          "num_witness": 0,
+          "num_committee": 0,
+          "votes": [],
+          "extensions": []
+        },
+        "extensions": {}
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "1f4510f43daf1f2ecb83dd8b8c4b21b1ce1031ea0a64562ce5f20dbe3b4b8f9d9e2b438a74a0c56cc6c37f6e21e6aeeadd8619de8e916a268e964d68d9e68fc35f"
+  ]
+}
+```
+
+#### upgrade\_account
+
+**接口定义：** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
+
+**功能说明：** 升级账户到终身会员，需要保证账户最少有50GXC资产
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+name | string | 账户名
+asset_symbol | string | 资产名
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> upgrade_account test-upgrade GXC true
+upgrade_account test-upgrade GXC true
+{
+  "ref_block_num": 13251,
+  "ref_block_prefix": 906310083,
+  "expiration": "2019-04-11T06:56:36",
+  "operations": [[
+      8,{
+        "fee": {
+          "amount": 5000000,
+          "asset_id": "1.3.1"
+        },
+        "account_to_upgrade": "1.2.2575",
+        "upgrade_to_lifetime_member": true,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
+  ]
+}
+```
+
+
+### 2.3 获取链上信息
 
 `cli_wallet`工具可以通过相关命令获取链上内存对象信息（账户、资产、合约table等），也可以获取链上区块信息（区块数据、不可逆区块号等）。（按Tab键可以查看命令提示并补全）
 
@@ -391,7 +513,39 @@ get_witness 1.6.1
 }
 ```
 
-### 2.3 向其他账户转账
+#### get\_account\_history
+
+**接口定义：** `vector<operation_detail> get_account_history(string name, int limit)`
+
+**功能说明：** 获取指定账户交易历史
+
+**特殊说明：** 需要设置`config.ini`文件中的配置选项，如下所示
+
+```json
+ # Account ID to track history for (may specify multiple times)
+ track-account = "1.2.426"
+
+ # Maximum number of operations per account will be kept in memory
+ max-ops-per-account = 10000
+```
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+name | string | 账户名
+limit | int | 获取的条目数
+
+**示例：** 
+
+```bash
+unlocked >>> get_account_history zhao-123 5
+get_account_history zhao-123 5
+2019-04-11T06:51:18 Transfer 1 GXC from zhao-123 to nathan   (Fee: 0.01000 GXC)
+2019-04-11T06:51:03 Transfer 1 GXC from zhao-123 to nathan   (Fee: 0.01000 GXC)
+```
+
+### 2.4 向其他账户转账
 
 这里我们通过`cli_wallet`命令行工具，发起一笔转账，请注意：在发起一笔转账前，需要保证已经导入了转账账户的私钥
 
@@ -448,7 +602,7 @@ transfer zhao-123 nathan 1 GXC "transfer test" true
 }
 ```
 
-### 2.4 与智能合约交互
+### 2.5 与智能合约交互
 
 这里我们使用`cli_wallet`工具与智能合约交互，包括部署合约、更新合约、调用合约。
 
@@ -558,7 +712,7 @@ call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
 }
 ```
 
-### 2.5 手工构造交易
+### 2.6 手工构造交易
 
 以下内容为如何通过`cli_wallet`命令行工具构造交易，步骤如下
 
@@ -762,7 +916,7 @@ sign_builder_transaction 0 true
          > operation;
 ```
 
-### 2.6 发起提案
+### 2.7 发起提案
 
 上面我们手工构造了一笔交易并发送成功，以下我们便发起一个提案。发起提案的操作与构造手工交易类似，相较于构造交易，增加了一个发起提案的命令。操作步骤如下所示：
 
@@ -943,7 +1097,7 @@ sign_builder_transaction 3 true
 }
 ```
 
-### 2.7 生成brain\_key
+### 2.8 生成brain\_key
 
 可以使用`cli_wallet`生成GXChain公私钥对，输入如下命令：
 

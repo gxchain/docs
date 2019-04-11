@@ -54,7 +54,128 @@ true
 
 The interface is displayed in the `unlocked` state, and you can perform complex functions through the wallet.
 
-### 2.2 Get information on the chain
+### 2.2 Account
+
+You can use the `cli_wallet` tool to register your account and upgrade your account to a lifetime membership. The specific commands are as follows:
+
+#### register\_account
+
+**Interface:** `signed_transaction register_account(string name, public_key_type owner, public_key_type active, string registrar_account, string referrer_account, uint32_t referrer_percent, bool broadcast)`
+
+**Description:** Register account
+
+**Parameter:**
+
+Param | Type | Description
+---|---|---
+name | string | Account name to be registered
+owner | public_key_type | ower public key
+active | public_key_type | active public key
+registrar_account | string | Referrer account
+referrer_account | string | Referral percentage
+broadcast | bool | Whether to broadcast
+
+**Example:** 
+
+```bash
+unlocked >>> register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ zhao-123 zhao-123 10 true
+register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ zhao-123 zhao-123 10 true
+{
+  "ref_block_num": 10747,
+  "ref_block_prefix": 3037397366,
+  "expiration": "2019-04-11T03:47:24",
+  "operations": [[
+      5,{
+        "fee": {
+          "amount": 102,
+          "asset_id": "1.3.1"
+        },
+        "registrar": "1.2.426",
+        "referrer": "1.2.426",
+        "referrer_percent": 1000,
+        "name": "a111",
+        "owner": {
+          "weight_threshold": 1,
+          "account_auths": [],
+          "key_auths": [[
+              "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+              1
+            ]
+          ],
+          "address_auths": []
+        },
+        "active": {
+          "weight_threshold": 1,
+          "account_auths": [],
+          "key_auths": [[
+              "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+              1
+            ]
+          ],
+          "address_auths": []
+        },
+        "options": {
+          "memo_key": "GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ",
+          "voting_account": "1.2.5",
+          "num_witness": 0,
+          "num_committee": 0,
+          "votes": [],
+          "extensions": []
+        },
+        "extensions": {}
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "1f4510f43daf1f2ecb83dd8b8c4b21b1ce1031ea0a64562ce5f20dbe3b4b8f9d9e2b438a74a0c56cc6c37f6e21e6aeeadd8619de8e916a268e964d68d9e68fc35f"
+  ]
+}
+```
+
+#### upgrade\_account
+
+**Interface:** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
+
+**Description:** To upgrade your account to a lifetime membership, you need to ensure that your account has at least 50GXC assets.
+
+**Parameter:**
+
+Param | Type | Description
+---|---|---
+name | string | account name
+asset_symbol | string | asset name
+broadcast | bool | Whether to broadcast
+
+**Example:** 
+
+```bash
+unlocked >>> upgrade_account test-upgrade GXC true
+upgrade_account test-upgrade GXC true
+{
+  "ref_block_num": 13251,
+  "ref_block_prefix": 906310083,
+  "expiration": "2019-04-11T06:56:36",
+  "operations": [[
+      8,{
+        "fee": {
+          "amount": 5000000,
+          "asset_id": "1.3.1"
+        },
+        "account_to_upgrade": "1.2.2575",
+        "upgrade_to_lifetime_member": true,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
+  ]
+}
+```
+
+### 2.3 Get information on the chain
 
 The `cli_wallet` tool can obtain the memory object information (account, asset, contract table, etc.) on the chain through related commands, and can also obtain the block information on the chain (block data, irreversible block number, etc.). (Press the Tab key to view the command prompt and complete)
 
@@ -391,7 +512,39 @@ get_witness 1.6.1
 }
 ```
 
-### 2.3 Transfer to other accounts
+#### get\_account\_history
+
+**Interface:** `vector<operation_detail> get_account_history(string name, int limit)`
+
+**Description:** Get the account history of the specified account
+
+**Special Instructions:** Need to set the configuration options in the `config.ini` file as shown below
+
+```json
+ # Account ID to track history for (may specify multiple times)
+ track-account = "1.2.426"
+
+ # Maximum number of operations per account will be kept in memory
+ max-ops-per-account = 10000
+```
+
+**Parameter:**
+
+Param | Type | Description
+---|---|---
+name | string | account
+limit | int | limit number
+
+**Example:** 
+
+```bash
+unlocked >>> get_account_history zhao-123 5
+get_account_history zhao-123 5
+2019-04-11T06:51:18 Transfer 1 GXC from zhao-123 to nathan   (Fee: 0.01000 GXC)
+2019-04-11T06:51:03 Transfer 1 GXC from zhao-123 to nathan   (Fee: 0.01000 GXC)
+```
+
+### 2.4 Transfer to other accounts
 
 Here we use the `cli_wallet` command line tool to initiate a transfer. Please note: before initiating a transfer, you need to ensure that the private key of the transfer account has been imported.
 
@@ -448,7 +601,7 @@ transfer zhao-123 nathan 1 GXC "transfer test" true
 }
 ```
 
-### 2.4 Interact with smart contracts
+### 2.5 Interact with smart contracts
 
 Here we use the `cli_wallet` tool to interact with smart contracts, including deploying contracts, updating contracts, and invoking contracts.
 
@@ -558,7 +711,7 @@ call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
 }
 ```
 
-### 2.5 Manually constructing a transaction
+### 2.6 Manually constructing a transaction
 
 The following is how to construct a transaction through the `cli_wallet` command line tool, the steps are as follows
 
@@ -762,7 +915,7 @@ sign_builder_transaction 0 true
          > operation;
 ```
 
-### 2.6 Initiate a proposal
+### 2.7 Initiate a proposal
 
 Above we manually constructed a transaction and sent it successfully, we will initiate a proposal below. The operation of initiating a proposal is similar to constructing a manual transaction, with the addition of a command to initiate a proposal compared to constructing a transaction. The steps are as follows:
 
@@ -943,7 +1096,7 @@ sign_builder_transaction 3 true
 }
 ```
 
-### 2.7 create brain\_key
+### 2.8 Create brain\_key
 
 You can use the `cli_wallet` to generate a GXChain public and private key pair. Enter the following command:
 
