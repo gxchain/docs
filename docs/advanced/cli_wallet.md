@@ -15,6 +15,8 @@ Before starting the `cli_wallet` tool, you first need to start a node program `w
 
 ## 2. Cli\_wallet Common Functions
 
+In the `cli_wallet` process, the `help` and `get_help` commands can help you quickly learn the command line wallet API.
+
 ### 2.1 New wallet settings, private key import
 
 After launching the `cli_wallet` tool correctly, it will enter an interactive window. If it is launched for the first time, you will be prompted to create a new wallet, the window prompts as follows:

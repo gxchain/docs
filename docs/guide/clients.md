@@ -2,20 +2,14 @@
 
 ## Cli
 
-We introduced how to download and install in [Getting started with GXChain](/guide/#install)
+We introduced how to download and install in [Getting started with GXChain](/guide/#install) 
 
-Start cli after nodes synchronization
-
-``` bash
-./programs/cli_wallet/cli_wallet
-```
-
-Learn API via Help and get_help
+After the command line wallet cli_wallet waits for the node synchronization to complete, start the command line wallet in the root directory. Click to [cli_wallet Introduce](../advanced/cli_wallet.html)
 
 ## Light Wallet
 | Client | Link | Github |
 | :-- | :-- | :-- |
-| PC | [Open](https://wallet.gxb.io) | [gxchain/gxb-light](https://github.com/gxchain/gxb-light) |
+| PC | [Mainnet](https://wallet.gxb.io)[Testnet](https://testnet.wallet.gxchain.org) | [gxchain/gxb-light](https://github.com/gxchain/gxb-light) |
 | Mobile | [Download](https://blockcity.gxb.io/download) | [gxchain/gxs-wallet](https://github.com/gxchain/gxs-wallet) |
 
 
@@ -23,11 +17,11 @@ Learn API via Help and get_help
 
 To conveniently call gxchain api, we encapsulated gxclient and implements the following functions:
 
-- [x] [KeyPair generation](https://github.com/gxchain/gxclient-node#2-keypair-generation)
-- [x] [Account register](https://github.com/gxchain/gxclient-node#3-account-register)
-- [x] [Transfer](https://github.com/gxchain/gxclient-node#4-transfer)
-- [x] [Transaction detect](https://github.com/gxchain/gxclient-node#1-transaction-detect)
-- [x] [Memo decryption](https://github.com/gxchain/gxclient-node#1-transaction-detect)
+- [x] [KeyPair generation](https://gxchain.github.io/gxclient-node/api/#chain-api)
+- [x] [Get chain](https://gxchain.github.io/gxclient-node/api/#chain-api)
+- [x] [Account](https://gxchain.github.io/gxclient-node/api/#account-api)
+- [x] [Asset](https://gxchain.github.io/gxclient-node/api/#asset-api)
+- [x] [Contract](https://gxchain.github.io/gxclient-node/api/#contract-api)
 
 | Client | Link |
 | :-- | :-- |

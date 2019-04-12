@@ -119,8 +119,8 @@ function genSidebarConfig (module, title) {
                 collapsable: false,
                 children: [
                     '',
-                    'apis',
-                    'clients'
+                    'clients',
+                    'apis'
                 ]
             }
         ];
