@@ -56,13 +56,54 @@ true
 
 ### 2.2 账户操作
 
-可以使用`cli_wallet`工具注册账户，并升级账户为终身会员，具体命令如下：
+可以使用`cli_wallet`工具注册账户，升级账户为终身会员，具体命令如下：
 
+#### upgrade\_account
+
+**接口定义：** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
+
+**功能说明：** 升级账户到终身会员，需要保证账户最少有50GXC资产
+
+**参数：**
+
+参数 | 类型 | 描述
+---|---|---
+name | string | 账户名
+asset_symbol | string | 资产名
+broadcast | bool | 是否广播
+
+**示例：** 
+
+```bash
+unlocked >>> upgrade_account test-upgrade GXC true
+upgrade_account test-upgrade GXC true
+{
+  "ref_block_num": 13251,
+  "ref_block_prefix": 906310083,
+  "expiration": "2019-04-11T06:56:36",
+  "operations": [[
+      8,{
+        "fee": {
+          "amount": 5000000,
+          "asset_id": "1.3.1"
+        },
+        "account_to_upgrade": "1.2.2575",
+        "upgrade_to_lifetime_member": true,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
+  ]
+}
+```
 #### register\_account
 
 **接口定义：** `signed_transaction register_account(string name, public_key_type owner, public_key_type active, string registrar_account, string referrer_account, uint32_t referrer_percent, bool broadcast)`
 
-**功能说明：** 注册账户
+**功能说明：** 注册账户，需要是终身会员才可以注册账户
 
 **参数：**
 
@@ -132,49 +173,6 @@ register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6
   ]
 }
 ```
-
-#### upgrade\_account
-
-**接口定义：** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
-
-**功能说明：** 升级账户到终身会员，需要保证账户最少有50GXC资产
-
-**参数：**
-
-参数 | 类型 | 描述
----|---|---
-name | string | 账户名
-asset_symbol | string | 资产名
-broadcast | bool | 是否广播
-
-**示例：** 
-
-```bash
-unlocked >>> upgrade_account test-upgrade GXC true
-upgrade_account test-upgrade GXC true
-{
-  "ref_block_num": 13251,
-  "ref_block_prefix": 906310083,
-  "expiration": "2019-04-11T06:56:36",
-  "operations": [[
-      8,{
-        "fee": {
-          "amount": 5000000,
-          "asset_id": "1.3.1"
-        },
-        "account_to_upgrade": "1.2.2575",
-        "upgrade_to_lifetime_member": true,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
-  ]
-}
-```
-
 
 ### 2.3 获取链上信息
 
@@ -1099,7 +1097,13 @@ sign_builder_transaction 3 true
 
 ### 2.8 生成brain\_key
 
-可以使用`cli_wallet`生成GXChain公私钥对，输入如下命令：
+**接口定义：** `brain_key_info suggest_brain_key()`
+
+**功能说明：** 生成GXChain公私钥对、brain_key
+
+**参数：** 无
+
+**示例：**
 
 ```bash
 unlocked >>> suggest_brain_key
@@ -1110,4 +1114,44 @@ suggest_brain_key
   "pub_key": "GXC58tBmaibqe6sYnwG9F2cVnqGkMoSzgnM8fVwVKUtbTWzjG6oTe"
 }
 ```
+### 2.9 赎回公信节点保证金
+
+**接口定义：** `signed_transaction withdraw_trust_node_pledge(string account_name, string fee_asset_symbol, bool broadcast)`
+
+**功能说明：** 赎回公信节点保证金
+
+**参数：** 
+
+参数 | 类型 | 描述
+---|---|---
+account_name | string | 公信节点账户名
+fee_asset_symbol | string | 资产名
+broadcast | bool | 是否广播
+
+**示例：**
+
+```bash
+unlocked >>> withdraw_trust_node_pledge zhao-123 GXC true
+withdraw_trust_node_pledge zhao-123 GXC true
+{
+  "ref_block_num": 44471,
+  "ref_block_prefix": 2738120339,
+  "expiration": "2019-04-12T08:27:33",
+  "operations": [[
+      77,{
+        "fee": {
+          "amount": 100000,
+          "asset_id": "1.3.1"
+        },
+        "witness_account": "1.2.426"
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "204f800aa97879fc80422f9325d974d8e490945466e36f86cef5346ca8065206a6309cca6267109225222b0fb551115acd7919ad5eb8acfa50d30df50bbf0a368c"
+  ]
+}
+```
+
 

@@ -58,6 +58,48 @@ The interface is displayed in the `unlocked` state, and you can perform complex 
 
 You can use the `cli_wallet` tool to register your account and upgrade your account to a lifetime membership. The specific commands are as follows:
 
+#### upgrade\_account
+
+**Interface:** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
+
+**Description:** To upgrade your account to a lifetime membership, you need to ensure that your account has at least 50GXC assets.
+
+**Parameter:**
+
+Param | Type | Description
+---|---|---
+name | string | account name
+asset_symbol | string | asset name
+broadcast | bool | Whether to broadcast
+
+**Example:** 
+
+```bash
+unlocked >>> upgrade_account test-upgrade GXC true
+upgrade_account test-upgrade GXC true
+{
+  "ref_block_num": 13251,
+  "ref_block_prefix": 906310083,
+  "expiration": "2019-04-11T06:56:36",
+  "operations": [[
+      8,{
+        "fee": {
+          "amount": 5000000,
+          "asset_id": "1.3.1"
+        },
+        "account_to_upgrade": "1.2.2575",
+        "upgrade_to_lifetime_member": true,
+        "extensions": []
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
+  ]
+}
+```
+
 #### register\_account
 
 **Interface:** `signed_transaction register_account(string name, public_key_type owner, public_key_type active, string registrar_account, string referrer_account, uint32_t referrer_percent, bool broadcast)`
@@ -129,48 +171,6 @@ register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6
   "extensions": [],
   "signatures": [
     "1f4510f43daf1f2ecb83dd8b8c4b21b1ce1031ea0a64562ce5f20dbe3b4b8f9d9e2b438a74a0c56cc6c37f6e21e6aeeadd8619de8e916a268e964d68d9e68fc35f"
-  ]
-}
-```
-
-#### upgrade\_account
-
-**Interface:** `signed_transaction upgrade_account(string name, string asset_symbol, bool broadcast)`
-
-**Description:** To upgrade your account to a lifetime membership, you need to ensure that your account has at least 50GXC assets.
-
-**Parameter:**
-
-Param | Type | Description
----|---|---
-name | string | account name
-asset_symbol | string | asset name
-broadcast | bool | Whether to broadcast
-
-**Example:** 
-
-```bash
-unlocked >>> upgrade_account test-upgrade GXC true
-upgrade_account test-upgrade GXC true
-{
-  "ref_block_num": 13251,
-  "ref_block_prefix": 906310083,
-  "expiration": "2019-04-11T06:56:36",
-  "operations": [[
-      8,{
-        "fee": {
-          "amount": 5000000,
-          "asset_id": "1.3.1"
-        },
-        "account_to_upgrade": "1.2.2575",
-        "upgrade_to_lifetime_member": true,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "202abed5a02c1b75fa804f3550416546bf389673f77d0c9b76d8a8b0b8797a6c315be31a039ff7677ee0264b0a1d2c96a236b1181bc0964b9776ba16cbaf3e56ac"
   ]
 }
 ```
@@ -1098,7 +1098,13 @@ sign_builder_transaction 3 true
 
 ### 2.8 Create brain\_key
 
-You can use the `cli_wallet` to generate a GXChain public and private key pair. Enter the following command:
+**Interface:** `brain_key_info suggest_brain_key()`
+
+**Description:** generate a GXChain public and private key pair and brain_key
+
+**Parameter:** 无
+
+**Example**
 
 ```bash
 unlocked >>> suggest_brain_key
@@ -1107,6 +1113,46 @@ suggest_brain_key
   "brain_priv_key": "JANE PUNLET SHINDLE TROPAL MORGAN FENBANK SMOLT HYMEN ABOUT ACINAR CARDED BILKER DAMINE CHYMIC FRINGE PROFIT",
   "wif_priv_key": "5Jki4BJqFhjDhujv9235e3RzXNBtJRzwEDr21sWr73ybUPwGgv6",
   "pub_key": "GXC58tBmaibqe6sYnwG9F2cVnqGkMoSzgnM8fVwVKUtbTWzjG6oTe"
+}
+```
+
+### 2.9 Redemption of the trust node margin
+
+**Interface:** `signed_transaction withdraw_trust_node_pledge(string account_name, string fee_asset_symbol, bool broadcast)`
+
+**Description:** Redemption of the trust node margin
+
+**Parameter:** 
+
+Param | Type | Description
+---|---|---
+account_name | string | trust node name
+fee_asset_symbol | string | asset name
+broadcast | bool | Whether to broadcast
+
+**Example:**
+
+```bash
+unlocked >>> withdraw_trust_node_pledge zhao-123 GXC true
+withdraw_trust_node_pledge zhao-123 GXC true
+{
+  "ref_block_num": 44471,
+  "ref_block_prefix": 2738120339,
+  "expiration": "2019-04-12T08:27:33",
+  "operations": [[
+      77,{
+        "fee": {
+          "amount": 100000,
+          "asset_id": "1.3.1"
+        },
+        "witness_account": "1.2.426"
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "204f800aa97879fc80422f9325d974d8e490945466e36f86cef5346ca8065206a6309cca6267109225222b0fb551115acd7919ad5eb8acfa50d30df50bbf0a368c"
+  ]
 }
 ```
 
