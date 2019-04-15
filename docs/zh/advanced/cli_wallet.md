@@ -1156,4 +1156,56 @@ withdraw_trust_node_pledge zhao-123 GXC true
 }
 ```
 
+### 3.0 投票给公信节点
 
+**接口定义：** `signed_transaction vote_for_trust_nodes(string voting_account, vector<string> account_names, bool broadcast)`
+
+**功能说明：** 投票给公信节点
+
+**参数：** 
+
+参数 | 类型 | 描述
+---|---|---
+voting_account | string | 投票账户
+fee_asset_symbol | vector<string> | 待投的公信节点
+broadcast | bool | 是否广播
+
+**示例：**
+
+```bash
+unlocked >>> vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
+vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
+{
+  "ref_block_num": 63768,
+  "ref_block_prefix": 2128885974,
+  "expiration": "2019-04-15T08:23:48",
+  "operations": [[
+      6,{
+        "fee": {
+          "amount": 106,
+          "asset_id": "1.3.1"
+        },
+        "account": "1.2.426",
+        "new_options": {
+          "memo_key": "GXC8cQnHYf2RGgeAEAQKAT3i9Hz9rxJagcXcXD8Znvtj16vYybwxE",
+          "voting_account": "1.2.5",
+          "num_witness": 2,
+          "num_committee": 2,
+          "votes": [
+            "0:85",
+            "1:86",
+            "0:97",
+            "1:98"
+          ],
+          "extensions": []
+        },
+        "extensions": {}
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "201443e64789cbb1e0c0b6cca9405c90debdda77fadef2c89a052ddbe7f83104e60dd54e95a2430ad309daf524fa7dc92f8f7859423f2c305785e857d63bd6f201"
+  ]
+}
+```
