@@ -1158,3 +1158,89 @@ withdraw_trust_node_pledge zhao-123 GXC true
 }
 ```
 
+### 3.0 Vote for trust nodes
+
+**Interface:** `signed_transaction vote_for_trust_nodes(string voting_account, vector<string> account_names, bool broadcast)`
+
+**Description:** vote for trust nodes
+
+**Parameter:** 
+
+Param | Type | Description
+---|---|---
+voting_account | string | vote account
+account_names | vector\<string\> | Trust nodes to be voted
+broadcast | bool | Whether to broadcast
+
+**Example:**
+
+```bash
+unlocked >>> vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
+vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
+{
+  "ref_block_num": 63768,
+  "ref_block_prefix": 2128885974,
+  "expiration": "2019-04-15T08:23:48",
+  "operations": [[
+      6,{
+        "fee": {
+          "amount": 106,
+          "asset_id": "1.3.1"
+        },
+        "account": "1.2.426",
+        "new_options": {
+          "memo_key": "GXC8cQnHYf2RGgeAEAQKAT3i9Hz9rxJagcXcXD8Znvtj16vYybwxE",
+          "voting_account": "1.2.5",
+          "num_witness": 2,
+          "num_committee": 2,
+          "votes": [
+            "0:85",
+            "1:86",
+            "0:97",
+            "1:98"
+          ],
+          "extensions": []
+        },
+        "extensions": {}
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": [
+    "201443e64789cbb1e0c0b6cca9405c90debdda77fadef2c89a052ddbe7f83104e60dd54e95a2430ad309daf524fa7dc92f8f7859423f2c305785e857d63bd6f201"
+  ]
+}
+```
+::: tip votes description
+
+In the example, two accounts are voted, namely `zhuliting` and `gxcdac`, where the votes field can be obtained through the `get_committee_member` interface and the `get_witness` interface, indicating the voting id.
+
+`0` indicates the type of board member, `1` indicates the type of public node
+
+```bash
+get_witness zhuliting
+{
+  "id": "1.6.46",
+  "witness_account": "1.2.71",
+  "last_aslot": 13828348,
+  "signing_key": "GXC8QeqwDVZCUQNMoyPmvEZvC4vEyv92663KgasXnrUCKNykn6xAr",
+  "pay_vb": "1.13.156",
+  "vote_id": "1:98",
+  "total_votes": "922407503184",
+  "url": "https://github.com/zhuliting",
+  "total_missed": 162,
+  "last_confirmed_block_num": 13041248,
+  "is_valid": true
+}
+unlocked >>> get_committee_member zhuliting
+get_committee_member zhuliting
+{
+  "id": "1.5.52",
+  "committee_member_account": "1.2.71",
+  "vote_id": "0:97",
+  "total_votes": "922407503184",
+  "url": "",
+  "is_valid": false
+}
+```
+:::

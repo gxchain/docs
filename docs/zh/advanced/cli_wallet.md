@@ -1209,3 +1209,35 @@ vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
   ]
 }
 ```
+::: tip votes字段说明
+示例中，投票两个账户，分别为`zhuliting`和`gxcdac`，其中votes字段可以通过`get_committee_member`接口和`get_witness`接口得到，表示投票id。
+
+`0`表示理事会成员类型，`1`表示公信节点类型
+
+```bash
+get_witness zhuliting
+{
+  "id": "1.6.46",
+  "witness_account": "1.2.71",
+  "last_aslot": 13828348,
+  "signing_key": "GXC8QeqwDVZCUQNMoyPmvEZvC4vEyv92663KgasXnrUCKNykn6xAr",
+  "pay_vb": "1.13.156",
+  "vote_id": "1:98",
+  "total_votes": "922407503184",
+  "url": "https://github.com/zhuliting",
+  "total_missed": 162,
+  "last_confirmed_block_num": 13041248,
+  "is_valid": true
+}
+unlocked >>> get_committee_member zhuliting
+get_committee_member zhuliting
+{
+  "id": "1.5.52",
+  "committee_member_account": "1.2.71",
+  "vote_id": "0:97",
+  "total_votes": "922407503184",
+  "url": "",
+  "is_valid": false
+}
+```
+:::
