@@ -17,6 +17,26 @@ Before starting the `cli_wallet` tool, you first need to start a node program `w
 
 In the `cli_wallet` process, the `help` and `get_help` commands can help you quickly learn the command line wallet API.
 
+[2.1 New wallet settings, private key import](#_2-1-new-wallet-settings-private-key-import)
+
+[2.2 Account](#_2-2-account)
+
+[2.3 Get information on the chain](#_2-3-get-information-on-the-chain)
+
+[2.4 Transfer to other accounts](#_2-4-transfer-to-other-accounts)
+
+[2.5 Interact with smart contracts](#_2-5-interact-with-smart-contracts)
+
+[2.6 Manually constructing a transaction](#_2-6-manually-constructing-a-transaction)
+
+[2.7 Initiate a proposal](#_2-7-initiate-a-proposal)
+
+[2.8 Create brain_key](#_2-8-create-brain-key)
+
+[2.9 Redemption of the trust node margin](#_2-9-redemption-of-the-trust-node-margin)
+
+[3.0 Vote for trust nodes](#_3-0-vote-for-trust-nodes)
+
 ### 2.1 New wallet settings, private key import
 
 After launching the `cli_wallet` tool correctly, it will enter an interactive window. If it is launched for the first time, you will be prompted to create a new wallet, the window prompts as follows:
@@ -832,89 +852,47 @@ sign_builder_transaction 0 true
 
 #### operation
 
+Common operations are as follows, please click [operation type](https://github.com/gxchain/gxb-core/blob/dev_master/libraries/chain/include/graphene/chain/protocol/operations.hpp)
+
 ```cpp
-   typedef fc::static_variant<
-            transfer_operation,
-            limit_order_create_operation,
-            limit_order_cancel_operation,
-            call_order_update_operation,
-            fill_order_operation,           // VIRTUAL
-            account_create_operation,
-            account_update_operation,//6
-            account_whitelist_operation,//7
-            account_upgrade_operation,//8
-            account_transfer_operation,//9
-            asset_create_operation,//10
-            asset_update_operation,//11
-            asset_update_bitasset_operation,//12
-            asset_update_feed_producers_operation,//13
-            asset_issue_operation,//14
-            asset_reserve_operation,//15
-            asset_fund_fee_pool_operation,//16
-            asset_settle_operation,//17
-            asset_global_settle_operation,//18
-            asset_publish_feed_operation,//19
-            witness_create_operation,//20
-            witness_update_operation,//21
-            proposal_create_operation,//22
-            proposal_update_operation,//23
-            proposal_delete_operation,//24
-            withdraw_permission_create_operation,//25
-            withdraw_permission_update_operation,//26
-            withdraw_permission_claim_operation,//27
-            withdraw_permission_delete_operation,//28
-            committee_member_create_operation,//29
-            committee_member_update_operation,//30
-            committee_member_update_global_parameters_operation,//31
-            vesting_balance_create_operation,//32
-            vesting_balance_withdraw_operation,//33
-            worker_create_operation,//34
-            custom_operation,//35
-            assert_operation,//36
-            balance_claim_operation,//37
-            override_transfer_operation,//38
-            transfer_to_blind_operation,//39
-            blind_transfer_operation,//40
-            transfer_from_blind_operation,//41
-            asset_settle_cancel_operation,  // VIRTUAL
-            asset_claim_fees_operation,//43
-            fba_distribute_operation,        // VIRTUAL
-            account_upgrade_merchant_operation,//45
-            account_upgrade_datasource_operation,//46
-            stale_data_market_category_create_operation,//47, stale
-            stale_data_market_category_update_operation,//48, stale
-            stale_free_data_product_create_operation,//49, stale
-            stale_free_data_product_update_operation,//50, stale
-            stale_league_data_product_create_operation,//51, stale
-            stale_league_data_product_update_operation,//52, stale
-            stale_league_create_operation,//53, stale
-            stale_league_update_operation,//54, stale
-            data_transaction_create_operation, // 55
-            data_transaction_update_operation, // 56
-            pay_data_transaction_operation,  // 57
-            account_upgrade_data_transaction_member_operation, // 58
-            data_transaction_datasource_upload_operation, // 59
-            data_transaction_datasource_validate_error_operation, // 60
-            data_market_category_create_operation,//61
-            data_market_category_update_operation,//62
-            free_data_product_create_operation,//63
-            free_data_product_update_operation,//64
-            league_data_product_create_operation,//65
-            league_data_product_update_operation,//66
-            league_create_operation,//67
-            league_update_operation,//68
-            datasource_copyright_clear_operation,//69
-            data_transaction_complain_operation,//70
-            balance_lock_operation,//71
-            balance_unlock_operation,//72
-            proxy_transfer_operation, //73
-            contract_deploy_operation, //74
-            contract_call_operation, //75
-            contract_update_operation, //76
-            trust_node_pledge_withdraw_operation, //77
-            inline_transfer_operation, //78
-            inter_contract_call_operation //79
-         > operation;
+transfer_operation,
+account_create_operation,
+account_update_operation,//6
+account_whitelist_operation,//7
+account_upgrade_operation,//8
+account_transfer_operation,//9
+asset_create_operation,//10
+asset_update_operation,//11
+asset_update_bitasset_operation,//12
+asset_update_feed_producers_operation,//13
+asset_issue_operation,//14
+asset_reserve_operation,//15
+asset_fund_fee_pool_operation,//16
+asset_settle_operation,//17
+asset_global_settle_operation,//18
+asset_publish_feed_operation,//19
+witness_create_operation,//20
+witness_update_operation,//21
+proposal_create_operation,//22
+proposal_update_operation,//23
+proposal_delete_operation,//24
+committee_member_create_operation,//29
+committee_member_update_operation,//30
+committee_member_update_global_parameters_operation,//31
+assert_operation,//36
+balance_claim_operation,//37
+account_upgrade_merchant_operation,//45
+account_upgrade_datasource_operation,//46
+account_upgrade_data_transaction_member_operation, // 58
+balance_lock_operation,//71
+balance_unlock_operation,//72
+proxy_transfer_operation, //73
+contract_deploy_operation, //74
+contract_call_operation, //75
+contract_update_operation, //76
+trust_node_pledge_withdraw_operation, //77
+inline_transfer_operation, //78
+inter_contract_call_operation //79
 ```
 
 ### 2.7 Initiate a proposal
