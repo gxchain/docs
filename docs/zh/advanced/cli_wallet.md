@@ -1167,7 +1167,7 @@ withdraw_trust_node_pledge zhao-123 GXC true
 参数 | 类型 | 描述
 ---|---|---
 voting_account | string | 投票账户
-fee_asset_symbol | vector<string> | 待投的公信节点
+account_names | vector\<string\> | 待投的公信节点
 broadcast | bool | 是否广播
 
 **示例：**
