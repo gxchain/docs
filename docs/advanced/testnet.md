@@ -124,8 +124,31 @@ When the block number is incremented by 10000, it indicates that the block is be
 ```
 After the block synchronization is complete, you can run the command line wallet cli\_wallet.
 
+## 6. View test network logs online
 
-## 6. How to become the public trust node of the test network
+If we don't synchronize a test network node locally, we may not be able to get a relatively detailed log during the development process. To do this, we can access our online test weblog, which is updated in real time.
+
+Link: [https://testnet.gxchain.org/witness_log/](https://testnet.gxchain.org/witness_log/)
+
+```
+2019-04-16T08:04:33 th_a:invoke handle_block         handle_block ] Got block: #13067780 time: 2019-04-16T08:04:33 transaction(s): 0 latency: 163 ms from: gxc-pacific  irreversible: 13067762 (-18)			application.cpp:508
+2019-04-16T08:04:36 th_a:invoke handle_block         handle_block ] Got block: #13067781 time: 2019-04-16T08:04:36 transaction(s): 0 latency: 6 ms from: zhuliting  irreversible: 13067763 (-18)			application.cpp:508
+2019-04-16T08:04:39 th_a:invoke handle_block         handle_block ] Got block: #13067782 time: 2019-04-16T08:04:39 transaction(s): 0 latency: 6 ms from: miner7  irreversible: 13067764 (-18)			application.cpp:508
+2019-04-16T08:04:42 th_a:invoke handle_block         handle_block ] Got block: #13067783 time: 2019-04-16T08:04:42 transaction(s): 0 latency: 7 ms from: miner8  irreversible: 13067764 (-19)			application.cpp:508
+2019-04-16T08:04:45 th_a:invoke handle_block         handle_block ] Got block: #13067784 time: 2019-04-16T08:04:45 transaction(s): 0 latency: 6 ms from: miner6  irreversible: 13067766 (-18)			application.cpp:508
+2019-04-16T08:04:47                th_a:?             exec_one ] [(2668,hi)->2668] CONSOLE OUTPUT BEGIN =====================			apply_context.cpp:27
+2019-04-16T08:04:47                th_a:?       console_append ] hi, hello,gxchain
+			apply_context.hpp:577
+2019-04-16T08:04:47                th_a:?       console_append ] hi, hello,gxchain
+			apply_context.hpp:577
+2019-04-16T08:04:47                th_a:?             exec_one ] [(2668,hi)->2668] CONSOLE OUTPUT END =====================			apply_context.cpp:52
+2019-04-16T08:04:47                th_a:?             exec_one ] [(2668,hi)->2668] elapsed 165			apply_context.cpp:56
+2019-04-16T08:04:48 th_a:invoke handle_block         handle_block ] Got block: #13067785 time: 2019-04-16T08:04:48 transaction(s): 0 latency: 5 ms from: bob  irreversible: 13067768 (-17)			application.cpp:508
+2019-04-16T08:04:51 th_a:invoke handle_block         handle_block ] Got block: #13067786 time: 2019-04-16T08:04:51 transaction(s): 0 latency: 27 ms from: dharma-chaintest  irreversible: 13067768 (-18)			application.cpp:508
+2019-04-16T08:04:54 th_a:invoke handle_block         handle_block ] Got block: #13067787 time: 2019-04-16T08:04:54 transaction(s): 0 latency: 65 ms from: biteweidu1  irreversible: 13067768 (-19)			application.cpp:508
+```
+
+## 7. How to become the public trust node of the test network
 
 
 #### (1) Upgrade to a lifetime membership
