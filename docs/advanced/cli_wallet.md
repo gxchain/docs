@@ -13,6 +13,152 @@ Before starting the `cli_wallet` tool, you first need to start a node program `w
 ./cli_wallet --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4 -sws://127.0.0.1:28090
 ```
 
+### 1.1 cli\_wallet start command
+
+Use the `--help` parameter to start the `cli_wallet` tool, you can get the startup parameters of the `cli_wallet` tool.
+
+```bash
+./programs/cli_wallet/cli_wallet --help
+  -h [ --help ]                         Print this help message and exit.
+  -D [ --data-dir ] arg (="witness_node_data_dir")
+                                        Directory containing databases, for
+                                        cli_wallet write logs
+  -s [ --server-rpc-endpoint ] [=arg(=ws://127.0.0.1:8090)]
+                                        Server websocket RPC endpoint
+  -u [ --server-rpc-user ] arg          Server Username
+  -p [ --server-rpc-password ] arg      Server Password
+  -r [ --rpc-endpoint ] [=arg(=127.0.0.1:8091)]
+                                        Endpoint for wallet websocket RPC to
+                                        listen on
+  -t [ --rpc-tls-endpoint ] [=arg(=127.0.0.1:8092)]
+                                        Endpoint for wallet websocket TLS RPC
+                                        to listen on
+  -c [ --rpc-tls-certificate ] [=arg(=server.pem)]
+                                        PEM certificate for wallet websocket
+                                        TLS RPC
+  -H [ --rpc-http-endpoint ] [=arg(=127.0.0.1:8093)]
+                                        Endpoint for wallet HTTP RPC to listen
+                                        on
+  -d [ --daemon ]                       Run the wallet in daemon mode
+  --enable-rpc-log                      enable rpc log production, in
+                                        data-dir/logs/rpc/rpc.log
+  -w [ --wallet-file ] [=arg(=wallet.json)]
+                                        wallet to load
+  --chain-id arg                        chain ID to connect to
+  --suggest-brain-key                   Suggest a safe brain key to use for
+                                        creating your account
+  -v [ --version ]                      Display version information
+
+```
+> **-s**: Connect to the specified witness_node node via websocket
+**-r**: Cli_wallet turns on the ip and port of the websocket rpc service
+**-H**: Cli_wallet turns on the ip and port of the http rpc service
+**-d**: Cli_wallet starts in daemon mode   
+**-w**: Specify wallet file path  
+**--chain-id**: The chain id of the blockchain to which it is connected
+
+### 1.2 Open the RPC service example
+
+```bash
+#Start cli_wallet in daemon mode and enable http rpc service. The port is 28091.
+./programs/cli_wallet/cli_wallet --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4 -s ws://127.0.0.1:28090 --daemon -H 127.0.0.1:28091
+Logging RPC to file: /Users/zhaoxiangfei/code/testnet/witness_node_data_dir/logs/rpc/rpc.log
+619924ms th_a       main.cpp:155                  main                 ] key_to_wif( committee_private_key ): 5KCBDTcyDqzsqehcb52tW5nU6pXife6V2rX9Yf7c3saYSzbDZ5W
+619924ms th_a       main.cpp:159                  main                 ] nathan_pub_key: GXC6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+619924ms th_a       main.cpp:160                  main                 ] key_to_wif( nathan_private_key ): 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+619929ms th_a       main.cpp:207                  main                 ] wdata.ws_server: ws://127.0.0.1:28090
+619931ms th_a       main.cpp:212                  main                 ] wdata.ws_user:  wdata.ws_password:
+619949ms th_a       main.cpp:275                  main                 ] Listening for incoming HTTP RPC requests on 127.0.0.1:28091
+619952ms th_a       main.cpp:303                  main                 ] Entering Daemon Mode, ^C to exit
+
+#Call the cli_wallet command example through the curl tool. For details, see the cli_wallet common functions
+curl --data '{"jsonrpc": "2.0", "method": "get_account", "params": ["1.2.426"], "id": 1}' http://127.0.0.1:28091/rpc | json_pp
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1473  100  1398  100    75   132k   7306 --:--:-- --:--:-- --:--:--  136k
+{
+   "id" : 1,
+   "result" : {
+      "name" : "zhao-123",
+      "top_n_control_flags" : 0,
+      "active" : {
+         "address_auths" : [],
+         "weight_threshold" : 1,
+         "key_auths" : [
+            [
+               "GXC8cQnHYf2RGgeAEAQKAT3i9Hz9rxJagcXcXD8Znvtj16vYybwxE",
+               1
+            ]
+         ],
+         "account_auths" : []
+      },
+      "statistics" : "2.6.354",
+      "lifetime_referrer_fee_percentage" : 8000,
+      "blacklisted_accounts" : [],
+      "id" : "1.2.426",
+      "owner" : {
+         "account_auths" : [],
+         "key_auths" : [
+            [
+               "GXC5Jp6ec2uDWuLvq2S5pP1RxM5WQ17yru7Ak3TGrni7SbFQBM1pU",
+               1
+            ]
+         ],
+         "weight_threshold" : 1,
+         "address_auths" : []
+      },
+      "whitelisted_accounts" : [],
+      "whitelisting_accounts" : [],
+      "registrar" : "1.2.426",
+      "options" : {
+         "num_committee" : 1,
+         "votes" : [
+            "1:7",
+            "0:18"
+         ],
+         "voting_account" : "1.2.5",
+         "extensions" : [],
+         "memo_key" : "GXC8cQnHYf2RGgeAEAQKAT3i9Hz9rxJagcXcXD8Znvtj16vYybwxE",
+         "num_witness" : 1
+      },
+      "membership_expiration_date" : "2106-02-07T06:28:15",
+      "vm_version" : "",
+      "cashback_vb" : "1.13.644",
+      "datasource_auth_referrer" : "1.2.0",
+      "datasource_expiration_date" : "1970-01-01T00:00:00",
+      "merchant_expiration_date" : "1970-01-01T00:00:00",
+      "blacklisting_accounts" : [],
+      "active_special_authority" : [
+         0,
+         {}
+      ],
+      "owner_special_authority" : [
+         0,
+         {}
+      ],
+      "code_version" : "",
+      "vm_type" : "",
+      "data_transaction_member_expiration_date" : "1970-01-01T00:00:00",
+      "abi" : {
+         "actions" : [],
+         "structs" : [],
+         "error_messages" : [],
+         "types" : [],
+         "tables" : [],
+         "abi_extensions" : [],
+         "version" : "gxc::abi/1.0"
+      },
+      "referrer_rewards_percentage" : 0,
+      "referrer" : "1.2.426",
+      "code" : "",
+      "network_fee_percentage" : 2000,
+      "lifetime_referrer" : "1.2.426",
+      "merchant_auth_referrer" : "1.2.0"
+   }
+}
+```
+
 ## 2. Cli\_wallet Common Functions
 
 In the `cli_wallet` process, the `help` and `get_help` commands can help you quickly learn the command line wallet API.
