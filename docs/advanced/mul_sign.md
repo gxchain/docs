@@ -192,8 +192,15 @@ unlocked >>> add_operation_to_builder_transaction 0 [0,{"from":"1.2.2588","to":"
 add_operation_to_builder_transaction 0 [0,{"from":"1.2.2588","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
 null
 
-unlocked >>> propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 3600 false
-propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 3600 false
+unlocked >>> set_fees_on_builder_transaction 0 GXC
+set_fees_on_builder_transaction 0 GXC
+{
+  "amount": 100,
+  "asset_id": "1.3.1"
+}
+
+unlocked >>> propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 0 false
+propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 0 false
 {
   "ref_block_num": 20541,
   "ref_block_prefix": 1834785891,
@@ -210,8 +217,8 @@ propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 3600 false
             "op": [
               0,{
                 "fee": {
-                  "amount": 0,
-                  "asset_id": "1.3.0"
+                  "amount": 100,
+                  "asset_id": "1.3.1"
                 },
                 "from": "1.2.2588",
                 "to": "1.2.426",
@@ -234,12 +241,6 @@ propose_builder_transaction2 0 zhao-123 "2019-04-12T09:05:50" 3600 false
     "1f1847dd87f3cf6fcb5b53c31a36594750abe736ef421f30a167f359cd2139fdc769e6f8932217f8358692910cc540c9cb369d2b98ac89a6b2e7773ad76023d8f9"
   ]
 }
-unlocked >>> set_fees_on_builder_transaction 0 GXC
-set_fees_on_builder_transaction 0 GXC
-{
-  "amount": 100,
-  "asset_id": "1.3.1"
-}
 
 unlocked >>> sign_builder_transaction 0 true
 sign_builder_transaction 0 true
@@ -259,8 +260,8 @@ sign_builder_transaction 0 true
             "op": [
               0,{
                 "fee": {
-                  "amount": 0,
-                  "asset_id": "1.3.0"
+                  "amount": 100,
+                  "asset_id": "1.3.1"
                 },
                 "from": "1.2.2588",
                 "to": "1.2.426",
