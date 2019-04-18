@@ -175,13 +175,11 @@ In the `cli_wallet` process, the `help` and `get_help` commands can help you qui
 
 [2.6 Manually constructing a transaction](#_2-6-manually-constructing-a-transaction)
 
-[2.7 Initiate a proposal](#_2-7-initiate-a-proposal)
+[2.7 Create brain_key](#_2-7-create-brain-key)
 
-[2.8 Create brain_key](#_2-8-create-brain-key)
+[2.8 Redemption of the trust node margin](#_2-8-redemption-of-the-trust-node-margin)
 
-[2.9 Redemption of the trust node margin](#_2-9-redemption-of-the-trust-node-margin)
-
-[3.0 Vote for trust nodes](#_3-0-vote-for-trust-nodes)
+[2.9 Vote for trust nodes](#_2-9-vote-for-trust-nodes)
 
 ### 2.1 New wallet settings, private key import
 
@@ -1041,188 +1039,7 @@ inline_transfer_operation, //78
 inter_contract_call_operation //79
 ```
 
-### 2.7 Initiate a proposal
-
-Above we manually constructed a transaction and sent it successfully, we will initiate a proposal below. The operation of initiating a proposal is similar to constructing a manual transaction, with the addition of a command to initiate a proposal compared to constructing a transaction. The steps are as follows:
-
->begin_builder_transaction  
-add_operation_to_builder_transaction  
-propose_builder_transaction2  
-set_fees_on_builder_transaction  
-sign_builder_transaction
-
-The proposal can be initiated by the `propose_builder_transaction2` command.
-
-#### propose\_builder\_transaction2
-
-**Interface:** `signed_transaction propose_builder_transaction2(transaction_handle_type handle, string account_name_or_id, time_point_sec expiration, uint32_t review_period_seconds, bool broadcast)`
-
-**Description:** Initiate a proposal
-
-**Parameter:** 
-
-Param | Type | Description
----|---|---
-transaction_handle | transaction_handle_type | The return value of begin_builder_transaction, the index of the constructed transaction
-account_name_or_id   | string | Account to initiate the proposal
-expiration | time_point_sec | Expire time
-review_period_seconds | uint32_t | review period
-broadcast | bool | Whether to broadcast
-
-**Example:**
-
-```bash
-unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-{
-  "ref_block_num": 63344,
-  "ref_block_prefix": 2285425626,
-  "expiration": "2019-04-08T09:12:33",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
-  ]
-}
-```
-
-Here's an example of a proposal:
-
-```bash
-#Build a transaction example
-unlocked >>> begin_builder_transaction
-begin_builder_transaction
-3
-#add operation
-unlocked >>> add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
-add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
-null
-#Initiate a proposal
-unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-{
-  "ref_block_num": 63344,
-  "ref_block_prefix": 2285425626,
-  "expiration": "2019-04-08T09:12:33",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
-  ]
-}
-#set fee
-unlocked >>> set_fees_on_builder_transaction 3 GXC
-set_fees_on_builder_transaction 3 GXC
-{
-  "amount": 100,
-  "asset_id": "1.3.1"
-}
-#sign transaction
-unlocked >>> sign_builder_transaction 3 true
-sign_builder_transaction 3 true
-{
-  "ref_block_num": 63350,
-  "ref_block_prefix": 1608432681,
-  "expiration": "2019-04-08T09:12:51",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "2068ca58484ad452fd8c1821927f244233b9dd82a7fe5098959ab598491def538e49ab4e1d9eb496a6793a75ef2747f9c183bdfaf8ab609d36cdf94e6fcbca203e"
-  ]
-}
-```
-
-### 2.8 Create brain\_key
+### 2.7 Create brain\_key
 
 **Interface:** `brain_key_info suggest_brain_key()`
 
@@ -1242,7 +1059,7 @@ suggest_brain_key
 }
 ```
 
-### 2.9 Redemption of the trust node margin
+### 2.8 Redemption of the trust node margin
 
 **Interface:** `signed_transaction withdraw_trust_node_pledge(string account_name, string fee_asset_symbol, bool broadcast)`
 
@@ -1282,7 +1099,7 @@ withdraw_trust_node_pledge zhao-123 GXC true
 }
 ```
 
-### 3.0 Vote for trust nodes
+### 2.9 Vote for trust nodes
 
 **Interface:** `signed_transaction vote_for_trust_nodes(string voting_account, vector<string> account_names, bool broadcast)`
 

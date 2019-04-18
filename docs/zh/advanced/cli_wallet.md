@@ -174,13 +174,11 @@ curl --data '{"jsonrpc": "2.0", "method": "get_account", "params": ["1.2.426"], 
 
 [2.6 手工构造交易](#_2-6-手工构造交易)
 
-[2.7 发起提案](#_2-7-发起提案)
+[2.7 生成brain_key](#_2-7-生成brain-key)
 
-[2.8 生成brain_key](#_2-8-生成brain-key)
+[2.8 赎回公信节点保证金](#_2-8-赎回公信节点保证金)
 
-[2.9 赎回公信节点保证金](#_2-9-赎回公信节点保证金)
-
-[3.0 投票给公信节点](#_3-0-投票给公信节点)
+[2.9 投票给公信节点](#_2-9-投票给公信节点)
 
 ### 2.1 新钱包设置、私钥导入
 
@@ -1039,188 +1037,7 @@ inline_transfer_operation, //78
 inter_contract_call_operation //79
 ```
 
-### 2.7 发起提案
-
-上面我们手工构造了一笔交易并发送成功，以下我们便发起一个提案。发起提案的操作与构造手工交易类似，相较于构造交易，增加了一个发起提案的命令。操作步骤如下所示：
-
->begin_builder_transaction  
-add_operation_to_builder_transaction  
-propose_builder_transaction2  
-set_fees_on_builder_transaction  
-sign_builder_transaction
-
-其中可以通过`propose_builder_transaction2`命令发起提案。
-
-#### propose\_builder\_transaction2
-
-**接口定义：** `signed_transaction propose_builder_transaction2(transaction_handle_type handle, string account_name_or_id, time_point_sec expiration, uint32_t review_period_seconds, bool broadcast)`
-
-**功能说明：** 发起提案
-
-**参数：** 
-
-参数 | 类型 | 描述
----|---|---
-transaction_handle | transaction_handle_type | begin_builder_transaction的返回值，构建的交易的索引
-account_name_or_id   | string | 发起提案的账户
-expiration | time_point_sec | 到期时间
-review_period_seconds | uint32_t | 审核期
-broadcast | bool | 是否广播
-
-**示例：**
-
-```bash
-unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-{
-  "ref_block_num": 63344,
-  "ref_block_prefix": 2285425626,
-  "expiration": "2019-04-08T09:12:33",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
-  ]
-}
-```
-
-以下是一个发起提案的示例:
-
-```bash
-#构建交易示例
-unlocked >>> begin_builder_transaction
-begin_builder_transaction
-3
-#添加operation
-unlocked >>> add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
-add_operation_to_builder_transaction 3 [0,{"from":"1.2.425","to":"1.2.426","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
-null
-#发起提案
-unlocked >>> propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-propose_builder_transaction2 3 zhao-123 "2019-04-09T09:05:50" 3600 false
-{
-  "ref_block_num": 63344,
-  "ref_block_prefix": 2285425626,
-  "expiration": "2019-04-08T09:12:33",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "1f7cd974cba54f898559db7be25f9d5f70e1499131b278faa9f6eb03c8f6c9c8385239d23ce2e2de4ae62e4d6fe0f5a628afc99cfd3eec4a9a26dfe921823f582d"
-  ]
-}
-#设置手续费
-unlocked >>> set_fees_on_builder_transaction 3 GXC
-set_fees_on_builder_transaction 3 GXC
-{
-  "amount": 100,
-  "asset_id": "1.3.1"
-}
-#签名并广播
-unlocked >>> sign_builder_transaction 3 true
-sign_builder_transaction 3 true
-{
-  "ref_block_num": 63350,
-  "ref_block_prefix": 1608432681,
-  "expiration": "2019-04-08T09:12:51",
-  "operations": [[
-      22,{
-        "fee": {
-          "amount": 100,
-          "asset_id": "1.3.1"
-        },
-        "fee_paying_account": "1.2.426",
-        "expiration_time": "2019-04-09T09:05:50",
-        "proposed_ops": [{
-            "op": [
-              0,{
-                "fee": {
-                  "amount": 1000,
-                  "asset_id": "1.3.1"
-                },
-                "from": "1.2.425",
-                "to": "1.2.426",
-                "amount": {
-                  "amount": 3,
-                  "asset_id": "1.3.1"
-                },
-                "extensions": []
-              }
-            ]
-          }
-        ],
-        "review_period_seconds": 3600,
-        "extensions": []
-      }
-    ]
-  ],
-  "extensions": [],
-  "signatures": [
-    "2068ca58484ad452fd8c1821927f244233b9dd82a7fe5098959ab598491def538e49ab4e1d9eb496a6793a75ef2747f9c183bdfaf8ab609d36cdf94e6fcbca203e"
-  ]
-}
-```
-
-### 2.8 生成brain\_key
+### 2.7 生成brain\_key
 
 **接口定义：** `brain_key_info suggest_brain_key()`
 
@@ -1239,7 +1056,7 @@ suggest_brain_key
   "pub_key": "GXC58tBmaibqe6sYnwG9F2cVnqGkMoSzgnM8fVwVKUtbTWzjG6oTe"
 }
 ```
-### 2.9 赎回公信节点保证金
+### 2.8 赎回公信节点保证金
 
 **接口定义：** `signed_transaction withdraw_trust_node_pledge(string account_name, string fee_asset_symbol, bool broadcast)`
 
@@ -1279,7 +1096,7 @@ withdraw_trust_node_pledge zhao-123 GXC true
 }
 ```
 
-### 3.0 投票给公信节点
+### 2.9 投票给公信节点
 
 **接口定义：** `signed_transaction vote_for_trust_nodes(string voting_account, vector<string> account_names, bool broadcast)`
 
