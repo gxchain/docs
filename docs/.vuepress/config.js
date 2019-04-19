@@ -189,8 +189,7 @@ function genSidebarConfig (module, title) {
                 children: [
                     '',
                     'des',
-                    'baas_storage',
-                    'open_source'
+                    'baas_storage'
                 ]
             }
         ];

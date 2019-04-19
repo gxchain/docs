@@ -38,6 +38,8 @@ Main Repo: [github.com/gxchain](https://github.com/gxchain)
     - GXChain-based smart contract development toolset
     - Contract compilation service: [github.com/gxchain/gxx-server](https://github.com/gxchain/gxx-server)
     - IDE: [github.com/gxchain/gxchain-alpha](https://github.com/gxchain/gxchain-alpha)
+- Proposal
+    - Improvement proposal: [github.com/gxchain/gxips](https://github.com/gxchain/gxips)
 
 BEPAL Open Source [github.com/BEPAL](https://github.com/BEPAL)
 

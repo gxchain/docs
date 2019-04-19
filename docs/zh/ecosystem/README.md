@@ -37,6 +37,8 @@
     - 基于GXChain的智能合约开发工具集
     - 合约编译服务: [github.com/gxchain/gxx-server](https://github.com/gxchain/gxx-server)
     - IDE: [github.com/gxchain/gxchain-alpha](https://github.com/gxchain/gxchain-alpha)
+- 提案
+    - 改进提案: [github.com/gxchain/gxips](https://github.com/gxchain/gxips)
 
 开源社区 [github.com/BEPAL](https://github.com/BEPAL)
 
