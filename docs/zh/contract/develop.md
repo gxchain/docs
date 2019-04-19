@@ -387,7 +387,7 @@ void examripemd(std::string data){
 ---|---|---
 data | const checksum256* | sha256 hash值
 sig | const signature* | 对原字符串签名后的数据
-pub | const char* | 公钥
+pub | const char* | 公钥(16进制格式：[见gxbjs/src/ecc/PublicKey.js](https://github.com/gxchain/gxbjs/blob/master/lib/ecc/src/PublicKey.js#L161))
 publen | uint32_t | 公钥长度
 
 **示例:**
