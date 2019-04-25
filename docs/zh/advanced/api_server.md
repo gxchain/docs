@@ -83,3 +83,74 @@ tail -f trusted_node/logs/witness.log
 ```bash
 curl POST --data '{ "jsonrpc": "2.0", "method": "call", "params": [0, "get_dynamic_global_properties", []], "id": 1 }' http://x.x.x.x:28090
 ```
+
+### 附 nginx负载均衡及ssl证书配置
+```
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	'' close;
+}
+
+upstream gxb_witness {
+	least_conn;
+	#ip_hash;
+	server 127.0.0.1:28090;
+	server 172.19.20.83:28090;
+}
+
+
+server {
+	listen 80;
+	server_name node1.gxb.io;
+	#deny 47.91.208.128;
+	location ^~ /.well-known/acme-challenge/ {
+	proxy_pass http://certificate.gxb.io/.well-known/acme-challenge/;
+	proxy_redirect off;
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+}
+#	location = /.well-known/acme-challenge/ {
+#		return 404;
+#	}
+	location /{
+		return 302 https://node1.gxb.io$request_uri;
+	}
+}
+
+server {
+	listen 443 ssl;
+	server_name_in_redirect on;
+	server_name node1.gxb.io;
+	#deny 47.91.208.128;
+
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/fullchain.pem;
+  ssl_certificate_key /etc/nginx/ssl/privkey.pem;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+	ssl_prefer_server_ciphers on;
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout 20m;
+	proxy_read_timeout 900s;
+
+	location / {
+
+		#deny 47.91.208.128;
+		#limit_req zone=one burst=500 nodelay;
+		#limit_conn addr 500;
+		#proxy_pass http://127.0.0.1:28090;
+		proxy_pass http://gxb_witness;
+		proxy_http_version 1.1;
+
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Credentials' 'true';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With';
+	}
+
+}
+```
