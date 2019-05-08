@@ -19,6 +19,13 @@ Click on "Become TrustNode Candidate" to upgrade to a trustnode candidate in one
 
 ![](./assets/witness/trustnode.jpg)
 
+::: warning
+To create a TrustNode, you need to burn a broadcast fee of 1.5 GXC and mortgage 10,000 GXC. Please confirm that the account balance is greater than 10001.5 GXC.
+
+After the TrustNode is created, check its witness_id. When starting the public node program, you need to bring this parameter.
+:::
+
+
 #### Find witness_id
 Witness id is the id of TrustNode, after you become a TrustNode candidate, you can find your ``witness_id`` in the page.
 
