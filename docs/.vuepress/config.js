@@ -146,7 +146,9 @@ function genSidebarConfig (module, title) {
                     'block_operation_object',
                     'account_rule',
                     'cli_wallet',
-                    'mul_sign'
+                    'mul_sign',
+                    'plugin_txid',
+                    'plugin_fullnode'
                 ]
             }
         ];
