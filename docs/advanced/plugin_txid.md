@@ -10,6 +10,8 @@ Database: `leveldb`
 
 ## 2. Compilation and startup
 
+To use the plugin, compile the `witness_node` program with the plugin as follows.
+ 
 ### 2.1 Compilation
 
 #### 1. Download leveldb dependencies and install
@@ -34,7 +36,7 @@ brew install leveldb
 Modify the `gxchain/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
-set( LOAD_TXID_PLUGIN 0)
+set( LOAD_TXID_PLUGIN 1)
 ```
 
 #### 3. Compile the witness_node program with plugins
