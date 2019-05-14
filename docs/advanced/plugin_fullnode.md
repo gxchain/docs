@@ -1,89 +1,89 @@
-# 全节点账户历史插件使用教程
+# Full-node account history plugin tutorial
 
-## 1. 插件概述
+## 1. Overview
 
-由于`witness_node`程序自身的`account_history_plugin`插件将账户交易历史保存到内存对象中，如果跟踪所有链上账户，并记录每个账户的所有交易记录，必然会造成极大的内存开销。为了保存全节点的账户交易历史，并降低节点配置要求，参考`bitshares`的ES插件，采用`elastic_search`数据库来保存所有交易记录。
+Since the `witness_node` program's own `account_history_plugin` plugin saves the account transaction history to the memory object, if you track all the chain accounts and record all the transaction records for each account, it will inevitably cause a huge memory overhead. In order to save the account transaction history of the whole node and reduce the node configuration requirements, refer to the `bitshares` ES plugin and use the `elastic_search` database to save all transaction records.
 
-插件名：`elastic_search_plugin`
+Plugin name: `elastic_search_plugin`
 
-数据库：`Elastic Search`
+Database: `Elastic Search`
 
-## 2. 插件的编译与启动
+## 2. Compilation and startup
 
-### 2.1 编译插件
+### 2.1 Compilation
 
-#### 1. 安装依赖
+#### 1. Install dependencies
 
-默认发布的release程序，并未包含该插件。如需使用该插件，请按照如下步骤编译带插件的`witness_node`程序。
+include the plugin. To use the plugin, compile the `witness_node` program with the plugin as follows.
 
-安装libcurl库
+install libcurl
 ```bash
 sudo apt-get install libcurl4-openssl-dev
 ```
 
-#### 2. 开启编译选项
+#### 2. Open compile option, support leveldb plugin
 
-按如下方式修改`gxchain/CMakeLists.txt`文件，开启编译选项
+Modify the `gxchain/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
 set( LOAD_ELASTICSEARCH_PLUGIN 1) 
 ```
 
-#### 3. 编译带插件的witness_node程序
+#### 3. Compile the witness_node program with plugins
 
-在Ubuntu环境下编译：[Build Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
+Compile in Ubuntu environment: [Build Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
 
-在MacOS环境下编译：[Build OSX](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
+Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
 
-### 2.2 启动插件
+### 2.2 Start
 
-#### 1. 创建账户，使用非root账户(Ubuntu)
+#### 1. Create an account with a non-root account (Ubuntu)
 
-注：`Elastic Search`数据库只运行在非root账户下
+Note: The `Elastic Search` database only runs under a non-root account.
 ``` bash
 sudo useradd -m myaccount -d /home/myaccount -s /bin/bash
 sudo passwd myaccount
 ```
 
-#### 2. 安装java
+#### 2. Install java
 ```bash
-# 1.执行
+# 1.update
 sudo apt-get update
-# 2.下载jre和jdk
+# 2.install jre and jdk
 sudo apt-get install default-jre
 sudo apt-get install default-jdk
 ```
-#### 3. 安装elastic_search
+#### 3. Install elastic_search
 ```bash
-# 1 下载安装包
+# 1 download
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.zip
 
-# 2 解压安装包
+# 2 unpack 
 unzip elasticsearch-6.2.0.zip
-# 如果未安装unzip，请执行如下命令
+# If unzip is not installed, execute the following command:
 sudo apt-get install unzip
 ```
 
-#### 4. 启动Elastic Search数据库
+#### 4. Start Elastic Search Database
 
 ```bash
-#后台模式启动
+#daemon mode
 cd elasticsearch-6.2.0/
 ./bin/elasticsearch --daemonize
 ```
 
-#### 5. 启动全节点插件
+#### 5. Start fullnode plugin
 
-修改`config.ini`文件，然后启动`witness_node`程序。
+Modify the `config.ini` file and start the `witness_node` program.
 
 ```json
 # Plugin to save account history by elastic search database
 load-elastic-search-plugin = true
 ```
 
-#### 6. 验证插件是否正常工作
+#### 6. Verify that the plugin is working properly
 
-默认配置情况下，在重放区块过程中，插件每5000条记录，发送到Elastic Search数据库中，可以使用如下查询语句，获取数据库中的条数。
+In the default configuration, during the playback block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
 
 ```bash
 curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
@@ -97,7 +97,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-
 	}
 }
 '
-#返回数据，结构类似如下：
+#Return the data, the structure is similar to the following:
 {
   "count" : 58797397,
   "_shards" : {
@@ -109,13 +109,13 @@ curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-
 }
 ```
 
-## 3. 插件的使用说明
+## 3. Instructions for using the plugin
 
-通过插件查询账户交易历史数据，可以通过多种类型的查询方式，查询语法参考`Elastic Search`数据库，[查看语法](https://www.elastic.co/guide/en/elasticsearch/reference/6.7/query-dsl-query-string-query.html)。
+Through the plug-in query account transaction history data, you can query the syntax reference `Elastic Search` database through multiple types of query methods, [View Syntax](https://www.elastic.co/guide/en/elasticsearch/reference/6.7/query-dsl-query-string-query.html)。
 
-以下为一些常用查询方式，举例如下：
+The following are some common query methods, examples are as follows:
 
-### 3.1 通过txid查询交易历史
+### 3.1 Query transaction history via txid
 
 ```bash
 curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
@@ -167,7 +167,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
                 "weight_threshold" : 1,
                 "account_auths_str" : "[]",
                 "address_auths_str" : "[]",
-                "key_auths_str" : "[[\"GXC6cdTzGgTLv7VohhT76o82WmZmTwvijrkr5hJ3k8G2dEREee6wV\",1]]"  #注：所有json结构中的数组类型，在储存时，均被转义为了string类型，在恢复时注意。
+                "key_auths_str" : "[[\"GXC6cdTzGgTLv7VohhT76o82WmZmTwvijrkr5hJ3k8G2dEREee6wV\",1]]"  #Note: The array types in all json structures are escaped as string types when stored, and you should be careful when recovering.
               },
               "active" : {
                 "weight_threshold" : 1,
@@ -192,7 +192,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
 }
 ```
 
-### 3.2 通过账户id查询交易历史
+### 3.2 Query transaction history by account id
 ```bash
 curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
@@ -353,7 +353,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
   }
 }
 ```
-### 3.3 通过operation类型查询交易历史
+### 3.3 Query transaction history by operation type
 ```bash
 curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {

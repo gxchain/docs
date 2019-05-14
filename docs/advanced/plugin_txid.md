@@ -1,18 +1,18 @@
-# txid反查插件使用教程
+# Txid query plugin tutorial
 
-## 1. 插件概述
+## 1. Overview
 
-一个轻便的txid反查插件，通过txid获取`transaction`结构，采用levedb数据库存储，仅保存不可逆区块中的交易。采用leveldb数据库，无需启动额外进程，且`witness_node`程序提供API接口查询。
+A lightweight txid query plugin that gets the `transaction` structure via txid and uses the levedb database to store only the transactions in the irreversible block. With the leveldb database, there is no need to start additional processes, and the `witness_node` program provides API interface queries.
 
-插件名：`query_txid_plugin`
+Plugin name: `query_txid_plugin`
 
-数据库：`leveldb`
+Database: `leveldb`
 
-## 2. 插件的编译与启动
+## 2. Compilation and startup
 
-### 2.1 编译插件
+### 2.1 Compilation
 
-#### 1. 下载leveldb依赖并安装
+#### 1. Download leveldb dependencies and install
 
 - Ubuntu：
 ```bash
@@ -29,37 +29,37 @@ sudo make install
 brew install leveldb
 ```
 
-#### 2. 开启编译选项，支持leveldb插件
+#### 2. Open compile option, support leveldb plugin
 
-按如下方式修改`gxchain/CMakeLists.txt`文件，开启编译选项
+Modify the `gxchain/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
 set( LOAD_TXID_PLUGIN 0)
 ```
 
-#### 3. 编译带插件的witness_node程序
+#### 3. Compile the witness_node program with plugins
 
-在Ubuntu环境下编译：[Build Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
+Compile in Ubuntu environment: [Build Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
 
-在MacOS环境下编译：[Build OSX](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
+Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
 
-### 2.2 启动插件
+### 2.2 Start
 
-#### 1. 启动带插件的witness_node程序
+#### 1. Start the witness_node program with plugins
 
-修改`config.ini`文件，然后启动`witness_node`程序，如需保存所有的交易信息，请务必replay区块。
+Modify the `config.ini` file and start the `witness_node` program. If you want to save all transaction information, be sure to replay the block.
 ```bash
 # Plugin to save txid records
 load-query-txid-plugin = true
 ```
 
-#### 2. 验证插件是否正常工作
+#### 2. Verify that the plugin is working properly
 
-当前目录下，生成`trx_entry.db`文件。
+In the current directory, the `trx_entry.db` file is generated.
 
-## 3. 插件的使用说明
+## 3. Instructions for using the plugin
 
-使用`get_transaction_rows`接口可以根据txid，获取transaction结构，示例如下：
+Use the `get_transaction_rows` interface to get the transaction structure based on txid, as shown in the following example:
 
 ```bash
 ➜ curl --data '{
