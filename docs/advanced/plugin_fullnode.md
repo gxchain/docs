@@ -23,7 +23,7 @@ sudo apt-get install libcurl4-openssl-dev
 
 #### 2. Open compile option, support leveldb plugin
 
-Modify the `gxchain/CMakeLists.txt` file as follows to enable compilation options
+Modify the `gxb-core/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
 set( LOAD_ELASTICSEARCH_PLUGIN 1) 
