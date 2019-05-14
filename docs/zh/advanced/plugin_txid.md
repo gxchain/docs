@@ -33,7 +33,7 @@ brew install leveldb
 
 #### 2. 开启编译选项，支持leveldb插件
 
-按如下方式修改`gxchain/CMakeLists.txt`文件，开启编译选项
+按如下方式修改`gxb-core/CMakeLists.txt`文件，开启编译选项
 
 ```cpp
 set( LOAD_TXID_PLUGIN 1)
