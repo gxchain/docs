@@ -23,7 +23,7 @@ sudo apt-get install libcurl4-openssl-dev
 
 #### 2. 开启编译选项
 
-按如下方式修改`gxchain/CMakeLists.txt`文件，开启编译选项
+按如下方式修改`gxb-core/CMakeLists.txt`文件，开启编译选项
 
 ```cpp
 set( LOAD_ELASTICSEARCH_PLUGIN 1) 
