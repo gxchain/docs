@@ -10,6 +10,8 @@
 
 ## 2. 插件的编译与启动
 
+默认发布的release程序，并未包含该插件。如需使用该插件，请按照如下步骤编译带插件的`witness_node`程序。
+
 ### 2.1 编译插件
 
 #### 1. 下载leveldb依赖并安装
@@ -34,7 +36,7 @@ brew install leveldb
 按如下方式修改`gxchain/CMakeLists.txt`文件，开启编译选项
 
 ```cpp
-set( LOAD_TXID_PLUGIN 0)
+set( LOAD_TXID_PLUGIN 1)
 ```
 
 #### 3. 编译带插件的witness_node程序
