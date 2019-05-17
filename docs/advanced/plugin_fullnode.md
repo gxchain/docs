@@ -86,7 +86,7 @@ load-elastic-search-plugin = true
 In the default configuration, during the playback block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
 
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
@@ -118,7 +118,7 @@ The following are some common query methods, examples are as follows:
 ### 3.1 Query transaction history via txid
 
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
     "query" : {
         "bool" : { "must" : [{"term": { "block_data.trx_id": "f050d1956e365522a194e6514ff07336f8d371d8"}}] }
@@ -194,7 +194,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
 
 ### 3.2 Query transaction history by account id
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
@@ -355,7 +355,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
 ```
 ### 3.3 Query transaction history by operation type
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
