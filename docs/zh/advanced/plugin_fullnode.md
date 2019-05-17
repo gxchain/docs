@@ -86,7 +86,7 @@ load-elastic-search-plugin = true
 默认配置情况下，在重放区块过程中，插件每5000条记录，发送到Elastic Search数据库中，可以使用如下查询语句，获取数据库中的条数。
 
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
@@ -118,7 +118,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_count?pretty=true' -H 'Content-
 ### 3.1 通过txid查询交易历史
 
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
     "query" : {
         "bool" : { "must" : [{"term": { "block_data.trx_id": "f050d1956e365522a194e6514ff07336f8d371d8"}}] }
@@ -194,7 +194,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
 
 ### 3.2 通过账户id查询交易历史
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
@@ -355,7 +355,7 @@ curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content
 ```
 ### 3.3 通过operation类型查询交易历史
 ```bash
-curl -X GET 'http://localhost:9200/gxchain/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
+curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Content-Type: application/json' -d '
 {
 	"query": {
 		"bool": {
