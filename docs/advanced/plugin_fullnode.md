@@ -74,11 +74,10 @@ cd elasticsearch-6.2.0/
 
 #### 5. Start fullnode plugin
 
-Modify the `config.ini` file and start the `witness_node` program.
+When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
-```json
-# Plugin to save account history by elastic search database
-load-elastic-search-plugin = true
+```bash
+--plugins "witness elastic_search"
 ```
 
 #### 6. Verify that the plugin is working properly

@@ -49,12 +49,11 @@ set( LOAD_TXID_PLUGIN 1)
 
 #### 1. 启动带插件的witness_node程序
 
-修改`config.ini`文件，然后启动`witness_node`程序，如需保存所有的交易信息，请务必replay区块。
-```bash
-# Plugin to save txid records
-load-query-txid-plugin = true
-```
+启动`witness_node`程序时，添加`plugins`参数，参数如下：
 
+```bash
+--plugins "witness query_txid"
+```
 #### 2. 验证插件是否正常工作
 
 当前目录下，生成`trx_entry.db`文件。

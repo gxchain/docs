@@ -74,11 +74,10 @@ cd elasticsearch-6.2.0/
 
 #### 5. 启动全节点插件
 
-修改`config.ini`文件，然后启动`witness_node`程序。
+启动`witness_node`程序时，添加`plugins`参数，参数如下：
 
-```json
-# Plugin to save account history by elastic search database
-load-elastic-search-plugin = true
+```bash
+--plugins "witness elastic_search"
 ```
 
 #### 6. 验证插件是否正常工作

@@ -49,10 +49,10 @@ Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wi
 
 #### 1. Start the witness_node program with plugins
 
-Modify the `config.ini` file and start the `witness_node` program. If you want to save all transaction information, be sure to replay the block.
+When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
+
 ```bash
-# Plugin to save txid records
-load-query-txid-plugin = true
+--plugins "witness query_txid"
 ```
 
 #### 2. Verify that the plugin is working properly
