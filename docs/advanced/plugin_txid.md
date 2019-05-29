@@ -16,19 +16,25 @@ To use the plugin, compile the `witness_node` program with the plugin as follows
 
 #### 1. Download leveldb dependencies and install
 
-- Ubuntu：
-```bash
-mkdir ~/leveldb_dep
-cd ~/leveldb_dep
-git clone https://github.com/google/leveldb.git
-cd leveldb
-mkdir -p build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
-sudo make install
+``` sh
+# install leveldb
+wget https://github.com/google/leveldb/archive/v1.20.tar.gz
+tar xvf v1.20.tar.gz
+rm -f v1.20.tar.gz
+cd leveldb-1.20
+make
+sudo scp -r out-static/lib* out-shared/lib* "/usr/local/lib"
+cd include
+sudo scp -r leveldb /usr/local/include
+sudo ldconfig
 ```
-- MacOS：
-```bash
-brew install leveldb
+```sh
+# install snappy
+git clone https://github.com/google/snappy.git
+cd snappy
+mkdir build
+cd build && cmake ../ 
+sudo make install
 ```
 
 #### 2. Open compile option, support leveldb plugin
