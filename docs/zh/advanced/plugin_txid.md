@@ -14,21 +14,27 @@
 
 ### 2.1 编译插件
 
-#### 1. 下载leveldb依赖并安装
+#### 1. 下载leveldb和snappy依赖和并安装
 
-- Ubuntu：
-```bash
-mkdir ~/leveldb_dep
-cd ~/leveldb_dep
-git clone https://github.com/google/leveldb.git
-cd leveldb
-mkdir -p build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
-sudo make install
+``` sh
+# 安装leveldb依赖
+wget https://github.com/google/leveldb/archive/v1.20.tar.gz
+tar xvf v1.20.tar.gz
+rm -f v1.20.tar.gz
+cd leveldb-1.20
+make
+sudo scp -r out-static/lib* out-shared/lib* "/usr/local/lib"
+cd include
+sudo scp -r leveldb /usr/local/include
+sudo ldconfig
 ```
-- MacOS：
-```bash
-brew install leveldb
+```sh
+# 安装snappy依赖
+git clone https://github.com/google/snappy.git
+cd snappy
+mkdir build
+cd build && cmake ../ 
+sudo make install
 ```
 
 #### 2. 开启编译选项，支持leveldb插件
