@@ -1,7 +1,7 @@
 # Quick start
 ## Overview
 
-This tutorial provides guidance for GXChain smart contract development, including contract development, deployment, debugging, and common errors.
+This tutorial provides guidance for GXChain smart contract development, including contract development, deployment, debugs, and common errors.
 
 The GXChain smart contract is developed in C++, compiled by the [Webassembly](https://webassembly.org/) virtual machine and deployed on the GXChain blockchain network. The compiled smart contract includes the abi file and the wast file, the `abi` file is the interface file defined by the contract, and the `wast` file is the bytecode file executed by the Webassembly virtual machine. The GXChain smart uses WebAssembly virtual machine to support smart contracts written in multiple languages ​​such as C++ and TypeScript.
 
