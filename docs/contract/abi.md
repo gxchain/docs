@@ -1,9 +1,9 @@
 
 # Abi Parsing
 
-The abi file is the external interface that calls the smart contract action. It defines the parameters of the action and the fields of the table. (Note: there is no abi file to call the action in the contract, just need to modify the wallet client). When we call the action normally, the action call fails because of the lack of certain items in the abi file. Therefore, this section of the tutorial parses the abi file. When you encounter an abi file error during the development of the contract, you can also locate the cause of the problem.
+The abi file is the external interface which defines the parameters of the action and the fields of the table ,can call the smart contract action. (Note: If there is no abi file, you can call the action by modifying the wallet client). When we call the action normally, we often fails to call the actions because some items of the abi file are missing. Therefore, this section of the tutorial parses the abi file. When you encounter an abi file error during the development of the contract, you can also locate the cause of the problem.
 
-he abi file mainly contains four important fields: types、structs、actions、tables。
+The abi file mainly contains four important fields: types、structs、actions、tables。
 ![](./png/abi.jpg)
 
 ## types
