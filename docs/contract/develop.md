@@ -1,34 +1,33 @@
 # Develop and API introduction
 
 ## Built-in type
-The contract provides built-in types in addition to the basic types.
+The contract provides built-in types in addition to the basic types suppoerted by c++ syntax.
 
 ### contract\_asset
 
-contract_asset class
+contract_asset class contains two fields
 ```cpp
 int64_t     amount;
 uint64_t    asset_id;
 ```
-Verify that the contract_asset amount is valid, use the `is_amount_within_range` member method
+Use the `is_amount_within_range` member method to verify that the contract_asset amount is valid or not
 ```cpp
-bool is_amount_within_range() const { 
-    return -max_amount <= amount && amount <= max_amount; 
+bool is_amount_within_range() const {
+    return -max_amount <= amount && amount <= max_amount;
 }
 ```
 
 
 ::: warning Note
-`amount` indicates the number of assets, and uses large numbers of storage in the chain. For example, the accuracy of GXC assets is 5,1 GXC actually needs to be expressed as 1 * 100000 = 100000, that is, amount is 100000
+In the contract_asset type, where `amount` represents the number of assets and it uses large members to store in the chain . For example, the accuracy of GXC assets is 5,1 GXC actually needs to be expressed as 1 * 100000 = 100000, that means, amount is 100000.
 
 The asset_id indicates the instance_id of the asset (for example, if the asset id is 1.3.1, its instance_id is 1).
 :::
-
-For an example of the use of the `contract_asset` type, refer to the `Bank` contract.
+You can learn the use of the `contract_asset` type refer to the `Bank` contract.
 
 ### signature
 
-signature class
+the definition of signature class  
 ```cpp
 struct signature {
    uint8_t data[65];
@@ -41,7 +40,7 @@ void verify(checksum256 hash, std::string pub_key, signature sig)
 {   
     print(pub_key, "\n");
     assert_recover_key(&hash, &sig, pub_key.c_str(), pub_key.length());
-} 
+}
  ```
 
 
@@ -71,7 +70,7 @@ void issue(const std::string& question, const checksum256& hashed_answer)
             p.issuer = owner;
             p.question = question;
             p.hashed_answer = hashed_answer;
-    }); 
+    });
 }  
 ```
 
@@ -98,11 +97,12 @@ block_id_type class
 typedef struct checksum160      block_id_type;
 ```
 ## Built-in API
+When you develop smart contracts on GXChain, you can call the built-in API to implement richer features.
 
 | belong | api name | description |
 | --- | --- | --- |
-| <graphenelib/action.h> | current_receiver | Returns the instance_id of the current contract account |
-| <graphenelib/action.h> | get_action_asset_id | Returns the asset instance_id sent to the contract by this call |
+| <graphenelib/action.h> | current_receiver | Returns the instance_id of the current contract account( the last digit of the account id) |
+| <graphenelib/action.h> | get_action_asset_id | Returns the asset instance_id sent to the contract by this call( the last digit of the asset id) |
 | <graphenelib/action.h> | get_action_asset_amount | Returns the number of assets sent to the contract by this call |
 | <graphenelib/asset.h> | withdraw_asset | Transfer assets from the current contract account to the other account |
 | <graphenelib/asset.h> | get_balance | Get the balance of an asset in the account on the chain |
@@ -119,13 +119,13 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_account_id | Get the instance_id of the account by the account name |
 | <graphenelib/global.h> | get_account_name_by_id | Obtain an account name by the account instance id |
 | <graphenelib/global.h> | get_asset_id | Get the instance_id of the asset by the asset name |
-| <graphenelib/global.h> | read_transaction | Read the current transaction serialized data |
-| <graphenelib/global.h> | transaction_size | The length of the data of the current transaction is serialized |
-| <graphenelib/global.h> | expiration | Get transaction expiration time |
+| <graphenelib/global.h> | read_transaction | Read serialized data of the current transaction |
+| <graphenelib/global.h> | transaction_size | Get the length of  the current transaction data after it has been serialized|
+| <graphenelib/global.h> | expiration | Get  expiration time of the transaction |
 | <graphenelib/global.h> | tapos_block_num | Returns the block number referenced by the transaction |
-| <graphenelib/global.h> | tapos_block_prefix | Returns the block ID of the transaction reference (the second 32 digits) |
-| <graphenelib/action.h> | read_action_data | Read current action data |
-| <graphenelib/action.h> | action_data_size | Returns the number of bytes required to read the current action data |
+| <graphenelib/global.h> | tapos_block_prefix | Return the block ID referenced by the transaction  (the second 32-bit number) |
+| <graphenelib/action.h> | read_action_data | Read data of the current action |
+| <graphenelib/action.h> | action_data_size|Returns the number of bytes needed to get the current action data |
 | <graphenelib/action.h> | send_inline      | Inline execute action |
 | <graphenelib/action.hpp> | unpack_action_data | Deserialize the current action data into a defined action object |
 | <graphenelib/system.h> | graphene_assert | If the assertion fails, interrupt the execution of this contract and roll all states |
@@ -140,9 +140,9 @@ typedef struct checksum160      block_id_type;
 
 **Head file:** `<graphenelib/action.h>`
 
-**Description:** Returns the instance_id of the current contract account
+**Description:** Returns the instance_id of the current contract account( the last digit of the account id)
 
-**Return value:** Instance_id 
+**Return value:** Instance_id
 
 **Example:**
 
@@ -162,9 +162,9 @@ void examcurr(){
 
 **Head file:** `<graphenelib/action.h>`
 
-**Description:** Returns the asset instance_id sent to the contract by this call
+**Description:** Return the asset instance_id sent to the contract by this call
 
-**Return value:** Action does not attach assets, returns 0, otherwise returns instance_id    
+**Return value:** Returns 0 means the action has no attached assets, otherwise returns instance_id    
 
 **Example:**
 
@@ -184,19 +184,47 @@ void examgetast(){
 
 **Description:** Returns the number of assets sent to the contract by this call
 
-**Return value:** Action does not attach assets, returns 0, otherwise returns amount   
+**Return value:** Returns 0 means the contract has no accompanying assets, otherwise means the number of assets attached and the quantity needs to be divided by 100,000   
 
 **Example:**
 
 ```cpp
-//get_action_asset_amount 
+//get_action_asset_amount
 // @abi action
 void examgetamo(){
     int64_t amount = get_action_asset_amount();
     print("call action asset amount: ",amount,"\n");      
 }
 ```
+### inline\_transfer
 
+**Function:**`void inline_transfer(uint64_t from, uint64_t to, uint64_t asset_id, int64_t amount, const char* data, uint32_t length)`
+
+**Head file:**`<graphenelib/asset.h>`
+
+**Description:** Transfer the assets of the current contract to an external account
+
+**Params:**
+
+Params | Type | Description
+---|---|---
+from | uint64_t | Must be \_self
+to   | uint64_t | The instance_id of the receiver account
+asset_id | uint64_t | Asset id used to transfer
+amount | int64_t | Transfer amount, this number contains the accuracy of the asset, for example, if you want to transfer 1 GXC, you should write 100000
+data | const char* | The first address of the data string(memo)
+length | uint32_t | Length of the data string
+
+**Example:**
+
+```cpp
+// @abi action
+void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
+    std::string memo = "withdraw";
+    inline_transfer(from,to,asset_id,amount, memo.c_str(), memo.size());
+    print("inline_transfer example\n");
+}
+```
 
 ### withdraw\_asset
 
@@ -213,7 +241,7 @@ Params | Type | Description
 from | uint64_t | Must be \_self
 to   | uint64_t | The instance_id of the receiver account
 asset_id | uint64_t | Asset id used to transfer
-amount | int64_t | Transfer amount
+amount | int64_t | Transfer amount, this number contains the accuracy of the asset, for example, if you want to transfer 1 GXC, you should write 100000
 
 **Example:**
 
@@ -240,7 +268,7 @@ void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
 
 Params | Type | Description
 ---|---|---
-account | int64_t | Account's instace_id
+account | int64_t | Account's instance_id
 asset_id | int64_t | Asset's instance_id
 
 **Example:**
@@ -259,7 +287,7 @@ void examgetbl(int64_t account, int64_t asset_id){
 
 **Head file:** `<graphenelib/crypto.h>`
 
-**Description:** Obtain the encrypted data of the sha1 algorithm 
+**Description:** Obtain the encrypted data of the sha1 algorithm
 
 
 **Params:**
@@ -383,8 +411,8 @@ void examripemd(std::string data){
 Params | Type | Description
 ---|---|---
 data | const checksum256* | Sha256 hash
-sig | const signature* | Signature
-pub | const char* | Public key
+sig | const signature* | Signature value of the string
+pub | const char* | Public key(in hexadecimal format)
 publen | uint32_t | Plulic key length
 
 **Example:**
@@ -404,7 +432,7 @@ void examrecover(checksum256 dig,signature sig,std::string pkey)
 
 **Head file:** `<graphenelib/global.h>`
 
-**Description:** Get the time of the block, return the value in seconds
+**Description:** Return the latest block number
 
 **Return value:** The head block number
 
@@ -458,7 +486,7 @@ void examgetid(){
 Params | Type | Description
 ---|---|---
 hash | checksum160* | The specified block hash
-block_num | uint32_t | Block num
+block_num | uint32_t | The specified block num
 
 **Example:**
 
@@ -466,7 +494,7 @@ block_num | uint32_t | Block num
 // @abi action
 void examidnum(){
     checksum160 block_hash;
-    get_block_id_for_num(&block_hash,1);             //get the hash of first block 
+    get_block_id_for_num(&block_hash,1);             //get the hash of first block
     printhex(block_hash.hash,20);
     print("\n");
 }
@@ -479,9 +507,9 @@ void examidnum(){
 
 **Head file:** `<graphenelib/global.h>`
 
-**Description:** Get the time of the block, return the value in seconds
+**Description:** Get the time of the latest block, return the value in seconds
 
-**Return Value:** The time of the block
+**Return Value:** The time of the latest block
 
 **Example:**
 
@@ -531,8 +559,8 @@ void examgettrx(){
 
 Params | Type | Description
 ---|---|---
-data | const char* | Account name
-length | uint32_t | Account name length
+data | const char* | Account name( such as `nathan`)
+length | uint32_t | Account name length( such as the length of `nathan` is 6)
 
 **Example:**
 
@@ -590,7 +618,7 @@ void examgetname(int64_t accid){
 Params | Type | Description
 ---|---|---
 data | const char* | Asset name
-length | uint32_t | Asset name length
+length | uint32_t | The length of asset name
 
 **Example:**
 
@@ -609,16 +637,16 @@ void examassid(std::string data){
 
 **Head file:** `<graphenelib/global.h>`
 
-**Description:** Read the current transaction serialized data
+**Description:** Extract serialized data of the current transaction to the param dst
 
-**Return Value:** If dst_size is 0, the number of bytes required for reading is returned; if dst_size is not 0, the number of bytes actually read is returned.
+**Return Value:** When dst_size is 0, it returns the number of bytes required for reading; when dst_size is not 0, it returns the number of bytes actually read (The minimum value of dst_size is also the minimum value of transaction size )
 
 **Params:**
 
 Params | Type | Description
 ---|---|---
-dst | char* | Buffer address
-dst_size | uint32_t | Read size
+dst | char* | The pointer to receive the read buffer data
+dst_size | uint32_t | The read data size
 
 **Example:**
 
@@ -639,7 +667,7 @@ void examreadtrx(){
 
 **Head file:** `<graphenelib/global.h>`
 
-**Description:** Get the length of the data of the current transaction is serialized
+**Description:** Get the length of the data of the current transaction which has been serialized
 
 **Return Value:** The length of the data
 
@@ -703,9 +731,9 @@ void examtapnum(){
 
 **Head file:** `<graphenelib/global.h>`
 
-**Description:** Returns the block ID of the transaction reference (the second 32 digits)
+**Description:** Get the block ID of the transaction reference (the second 32-bit number)
 
-**Return Value:** Returns the block ID of the transaction reference (the second 32 digits)
+**Return Value:** Return the block ID of the transaction reference (the second 32-bit number)
 
 **Example:**
 
@@ -725,15 +753,14 @@ void examtappre(){
 
 **Head file:** `<graphenelib/action.h>`
 
-**Description:** Read current action data
+**Description:** Read the data of the current action
 
-**Return Value:** Read size
-
+**Return Value:** Return the number of bytes of data actually read. If len is 0, the number of bytes required for reading will be returned.
 **Params:**
 
 Params | Type | Description
 ---|---|---
-msg | void* | Buffer address
+msg | void* | The pointer to receive the read buffer data
 len | uint32_t | Buffer size
 
 **Example:**
@@ -793,7 +820,7 @@ Generally, by constructing an action and inlining the action through its send me
 struct myaction {
     uint64_t num;
     std::string name;
-  
+
     GRAPHENE_SERIALIZE(myaction,(num)(name))
 };
 // @abi action
@@ -853,7 +880,7 @@ msg_len | uint32_t | Message size
 void examassmsg(){
     uint64_t number=1;
     std::string msg = "wrong!!!";
-    graphene_assert_message(number == 1, msg.c_str(),msg.length()); 
+    graphene_assert_message(number == 1, msg.c_str(),msg.length());
 }
 ```
 
@@ -864,7 +891,7 @@ void examassmsg(){
 
 **Head file:** `<graphenelib/system.h>`
 
-**Description:** Print log（Please click [Contract Debugging](debug.html#print)）
+**Description:** Print log（Please click [Contract Debug](debug.html#print)）
 
 
 **Params:**
@@ -884,29 +911,31 @@ void examprint(){
 
 ### example
 
-The sample contract for api usage has been deployed to the test network, which can be tested by the IDE client, click to view [contract source](./question.html#Built-in_api_example),contract name is `apitest`
+The sample contract for api usage has been deployed to the test network, which can be tested by the IDE client, click to view [contract source](./question.html#Built-in_api_example),contract name is `apitest3`
+
+![](./png/apitest3.jpg)
 
 ## Inline action
 
 ### Description
 
-GXChain supports inter-contract calls and supports payment accounts that set ram fees. Examples of cross-contract calls are `User --> contract_A --> contract_B`, for contract `contract_B`, `User` is the original caller, and `contract_A` is sender.
+GXChain supports one contract to call another contract and supports payment accounts to set ram fees. For examples :`User --> contract_A --> contract_B`, for contract `contract_B`, `User` is the original caller, and `contract_A` is sender.
 
-Cross-contract call level limit: no more than three contracts in the call chain. That is: `User -> contract_A -> contract_B -> contract_C`, if the number of layers is exceeded, the execution will be terminated. (If the call chain forms a loop call, it will also terminate execution)
+However, cross-contract calls are limited by the number of layers: no more than three contracts in   call chain. Such as : `User -> contract_A -> contract_B -> contract_C`, if the number of call levels is greater than 3, the execution will be  terminated. If the call chain forms a loop, it will also terminate execution.
 
 The ram resource used in the contract, the payment account can be set to the following four identities:
 
 | ram_fee payer | Description |
-| --- | --- | 
+| --- | --- |
 | 0 | Contract account itself (same as \_slef) |
 | \_self | Contract account itself (same as 0） |
 | sender | Contract call account |
-| original | Contract original call account, cross-contract call, call the account for the start |
+| original | The account originally calls the contract , which is used as the starting call account in the cross-contract call. |
 
 ### Example
 
 `contract_A --> contract_B`, `contract_A` contract calls `contract_B` contract.
-1. Construct an action in `contract_A` containing `contract_B` account id/account name, action name, parameters, calling account (\_self), additional assets
+1. Construct an action in `contract_A` containing `contract_B` account id/account name, action name, parameters, calling account (\_self), additional assets.
 2. Call the send method of the action to complete the cross-contract call.
 
 ```cpp
@@ -952,17 +981,17 @@ void inlinecall(uint64_t con_b_id, std::string con_b_name){
 * [Modify](#modify)
 
 
-### <a name="smart_contract_storage_brief_introduction"></a>Introduction to multi-index table 
-The data must be stored in units of C++ class instances, so the stored C++ classes must be defined in the contract. Each class has a table, similar to a single table in the sql database. The difference is that it has the following characteristics: 
+### <a name="smart_contract_storage_brief_introduction"></a>Introduction to multi-index table
+The data must be stored in units of C++ class instances, so the stored C++ classes must be defined in the contract. Each class has a table, similar to a single table in the sql database. The difference is that it has the following characteristics:
 >Support for multi index   
 
 >Joint indexing is not supported  
 
 >Only the primary key is unique  
 
->Index type only supports uint64_t type 
+>Index type only supports uint64_t type
 
->If you want to use a string as an index, you must use the `uint64_t string_to_name(string str)` in the contract library to convert the string to uint64_t. The string length is limited to 12 characters and can only include ([az].[1 -5]) A total of 32 characters 
+>If you want to use a string as an index, you must use the `uint64_t string_to_name(string str)` in the contract library to convert the string to uint64_t. The string length is limited to 12 characters and can only include ([az].[1 -5]) a total of 32 characters
 
 >For indexes other than the primary key, when there are multiple record index values, the acquired object is the earliest inserted record.  
 
@@ -1030,7 +1059,7 @@ class multindex : public contract
             dump_item(*matched_offer_itr);
         }
     }
-    
+
     //@abi action
     void getbystring(std::string key)
     {
@@ -1065,7 +1094,7 @@ class multindex : public contract
         uint64_t by_index1() const { return idx1; }
 
         uint64_t by_index2() const { return idx2; }
-        
+
         uint64_t by_stringidx() const {return stringidx; }
 
         GRAPHENE_SERIALIZE(offer, (id)(idx1)(idx2)(stringidx))
@@ -1100,7 +1129,7 @@ private:
         uint64_t by_index1() const { return idx1; }
 
         uint64_t by_index2() const { return idx2; }
-        
+
         uint64_t by_stringidx() const {return stringidx; }
 
         GRAPHENE_SERIALIZE(offer, (id)(idx1)(idx2)(stringidx))
@@ -1115,15 +1144,18 @@ private:
 
 Must add comments //@abi table offer i64    
 
-`offer` is table name, Can't exceed 12 characters and can only be `[a-z] 1-5] .` 
+`offer` is table name, Can't exceed 12 characters and can only be `[a-z] 1-5]`,and can only start  with letters or `.` .
 
 `i64` is an index type.
 
-`GRAPHEN_SERIALIZE`(typename, (field1)(field2)(field3)(field4)...)
+Struct offer{...} is a normal c++ class.
 
-`uint64_t primary_key() const { return id; }` Specify a unique primary key, The other 3 functions are used to define the secondary index. 
+`GRAPHENE_SERIALIZE(offer, (id)(idx1)(idx2)(stringidx))` is used to serialize the table such as `GRAPHEN_SERIALIZE (typename, (field1)(field2)(field3)(field4)...)`.
 
-Definition index 
+`uint64_t primary_key() const { return id; }` Specify a unique primary key, the function name and type of this code are fixed and cannot be changed.The other three functions are used to define the secondary index.
+
+
+The definition of index
 ```cpp
 typedef multi_index<N(offer), offer,  
     indexed_by<N(idx1), const_mem_fun<offer, uint64_t, &offer::by_index1>>,  
@@ -1131,14 +1163,14 @@ typedef multi_index<N(offer), offer,
     indexed_by<N(stringidx), const_mem_fun<offer, uint64_t, &offer::by_stringidx>>>  offer_index;  
 
 `offer` is consistent with the offer in '//@abi table offer i64', `offer` is used to specify the type name previously defined
-``` 
+```
 
 ```cpp
 indexed_by<N(idx1), const_mem_fun<offer, uint64_t, &offer::by_index1>>,
     const_mem_fun<offer, uint64_t, &offer::by_index1>
 
-// Define a secondary index, a table can define up to 16 secondary indexes 
-// N(idx1) used to define the index name 
+// There are secondary indexes here and a table can define up to 16 secondary indexes.
+// N(idx1) used to define the index name
 ```
 
 In the contract constructor you need to use the contract's \_self (contract id) to initialize an instance of a multi-index type.
@@ -1162,7 +1194,7 @@ offers.emplace(0, [&](auto &o) {
     o.stringidx = graphenelib::string_to_name(name.c_str());
 });
 ```
-`uint64_t pk = offers.available_primary_key()` The next legal primary key used to obtain the auto-increment primary key, or you can specify it yourself 
+`uint64_t pk = offers.available_primary_key()` The next legal primary key used to obtain the auto-increment primary key, or you can specify it yourself
 
 ```cpp
 offers.emplace(0, [&](auto &o) {  
@@ -1172,17 +1204,17 @@ offers.emplace(0, [&](auto &o) {
     o.stringidx = graphenelib::string_to_name(name.c_str());  
 });
 ```
-
-`o.stringidx = graphenelib::string_to_name(name.c_str())`Implementing a string type as an index
+Inserting an object with a lambda expression to assign a value to the newly added object `o`
+`o.stringidx = graphenelib::string_to_name(name.c_str())` is a way that uses a string type to query.
 
 [go_back](#index)  
 
 
 #### <a name="delete"></a>Erase
-Please read first [Find](#find)  
-Usually iterated by the table, you need to find the iterator of the object you want to delete.
+Please read [Find](#find) first  
+To delete an object by table's iterator, you should call the find function to find the iterator of the object you want to delete.
 
-`offers.erase(it)` 'it' is an iterator that finds the returned object
+`offers.erase(it)` 'it' is an iterator of the object which you want find.
 
 [go_back](#index)  
 
@@ -1196,16 +1228,16 @@ if (matched_offer_itr != idx.end()) {
 }
 ```
 
-`auto idx = offers.template get_index<N(stringidx)>()`Get the index of the offer table name as `stringidx`, the offer table has 4 indexes, one is the primary key index, and the other 3 secondary levels are `idx1`, `idx2`, `stringidx`  
+`auto idx = offers.template get_index<N(stringidx)>()`Get the index of the offer table name as `stringidx`, the offer table has 4 indexes, one is the primary key index, and the other 3 secondary indexs are `idx1`, `idx2`, `stringidx`  
 
-`auto matched_offer_itr = idx.lower_bound(N(key))`Find the object of the string key by the primary key index and return its iterator `matched_offer_itr` 
+`auto matched_offer_itr = idx.lower_bound(N(key))`Find the object of the string key by the primary key index and return its iterator `matched_offer_itr`
 
 [go_back](#index)  
 
 
 #### <a name="modify"></a>Modify
 
-Modifying an object is usually modified by the object's iterator and lambda expression.
+Modify objects by their iterators and lambda expressions
 
 ```cpp
 offers.modify(it, 0, [&](auto &o) {
