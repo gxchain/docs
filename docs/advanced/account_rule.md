@@ -1,16 +1,16 @@
-# Account Name Rule Description
+# Rule description for naming accounts
 
-On the GXChain network, user information is stored in an account object. Each account has a unique account id (example: `1.2.*`), and the account object contains the user's account name. On GXChain, there are custom rules. The following is a description of GXChain's rules:
+On the GXChain network, user information is stored in an account object. Each account has a unique account id (example: `1.2.*`), and the account object contains the user's account name. GXChain has its own naming rules. The following is a description of GXChain's rules:
 
 - GXChain account name is limited to 1-63 characters
 
 - GXChain account name must be in lowercase letters (beginning with a-z)
 
-- The last letter of the GXChain account name is (0-9a-z)
+- The last letter of the GXChain account name is (0-9 a-z)
 
 - When `.` exists in the GXChain account name, each slice separated by `.` must start with a lowercase letter (a-z), the account `a.1` is invalid, and the account `a.b` is valid.
 
-- GXChain account name can be used except for the first letter and the last letter (including `.` separated slices) (`a-z0-9-.`)
+- GXChain account name can use (`a-z 0-9- .`) except for the first letter and the last letter (including `.` separated slices)
 
 The following is the code for the account name verification:
 

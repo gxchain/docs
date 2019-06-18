@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-Since the `witness_node` program's own `account_history_plugin` plugin saves the account transaction history to the memory object, if you track all the chain accounts and record all the transaction records for each account, it will inevitably cause a huge memory overhead. In order to save the account transaction history of the whole node and reduce the node configuration requirements, refer to the `bitshares` ES plugin and use the `elastic_search` database to save all transaction records.
+If you track all accounts and record all transactions for each account on the chain, it will inevitably cause a huge memory spending because of the account_history_plugin plugin of the witness_node program will save the account transaction history to the memory object. In order to save the account transaction history of the whole node and reduce the node configuration requirements, we refer to the `bitshares` ES plugin and use the `elastic_search` database to save all transaction records.
 
 Plugin name: `elastic_search_plugin`
 
@@ -26,7 +26,7 @@ sudo apt-get install libcurl4-openssl-dev
 Modify the `gxb-core/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
-set( LOAD_ELASTICSEARCH_PLUGIN 1) 
+set( LOAD_ELASTICSEARCH_PLUGIN 1)
 ```
 
 #### 3. Compile the witness_node program with plugins
@@ -37,7 +37,7 @@ Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wi
 
 ### 2.2 Start
 
-#### 1. Create an account with a non-root account (Ubuntu)
+#### 1. Create an non-root account (Ubuntu)
 
 Note: The `Elastic Search` database only runs under a non-root account.
 ``` bash
@@ -58,7 +58,7 @@ sudo apt-get install default-jdk
 # 1 download
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.zip
 
-# 2 unpack 
+# 2 unpack
 unzip elasticsearch-6.2.0.zip
 # If unzip is not installed, execute the following command:
 sudo apt-get install unzip
@@ -82,7 +82,7 @@ When starting the `witness_node` program, add the `plugins` parameter with the f
 
 #### 6. Verify that the plugin is working properly
 
-In the default configuration, during the playback block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
+In the default configuration, during the playing back block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
 
 ```bash
 curl -X GET 'http://localhost:9200/gxchain*/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
@@ -475,4 +475,3 @@ curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Conten
   }
 }
 ```
-

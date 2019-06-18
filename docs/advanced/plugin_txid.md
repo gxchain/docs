@@ -10,8 +10,8 @@ Database: `leveldb`
 
 ## 2. Compilation and startup
 
-To use the plugin, compile the `witness_node` program with the plugin as follows.
- 
+The release program does not include the plugin. If you want to use the plugin, please follow the steps below to compile the duration_node program with the plugin.
+
 ### 2.1 Compilation
 
 #### 1. Download leveldb dependencies and install
@@ -33,7 +33,7 @@ sudo ldconfig
 git clone https://github.com/google/snappy.git
 cd snappy
 mkdir build
-cd build && cmake ../ 
+cd build && cmake ../
 sudo make install
 ```
 

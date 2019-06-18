@@ -1,6 +1,6 @@
 # Multi-signature tutorial
 
-GXChain supports multiple signatures, this tutorial explains how to use multi-signature transfer on GXChain
+GXChain supports multi-signature verification and this tutorial will explain how to use multi-signature for transfer transactions on GXChain.
 
 ## Set up a multi-signed account
 
@@ -8,9 +8,9 @@ Use the web wallet to create an account, and open the web wallet permission page
 
 ![](./assets/mulsignature/wallet_sig.png)
 
-The threshold value represents the sum of the weights required to control the funds of the account. Assuming the threshold is 2, the account assets can be controlled as long as the sum of any weights is added to the sub-account exceeding the threshold.
+The threshold value represents the sum of the weights required to control the funds of the account. Assuming the threshold is 2, if you want to control the account assets, you need to control any sub-account whose sum of weights has exceed the threshold.
 
-Create a `sign-001` account here and send the permissions to the two sub-accounts `sign-0011` and `sign-0012`, and import the two sub-accounts into different wallets. The weights of the two sub-accounts are respectively 1. A threshold of 2 means that only the two accounts agree, and the funds in the `sign-001` account can be transferred out.
+We create a sign-001 account here and send it to two sub-accounts, sign-0011 and sign-0012, and import the two sub-accounts into different wallets. Each sub-account's weight is 1 and the threshold is 2, which means that only all two accounts agree, and the funds in the sign-001 account can be transferred out.
 
 ## Initiate a transfer through a proposal
 
@@ -38,6 +38,6 @@ Approve the proposal under the `sign-0011` account
 
 ![](./assets/mulsignature/approve_2.png)
 
-Both accounts are approved and approved, and the transfer is initiated.
+After both accounts approving, the transfer can be initiated.
 
 ![](./assets/mulsignature/approve.png)
