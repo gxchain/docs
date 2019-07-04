@@ -77,7 +77,7 @@ cd elasticsearch-6.2.0/
 启动`witness_node`程序时，添加`plugins`参数，参数如下：
 
 ```bash
---plugins "witness elastic_search"
+--plugins "witness elastic_search data_transaction"
 ```
 
 #### 6. 验证插件是否正常工作
