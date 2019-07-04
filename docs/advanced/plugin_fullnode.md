@@ -77,7 +77,7 @@ cd elasticsearch-6.2.0/
 When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
 ```bash
---plugins "witness elastic_search"
+--plugins "witness elastic_search data_transaction"
 ```
 
 #### 6. Verify that the plugin is working properly
