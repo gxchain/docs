@@ -135,5 +135,5 @@ This methods is recommended if you want to keep the private key offline.
 2. Replace the placeholder `<account_name>` and `<public_key>` and try the curl command below:
 
 ``` bash
-curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
+curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json' -d '{"account":{"name":"<account_name>","owner_key":"<public_key>","active_key":"<public_key>","memo_key":"<public_key>","refcode":null,"referrer":null}}'
 ```
