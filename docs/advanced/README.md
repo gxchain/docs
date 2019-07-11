@@ -15,4 +15,7 @@ The advanced tutorial will contain the most basic knowledge of GXChain, and the 
 - [How to launch private chain？](./private_chain.md)
 - [Introduction to block and transaction structure](./block_operation_object.md)
 - [Cli_wallet Introduce](./cli_wallet.md)
+- [Witness_node Introduce](./witness_node.md)
 - [Multi-signature tutorial](./mul_sign.md)
+- [Txid query plugin tutorial](./plugin_txid.md)
+- [Full-node account history plugin tutorial](./plugin_fullnode.md)

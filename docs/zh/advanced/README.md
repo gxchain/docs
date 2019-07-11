@@ -15,5 +15,9 @@
 - [如何搭建私有链？](./private_chain.md)
 - [区块和交易结构介绍](./block_operation_object.md)
 - [cli_wallet使用教程](./cli_wallet.md)
+- [witness_node使用教程](./witness_node.md)
 - [多重签名使用教程](./mul_sign.md)
+- [txid反查插件使用教程](./plugin_txid.md)
+- [全节点账户历史插件使用教程](./plugin_fullnode.md)
+
 
