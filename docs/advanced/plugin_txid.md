@@ -8,6 +8,14 @@ Plugin name: `query_txid_plugin`
 
 Database: `leveldb`
 
+Configuration:
+
+| BlockChain | Ram | Disk |
+| :--- | :--- | :-- |
+| Mainnet | 32G | 1T |
+| Testnet | 16G | 500G |
+
+
 ## 2. Compilation and startup
 
 The release program does not include the plugin. If you want to use the plugin, please follow the steps below to compile the duration_node program with the plugin.
@@ -58,7 +66,7 @@ Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wi
 When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
 ```bash
---plugins "witness query_txid"
+--plugins "witness query_txid data_transaction"
 ```
 
 #### 2. Verify that the plugin is working properly
