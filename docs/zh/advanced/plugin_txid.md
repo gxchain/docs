@@ -12,8 +12,8 @@
 
 | 网络 | 内存 | 磁盘 |
 | :--- | :--- | :-- |
-| 主网 | 32G | 1T |
-| 测试网 | 16G | 500G |
+| 主网 | 32G | 500G |
+| 测试网 | 16G | 200G |
 
 
 ## 2. 插件的编译与启动
@@ -31,9 +31,9 @@ tar xvf v1.20.tar.gz
 rm -f v1.20.tar.gz
 cd leveldb-1.20
 make
-sudo scp -r out-static/lib* out-shared/lib* "/usr/local/lib"
+sudo cp -r out-static/lib* out-shared/lib* "/usr/local/lib"
 cd include
-sudo scp -r leveldb /usr/local/include
+sudo cp -r leveldb /usr/local/include
 sudo ldconfig
 ```
 ```sh
