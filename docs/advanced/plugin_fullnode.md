@@ -8,6 +8,13 @@ Plugin name: `elastic_search_plugin`
 
 Database: `Elastic Search`
 
+Configuration:
+
+| BlockChain | Ram | Disk |
+| :--- | :--- | :-- |
+| Mainnet | 32G | 1T |
+| Testnet | 16G | 500G |
+
 ## 2. Compilation and startup
 
 ### 2.1 Compilation
@@ -55,16 +62,35 @@ sudo apt-get install default-jdk
 ```
 #### 3. Install elastic_search
 ```bash
-# 1 download
+# 1 switch account
+su myaccount
+# 2 download
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.zip
-
-# 2 unpack
+# 3 unpack
 unzip elasticsearch-6.2.0.zip
-# If unzip is not installed, execute the following command:
-sudo apt-get install unzip
+```
+::: warning Note:
+
+If unzip is not installed, execute the following command:
+
+`sudo apt-get install unzip`
+
+:::
+
+#### 4. Set Elastic Search Database Configuration
+
+set `total heap space` 
+```bash
+vim ./elasticsearch-6.2.0/config/jvm.options
+#before:
+-Xms1g
+-Xmx1g
+#after:
+-Xms8g
+-Xmx8g
 ```
 
-#### 4. Start Elastic Search Database
+#### 5. Start Elastic Search Database
 
 ```bash
 #daemon mode
@@ -72,7 +98,41 @@ cd elasticsearch-6.2.0/
 ./bin/elasticsearch --daemonize
 ```
 
-#### 5. Start fullnode plugin
+#### 6. View Elastic Search Database logs
+
+```bash
+tail -f ./logs/elasticsearch.log
+```
+
+#### 7. Start fullnode plugin
+
+elastic_search Plugin supports multiple parameter configuration
+
+```json
+# Elastic Search database node url(http://localhost:9200/)
+# elasticsearch-node-url =
+
+# Number of bulk documents to index on replay(10000)
+# elasticsearch-bulk-replay =
+
+# Number of bulk documents to index on a syncronied chain(100)
+# elasticsearch-bulk-sync =
+
+# Pass basic auth to elasticsearch database('')
+# elasticsearch-basic-auth =
+
+# Add a prefix to the index(gxchain)
+# elasticsearch-index-prefix =
+
+# Save operation as object(true)
+# elasticsearch-operation-object =
+
+# Start doing ES job after block(0)
+# elasticsearch-start-es-after-block = 
+
+# Maximum number of operations per account will be kept in memory
+elasticsearch-max-ops-per-account = 1000
+```
 
 When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
@@ -80,7 +140,7 @@ When starting the `witness_node` program, add the `plugins` parameter with the f
 --plugins "witness elastic_search data_transaction"
 ```
 
-#### 6. Verify that the plugin is working properly
+#### 8. Verify that the plugin is working properly
 
 In the default configuration, during the playing back block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
 
