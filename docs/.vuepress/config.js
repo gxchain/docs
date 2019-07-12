@@ -178,6 +178,7 @@ function genSidebarConfig (module, title) {
                     'question',
                     'error_collection',
                     'abi',
+                    'movetable',
                     'contractfee'
                 ]
             }
