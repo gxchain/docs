@@ -8,6 +8,8 @@
 
 数据库：`Elastic Search`
 
+系统：`Ubuntu16.04/MacOS`
+
 所需最低配置：
 
 | 网络 | 内存 | 磁盘 |
