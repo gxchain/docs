@@ -8,6 +8,8 @@ Plugin name: `elastic_search_plugin`
 
 Database: `Elastic Search`
 
+Os: `Ubuntu16.04/Mac`
+
 Configuration:
 
 | BlockChain | Ram | Disk |
