@@ -50,7 +50,7 @@ apt-get install libstdc++-7-dev
 ### 1. Release 패키지 다운로드
 
 ``` bash
-# 执行这个shell脚本，会自动从github下载最新的主网程序，并解压至当前目录下
+# 이 Shell 스크립트를 집행하면 Github 에서 새로운 메인 웹 프로그램을 자동으로 다운로드합니다. 그리고나서 현재 목차에 파일을 압축 해제합니다 
 curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxchain_install.sh' | bash
 ```
 
