@@ -17,7 +17,7 @@
 
 개발자가 프로그램에서 gxchain api를 쉽게 사용할 수 있도록 gxclient를 봉인하고 다음과 같은 몇 가지 유형의 기능을 구현했습니다.
 
-- [x] [공유 키 쌍 생성](https://gxchain.github.io/gxclient-node/api/#chain-api)
+- [x] [공개 개인 키 생성](https://gxchain.github.io/gxclient-node/api/#chain-api)
 - [x] [체인 정보 얻기](https://gxchain.github.io/gxclient-node/api/#chain-api)
 - [x] [계정 관련](https://gxchain.github.io/gxclient-node/api/#account-api)
 - [x] [자산 관련](https://gxchain.github.io/gxclient-node/api/#asset-api)
