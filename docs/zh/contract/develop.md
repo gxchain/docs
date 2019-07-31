@@ -118,6 +118,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_block_id_for_num | 获取指定区块hash |
 | <graphenelib/global.h> | get_head_block_time | 获取最新区块的时间，返回值单位秒 |
 | <graphenelib/global.h> | get_trx_sender | 获取调用合约的账号的instance_id |
+| <graphenelib/global.h> | get_trx_origin | 获取原始调用者的instance_id |
 | <graphenelib/global.h> | get_account_id | 根据账号名获取账号的instance_id |
 | <graphenelib/global.h> | get_account_name_by_id | 根据账号instance id获取账号名 |
 | <graphenelib/global.h> | get_asset_id | 根据资产名获取资产的instance_id |
@@ -549,6 +550,26 @@ void examgettrx(){
 }
 ```
 
+### get\_trx\_origin
+
+**函数类型:** `uint64_t get_trx_origin();`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取原始调用者的instance id
+
+**返回值:** 返回原始调用者的instance id
+
+**示例:**
+
+```cpp
+// @abi action
+void examgetori(){
+    uint64_t origin_id;
+    origin_id = get_trx_origin();
+    print("original instance id: ",origin_id,"\n");
+}
+```
 
 ### get\_account\_id
 

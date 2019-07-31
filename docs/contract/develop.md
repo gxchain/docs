@@ -116,6 +116,7 @@ When you develop smart contracts on GXChain, you can call the built-in API to im
 | <graphenelib/global.h> | get_block_id_for_num | Get the specified block hash |
 | <graphenelib/global.h> | get_head_block_time | Get the time of the block, return the value in seconds |
 | <graphenelib/global.h> | get_trx_sender | Get the instance_id of the account that called the contract |
+| <graphenelib/global.h> | get_trx_origin | Get the instance_id of the original account |
 | <graphenelib/global.h> | get_account_id | Get the instance_id of the account by the account name |
 | <graphenelib/global.h> | get_account_name_by_id | Obtain an account name by the account instance id |
 | <graphenelib/global.h> | get_asset_id | Get the instance_id of the asset by the asset name |
@@ -544,6 +545,26 @@ void examgettrx(){
 }
 ```
 
+### get\_trx\_origin
+
+**Function:** `uint64_t get_trx_origin()`
+
+**Head file:** `<graphenelib/global.h>`
+
+**Description:** Get the instance_id of the original account 
+
+**Return Value:** Original account instance_id 
+
+**Example:**
+
+```cpp
+// @abi action
+void examgetori(){
+    uint64_t origin_id;
+    origin_id = get_trx_origin();
+    print("original instance id: ",origin_id, "\n");
+}
+```
 
 ### get\_account\_id
 
