@@ -1,6 +1,19 @@
 # Develop and API introduction
 
+## Naming Rules
+
+In the process of generating the abi interface file, will base32 encode the ACTION name and TABLE name, so there are restrictions on the naming rules.
+
+ACTION, TABLE range: [1 ~ 5 a ~ z]
+
+ACTION, TABLE length: no more than 13
+
+class name range: [a ~ z 0 ~ 9]
+
+class name length: unlimited
+
 ## Built-in type
+
 The contract provides built-in types in addition to the basic types suppoerted by c++ syntax.
 
 ### contract\_asset

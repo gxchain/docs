@@ -1,5 +1,17 @@
 # 合约开发和API介绍
 
+## 命名规则
+
+GXChain智能合约在生成abi接口文件过程中，会对合约内ACTION名称、TABLE名称进行base32编码，故在命名规则上存在限制。
+
+ACTION、TABLE命名范围：[1 ~ 5 a ~ z]
+
+ACTION、TABLE命名长度：不超过13位
+
+class name命名范围：[a ~ z 0 ~ 9]
+
+class name命名长度：无限制
+
 ## 内置类型
 GXChain智能合约，除了C++语法支持的所有类型外，还提供了合约内置类型。
 
