@@ -1802,3 +1802,236 @@ response:
 	}
 }
 ```
+## Staking
+### `get_staking_object`
+
+Get the staking objects of one account with account_id
+
+#### Parameter Description
+
+<table>
+    <tr>
+        <th rowspan="1">Request parameter</th>
+        <th colspan="2">Parameter Description</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_staking_object</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description
+</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>account_id</td>
+    </tr>
+</table>
+
+#### Example
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_staking_object",["1.2.22"]],
+        "id": 1
+}' https://testnet.gxchain.org | json_pp
+```
+
+**response:**
+```json
+{
+   "id" : 1,
+   "result" : [
+      {
+         "amount" : {
+            "asset_id" : "1.3.1", //assert GXC
+            "amount" : 1000000    //staking number
+         },
+         "program_id" : "1",      //the first staking_object of the account
+         "weight" : 1,            //staking_weight
+         "id" : "1.27.0",         //staking_object
+         "staking_days" : 90,     //the days of staking
+         "create_date_time" :    "2020-01-16T08:40:33",   //create time
+         "trust_node" : "1.6.2",  //trust node 
+         "owner" : "1.2.22",      
+         "is_valid" : true        
+      },
+      {
+         "amount" : {
+            "asset_id" : "1.3.1",
+            "amount" : 1500000
+         },
+         "program_id" : "2",
+         "weight" : 2,
+         "id" : "1.27.1",
+         "staking_days" : 360,
+         "create_date_time" : "2020-01-16T09:10:00",
+         "trust_node" : "1.6.2",
+         "is_valid" : true,
+         "owner" : "1.2.22"
+      },
+      {
+         "amount" : {
+            "amount" : 900000000,
+            "asset_id" : "1.3.1"
+         },
+         "program_id" : "3",
+         "weight" : 4,
+         "id" : "1.27.62",
+         "staking_days" : 720,
+         "owner" : "1.2.22",
+         "is_valid" : true,
+         "trust_node" : "1.6.55",
+         "create_date_time" : "2020-01-17T05:06:03"
+      },
+      {
+         "id" : "1.27.63",
+         "amount" : {
+            "asset_id" : "1.3.1",
+            "amount" : 1000000
+         },
+         "weight" : 1,
+         "program_id" : "4",
+         "trust_node" : "1.6.1",
+         "owner" : "1.2.22",
+         "is_valid" : false,
+         "create_date_time" : "2020-01-17T07:08:48",
+         "staking_days" : 15
+      },
+      {
+         "staking_days" : 15,
+         "create_date_time" : "2020-02-18T11:41:54",
+         "owner" : "1.2.22",
+         "is_valid" : true,
+         "trust_node" : "1.6.82",
+         "amount" : {
+            "amount" : "3640000000",
+            "asset_id" : "1.3.1"
+         },
+         "program_id" : "4",
+         "weight" : 1,
+         "id" : "1.27.10110"
+      }
+   ],
+   "jsonrpc" : "2.0"
+}
+```
+### `get_staking_object_by_witness`
+
+Get staking objects with specified witness_id, position and number
+
+#### Parameter Description
+
+<table>
+    <tr>
+        <th>Request parameter</th>
+        <th colspan="2">Parameter Description
+</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_staking_object_by_witness</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API Parameters</th>
+        <th>API Parameter Description</th>
+    </tr>
+    <tr>
+        <td>witness_id</td>
+        <td>witness_id</td>
+    </tr>
+    <tr>
+        <td>start</td>
+        <td>starting staking_object id</td>
+    </tr>
+    <tr>
+        <td>limit</td>
+        <td>number of staking_objects, up to 100</td>
+    </tr>
+    
+</table>
+
+
+#### Example
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_staking_object_by_witness",["1.6.1","1.27.2","3"]],
+        "id": 1
+}' https://testnet.gxchain.org | json_pp
+```
+
+**response:**
+```json
+{
+   "id" : 1,
+   "jsonrpc" : "2.0",
+   "result" : {
+      "next_id" : "1.27.65",
+      "records" : [
+         {
+            "create_date_time" : "2020-01-17T02:19:12",  //create time 
+            "staking_days" : 360,   //staking days
+            "owner" : "1.2.3946",   //the owner
+            "weight" : 2,           //staking weight
+            "amount" : {
+               "amount" : 2400001,  //staking number 
+               "asset_id" : "1.3.1"
+            },
+            "id" : "1.27.2",        //staking_object 
+            "is_valid" : true,      
+            "trust_node" : "1.6.1", 
+            "program_id" : "2" 
+         },
+         {
+            "owner" : "1.2.3950",
+            "staking_days" : 720,
+            "create_date_time" : "2020-01-17T04:59:18",
+            "weight" : 4,
+            "amount" : {
+               "asset_id" : "1.3.1",
+               "amount" : 1000000000
+            },
+            "program_id" : "3",
+            "id" : "1.27.42",
+            "is_valid" : true,
+            "trust_node" : "1.6.1"
+         },
+         {
+            "amount" : {
+               "asset_id" : "1.3.1",
+               "amount" : 1000000
+            },
+            "is_valid" : false,
+            "id" : "1.27.63",
+            "trust_node" : "1.6.1",
+            "program_id" : "4",
+            "create_date_time" : "2020-01-17T07:08:48",
+            "staking_days" : 15,
+            "owner" : "1.2.22",
+            "weight" : 1
+         }
+      ],
+      "more" : true      //are there more staking_objects
+   }
+}
+```

@@ -1860,3 +1860,235 @@ curl --data '{
         }
 }
 ```
+
+## 抵押投票查询接口
+### `get_staking_object`
+
+根据账户返回抵押投票对象
+
+#### 参数说明
+
+<table>
+    <tr>
+        <th rowspan="1">请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_staking_object</td>
+    </tr>
+    <tr>
+        <td rowspan="3" >API Parameters</td>
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>account_id</td>
+        <td>账户ID</td>
+    </tr>
+</table>
+
+#### 示例
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_staking_object",["1.2.22"]],
+        "id": 1
+}' https://testnet.gxchain.org | json_pp
+```
+
+**response:**
+```json
+{
+   "id" : 1,
+   "result" : [
+      {
+         "amount" : {
+            "asset_id" : "1.3.1", //资产类别
+            "amount" : 1000000    //抵押数量
+         },
+         "program_id" : "1",      //账户抵押第一项
+         "weight" : 1,            //抵押权重
+         "id" : "1.27.0",         //抵押对象
+         "staking_days" : 90,     //抵押时长(天)
+         "create_date_time" :    "2020-01-16T08:40:33",   //创建时间
+         "trust_node" : "1.6.2",  //抵押节点
+         "owner" : "1.2.22",      
+         "is_valid" : true        //是否有效
+      },
+      {
+         "amount" : {
+            "asset_id" : "1.3.1",
+            "amount" : 1500000
+         },
+         "program_id" : "2",
+         "weight" : 2,
+         "id" : "1.27.1",
+         "staking_days" : 360,
+         "create_date_time" : "2020-01-16T09:10:00",
+         "trust_node" : "1.6.2",
+         "is_valid" : true,
+         "owner" : "1.2.22"
+      },
+      {
+         "amount" : {
+            "amount" : 900000000,
+            "asset_id" : "1.3.1"
+         },
+         "program_id" : "3",
+         "weight" : 4,
+         "id" : "1.27.62",
+         "staking_days" : 720,
+         "owner" : "1.2.22",
+         "is_valid" : true,
+         "trust_node" : "1.6.55",
+         "create_date_time" : "2020-01-17T05:06:03"
+      },
+      {
+         "id" : "1.27.63",
+         "amount" : {
+            "asset_id" : "1.3.1",
+            "amount" : 1000000
+         },
+         "weight" : 1,
+         "program_id" : "4",
+         "trust_node" : "1.6.1",
+         "owner" : "1.2.22",
+         "is_valid" : false,
+         "create_date_time" : "2020-01-17T07:08:48",
+         "staking_days" : 15
+      },
+      {
+         "staking_days" : 15,
+         "create_date_time" : "2020-02-18T11:41:54",
+         "owner" : "1.2.22",
+         "is_valid" : true,
+         "trust_node" : "1.6.82",
+         "amount" : {
+            "amount" : "3640000000",
+            "asset_id" : "1.3.1"
+         },
+         "program_id" : "4",
+         "weight" : 1,
+         "id" : "1.27.10110"
+      }
+   ],
+   "jsonrpc" : "2.0"
+}
+```
+### `get_staking_object_by_witness`
+
+根据节点ID返回指定指定位置和数量的抵押对象
+
+#### 参数说明
+
+<table>
+    <tr>
+        <th>请求参数</th>
+        <th colspan="2">请求参数说明</th>
+    </tr>
+    <tr>
+        <td>API Id</td>
+        <td colspan="2" align="center">0</td>
+    </tr>
+    <tr>
+        <td>API Name</td>
+        <td colspan="2" align="center">get_staking_object_by_witness</td>
+    </tr>
+    <tr>
+        <td rowspan="5" >API Parameters</td>   
+    </tr>
+    <tr>
+        <th>API参数</th>
+        <th>API参数说明</th>
+    </tr>
+    <tr>
+        <td>witness_id</td>
+        <td>节点ID</td>
+    </tr>
+    <tr>
+        <td>start</td>
+        <td>起始对象ID</td>
+    </tr>
+    <tr>
+        <td>limit</td>
+        <td>返回抵押对象数量，最多100个</td>
+    </tr>
+    
+</table>
+
+
+#### 示例
+**request:**
+``` bash
+curl --data '{
+    "jsonrpc": "2.0",
+        "method": "call",
+        "params": [0, "get_staking_object_by_witness",["1.6.1","1.27.2","3"]],
+        "id": 1
+}' https://testnet.gxchain.org | json_pp
+```
+
+**response:**
+```json
+{
+   "id" : 1,
+   "jsonrpc" : "2.0",
+   "result" : {
+      "next_id" : "1.27.65",
+      "records" : [
+         {
+            "create_date_time" : "2020-01-17T02:19:12",  //生成时间
+            "staking_days" : 360,   //抵押天数
+            "owner" : "1.2.3946",   //拥有账户
+            "weight" : 2,           //抵押权重
+            "amount" : {
+               "amount" : 2400001,  //抵押数量
+               "asset_id" : "1.3.1"
+            },
+            "id" : "1.27.2",        //抵押对象
+            "is_valid" : true,      //是否有效
+            "trust_node" : "1.6.1", //抵押节点
+            "program_id" : "2" 
+         },
+         {
+            "owner" : "1.2.3950",
+            "staking_days" : 720,
+            "create_date_time" : "2020-01-17T04:59:18",
+            "weight" : 4,
+            "amount" : {
+               "asset_id" : "1.3.1",
+               "amount" : 1000000000
+            },
+            "program_id" : "3",
+            "id" : "1.27.42",
+            "is_valid" : true,
+            "trust_node" : "1.6.1"
+         },
+         {
+            "amount" : {
+               "asset_id" : "1.3.1",
+               "amount" : 1000000
+            },
+            "is_valid" : false,
+            "id" : "1.27.63",
+            "trust_node" : "1.6.1",
+            "program_id" : "4",
+            "create_date_time" : "2020-01-17T07:08:48",
+            "staking_days" : 15,
+            "owner" : "1.2.22",
+            "weight" : 1
+         }
+      ],
+      "more" : true      //是否还有更多抵押项
+   }
+}
+```
