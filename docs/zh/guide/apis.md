@@ -1862,7 +1862,7 @@ curl --data '{
 ```
 
 ## 抵押投票查询接口
-### `get_staking_object`
+### `get_staking_objects`
 
 根据账户返回抵押投票对象
 
@@ -1879,7 +1879,7 @@ curl --data '{
     </tr>
     <tr>
         <td>API Name</td>
-        <td colspan="2" align="center">get_staking_object</td>
+        <td colspan="2" align="center">get_staking_objects</td>
     </tr>
     <tr>
         <td rowspan="3" >API Parameters</td>
@@ -1900,7 +1900,7 @@ curl --data '{
 curl --data '{
     "jsonrpc": "2.0",
         "method": "call",
-        "params": [0, "get_staking_object",["1.2.22"]],
+        "params": [0, "get_staking_objects",["1.2.22"]],
         "id": 1
 }' https://testnet.gxchain.org | json_pp
 ```
@@ -1984,7 +1984,7 @@ curl --data '{
    "jsonrpc" : "2.0"
 }
 ```
-### `get_staking_object_by_witness`
+### `get_staking_objects_by_witness`
 
 根据节点ID返回指定指定位置和数量的抵押对象
 
@@ -2001,7 +2001,7 @@ curl --data '{
     </tr>
     <tr>
         <td>API Name</td>
-        <td colspan="2" align="center">get_staking_object_by_witness</td>
+        <td colspan="2" align="center">get_staking_objects_by_witness</td>
     </tr>
     <tr>
         <td rowspan="5" >API Parameters</td>   
@@ -2032,7 +2032,7 @@ curl --data '{
 curl --data '{
     "jsonrpc": "2.0",
         "method": "call",
-        "params": [0, "get_staking_object_by_witness",["1.6.1","1.27.2","3"]],
+        "params": [0, "get_staking_objects_by_witness",["1.6.1","1.27.2","3"]],
         "id": 1
 }' https://testnet.gxchain.org | json_pp
 ```

@@ -1803,7 +1803,7 @@ response:
 }
 ```
 ## Staking
-### `get_staking_object`
+### `get_staking_objects`
 
 Get the staking objects of one account with account_id
 
@@ -1820,7 +1820,7 @@ Get the staking objects of one account with account_id
     </tr>
     <tr>
         <td>API Name</td>
-        <td colspan="2" align="center">get_staking_object</td>
+        <td colspan="2" align="center">get_staking_objects</td>
     </tr>
     <tr>
         <td rowspan="3" >API Parameters</td>
@@ -1842,7 +1842,7 @@ Get the staking objects of one account with account_id
 curl --data '{
     "jsonrpc": "2.0",
         "method": "call",
-        "params": [0, "get_staking_object",["1.2.22"]],
+        "params": [0, "get_staking_objects",["1.2.22"]],
         "id": 1
 }' https://testnet.gxchain.org | json_pp
 ```
@@ -1926,7 +1926,7 @@ curl --data '{
    "jsonrpc" : "2.0"
 }
 ```
-### `get_staking_object_by_witness`
+### `get_staking_objects_by_witness`
 
 Get staking objects with specified witness_id, position and number
 
@@ -1944,7 +1944,7 @@ Get staking objects with specified witness_id, position and number
     </tr>
     <tr>
         <td>API Name</td>
-        <td colspan="2" align="center">get_staking_object_by_witness</td>
+        <td colspan="2" align="center">get_staking_objects_by_witness</td>
     </tr>
     <tr>
         <td rowspan="5" >API Parameters</td>   
@@ -1975,7 +1975,7 @@ Get staking objects with specified witness_id, position and number
 curl --data '{
     "jsonrpc": "2.0",
         "method": "call",
-        "params": [0, "get_staking_object_by_witness",["1.6.1","1.27.2","3"]],
+        "params": [0, "get_staking_objects_by_witness",["1.6.1","1.27.2","3"]],
         "id": 1
 }' https://testnet.gxchain.org | json_pp
 ```

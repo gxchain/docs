@@ -16,4 +16,5 @@
 - [区块和交易结构介绍](./block_operation_object.md)
 - [cli_wallet使用教程](./cli_wallet.md)
 - [多重签名使用教程](./mul_sign.md)
+- [抵押投票教程](./staking.md)
 

@@ -16,3 +16,4 @@ The advanced tutorial will contain the most basic knowledge of GXChain, and the 
 - [Introduction to block and transaction structure](./block_operation_object.md)
 - [Cli_wallet Introduce](./cli_wallet.md)
 - [Multi-signature tutorial](./mul_sign.md)
+- [How to vote by staking](./staking.md)
