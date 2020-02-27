@@ -2,11 +2,20 @@
 
 ## 1. Overview
 
-Since the `witness_node` program's own `account_history_plugin` plugin saves the account transaction history to the memory object, if you track all the chain accounts and record all the transaction records for each account, it will inevitably cause a huge memory overhead. In order to save the account transaction history of the whole node and reduce the node configuration requirements, refer to the `bitshares` ES plugin and use the `elastic_search` database to save all transaction records.
+If you track all accounts and record all transactions for each account on the chain, it will inevitably cause a huge memory spending because of the account_history_plugin plugin of the witness_node program will save the account transaction history to the memory object. In order to save the account transaction history of the whole node and reduce the node configuration requirements, we refer to the `bitshares` ES plugin and use the `elastic_search` database to save all transaction records.
 
 Plugin name: `elastic_search_plugin`
 
 Database: `Elastic Search`
+
+Os: `Ubuntu16.04/Mac`
+
+Configuration:
+
+| BlockChain | Ram | Disk |
+| :--- | :--- | :-- |
+| Mainnet | 32G | 1T |
+| Testnet | 16G | 500G |
 
 ## 2. Compilation and startup
 
@@ -26,7 +35,7 @@ sudo apt-get install libcurl4-openssl-dev
 Modify the `gxb-core/CMakeLists.txt` file as follows to enable compilation options
 
 ```cpp
-set( LOAD_ELASTICSEARCH_PLUGIN 1) 
+set( LOAD_ELASTICSEARCH_PLUGIN 1)
 ```
 
 #### 3. Compile the witness_node program with plugins
@@ -37,7 +46,7 @@ Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wi
 
 ### 2.2 Start
 
-#### 1. Create an account with a non-root account (Ubuntu)
+#### 1. Create an non-root account (Ubuntu)
 
 Note: The `Elastic Search` database only runs under a non-root account.
 ``` bash
@@ -55,16 +64,35 @@ sudo apt-get install default-jdk
 ```
 #### 3. Install elastic_search
 ```bash
-# 1 download
+# 1 switch account
+su myaccount
+# 2 download
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.zip
-
-# 2 unpack 
+# 3 unpack
 unzip elasticsearch-6.2.0.zip
-# If unzip is not installed, execute the following command:
-sudo apt-get install unzip
+```
+::: warning Note:
+
+If unzip is not installed, execute the following command:
+
+`sudo apt-get install unzip`
+
+:::
+
+#### 4. Set Elastic Search Database Configuration
+
+set `total heap space` 
+```bash
+vim ./elasticsearch-6.2.0/config/jvm.options
+#before:
+-Xms1g
+-Xmx1g
+#after:
+-Xms8g
+-Xmx8g
 ```
 
-#### 4. Start Elastic Search Database
+#### 5. Start Elastic Search Database
 
 ```bash
 #daemon mode
@@ -72,17 +100,51 @@ cd elasticsearch-6.2.0/
 ./bin/elasticsearch --daemonize
 ```
 
-#### 5. Start fullnode plugin
+#### 6. View Elastic Search Database logs
+
+```bash
+tail -f ./logs/elasticsearch.log
+```
+
+#### 7. Start fullnode plugin
+
+elastic_search Plugin supports multiple parameter configuration
+
+```json
+# Elastic Search database node url(http://localhost:9200/)
+# elasticsearch-node-url =
+
+# Number of bulk documents to index on replay(10000)
+# elasticsearch-bulk-replay =
+
+# Number of bulk documents to index on a syncronied chain(100)
+# elasticsearch-bulk-sync =
+
+# Pass basic auth to elasticsearch database('')
+# elasticsearch-basic-auth =
+
+# Add a prefix to the index(gxchain)
+# elasticsearch-index-prefix =
+
+# Save operation as object(true)
+# elasticsearch-operation-object =
+
+# Start doing ES job after block(0)
+# elasticsearch-start-es-after-block = 
+
+# Maximum number of operations per account will be kept in memory
+elasticsearch-max-ops-per-account = 1000
+```
 
 When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
 ```bash
---plugins "witness elastic_search"
+--plugins "witness elastic_search data_transaction"
 ```
 
-#### 6. Verify that the plugin is working properly
+#### 8. Verify that the plugin is working properly
 
-In the default configuration, during the playback block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
+In the default configuration, during the playing back block process, the plugin sends every 5000 records to the Elastic Search database. You can use the following query to get the number of the database.
 
 ```bash
 curl -X GET 'http://localhost:9200/gxchain*/data/_count?pretty=true' -H 'Content-Type: application/json' -d '
@@ -475,4 +537,3 @@ curl -X GET 'http://localhost:9200/gxchain*/data/_search?pretty=true' -H 'Conten
   }
 }
 ```
-

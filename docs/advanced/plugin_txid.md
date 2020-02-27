@@ -8,10 +8,18 @@ Plugin name: `query_txid_plugin`
 
 Database: `leveldb`
 
+Configuration:
+
+| BlockChain | Ram | Disk |
+| :--- | :--- | :-- |
+| Mainnet | 32G | 500G |
+| Testnet | 16G | 200G |
+
+
 ## 2. Compilation and startup
 
-To use the plugin, compile the `witness_node` program with the plugin as follows.
- 
+The release program does not include the plugin. If you want to use the plugin, please follow the steps below to compile the duration_node program with the plugin.
+
 ### 2.1 Compilation
 
 #### 1. Download leveldb dependencies and install
@@ -23,9 +31,9 @@ tar xvf v1.20.tar.gz
 rm -f v1.20.tar.gz
 cd leveldb-1.20
 make
-sudo scp -r out-static/lib* out-shared/lib* "/usr/local/lib"
+sudo cp -r out-static/lib* out-shared/lib* "/usr/local/lib"
 cd include
-sudo scp -r leveldb /usr/local/include
+sudo cp -r leveldb /usr/local/include
 sudo ldconfig
 ```
 ```sh
@@ -33,7 +41,7 @@ sudo ldconfig
 git clone https://github.com/google/snappy.git
 cd snappy
 mkdir build
-cd build && cmake ../ 
+cd build && cmake ../
 sudo make install
 ```
 
@@ -58,7 +66,7 @@ Compile in MacOS environment: [Build OSX](https://github.com/gxchain/gxb-core/wi
 When starting the `witness_node` program, add the `plugins` parameter with the following parameters:
 
 ```bash
---plugins "witness query_txid"
+--plugins "witness query_txid data_transaction"
 ```
 
 #### 2. Verify that the plugin is working properly

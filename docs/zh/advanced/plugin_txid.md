@@ -8,6 +8,14 @@
 
 数据库：`leveldb`
 
+所需最低配置：
+
+| 网络 | 内存 | 磁盘 |
+| :--- | :--- | :-- |
+| 主网 | 32G | 500G |
+| 测试网 | 16G | 200G |
+
+
 ## 2. 插件的编译与启动
 
 默认发布的release程序，并未包含该插件。如需使用该插件，请按照如下步骤编译带插件的`witness_node`程序。
@@ -23,9 +31,9 @@ tar xvf v1.20.tar.gz
 rm -f v1.20.tar.gz
 cd leveldb-1.20
 make
-sudo scp -r out-static/lib* out-shared/lib* "/usr/local/lib"
+sudo cp -r out-static/lib* out-shared/lib* "/usr/local/lib"
 cd include
-sudo scp -r leveldb /usr/local/include
+sudo cp -r leveldb /usr/local/include
 sudo ldconfig
 ```
 ```sh
@@ -58,7 +66,7 @@ set( LOAD_TXID_PLUGIN 1)
 启动`witness_node`程序时，添加`plugins`参数，参数如下：
 
 ```bash
---plugins "witness query_txid"
+--plugins "witness query_txid data_transaction"
 ```
 #### 2. 验证插件是否正常工作
 

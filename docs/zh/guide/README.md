@@ -132,5 +132,5 @@ GXChain采用**账户模型**，并且引入了推荐注册机制，因此在GXC
 2. 替换下面curl命令中的 `<account_name>` and `<public_key>` 并在终端执行:
 
 ``` bash
-curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json’ -d ‘{“account”:{“name”:”<account_name>”,”owner_key”:”<public_key>”,”active_key”:”<public_key>”,”memo_key”:”<public_key>”,”refcode”:null,”referrer”:null}}’
+curl 'https://opengateway.gxb.io/account/register' -H 'Content-type: application/json' -H 'Accept: application/json' -d '{"account":{"name":"<account_name>","owner_key":"<public_key>","active_key":"<public_key>","memo_key":"<public_key>","refcode":null,"referrer":null}}'
 ```

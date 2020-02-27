@@ -1,16 +1,16 @@
 # Debug
 
-In the process of developing smart contracts, debugging is also very important. At present, the way to debug smart contracts is mainly to print the logs to the witness console using the interface provided by the GXChain blockchain, so build a private chain or synchronize the test network locally. For the debugging of smart contracts is very necessary.
+In the process of developing smart contracts, debugging is a very important part. Currently, the main way to debug smart contracts is to print the relevant logs to the witness console using the interface provided by the GXChain blockchain.Therefore, it is necessary to build a private chain or start a synchronous test network node locally.
 
-To start debugging, you need 2 operations:
-#### 1. Modify the local config.ini file as follows:
+before debugging, you need to do two things:
+#### 1. Modify the local config.ini file :
 ```
 [logger.default]
 level=debug
 appenders=stderr,FILE
 ```
 
-#### 2. When the witness_node starts, bring the parameters ``` --contracts-console ```
+#### 2. Start the witness_node with the parameters ``` --contracts-console ```
 
 The print debugging method implements overloaded implementation of multiple parameter types. Support for strings, int types, floating point numbers, hexadecimal, etc.
 

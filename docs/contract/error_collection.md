@@ -1,11 +1,11 @@
 # Troubles
 
-In the development process, you may encounter a variety of errors, so this tutorial will be long-term inclusion of various problems (including common problems in contract development and C++ development related issues).
+In the process of development, you may encounter a variety of errors, so this tutorial will be long-term inclusion of various problems (including common problems in contract and C++ related issues).
 
-## 1. VsCode head file wrong
-The cause of the error: Mostly due to the unsuccessful compilation of the source code, the header file that the contract depends on is not added to the environment variable.
+## 1.wrong about VsCode head file
+The cause of the error: The source code failed to compile, causing the contract dependent header file not to be added to the environment variable.
 
-Solution: Can be manually set in the vscode software, .vscode directory --> c_cpp_properties.json file editing
+Solution: Can be manually set in the vscode software, edit `.vscode directory --> c_cpp_properties.json file `
 
 ```json
 "includePath": [
@@ -15,8 +15,8 @@ Solution: Can be manually set in the vscode software, .vscode directory --> c_cp
 ],
 ```
 
-## 2. The generated abi file is missing items
-The cause of the error: It may be because there is no action or table on the external call, no comments are added, causing the gxx tool to scan and generate the abi file missing. (abi file analysis click [here](#abi-parsing))
+## 2. The generated abi file is not complete
+Probably because there is no comment added to the action or table called externally, causing the gxx tool to scan for abi file missing. (abi file resolution click herek[here](#abi-parsing))
 
 Solution: Add comments to action and table, examples are as follows:
 ```cpp
@@ -42,7 +42,7 @@ struct packet {
 ```
 
 ## 3. Failed to operate multi-index table (increase, change)
-The cause of the error: The parameter of the lambda expression that may be passed is not a reference to the object, resulting in a copy of the object being modified.
+The cause of the error: The argument to the passed lambda expression is not the reference to the object, resulting in just a copy of the object being modified.
 
 Solution: Modify the parameters of the lambda expression to a reference to the object.
 
@@ -52,10 +52,10 @@ offers.emplace(0, [&](auto &o) {
     ...
 });
 ```
-## 4. Error calling an action in the contract
-The cause of the error: In addition to checking the logic of the action itself, you still need to check the error in the abi file and the error of GRAPHENE_ABI.
+## 4. Error about calling an action in the contract
+The cause of the error: The logical reason of the action itself or the error in the abi file and the error of GRAPHENE_ABI.
 
-Solution: Check if the action exists in abi and whether the GRAPHENE_ABI macro contains the action.
+Solution: Check whether abi contains the action and whether the GRAPHENE_ABI macro contains the action.
 
 ```cpp
 // If you do not include an action, the contract can still be deployed successfully, but the contract will not be able to process the called action when called.
@@ -68,7 +68,7 @@ The cause of the error: Same as question 1, because the source code was not succ
 Solution: Compile the code correctly, source compile tutorial click [here](https://github.com/gxchain/gxb-core), if there is a problem with the compiled source, please submit the issue on the source github page.
 
 ## 6. Update contract causes table serialization error
-Cause: The update contract deletes or modifies the fields in the table, causing serialization errors.
+Cause: Updating contract deletes or modifies the fields in the table, causing serialization errors.
 
 Solution: Update the contract, do not modify the original table, add a new table to ensure that the field order is consistent with the serialization order.
 ```cpp
@@ -80,7 +80,7 @@ struct packet {
     vector<int64_t>         subpackets;
 
     uint64_t primary_key() const { return issuer; }
-    
+
      //The serialization order needs to be consistent with the order in which the fields are defined
     GRAPHENE_SERIALIZE(packet, (issuer)(pub_key)(total_amount)(number)(subpackets))
 };

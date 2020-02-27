@@ -1,5 +1,17 @@
 # 合约开发和API介绍
 
+## 命名规则
+
+GXChain智能合约在生成abi接口文件过程中，会对合约内ACTION名称、TABLE名称进行base32编码，故在命名规则上存在限制。
+
+ACTION、TABLE命名范围：[1 ~ 5 a ~ z]
+
+ACTION、TABLE命名长度：不超过13位
+
+class name命名范围：[a ~ z 0 ~ 9]
+
+class name命名长度：无限制
+
 ## 内置类型
 GXChain智能合约，除了C++语法支持的所有类型外，还提供了合约内置类型。
 
@@ -106,6 +118,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/action.h> | get_action_asset_id | 返回本次调用向合约发送的资产instance id (即资产id的最后一位)|
 | <graphenelib/action.h> | get_action_asset_amount | 返回本次调用向合约发送的资产数量 |
 | <graphenelib/asset.h> | withdraw_asset | 将当前合约帐户的资产转移到链上账户 |
+| <graphenelib/asset.h> | inline_transfer | 将当前合约帐户的资产转移到链上账户 |
 | <graphenelib/asset.h> | get_balance | 获取链上账户的某资产余额 |
 | <graphenelib/crypto.h> | sha1 | 计算数据的sha1 |
 | <graphenelib/crypto.h> | sha256 | 计算数据的sha256 |
@@ -117,6 +130,7 @@ typedef struct checksum160      block_id_type;
 | <graphenelib/global.h> | get_block_id_for_num | 获取指定区块hash |
 | <graphenelib/global.h> | get_head_block_time | 获取最新区块的时间，返回值单位秒 |
 | <graphenelib/global.h> | get_trx_sender | 获取调用合约的账号的instance_id |
+| <graphenelib/global.h> | get_trx_origin | 获取原始调用者的instance_id |
 | <graphenelib/global.h> | get_account_id | 根据账号名获取账号的instance_id |
 | <graphenelib/global.h> | get_account_name_by_id | 根据账号instance id获取账号名 |
 | <graphenelib/global.h> | get_asset_id | 根据资产名获取资产的instance_id |
@@ -195,6 +209,36 @@ void examgetast(){
 void examgetamo(){
     int64_t amount = get_action_asset_amount();
     print("call action asset amount: ",amount,"\n");      
+}
+```
+
+### inline\_transfer
+
+**函数类型:** `void inline_transfer(uint64_t from, uint64_t to, uint64_t asset_id, int64_t amount, const char* data, uint32_t length);`
+
+**头文件:** `<graphenelib/asset.h>`
+
+**功能说明:** 将当前合约的资产转移到外部账户
+
+**params:**
+
+参数 | 类型 | 描述
+---|---|---
+from | uint64_t | 从哪个账号转账，一般是_self
+to   | uint64_t | 转账到哪个外部账户，必须只传账号的instance_id，比如外部账户是1.2.33，那么传33即可
+asset_id | uint64_t | 指定转账的资产id，必须只传资产id的instance_id, 比如资产id是1.3.0， 那么传0即可
+amount | int64_t | 转账金额，这个数字包含了资产的精度，比如想转1个GXC，那么应该写100000
+data | const char* | data字符串首地址（memo）
+length | uint32_t | data字符串的长度
+
+**示例:**
+
+```cpp
+// @abi action
+void examwith(uint64_t from,uint64_t to, uint64_t asset_id, int64_t amount){
+    std::string memo = "withdraw";
+    inline_transfer(from,to,asset_id,amount, memo.c_str(), memo.size());
+    print("inline_transfer example\n");
 }
 ```
 
@@ -518,6 +562,26 @@ void examgettrx(){
 }
 ```
 
+### get\_trx\_origin
+
+**函数类型:** `uint64_t get_trx_origin();`
+
+**头文件:** `<graphenelib/global.h>`
+
+**功能说明:** 获取原始调用者的instance id
+
+**返回值:** 返回原始调用者的instance id
+
+**示例:**
+
+```cpp
+// @abi action
+void examgetori(){
+    uint64_t origin_id;
+    origin_id = get_trx_origin();
+    print("original instance id: ",origin_id,"\n");
+}
+```
 
 ### get\_account\_id
 

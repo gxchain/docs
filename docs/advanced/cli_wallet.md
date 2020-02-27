@@ -4,12 +4,12 @@ cli_wallet is a command-line tool provided by GXChain that provides functions su
 
 ## 1. Start cli\_wallet
 
-Before starting the `cli_wallet` tool, you first need to start a node program `witness_node` with the API service enabled, and you need to know the `Chain id` of the blockchain where the node program is located. Once you have the above information, you can interact with GXChain via the `cli_wallet` tool.
+Before starting the `cli_wallet` tool, you need to start a node program `witness_node` with the API service enabled first, and you need to know the `Chain id` of the blockchain where the node program is located. Once you have the above information, you can interact with GXChain via the `cli_wallet` tool.
 
 `cli_wallet` can be started as follows:
 
 ```bash
-#Note: The chain-id is changed to the chain id of your connection. The ip and port are specified according to the node startup configuration information
+#Note: The chain-id should to be changed to the chain id of your connection. The ip and port are specified according to the node startup configuration information
 ./cli_wallet --chain-id c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4 -sws://127.0.0.1:28090
 ```
 
@@ -183,7 +183,7 @@ In the `cli_wallet` process, the `help` and `get_help` commands can help you qui
 
 ### 2.1 New wallet settings, private key import
 
-After launching the `cli_wallet` tool correctly, it will enter an interactive window. If it is launched for the first time, you will be prompted to create a new wallet, the window prompts as follows:
+After launching the `cli_wallet` tool correctly, it will enter an interactive window. If it is launched for the first time, you will be prompted to create a new wallet, The prompt information is as follows::
 
 ```bash
 Please use the set_password method to initialize a new wallet before continuing
@@ -238,7 +238,7 @@ name | string | account name
 asset_symbol | string | asset name
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> upgrade_account test-upgrade GXC true
@@ -283,7 +283,7 @@ registrar_account | string | Referrer account
 referrer_account | string | Referral percentage
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> register_account a111 GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ GXC6vQtDEgHSickqe9itW8fbFyUrKZK5xsg4FRHzQZ7hStaWqEKhZ zhao-123 zhao-123 10 true
@@ -357,7 +357,7 @@ Param | Type | Description
 ---|---|---
 account_name_or_id | string | account name or account id(such as: init4 or 1.2.10)
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_account 1.2.10
@@ -443,7 +443,7 @@ get_account 1.2.10
 
 **Interface:** `asset_object get_asset(string asset_name_or_id)`
 
-**Description:** Get asset info
+**Description:** Get asset information
 
 **Parameter:**
 
@@ -451,7 +451,7 @@ Param | Type | Description
 ---|---|---
 asset_name_or_id | string | asset name or asset id(such as: GXC or 1.3.1)
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_asset GXC
@@ -500,9 +500,9 @@ Param | Type | Description
 ---|---|---
 num | uint32_t | block number
 
-**Example:** 
+**Example:**
 
-```bash 
+```bash
 unlocked >>> get_block 1
 get_block 1
 {
@@ -527,7 +527,7 @@ get_block 1
 
 **Parameter:** null
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_dynamic_global_properties
@@ -556,13 +556,13 @@ get_dynamic_global_properties
 
 **Description:** Get contract table
 
-**Parameter:** 
+**Parameter:**
 
 Param | Type | Description
 ---|---|---
 contract | string | contract name
 table | string | contract table name
-params | const get_table_rows_params & | Query mode object, configure query mode
+params | const get_table_rows_params & | Parameters used to configure the query mode
 
 get_table_rows_params description:
 
@@ -574,7 +574,7 @@ get_table_rows_params description:
 
 All parameters of 'get_table_rows_params' have default values. If there is no need to change the default value, you can not pass in
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_table_rows_ex gdice prizepool {}
@@ -658,7 +658,7 @@ Param | Type | Description
 ---|---|---
 owner_account | string | node id
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_witness 1.6.1
@@ -701,7 +701,7 @@ Param | Type | Description
 name | string | account
 limit | int | limit number
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> get_account_history zhao-123 5
@@ -729,7 +729,7 @@ asset_symbol | string | Asset name (eg GXC)
 memo | string | memo
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> transfer zhao-123 nathan 1 GXC "transfer test" true
@@ -789,7 +789,7 @@ contract_dir | string | Contract directory (absolute path)
 fee_asset_symbol | string | Asset name for payment of handling fee
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> deploy_contract hello0306 zhao-123 0 0 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
@@ -823,7 +823,7 @@ contract_dir | string | Contract directory (absolute path)
 fee_asset_symbol | string | Asset name for payment of handling fee
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> update_contract hello0306 zhao-123 /Users/zhaoxiangfei/code/contracts_work/helloworld GXC true
@@ -859,7 +859,7 @@ arg | string | Contract parameters
 fee_asset_symbol | string | Asset name for payment of handling fee
 broadcast | bool | Whether to broadcast
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
@@ -877,9 +877,9 @@ call_contract zhao-123 hello0306 null hi "{\"user\":\"gxchain\"}" GXC true
 }
 ```
 
-### 2.6 Manually constructing a transaction
+### 2.6 Construc a transaction manually
 
-The following is how to construct a transaction through the `cli_wallet` command line tool, the steps are as follows
+The following content is how to construct a transaction through the `cli_wallet` command line tool, the steps are as follows
 
 >begin_builder_transaction  
 add_operation_to_builder_transaction  
@@ -890,7 +890,7 @@ sign_builder_transaction
 
 **Interface:** `transaction_handle_type begin_builder_transaction()`
 
-**Description:** Build a `transaction` instance for use with other commands that build transactions
+**Description:** a function to build a `transaction` instance which is used with other commands to build a deal
 
 **Parameter:** null
 
@@ -906,7 +906,7 @@ begin_builder_transaction
 
 **Interface:** `void add_operation_to_builder_transaction(transaction_handle_type transaction_handle, const operation & op)`
 
-**Description:** Add an `operation` to the instance of the build and use it with other commands that build the transaction
+**Description:** Add an `operation` to the instance created and use it with other commands that build the transaction
 
 **Parameter:** The operation structure added by this interface can be obtained by using the `get_prototype_operation` command. For the parameters, see [operation type description](#operation).
 
@@ -917,7 +917,7 @@ Param | Type | Description
 transaction_handle | transaction_handle_type | The return value of begin_builder_transaction, the index of the constructed transaction
 op   | const operation & | The operation object added to the transaction instance
 
-**Example:** 
+**Example:**
 
 ```bash
 unlocked >>> add_operation_to_builder_transaction 0 [0,{"from":"1.2.426","to":"1.2.425","amount":{"amount":3,"asset_id":"1.3.1"},"extensions":[]}]
@@ -931,7 +931,7 @@ null
 
 **Description:** Set the commission for building a transaction
 
-**Parameter:** 
+**Parameter:**
 
 Param | Type | Description
 ---|---|---
@@ -955,7 +955,7 @@ set_fees_on_builder_transaction 0 GXC
 
 **Description:** Sign the constructed transaction and select the broadcast
 
-**Parameter:** 
+**Parameter:**
 
 Param | Type | Description
 ---|---|---
@@ -996,7 +996,7 @@ sign_builder_transaction 0 true
 
 #### operation
 
-Common operations are as follows, please click [operation type](https://github.com/gxchain/gxb-core/blob/dev_master/libraries/chain/include/graphene/chain/protocol/operations.hpp)
+Common operations are as follows, if you want more, please click [operation type](https://github.com/gxchain/gxb-core/blob/dev_master/libraries/chain/include/graphene/chain/protocol/operations.hpp)
 
 ```cpp
 transfer_operation,
@@ -1059,13 +1059,13 @@ suggest_brain_key
 }
 ```
 
-### 2.8 Redemption of the trust node margin
+### 2.8 Redeem the public trust node deposit
 
 **Interface:** `signed_transaction withdraw_trust_node_pledge(string account_name, string fee_asset_symbol, bool broadcast)`
 
-**Description:** Redemption of the trust node margin
+**Description:** Redeem the public trust node deposit
 
-**Parameter:** 
+**Parameter:**
 
 Param | Type | Description
 ---|---|---
@@ -1099,13 +1099,13 @@ withdraw_trust_node_pledge zhao-123 GXC true
 }
 ```
 
-### 2.9 Vote for trust nodes
+### 2.9 Vote to the trust nodes
 
 **Interface:** `signed_transaction vote_for_trust_nodes(string voting_account, vector<string> account_names, bool broadcast)`
 
-**Description:** vote for trust nodes
+**Description:** vote to trust nodes
 
-**Parameter:** 
+**Parameter:**
 
 Param | Type | Description
 ---|---|---
@@ -1154,7 +1154,7 @@ vote_for_trust_nodes zhao-123 ["zhuliting","gxcdac"] true
 ```
 ::: tip votes description
 
-In the example, two accounts are voted, namely `zhuliting` and `gxcdac`, where the votes field can be obtained through the `get_committee_member` interface and the `get_witness` interface, indicating the voting id.
+In the example, we vote to two accounts, zhuliting and gxcdac, where the votes field can be obtained through the get_committee_member interface and the get_witness interface,which indicates the voting id.
 
 `0` indicates the type of board member, `1` indicates the type of public node
 

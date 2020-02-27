@@ -4,14 +4,14 @@
 
 ### 1. register account
 
-Access test-net [online wallet](https://testnet.wallet.gxchain.org/#/) Register a wallet account
+Access test-net [online wallet](https://testnet.wallet.gxchain.org/#/) and refegister a wallet account
 
 ### 2. Claim test-net Token
 
-After registration is complete, claim test-net token(browser access [https://testnet.gxchain.org/gxc/get_token?your_account_name](), Please replace your_account_name with your test web wallet account name)
+After registration is completed, claim test-net token(use browser to access [https://testnet.gxchain.org/gxc/get_token?your_account_name](), Please replace your_account_name with your test web wallet account name)
 
 ### 3. IDE download
-Smart Contracts can be written, compiled, deployed, and debug by the Smart Contract IDE.
+With the IDE, you can write, compile, deploy, and call the smart contract.
 
 [click download](https://github.com/gxchain/gxchain-alpha/releases/latest)
 
@@ -26,12 +26,12 @@ Go to [Online Wallet](https://testnet.wallet.gxchain.org/#/) in Step 1  to find 
 Open the client again and import the account on the settings page.
 
 ::: warning Note
-The password will not be uploaded to the server, if you forget to remove the account and re-import
+The password will not be uploaded to the server, if you forget it ,you should remove the account and re-import
 :::
 
 ![](../advanced/assets/ide/import.png)
 
-### 5. Select template project
+### 5. Select project template
 
 ![](../advanced/assets/ide/addProject.png)
 
@@ -41,7 +41,7 @@ The password will not be uploaded to the server, if you forget to remove the acc
 
 ### 7. Deploy
 
-Need to unlock the wallet before deployment
+Need to unlock the wallet before deploying the contract
 
 ![](../advanced/assets/ide/deploy.png)
 
@@ -49,7 +49,7 @@ Need to unlock the wallet before deployment
 
 ### 8. Call
 
-As with deployment, you also need to unlock your wallet first.
+Like deploying the contract, you also need to unlock your wallet first.
 
 ![](../advanced/assets/ide/call.png)
 
@@ -59,12 +59,12 @@ As with deployment, you also need to unlock your wallet first.
 
 ### 1. GXChain source code compilation
 
-If you don't want to use smart contract IDE tools, or want to build a more stable and reliable compilation environment; you can compile GXChain program locally, compile, deploy, and call smart contracts through command line; GXChain source code compile, currently supports ubuntu system and mac system.
+If you don't want to use smart contract IDE tools, or want to build a more stable and reliable compilation environment; you can compile GXChain program locally, compile, deploy, and call smart contracts through command line; You can compile GXChain source code on ubuntu system and mac system.
 
 - [Build on Ubuntu](https://github.com/gxchain/gxb-core/wiki/BUILD_UBUNTU)
 - [Build on OS X](https://github.com/gxchain/gxb-core/wiki/BUILD_OS_X)
 
-### 2. Create a contract using a template
+### 2. Create a contract by using a template
 
 Create a helloworld contract with the `gxx` tool
 
@@ -85,7 +85,7 @@ Generate abi file
 gxx -g helloworld/helloworld.abi helloworld/helloworld.cpp
 ```
 
-### 4. Deployment contract
+### 4. Deploy contract
 
 Need to start cli_wallet, connect local node or remote testnet node
 
@@ -96,7 +96,7 @@ Need to start cli_wallet, connect local node or remote testnet node
 Import wallet private key
 
 ```bash
-# If it is a new wallet, you need to set an unlock password, here mylocalpassword
+# If it is a new wallet, you need to set an unlock password, here is 'mylocalpassword'
 
 new >>> set_password mylocalpassword
 
@@ -106,12 +106,12 @@ locked >>> unlock mylocalpassword
 # Import wallet private key
 unlocked >>> import_key your_account_name your_private_key
 
-# Deployment contract,0 and 0 are vm type and vm version respectively
+# Deploy contract,the name of the contract is 'helloworld',the sender is 'your_account_name', '0' and '0' are vm type and vm version,'./helloworld' is the path of the wast/abi file and the 'GXC'means a kind of asset.
 unlocked >>> deploy_contract helloworld your_account_name 0 0 ./helloworld GXC true
 ```
 
 ### 5. Call contract
-After the deployment contract is successful, you can call the contract using the call_contract interface.
+After the contract is deployed successfully, you can call the contract using the call_contract interface.
 
 ```bash
 unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" GXC true
@@ -123,9 +123,3 @@ unlocked >>> call_contract nathan helloworld null hi "{\"user\":\"zhuliting\"}" 
 // 'hello120301' is contract name
 unlocked >>> update_contract hello120301 zhao-123 /Users/zhaoxiangfei/code/contracts_work/example_contract_02/helloworld GXC true
 ```
-
-
-
-
-
-

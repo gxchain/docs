@@ -8,6 +8,15 @@
 
 数据库：`Elastic Search`
 
+系统：`Ubuntu16.04/MacOS`
+
+所需最低配置：
+
+| 网络 | 内存 | 磁盘 |
+| :--- | :--- | :-- |
+| 主网 | 32G | 1T |
+| 测试网 | 16G | 500G |
+
 ## 2. 插件的编译与启动
 
 ### 2.1 编译插件
@@ -55,16 +64,33 @@ sudo apt-get install default-jdk
 ```
 #### 3. 安装elastic_search
 ```bash
-# 1 下载安装包
+# 1 elasticsearch插件只能在非root账户下运行，切换到myaccount账户
+su myaccount
+# 2 下载安装包
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.zip
-
-# 2 解压安装包
+# 3 解压安装包
 unzip elasticsearch-6.2.0.zip
-# 如果未安装unzip，请执行如下命令
-sudo apt-get install unzip
+```
+::: warning 提示
+如果未安装unzip，请切换到root账户下安装
+
+`sudo apt-get install unzip`
+:::
+
+#### 4. 配置Elastic Search数据库
+
+修改`total heap space`大小
+```bash
+vim ./elasticsearch-6.2.0/config/jvm.options
+#修改前:
+-Xms1g
+-Xmx1g
+#修改后:
+-Xms8g
+-Xmx8g
 ```
 
-#### 4. 启动Elastic Search数据库
+#### 5. 启动Elastic Search数据库
 
 ```bash
 #后台模式启动
@@ -72,15 +98,49 @@ cd elasticsearch-6.2.0/
 ./bin/elasticsearch --daemonize
 ```
 
-#### 5. 启动全节点插件
+#### 6. 查看Elastic Search数据库日志
+
+```bash
+tail -f ./logs/elasticsearch.log
+```
+
+#### 7. 配置并启动全节点插件
+
+elastic_search插件支持多项参数配置
+
+```json
+# Elastic Search database node url(http://localhost:9200/)
+# elasticsearch-node-url =
+
+# Number of bulk documents to index on replay(10000)
+# elasticsearch-bulk-replay =
+
+# Number of bulk documents to index on a syncronied chain(100)
+# elasticsearch-bulk-sync =
+
+# Pass basic auth to elasticsearch database('')
+# elasticsearch-basic-auth =
+
+# Add a prefix to the index(gxchain)
+# elasticsearch-index-prefix =
+
+# Save operation as object(true)
+# elasticsearch-operation-object =
+
+# Start doing ES job after block(0)
+# elasticsearch-start-es-after-block = 
+
+# Maximum number of operations per account will be kept in memory
+elasticsearch-max-ops-per-account = 1000
+```
 
 启动`witness_node`程序时，添加`plugins`参数，参数如下：
 
 ```bash
---plugins "witness elastic_search"
+--plugins "witness elastic_search data_transaction"
 ```
 
-#### 6. 验证插件是否正常工作
+#### 8. 验证插件是否正常工作
 
 默认配置情况下，在重放区块过程中，插件每5000条记录，发送到Elastic Search数据库中，可以使用如下查询语句，获取数据库中的条数。
 

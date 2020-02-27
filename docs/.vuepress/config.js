@@ -146,6 +146,7 @@ function genSidebarConfig (module, title) {
                     'block_operation_object',
                     'account_rule',
                     'cli_wallet',
+                    'witness_node',
                     'mul_sign',
                     'plugin_txid',
                     'plugin_fullnode'
@@ -177,6 +178,7 @@ function genSidebarConfig (module, title) {
                     'question',
                     'error_collection',
                     'abi',
+                    'movetable',
                     'contractfee'
                 ]
             }

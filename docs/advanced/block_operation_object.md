@@ -2,10 +2,10 @@
 
 ## 1. Block structure of GXChain
 
-- The block contains the transaction, the transaction contains the operation, and the opreation contains the call contract, voting, transfer, etc.
+- A block contains some transactions, a transaction contains the some operations, and a opreation contains the functions such as calling contract, voting, transfering, etc.
 
 
-- GXChain can be most intuitively understood through GXChain's block structure. A complete block contains the following information:
+- We can get the most intuitive understanding of GXChain through GXChain's block structure. A complete block contains the following information:
 
 ``` json
 {
@@ -20,17 +20,17 @@
       "ref_block_num": 43928,               // The block information referenced by the transaction (ref_block_num, ref_block_prefix are from the previous block ID, which can be specified by itself)
       "ref_block_prefix": 3666011859,
       "expiration": "2018-12-12T07:45:12",  // Transaction expiration time
-      "operations": [                       // transactions包含operations
+      "operations": [                       // transactions contains operations
         [
-          75,       //Operation opcode, 75 indicates the call contract
+          75,       //Operation opcode, the number 75 indicates the call contract
           {
             "fee": {                    // Provided fee
-              "amount": 13097,          // The amount of handling with precision, such as accuracy of 5, divided by 100,000
+              "amount": 13097,          // The amount of the fee, which contains accuracy information. For example, if the accuracy is 5, the fee should be divide by 100000.
               "asset_id": "1.3.1"       // Fee asset ID
             },
             "account": "1.2.882",       // Caller account ID
             "contract_id": "1.2.881",   // Contract account ID
-            "amount": {                 // Collateral assets
+            "amount": {                 // Assets attached to the transaction
               "amount": 135000,
               "asset_id": "1.3.1"
             },
@@ -44,7 +44,7 @@
       "signatures": [       // transaction signatures
         "1f254c944ee1bc26437f0d093ef1f05269a728914fee247db0556c5cf2dac52158124c495ddb404be83f5f08ac7960593ae0e2ccc9372d138c873d68bd6b9a99b6"
       ],
-      "operation_results": [        //Operation execution result, handling fee、cpu、ram
+      "operation_results": [        //The execution result of the operation which includes the cost of handing、cpu and ram
         [
           3,
           {
@@ -68,8 +68,7 @@
 ```
 ## 2. Operation
 
-The GXChain block contains multiple operations, and each operation corresponds to a Code. According to Code, it can be determined which operations are included in the block.，
-For example, the block [1769028](https://block.gxb.io/#/block/1769028) contains a transfer transaction, and Code 0 corresponds to the transfer operation. Common correspondence between Code and operation:
+The GXChain block contains multiple operations, and each operation corresponds to a Code number. According to the Code numbers, We can judge which operations are included in the block according to Code numbers. For example, the block [1769028](https://block.gxb.io/#/block/1769028) contains a transfer transaction, and Code 0 corresponds to the transfer operation. The correspondence between Code and operation which are often used :
 
 | Code | Operation Type |
 | :--- | :--- |
