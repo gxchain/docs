@@ -19,5 +19,4 @@
 - [多重签名使用教程](./mul_sign.md)
 - [txid反查插件使用教程](./plugin_txid.md)
 - [全节点账户历史插件使用教程](./plugin_fullnode.md)
-
-
+- [抵押投票教程](./staking.md)
