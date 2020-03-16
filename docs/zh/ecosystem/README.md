@@ -24,6 +24,7 @@
     - iOS: [github.com/gxchain/gxclient-ios](https://github.com/gxchain/gxclient-ios)
     - PHP: [github.com/gxchain/gxclient-php](https://github.com/gxchain/gxclient-php)
     - C#: [github.com/gxchain/gxclient-csharp](https://github.com/gxchain/gxclient-csharp)
+    - Go: [github.com/gxchain/gxclient-go](https://github.com/gxchain/gxclient-go)
 - BaaS SDK
     - 基于GXChain的数据存储+存证SDK
     - Java: [github.com/gxchain/baas-sdk-java](https://github.com/gxchain/baas-sdk-java)
