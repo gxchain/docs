@@ -58,7 +58,7 @@ drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
 
 然后将刚刚保存的snapshot 数据移到trusted_node/blockchain/object_database
 ```bash
-~/opt/gxb# mv /opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe  trusted_node/blockchain/object_database
+~/opt/gxb# mv /opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe/*  trusted_node/blockchain/object_database/
 ```
 
 
