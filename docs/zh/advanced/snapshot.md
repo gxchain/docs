@@ -44,7 +44,7 @@ kill -s SIGKILL $(pgrep witness_node)
 
 ```
 
-然后删除掉数据目录下状态数据库，也就是trusted_node目录下的object_database
+然后备份一下数据目录下状态数据库，也就是trusted_node目录下的object_database
 ```bash
 ~/opt/gxb# ls -al trusted_node/blockchain/
 total 71624
@@ -53,7 +53,7 @@ drwxr-xr-x   5 root root     4096 Jan 14 17:25 ..
 drwxr-xr-x   3 root root     4096 Nov 14  2017 database
 -rw-r--r--   1 root root       12 Dec 12 19:16 db_version
 drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
-~/opt/gxb# rm -rf trusted_node/blockchain/object_database
+~/opt/gxb# mv trusted_node/blockchain/object_database/ trusted_node/blockchain/object_database_bck/
 ```
 
 然后将刚刚保存的snapshot 数据移到trusted_node/blockchain/object_database
