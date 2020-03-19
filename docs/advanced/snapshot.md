@@ -48,7 +48,7 @@ kill -s SIGKILL $(pgrep witness_node)
 
 ```
 
-When recovering to snapshot data, you must delete all files and directories except the blocks log file in the trusted_node directory.
+When recovering to snapshot data, you should backup the object_database in the trusted_node directory.
 
 ```bash
 ~/opt/gxb# ls -al trusted_node/blockchain/
@@ -58,7 +58,7 @@ drwxr-xr-x   5 root root     4096 Jan 14 17:25 ..
 drwxr-xr-x   3 root root     4096 Nov 14  2017 database
 -rw-r--r--   1 root root       12 Dec 12 19:16 db_version
 drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
-~/opt/gxb# rm -rf trusted_node/blockchain/object_database
+~/opt/gxb# mv trusted_node/blockchain/object_database/ trusted_node/blockchain/object_database_bck/
 ```
 Now use snapshot to proceed with the recovery.  Move snapshot data to blockchain directory.
 ```bash
