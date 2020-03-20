@@ -58,7 +58,7 @@ drwxr-xr-x   5 root root     4096 Jan 14 17:25 ..
 drwxr-xr-x   3 root root     4096 Nov 14  2017 database
 -rw-r--r--   1 root root       12 Dec 12 19:16 db_version
 drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
-~/opt/gxb# mv trusted_node/blockchain/object_database/ trusted_node/blockchain/object_database_bck/
+~/opt/gxb# mv trusted_node/blockchain/object_database/ trusted_node/blockchain/object_database_bak/
 ```
 Now use snapshot to proceed with the recovery.  Move snapshot data to blockchain directory.
 ```bash
