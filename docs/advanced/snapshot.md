@@ -62,7 +62,7 @@ drwxr-xr-x 257 root root     4096 Jan 14 17:30 object_database
 ```
 Now use snapshot to proceed with the recovery.  Move snapshot data to blockchain directory.
 ```bash
-~/opt/gxb# mv /opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe  trusted_node/blockchain/object_database
+~/opt/gxb# mv /opt/gxchain/data/snapshots/object_database-00a172b14a44015d35202ecabbdf1547be7fbbfe/*  trusted_node/blockchain/object_database/
 ```
 
 It performs additional replay for the remaining blocks(blocks after 10580657) based on the point at which index creation is completed and snapshot is made .
