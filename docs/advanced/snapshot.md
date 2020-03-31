@@ -1,6 +1,6 @@
 # How to use snapshot
 
-This document describes how to generate a snapshot of a node.
+This document describes how to generate and use gxchain snapshot.
 
 ## What is Snapshot
 
