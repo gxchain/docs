@@ -44,7 +44,7 @@ kill -s SIGKILL $(pgrep witness_node)
 
 ```
 
-然后备份一下数据目录下状态数据库，也就是trusted_node目录下的object_database
+然后备份一下数据目录下状态数据库，也就是trusted_node/blockchain/ 目录下的object_database
 ```bash
 ~/opt/gxb# ls -al trusted_node/blockchain/
 total 71624
