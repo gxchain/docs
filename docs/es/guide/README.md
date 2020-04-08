@@ -2,11 +2,11 @@
 
 ## Qué es GXChain
 
-GXChain es una cadena de bloques pública, descentralizada, y de alto rendimiento que permite muchos ecosistemas. El Comité, los Nódulos Leales, y los accionistas constituyen el ecosistema de GXChain.
+GXChain es una cadena de bloques pública, que es descentralizada, y de alto rendimiento que puede contener un ecosistema enorme y diverso. El ecosistema de GXChain se compone de el Comité, los Nodo de Confianza, y los accionistas. 
 
-- **Comité**：Los 11 Nódulos Leales que reciben la mayor cantidad de votos se vuelven miembros del GXChain Comité, responsable de la modificación de los parámetros dinámicos de la cadena de bloques.
-- **Nódulos Leales**：Un Nódulo Leal es responsable de empaquetar bloques y verificar transacciones. Los Nódulos Leales contan votos cada hora. Hay 21 Nódulos Leales que son públicos.
-- **Accionistas**：Individuales u instituciones que tienen GXC (la criptomoneda) pueden participar en el ecosistema de GXChain y votar por Nódulos Leales.
+ **Comité**：Los 11 Nodo de Confianza que reciben la mayor cantidad de votos se vuelven miembros del GXChain Comité, responsable de la modificación de los parámetros dinámicos de la cadena de bloques.
+- **Nodos de Confianza**：Un Nodo de Confianz es responsable de empaquetar bloques y verificar transacciones. Los Nodos de Confianza contan votos cada hora. Hay 21 de ellos que son públicos.
+- **Accionistas**：Individuales u instituciones que tienen GXC (la criptomoneda) pueden participar en el ecosistema de GXChain y votar por los Nodos de Confianza.
 
 GXChain es basada en ingeniería de graphene que implementa consenso distribuido de DPoS para mayor rendimiento.
 
