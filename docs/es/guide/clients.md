@@ -2,9 +2,9 @@
 
 ## Cli
 
-Introducimos como descargar y instalar en [Empezar con GXChain](/guide/#install) 
+Introducimos cómo descargar y instalar en [Empezar con GXChain](/guide/#install) 
 
-Después de que complete la sincronización de los nódulos, prenda [cli_wallet] en el directorio raíz. Para instrucciones, vaya a [Presentación de cli_wallet](../advanced/cli_wallet.html)
+Después de que complete la sincronización de los nodos, prenda [cli_wallet] en el directorio raíz. Para instrucciones, vaya a [Presentación de cli_wallet](../advanced/cli_wallet.html)
 
 ## Light Wallet
 | Client | Link | Github |
