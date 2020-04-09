@@ -28,6 +28,7 @@
 安装libcurl库
 ```bash
 sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install libcurl3 -y
 ```
 
 #### 2. 开启编译选项

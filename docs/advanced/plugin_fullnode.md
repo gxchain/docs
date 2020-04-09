@@ -28,6 +28,7 @@ include the plugin. To use the plugin, compile the `witness_node` program with t
 install libcurl
 ```bash
 sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install libcurl3 -y
 ```
 
 #### 2. Open compile option, support leveldb plugin

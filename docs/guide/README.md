@@ -36,6 +36,10 @@ add-apt-repository ppa:ubuntu-toolchain-r/test
 apt-get update
 apt-get install libstdc++-7-dev
 ```
+* if you want to run the witness_node with plugins, you should install libcurl3
+```bash
+apt-get install libcurl3 -y
+```
 :::
 
 ## Install

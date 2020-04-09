@@ -64,6 +64,10 @@ apt-get update
 apt-get install libstdc++-7-dev
 ```
 
+* 如果你想运行带插件的版本(-with-plugin)，需要安装libcurl3
+```bash
+apt-get install libcurl3 -y
+```
 :::
 
 
