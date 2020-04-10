@@ -81,7 +81,7 @@ curl 'https://raw.githubusercontent.com/gxchain/gxb-core/dev_master/script/gxcha
 
 ```bash
 # 通过PC钱包或者网页钱包，查看自己的公信节点id
-# 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点帐户的公私钥, 用于签署区块
+# 需要将如下的1.6.10 替换为自己的公信节点id, 将--private-key的参数值替换为自己的公信节点的签名公私钥, 用于签署区块
 
 export LC_ALL=C
 
