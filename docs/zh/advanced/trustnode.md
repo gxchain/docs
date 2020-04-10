@@ -90,7 +90,7 @@ nohup ./programs/witness_node/witness_node --data-dir=trusted_node -w '"1.6.10"'
 ```
 
 其中
-::: tip Parameter introduction
+::: warning 参数解释
 --data-dir指定区块数据存储路径
 
 -w 指定的是自己的公信节点id, 注意是'"1.6.x"'，双引号外面带单引号

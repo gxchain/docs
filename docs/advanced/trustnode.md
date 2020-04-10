@@ -77,7 +77,7 @@ Start TrustedNode
 --private-key '["GXC73Zyj56MHUEiCbWfhfJWjXAUJafGUXmwGeciFxprU5QEv9mhMU", "5Jainounrsmja4JYsgEYDQxpNYmMj98FRVSPhz2R7Pg8yaZh9Ks"]' &
 ```
 
-::: tip Parameter introduction
+::: warning Parameter introduction
 - --data-dir block data storage
 - -w witness\_id
 - --private-key [active\_public\_key, active\_private\_key] The above two parameters must be correct, otherwise it will affect the block production.
