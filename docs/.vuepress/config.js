@@ -9,7 +9,13 @@ module.exports = {
             lang: 'zh-CN',
             title: 'GXChain文档',
             description: 'GXChain技术文档'
+        },
+        '/es/': {
+            lang: 'es-US',
+            title: 'Documento de GXChain',
+            description: 'Documento Técnico de GXChain'
         }
+
     },
     head: [
         ['link', {rel: 'icon', href: `/logo.png`}],
@@ -105,6 +111,47 @@ module.exports = {
                     '/zh/faq/': genSidebarConfig ('faq', '常见问题'),
                     '/zh/contract/': genSidebarConfig ('contract', '智能合约'),
                     '/zh/ecosystem/': genSidebarConfig ('ecosystem','生态系统')
+                }
+            },
+            '/es/': {
+                label: 'Español',
+                selectText: 'Idioma',
+                editLinkText: 'Edit this page on GitHub',
+                lastUpdated: 'Last Updated',
+                serviceWorker: {
+                    updatePopup: {
+                        message: "New content is available.",
+                        buttonText: "Refresh"
+                    }
+                },
+                nav: [
+                    {
+                        text: 'Guía',
+                        link: '/es/guide/',
+                    },
+                    // {
+                    //     text: 'Tutorial avanzado',
+                    //     link: '/es/advanced/',
+                    // },
+                    {
+                        text: 'Contrato Inteligente',
+                        link: '/es/contract/',
+                    },
+                    {
+                        text: 'Problemas comunes',
+                        link: '/es/faq/',
+                    // },
+                    // {
+                    //     text: 'Ecosistema',
+                    //     link: '/es/ecosystem/', 
+                    }
+                ],
+                sidebar: {
+                    '/es/guide/': genSidebarConfig ('guide', 'Guía'),
+                    // '/es/advanced/': genSidebarConfig ('contract', 'Tutorial avanzado'),
+                    '/es/contract/': genSidebarConfig ('contract', 'Contrato Inteligente'),
+                    '/es/faq/': genSidebarConfig ('faq', 'Problemas comunes')
+                    // '/es/ecosystem/': genSidebarConfig ('contract', "Ecosistema")
                 }
             }
         }
