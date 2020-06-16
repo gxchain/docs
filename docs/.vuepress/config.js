@@ -149,7 +149,8 @@ function genSidebarConfig (module, title) {
                     'witness_node',
                     'mul_sign',
                     'plugin_txid',
-                    'plugin_fullnode'
+                    'plugin_fullnode',
+                    'staking'
                 ]
             }
         ];
