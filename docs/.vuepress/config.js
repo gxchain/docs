@@ -150,7 +150,8 @@ function genSidebarConfig (module, title) {
                     'mul_sign',
                     'plugin_txid',
                     'plugin_fullnode',
-                    'staking'
+                    'staking',
+                    'plugin_account_history_leveldb'
                 ]
             }
         ];

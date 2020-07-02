@@ -20,3 +20,4 @@ The advanced tutorial will contain the most basic knowledge of GXChain, and the 
 - [Txid query plugin tutorial](./plugin_txid.md)
 - [Full-node account history plugin tutorial](./plugin_fullnode.md)
 - [How to vote by staking](./staking.md)
+- [account_history_leveldb plugin tutorial](./plugin_account_history_leveldb.md)
